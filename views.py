@@ -7,7 +7,8 @@ def about(request):
     return render_to_response('about.html', {})
 
 def event_list(request):
-    return render_to_response('list.html', {})
+    all_events = Event.objects.all()
+    return render_to_response('list.html', {"events":all_events})
 
 def event_create(request):
     if "event_name" in request.POST and request.POST['event_name'] != "":
@@ -46,8 +47,17 @@ def event_create(request):
 def event_register(request):
     return render_to_response('register.html', {})
 
-def event_thanks(request, id="event_id"):
+def event_thanks(request, event_id=""):
+    if event_id:
+        e = Event.objects.get(id=event_id)
+        return render_to_response('thanks.html', {"event" : e})
     return render_to_response('thanks.html', {})
 
 def index(request):
     return render_to_response('index.html', {})
+
+def event_details(request, event_id=""):
+    if event_id:
+        e = Event.objects.get(id=event_id)
+        return render_to_response('details.html', {"event" : e})
+    return render_to_response('details.html', {})

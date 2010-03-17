@@ -12,7 +12,6 @@ a {
   color: #695d47;
   background-color: inherit;
   #text-decoration: underline;
-  font-size: 3em;
 }
 
 a:hover {
@@ -81,7 +80,8 @@ div#body_header h1{
 }
 
 div#sidebar a{
-	 color: brown;	     
+	 color: brown;
+	 font-size: 2em;	     
 }
 
 div#sidebar li{
@@ -95,6 +95,10 @@ div#sidebar li{
 	 height: 500px;
 	 width: 500px;
 	 margin:0 4px 4px 0;
+}
+
+div#content a{
+	    font-size: 1.6em;	
 }
 
 
