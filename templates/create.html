@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Create{% endblock %}
+
+{% block content %}
+<p>Create Event.</p>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="/create/" method="post">
+  <ul>
+    <li><label for="event_name">Event Name:</label> <input type="text" name="event_name" /></li>
+    <li><label for="event_date">Event Date:</label> <input type="text" name="event_date" /></li>
+    <li><label for="event_duration">Event Duration:</label> <input type="text" name="event_duration" /></li>
+    <li><label for="event_capacity">Event Capacity:</label> <input type="text" name="event_capacity" /></li>
+    <li><label for="event_venue">Event Venue:</label> <input type="text" name="event_venue" /></li>
+    <li><label for="event_address">Event Duration:</label> <input type="text" name="event_address" /></li>
+    <li><label for="event_description">Event Description:</label> <input type="text" name="event_description" /></li>
+
+    <br />Organizer Info:<br />
+    <li><label for="person_fname">Organizer First Name:</label> <input type="text" name="person_fname" /></li>
+    <li><label for="person_lnames">Organizer Last Name:</label> <input type="text" name="person_lname" /></li>
+    <li><label for="person_email">Organizer Email:</label> <input type="text" name="person_email" /></li>
+  </ul>
+  <br />
+<input type="submit" value="Create Event" />
+</form>
+
+
+{% endblock %}
