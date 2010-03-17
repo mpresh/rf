@@ -18,7 +18,7 @@ urlpatterns = patterns('',
                        (r'^create/$', event_create),
                        (r'^register/$', event_register),
                        (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
-                        {'document_root': settings.STATIC_DOC_ROOT}),
+                        {'document_root': settings.MEDIA_ROOT}),
     # Example:
     # (r'^demo/', include('demo.foo.urls')),
 

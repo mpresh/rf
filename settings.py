@@ -81,4 +81,3 @@ INSTALLED_APPS = (
     'demo.events'
 )
 
-STATIC_DOC_ROOT = '/Users/mpresh/events/web/demo/static'

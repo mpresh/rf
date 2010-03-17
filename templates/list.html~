@@ -4,4 +4,23 @@
 
 {% block content %}
 <p>List of events.</p>
+
+    <ul>
+    {% for event in events %}
+    <hr />
+        <li>
+	  <a href=/details/{{event.id}}>{{ event.name }}</a> <br />
+	    Event Id: {{ event.id }} <br />
+	    Description: {{event.description}} <br />
+	    Start Time: {{event.event_date_time_start}} <br />
+	    End Time: {{event.event_date_time_end}} <br />
+            Capacity: {{event.capacity}} <br />
+	    Venue: {{event.venue }} <br />
+            Venue Address: {{event.venue_address}} <br />
+            Organizer: {{event.organizer_id}}
+	</li>
+    {% endfor %}
+    </ul>
+    <hr />
+    
 {% endblock %}

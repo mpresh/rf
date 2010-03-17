@@ -6,6 +6,8 @@
     <meta http-equiv="Content-Language" content="en-us" />
 
     <link rel="stylesheet" href="/site_media/styles.css" />
+    <script type="text/javascript" src="/site_media/jquery-1.4.1.min.js"></script>
+    <script type="text/javascript" src="/site_media/notes.js"></script>
     <title>{% block title %}My amazing site{% endblock %}</title>
 </head>
 
@@ -18,10 +20,10 @@
         {% block sidebar %}
         <ul>
             <li><a href="/">Home</a></li>
+            <li><a href="/list/">Browse</a></li>
+            <li><a href="/create/">Create</a></li>
+            <li><a href="/register/">Register</a></li>
             <li><a href="/about/">About Us</a></li>
-            <li><a href="/list/">Browse Events</a></li>
-            <li><a href="/create/">Create Event</a></li>
-            <li><a href="/register/">Register Event</a></li>
         </ul>
         {% endblock %}
     </div>
