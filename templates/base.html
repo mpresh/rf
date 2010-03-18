@@ -12,6 +12,33 @@
 </head>
 
 <body>
+<script src="http://static.ak.connect.facebook.com/connect.php/en_US" type="text/javascript"></script>
+<script type="text/javascript">FB.init("ab791fa270c8dda4bece7d38abe5b580");</script>
+<fb:login-button v="2" size="medium" onlogin="window.location.reload(true);">Login with Facebook</fb:login-button>
+<fb:profile-pic uid="loggedinuser" size="square" facebook-logo="true"></fb:profile-pic>
+<fb:name uid="loggedinuser" useyou="false" linked="true"></fb:name>
+<div id="profile_pics"></div>
+<script type="text/javascript">
+var widget_div = document.getElementById("profile_pics");
+FB.ensureInit(function () {
+  FB.Facebook.get_sessionState().waitUntilReady(function() {
+  FB.Facebook.apiClient.friends_get(null, function(result) {
+    var markup = "";
+    var num_friends = result ? Math.min(5, result.length) : 0;
+    if (num_friends > 0) {
+      for (var i=0; i<num_friends; i++) {
+				   markup +=
+          '<fb:profile-pic size="square" uid="'+result[i]+'" facebook-logo="true"></fb:profile-pic>';
+      }
+    }
+    widget_div.innerHTML = markup;
+    FB.XFBML.Host.parseDomElement(widget_div);
+  });
+  });
+});
+</script>
+
+
   <div id="body_wrapper">
     <div id="body_header">
       <h1>EventSpread</h1>
