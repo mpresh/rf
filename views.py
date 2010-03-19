@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
-from demo.events.models import Event, Person
+from demo.events.models import Event, Organizer, Attendee
 
 def about(request):
     return render_to_response('about.html', {})
@@ -24,9 +24,9 @@ def event_create(request):
         plname = request.POST["person_lname"]
         pemail = request.POST["person_email"]
 
-        p = Person(fname=pfname,
-                   lname=plname,
-                   email=pemail)
+        p = Organizer(fname=pfname,
+                      lname=plname,
+                      email=pemail)
         p.save()
 
         import datetime

@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
     <meta http-equiv="Content-Language" content="en-us" />
@@ -19,12 +19,13 @@
 <fb:name uid="loggedinuser" useyou="false" linked="true"></fb:name>
 <div id="profile_pics"></div>
 <script type="text/javascript">
+/*
 var widget_div = document.getElementById("profile_pics");
 FB.ensureInit(function () {
   FB.Facebook.get_sessionState().waitUntilReady(function() {
   FB.Facebook.apiClient.friends_get(null, function(result) {
     var markup = "";
-    var num_friends = result ? Math.min(5, result.length) : 0;
+    var num_friends = result ? Math.min(100, result.length) : 0;
     if (num_friends > 0) {
       for (var i=0; i<num_friends; i++) {
 				   markup +=
@@ -35,7 +36,7 @@ FB.ensureInit(function () {
     FB.XFBML.Host.parseDomElement(widget_div);
   });
   });
-});
+});*/
 </script>
 
 
