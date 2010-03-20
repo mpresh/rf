@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
 from demo.events.models import Event, Organizer, Attendee
+from django.conf import settings
 
 def about(request):
     return render_to_response('about.html', {})
@@ -61,3 +62,10 @@ def event_details(request, event_id=""):
         e = Event.objects.get(id=event_id)
         return render_to_response('details.html', {"event" : e})
     return render_to_response('details.html', {})
+
+def map(request):
+    return render_to_response('map.html', {"key": settings.GOOGLE_MAP_API,
+                                           "zoom": 14})
+
+def event_home(request):
+    return render_to_response('event_home.html', {})

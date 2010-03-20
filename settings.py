@@ -10,6 +10,8 @@ CONSUMER_SECRET = "V5EN5wEUujALOwPPzF7LDW9MfLbKsg3i2qnucz3Z0c"
 TWITTERAUTH_KEY = "lDaSawD84v8gQwuRYvCg"
 TWITTERAUTH_SECRET = "V5EN5wEUujALOwPPzF7LDW9MfLbKsg3i2qnucz3Z0c"
 
+GOOGLE_MAP_API = "ABQIAAAAa-ITbIufE7xEBivOguixpRTpH3CbXHjuCVmaTc5MkkU4wO1RRhSTzuNTVqoaPQ3vE-MKmsIwUxCuEQ"
+
 AUTHENTICATION_BACKENDS = (
     'backends.twitteroauth.TwitterBackend',
     'django.contrib.auth.backends.ModelBackend',

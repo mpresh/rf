@@ -24,6 +24,10 @@ urlpatterns = patterns('',
                        url(r'^follower_list/?$', 'auth.views.follower_list', name='follower_list'),
                        url(r'^friend_list/?$', 'auth.views.friend_list', name='friend_list'),
 
+                       # 
+                       url(r'^map/?$', 'views.map', name='map'),
+
+                       # old
                        (r'^thanks/(?P<event_id>\d+)/$', event_thanks),
                        (r'^details/(?P<event_id>\d+)/$', event_details),
                        (r'^about/$', about),
@@ -34,7 +38,7 @@ urlpatterns = patterns('',
                         {'document_root': settings.MEDIA_ROOT}),
 
                        #(r'^twitter/', include('twitter_app.urls')),
-                       #(r'^event_home/$', event_home),
+                       (r'^event_home/$', event_home),
                        #url('^login/$', twitter_signin, name='login'),
                        #url('^return/$', twitter_return, name='return'),
 
