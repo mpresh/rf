@@ -4,6 +4,19 @@ ROOT_PATH = os.path.dirname(__file__)
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+CONSUMER_KEY = "lDaSawD84v8gQwuRYvCg"
+CONSUMER_SECRET = "V5EN5wEUujALOwPPzF7LDW9MfLbKsg3i2qnucz3Z0c"
+
+TWITTERAUTH_KEY = "lDaSawD84v8gQwuRYvCg"
+TWITTERAUTH_SECRET = "V5EN5wEUujALOwPPzF7LDW9MfLbKsg3i2qnucz3Z0c"
+
+AUTHENTICATION_BACKENDS = (
+    'backends.twitteroauth.TwitterBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+AUTH_PROFILE_MODULE = "twitterauth.UserProfile"
+
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
@@ -71,6 +84,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(ROOT_PATH, 'templates'),
+    os.path.join(ROOT_PATH, 'auth/templates'),
 )
 
 INSTALLED_APPS = (
@@ -78,6 +92,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'demo.events'
+    'demo.auth',    
+    'demo.events',
 )
 
