@@ -17,7 +17,12 @@ urlpatterns = patterns('',
                        url(r'^login/?$', 'auth.views.login', name='auth_login'),
                        url(r'^login/callback/?$', 'auth.views.callback', name='auth_callback'),
                        url(r'^logout/?$', 'auth.views.logout', name='auth_logout'),
+                       url(r'^auth_info/?$', 'auth.views.auth_info', name='auth_info'),
 
+                       # json 
+                       url(r'^follow_list/?$', 'auth.views.follow_list', name='follow_list'),
+                       url(r'^follower_list/?$', 'auth.views.follower_list', name='follower_list'),
+                       url(r'^friend_list/?$', 'auth.views.friend_list', name='friend_list'),
 
                        (r'^thanks/(?P<event_id>\d+)/$', event_thanks),
                        (r'^details/(?P<event_id>\d+)/$', event_details),

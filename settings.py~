@@ -84,8 +84,6 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(ROOT_PATH, 'templates'),
-    os.path.join(ROOT_PATH, 'twitter_app/templates'),
-    os.path.join(ROOT_PATH, 'twitterauth/templates'),
     os.path.join(ROOT_PATH, 'auth/templates'),
 )
 
@@ -94,8 +92,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'demo.auth',    
     'demo.events',
-    'demo.twitterauth',
+    #'demo.auth',    
 )
 

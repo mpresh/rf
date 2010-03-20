@@ -1,4 +1,6 @@
 from django.db import models
+import oauth
+import re, httplib, simplejson
 
 class Organizer(models.Model):
     fname = models.CharField(max_length=50)

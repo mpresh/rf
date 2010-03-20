@@ -22,4 +22,3 @@ class Attendee(models.Model):
     lname = models.CharField(max_length=50)
     email = models.EmailField()
     twitter = models.CharField(max_length=50, default="")
-    #events = models.ManyToManyField(Event)
