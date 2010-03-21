@@ -66,3 +66,6 @@ def event_details(request, event_id=""):
 def map(request):
     return render_to_response('map.html', {"key": settings.GOOGLE_MAP_API,
                                            "zoom": 14})
+
+def event_home(request):
+    return render_to_response('event_home.html', {})

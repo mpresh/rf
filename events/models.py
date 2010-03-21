@@ -6,6 +6,7 @@ class Organizer(models.Model):
     fname = models.CharField(max_length=50)
     lname = models.CharField(max_length=50)
     email = models.EmailField()
+    twitter = models.CharField(max_length=50, default="")
     events = models.ManyToManyField('Event', related_name="organizers")
 
 class Event(models.Model):
@@ -16,8 +17,12 @@ class Event(models.Model):
     capacity = models.IntegerField()
     venue = models.CharField(max_length=100)
     venue_address = models.CharField(max_length=300)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    url = models.URLField(verify_exists=True)
+    image = models.URLField()
     organizer = models.ForeignKey(Organizer)
     attendees = models.ManyToManyField('Attendee', related_name="events")
+    
 
 class Attendee(models.Model):
     fname = models.CharField(max_length=50)
