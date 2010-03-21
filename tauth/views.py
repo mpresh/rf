@@ -6,6 +6,7 @@ from utils import *
 from models import User
 from decorators import wants_user, needs_user
 import simplejson as json
+import urllib
 
 @needs_user('tauth_login')
 def info(req):
@@ -80,6 +81,14 @@ def callback(req):
 	req.session['user_id'] = user.id
 	del req.session['token']
 
+	if user.name == "":
+		info = user.is_authorized()
+		print "AAAAA", info
+		user.twitter_id = str(info["id"])
+		user.name = str(info["name"])
+		user.profile_pic = str(info["profile_image_url"])
+		user.save()
+
 	redirect = req.session["redirect"]
 	del req.session['redirect']
 	return HttpResponseRedirect(redirect)
@@ -89,6 +98,8 @@ def logout(req):
 	if "redirect" in req.session:
 		redirect = req.session["redirect"]
 		del req.session["redirect"]
+	else:
+		redirect = None
 
 	if req.user is not None:
 		req.user.oauth_token = ''
@@ -128,7 +139,22 @@ def attendees(req):
 	
 	"""
 	
+	if "user_id" in req.session:
+		print "HELLO WORLD", req
+		user = User.objects.get(id=req.session["user_id"])	
+		friends = user.get_friend_list()
 
+		friends_dict = {}
+		for friend in friends:
+			url = "http://api.twitter.com/1/users/show/" + str(friend) + ".json"
+			print "FRIEND", str(friend), url
+			friend_obj = json.loads(urllib.urlopen(url).read())
+			friends_dict[friend] = [friend_obj["name"], 
+						friend_obj["profile_image_url"], 
+						friend_obj["screen_name"]]
+
+		return HttpResponse(json.dumps(friends_dict))
+	
 def maybe(req):
 	"""
 	Return a list of users maybe attending the event.

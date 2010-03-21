@@ -1,7 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
-from demo.events.models import Event, Organizer, Attendee
+from demo.events.models import Event
+from demo.tauth.models import User
 from django.conf import settings
 
 def about(request):
@@ -12,6 +13,11 @@ def event_list(request):
     return render_to_response('list.html', {"events":all_events})
 
 def event_create(request):
+
+    if "user_id" not in request.session:
+        request.session["redirect"] = "/create"
+        return HttpResponseRedirect("/login")
+
     if "event_name" in request.POST and request.POST['event_name'] != "":
         ename = request.POST["event_name"]
         estart = request.POST["event_datetime_start"]
@@ -23,16 +29,11 @@ def event_create(request):
         eurl = request.POST["event_url"]
         eprice = request.POST["event_price"]
 
-        pfname = request.POST["person_fname"]
-        plname = request.POST["person_lname"]
         pemail = request.POST["person_email"]
-        ptwitter = request.POST["person_twitter"]
-
-        p = Organizer(fname=pfname,
-                      lname=plname,
-                      email=pemail, 
-                      twitter=ptwitter)
-        p.save()
+        
+        user = User.objects.get(id=request.session["user_id"])
+        user.email = pemail
+        user.save()
 
         import datetime
         e = Event(name=ename, 
@@ -42,7 +43,7 @@ def event_create(request):
                   capacity=ecapacity,
                   venue=evenue,
                   venue_address=eaddress,
-                  organizer_id=p.id,
+                  organizer_id=user.id,
                   url=eurl,
                   price=eprice)
         e.save()
@@ -66,6 +67,11 @@ def index(request):
 def event_details(request, event_id=""):
     if event_id:
         e = Event.objects.get(id=event_id)
+        u = User.objects.get(id=1)
+        print "EVENT", e, dir(e)
+        print "USER", u, dir(u), u.events_going, dir(u.events_going)
+        #u.events_going.update(1)
+
         return render_to_response('details.html', {"event" : e})
     return render_to_response('details.html', {})
 
@@ -76,6 +82,23 @@ def map(request):
 def event_home(request, event_id=""):
     if event_id:
         e = Event.objects.get(id=event_id)
-        return render_to_response('event_home.html', {"event" : e})
     else:
-        return render_to_response('event_home.html', {})
+        e = None
+        
+    # logged in
+    if "user_id" in req.session:
+        user = User.objects.get(id=req.session["user_id"])	
+
+        if e:
+            return render_to_response('event_home.html', {"event" : e,
+                                                          "user" : user})
+        else:
+            return render_to_response('event_home.html', {"user" : user})
+
+    # not logged in
+    else:
+        
+        if e:
+            return render_to_response('event_home.html', {"event" : e})
+        else:
+            return render_to_response('event_home.html', {})

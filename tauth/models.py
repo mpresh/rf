@@ -6,6 +6,11 @@ from utils import *
 class User(models.Model):
 	username = models.CharField(max_length=40)
 	email = models.EmailField()
+	name = models.CharField(max_length=100)
+	profile_pic = models.CharField(max_length=100)
+	twitter_id = models.CharField(max_length=20)
+	url = models.URLField()
+
 	oauth_token = models.CharField(max_length=200)
 	oauth_token_secret = models.CharField(max_length=200)
 
