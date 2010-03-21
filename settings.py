@@ -86,7 +86,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(ROOT_PATH, 'templates'),
-    os.path.join(ROOT_PATH, 'auth/templates'),
+    os.path.join(ROOT_PATH, 'tauth/templates'),
 )
 
 INSTALLED_APPS = (
@@ -95,6 +95,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'demo.events',
-    'demo.auth',    
+    'demo.tauth',    
 )
 

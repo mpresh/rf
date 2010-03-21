@@ -7,7 +7,7 @@ from models import User
 from decorators import wants_user, needs_user
 import simplejson as json
 
-@needs_user('auth_login')
+@needs_user('tauth_login')
 def info(req):
 	if 'POST' == req.method:
 		req.user.email = req.POST['email']
@@ -21,8 +21,8 @@ def info(req):
 
 	return render_to_response('info.html', {'user': req.user})
 
-@needs_user('auth_login')
-def auth_info(req):
+@needs_user('tauth_login')
+def tauth_info(req):
 	if 'POST' == req.method:
 		req.user.email = req.POST['email']
 		#errors = req.user.validate()
@@ -40,17 +40,17 @@ def auth_info(req):
 	#print "USERRRRR", user.tweet("Yet another test.")
 	return render_to_response('info.html', {'user': req.user})
 
-@needs_user('auth_login')
+@needs_user('tauth_login')
 def follow_list(req):
 	user = User.objects.get(username=req.user.username)	
 	return HttpResponse(json.dumps(user.get_follow_list()))
 
-@needs_user('auth_login')
+@needs_user('tauth_login')
 def follower_list(req):
 	user = User.objects.get(username=req.user.username)	
 	return HttpResponse(json.dumps(user.get_follower_list()))
 
-@needs_user('auth_login')
+@needs_user('tauth_login')
 def friend_list(req):
 	user = User.objects.get(username=req.user.username)	
 	return HttpResponse(json.dumps(user.get_friend_list()))
@@ -58,7 +58,7 @@ def friend_list(req):
 @wants_user
 def login(req):
 	print req
-	if req.user: return HttpResponseRedirect('auth_info')
+	if req.user: return HttpResponseRedirect('tauth_info')
 	token = get_unauthorized_token()
 	req.session['token'] = token.to_string()
 	return HttpResponseRedirect(get_authorization_url(token))
@@ -104,7 +104,7 @@ def callback(req):
 	#		    token, 
 	#		    http_method="POST", status=st)
 	print "Returning auth_info"
-	return HttpResponseRedirect(reverse('auth_info'))
+	return HttpResponseRedirect(reverse('tauth_info'))
 
 @wants_user
 def logout(req):

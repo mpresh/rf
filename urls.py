@@ -2,7 +2,7 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 
 from demo.views import *
-from demo.auth.views import *
+from demo.tauth.views import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -13,16 +13,16 @@ urlpatterns = patterns('',
                        (r'^$', index),
 
                        # twitter authentication auth module
-                       url(r'^info/?$', 'auth.views.info', name='auth_info'),
-                       url(r'^login/?$', 'auth.views.login', name='auth_login'),
-                       url(r'^login/callback/?$', 'auth.views.callback', name='auth_callback'),
-                       url(r'^logout/?$', 'auth.views.logout', name='auth_logout'),
-                       url(r'^auth_info/?$', 'auth.views.auth_info', name='auth_info'),
+                       url(r'^info/?$', 'tauth.views.info', name='tauth_info'),
+                       url(r'^login/?$', 'tauth.views.login', name='tauth_login'),
+                       url(r'^login/callback/?$', 'tauth.views.callback', name='tauth_callback'),
+                       url(r'^logout/?$', 'tauth.views.logout', name='tauth_logout'),
+                       url(r'^tauth_info/?$', 'tauth.views.tauth_info', name='tauth_info'),
 
                        # json 
-                       url(r'^follow_list/?$', 'auth.views.follow_list', name='follow_list'),
-                       url(r'^follower_list/?$', 'auth.views.follower_list', name='follower_list'),
-                       url(r'^friend_list/?$', 'auth.views.friend_list', name='friend_list'),
+                       url(r'^follow_list/?$', 'tauth.views.follow_list', name='follow_list'),
+                       url(r'^follower_list/?$', 'tauth.views.follower_list', name='follower_list'),
+                       url(r'^friend_list/?$', 'tauth.views.friend_list', name='friend_list'),
 
                        # 
                        url(r'^map/?$', 'views.map', name='map'),

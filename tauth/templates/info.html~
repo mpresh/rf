@@ -13,4 +13,5 @@
 <p><input type="submit" value="Save" class="button" /></p>
 
 <a href="/login/">LOGIN</a>
+<a href="/logout/">LOGOUT</a>
 {% endblock %}

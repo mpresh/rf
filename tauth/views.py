@@ -7,7 +7,7 @@ from models import User
 from decorators import wants_user, needs_user
 import simplejson as json
 
-@needs_user('auth_login')
+@needs_user('tauth_login')
 def info(req):
 	if 'POST' == req.method:
 		req.user.email = req.POST['email']
@@ -21,8 +21,8 @@ def info(req):
 
 	return render_to_response('info.html', {'user': req.user})
 
-@needs_user('auth_login')
-def auth_info(req):
+@needs_user('tauth_login')
+def tauth_info(req):
 	if 'POST' == req.method:
 		req.user.email = req.POST['email']
 		#errors = req.user.validate()
@@ -33,51 +33,37 @@ def auth_info(req):
 			'errors': errors
 		})
 	
-	#print "REQUEST USER", req, dir(req), type(req.user), req.user.username
 	user = User.objects.get(username=req.user.username)
-	
-
-	#print "USERRRRR", user.tweet("Yet another test.")
 	return render_to_response('info.html', {'user': req.user})
-
-@needs_user('auth_login')
-def follow_list(req):
-	user = User.objects.get(username=req.user.username)	
-	return HttpResponse(json.dumps(user.get_follow_list()))
-
-@needs_user('auth_login')
-def follower_list(req):
-	user = User.objects.get(username=req.user.username)	
-	return HttpResponse(json.dumps(user.get_follower_list()))
-
-@needs_user('auth_login')
-def friend_list(req):
-	user = User.objects.get(username=req.user.username)	
-	return HttpResponse(json.dumps(user.get_friend_list()))
 
 @wants_user
 def login(req):
-	print req
-	if req.user: return HttpResponseRedirect('auth_info')
+	if 'redirect' not in req.session:
+		req.session['redirect'] = "/tauth_info"
+
+	if req.user: 
+		redirect = req.session['redirect']
+		del req.session["redirect"]
+		return HttpResponseRedirect(redirect)
+
 	token = get_unauthorized_token()
 	req.session['token'] = token.to_string()
+
 	return HttpResponseRedirect(get_authorization_url(token))
 
 def callback(req):
 	token = req.session.get('token', None)
-	print "Token is ", token
 	if not token:
 		return render_to_response('callback.html', {
 			'token': True
 		})
 	token = oauth.OAuthToken.from_string(token)
-	print "oauth token is ", token
+
 	if token.key != req.GET.get('oauth_token', 'no-token'):
 		return render_to_response('callback.html', {
 			'mismatch': True
 		})
 	token = get_authorized_token(token)
-	print "authorized token is"
 
 	# Actually login
 	obj = is_authorized(token)
@@ -85,7 +71,7 @@ def callback(req):
 		return render_to_response('callback.html', {
 			'username': True
 		})
-	print "Login in", obj, type(obj)
+
 	try: user = User.objects.get(username=obj['screen_name'])
 	except: user = User(username=obj['screen_name'])
 	user.oauth_token = token.key
@@ -94,23 +80,59 @@ def callback(req):
 	req.session['user_id'] = user.id
 	del req.session['token']
 
-
-	#print "USER", type(user), dir(user), user.tweet("testing tweets")
-	print "Credentials", api('https://twitter.com/account/verify_credentials.json', token)
-	print "Friends", api("http://api.twitter.com/1/friends/ids.json", token)
-
-	st = "Testing"
-	#print "update", api("http://api.twitter.com/1/statuses/update.json", 
-	#		    token, 
-	#		    http_method="POST", status=st)
-	print "Returning auth_info"
-	return HttpResponseRedirect(reverse('auth_info'))
+	redirect = req.session["redirect"]
+	del req.session['redirect']
+	return HttpResponseRedirect(redirect)
 
 @wants_user
 def logout(req):
+	if "redirect" in req.session:
+		redirect = req.session["redirect"]
+		del req.session["redirect"]
+
 	if req.user is not None:
 		req.user.oauth_token = ''
 		req.user.oauth_token_secret = ''
 		req.user.save()
 	req.session.flush()
-	return render_to_response('logout.html', {})
+
+	if redirect:
+		return HttpResponseRedirect(redirect)
+	else:
+		return render_to_response('logout.html', {})
+
+
+"""
+Below are json ajax functions that return information about friends.
+"""
+@needs_user('tauth_login')
+def follow_list(req):
+	user = User.objects.get(username=req.user.username)	
+	return HttpResponse(json.dumps(user.get_follow_list()))
+
+@needs_user('tauth_login')
+def follower_list(req):
+	user = User.objects.get(username=req.user.username)	
+	return HttpResponse(json.dumps(user.get_follower_list()))
+
+@needs_user('tauth_login')
+def friend_list(req):
+	user = User.objects.get(username=req.user.username)	
+	return HttpResponse(json.dumps(user.get_friend_list()))
+
+def attendees(req):
+	"""
+	Return a list of users attending the event.
+	If logged in, friends returned first.
+	GET Parameter: event_id
+	
+	"""
+	
+
+def maybe(req):
+	"""
+	Return a list of users maybe attending the event.
+	If logged in, friends returned first.
+	GET Parameter: event_id
+
+	"""
