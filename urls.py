@@ -19,11 +19,18 @@ urlpatterns = patterns('',
                        url(r'^logout/?$', 'tauth.views.logout', name='tauth_logout'),
                        url(r'^tauth_info/?$', 'tauth.views.tauth_info', name='tauth_info'),
 
-                       # json 
-                       url(r'^follow_list.json/?$', 'tauth.views.follow_list', name='follow_list'),
-                       url(r'^follower_list.json/?$', 'tauth.views.follower_list', name='follower_list'),
-                       url(r'^friend_list.json/?$', 'tauth.views.friend_list', name='friend_list'),
-                       url(r'^attendees.json/?$', 'tauth.views.attendees', name='attendees_list'),
+                       # json / ajax calls
+                       url(r'^ajax/follow_list.json/?$', 'tauth.views.follow_list', name='follow_list'),
+                       url(r'^ajax/follower_list.json/?$', 'tauth.views.follower_list', name='follower_list'),
+                       url(r'^ajax/friend_list.json/?$', 'tauth.views.friend_list', name='friend_list'),
+                       url(r'^ajax/attendees.json/?$', 'tauth.views.attendees', name='attendees_list'),
+                       url(r'^ajax/event_add_user/?$', 'views.event_add_user', name='event_add_user'),
+                       url(r'^ajax/event_attendees/(?P<event_id>\d+)/?$', 'views.event_attendees', name='event_attendees'),
+                       url(r'^ajax/event_friend_attendees/(?P<event_id>\d+)/?$', 'views.event_friend_attendees', name='event_friend_attendees'),
+                       url(r'^ajax/event_friend_not_attendees/(?P<event_id>\d+)/?$', 'views.event_friend_not_attendees', name='event_friend_not_attendees'),
+
+                       url(r'^ajax/event_invite/(?P<event_id>\d+)/?$', 'views.event_invite', name='event_invite'),
+
 
                        # 
                        url(r'^map/?$', 'views.map', name='map'),

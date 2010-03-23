@@ -20,9 +20,10 @@ urlpatterns = patterns('',
                        url(r'^tauth_info/?$', 'tauth.views.tauth_info', name='tauth_info'),
 
                        # json 
-                       url(r'^follow_list/?$', 'tauth.views.follow_list', name='follow_list'),
-                       url(r'^follower_list/?$', 'tauth.views.follower_list', name='follower_list'),
-                       url(r'^friend_list/?$', 'tauth.views.friend_list', name='friend_list'),
+                       url(r'^follow_list.json/?$', 'tauth.views.follow_list', name='follow_list'),
+                       url(r'^follower_list.json/?$', 'tauth.views.follower_list', name='follower_list'),
+                       url(r'^friend_list.json/?$', 'tauth.views.friend_list', name='friend_list'),
+                       url(r'^attendees.json/?$', 'tauth.views.attendees', name='attendees_list'),
 
                        # 
                        url(r'^map/?$', 'views.map', name='map'),

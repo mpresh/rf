@@ -81,6 +81,14 @@ def callback(req):
 	req.session['user_id'] = user.id
 	del req.session['token']
 
+	if user.name == "":
+		info = user.is_authorized()
+		print "AAAAA", info
+		user.twitter_id = str(info["id"])
+		user.name = str(info["name"])
+		user.profile_pic = str(info["profile_image_url"])
+		user.save()
+
 	redirect = req.session["redirect"]
 	del req.session['redirect']
 	return HttpResponseRedirect(redirect)
