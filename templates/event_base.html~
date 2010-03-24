@@ -1,74 +1,61 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
     <meta http-equiv="Content-Language" content="en-us" />
 
-    <link rel="stylesheet" href="/site_media/styles.css" />
     <script type="text/javascript" src="/site_media/jquery-1.4.2.min.js"></script>
-    <script type="text/javascript" src="/site_media/notes.js"></script>
 
-
-    <link rel="stylesheet" href="/site_media/blueprint/screen.css" type="text/css" media="screen, projection">
-    <link rel="stylesheet" href="/site_media/blueprint/print.css" type="text/css" media="print">
-    <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
-
+    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection">
+    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="bubbles.css" type="text/css">
     <title>{% block title %}My amazing site{% endblock %}</title>
 </head>
 
 <body>
-<script src="http://static.ak.connect.facebook.com/connect.php/en_US" type="text/javascript"></script>
-<script type="text/javascript">FB.init("ab791fa270c8dda4bece7d38abe5b580");</script>
-<fb:login-button v="2" size="medium" onlogin="window.location.reload(true);">Login with Facebook</fb:login-button>
-<fb:profile-pic uid="loggedinuser" size="square" facebook-logo="true"></fb:profile-pic>
-<fb:name uid="loggedinuser" useyou="false" linked="true"></fb:name>
-<div id="profile_pics"></div>
-<script type="text/javascript">
-/*
-var widget_div = document.getElementById("profile_pics");
-FB.ensureInit(function () {
-  FB.Facebook.get_sessionState().waitUntilReady(function() {
-  FB.Facebook.apiClient.friends_get(null, function(result) {
-    var markup = "";
-    var num_friends = result ? Math.min(100, result.length) : 0;
-    if (num_friends > 0) {
-      for (var i=0; i<num_friends; i++) {
-				   markup +=
-          '<fb:profile-pic size="square" uid="'+result[i]+'" facebook-logo="true"></fb:profile-pic>';
-      }
-    }
-    widget_div.innerHTML = markup;
-    FB.XFBML.Host.parseDomElement(widget_div);
-  });
-  });
-});*/
-</script>
-
-
-  <div id="body_wrapper">
-    <div id="body_header">
-      <h1>EventSpread</h1>
-    </div>  
-    <div id="sidebar">
-        {% block sidebar %}
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/list/">Browse</a></li>
-            <li><a href="/create/">Create</a></li>
-            <li><a href="/register/">Register</a></li>
-            <li><a href="/about/">About Us</a></li>
-        </ul>
-        {% endblock %}
+  <div class="container">
+    <div class="span-24 last header"><BR><br>
+      <h1><font color=#ff8a00>Social Bite</font></h1><BR><BR>
     </div>
 
-    <div id="content">
-        {% block content %}{% endblock %}
-    </div>
+    <div class="span-13">
+    	
+    	<div class="header notice">
+      		<h1>hello patrickc!</h1>
+			<div class="quiet"><font size = 4.5em>you and your friends are 19 points away from a prize</font></div><BR>
+						
+			<input type="submit" class="button" value="Count me In!"> &nbsp; &nbsp;
+			<input type="submit" class="button2" value="Interested">
+		</div>
+		<BR>
+		
+    	<div class="yourprice">Your Price: <font color=#9cb926>$35</font></div>
+    <div class="genprice">General Ticket Price: <font color=#ff8a00>$70</font></div>
+    <BR><BR><BR>
+    <div class="attending">Attendees <font class="quiet">(45 Spots Left!)</font></div>
+    <div class="attenddees"><img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"></div>
     </div>
 
-<div id="page_footer"> 
-Event Registration included! 
-</div> 
+    <div class="span-11 last">
+ 
+      <div id="visual">
+		<img class="center" src="images/muse.png" />
+      </div>
+      <div id="title">
+	Boston Muse Concert
+      </div>
+      <div id="details">
+	Marriot Hotel, Chicago, @7pm EST 
+      </div>
+    </div>
+
+
+    <div class="span-24 last">
+      @Copyright SocialBite 2010.
+    </div>
+</div>
+
 </body>
 </html>

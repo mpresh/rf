@@ -39,6 +39,7 @@ def tauth_info(req):
 
 @wants_user
 def login(req):
+	print "HERE I AM"
 	if 'redirect' not in req.session:
 		req.session['redirect'] = "/tauth_info"
 

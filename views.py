@@ -62,39 +62,65 @@ def event_thanks(request, event_id=""):
         return render_to_response('thanks.html', {"event" : e})
     return render_to_response('thanks.html', {})
 
-def index(request):
+def index(req):
+    req.session["redirect"] = ""
     return render_to_response('index.html', {})
 
-def event_details(request, event_id=""):
+def event_details(req, event_id=""):
+    req.session["redirect"] = "/event_details/" + event_id
     if event_id:
         e = Event.objects.get(id=event_id)
-        u = User.objects.get(id=1)
-        #print "EVENT", e, dir(e)
-        #print "USER", u, dir(u), u.events_going, dir(u.events_going)
-        #print "made invite", type(u.made_invite), dir(u.made_invite)
-        
-        #i = Invite(message="come to my party",
-        #           from_user_id=1,
-        #           to_user_id=1,
-        #           event_id=1)
-        #i.save()
-        #print "Users Invited", u.received_invite.all()
-        #print "USER MADE Invite", u.made_invite.all()
+        print "DIR", dir(e), e.invitation.all()
 
-        return render_to_response('details.html', {"event" : e})
+        if "user_id" in req.session:
+            user = User.objects.get(id=req.session["user_id"])
+            print "User registered", dir(user)
+            
+            # provide information about friends that are attending with profile pic, name, twitter_name, twitter_id
+            friends = user.get_friend_list()
+            friends_list = []
+            for u in e.attendees.all():
+                if u.twitter_id in friends:
+                    friends_list.append(u)
+            return render_to_response('details.html', {"event" : e,
+                                                       "attendees":friends_list,
+                                                       "invites" : e.invitation.all()})
+	else:
+
+            # provide people that are attending with profile pic, name, twitter_name, twitter_id
+            return render_to_response('details.html', {"event" : e,
+                                                       "attendees" : e.attendees.all(),
+                                                       "invites" : e.invitation.all()})
+
+
     return render_to_response('details.html', {})
 
 def map(request):
     return render_to_response('map.html', {"key": settings.GOOGLE_MAP_API,
                                            "zoom": 14})
 
+def user_details(req):
+    if "user_id" in req.session:
+        user = User.objects.get(id=req.session["user_id"])	
+        return render_to_response('user.html', {"user":user})
+    else:
+        return render_to_response('user.html')
+
 def event_home(req, event_id=""):
+    req.session["redirect"] = "/event_home/" + event_id
     if event_id:
         e = Event.objects.get(id=event_id)
     else:
         e = None
         
     # logged in
+    e.num_attendees = len(e.attendees.all())
+    e.spots_left = e.capacity - e.num_attendees
+    e.discount_price = e.price / 2
+    
+
+    #print "DATE TIME", dir(e.event_date_time_start), 
+    e.time = e.event_date_time_start.strftime("%A, %B %d, %Y @ %I:%M %p %Z")
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])	
 

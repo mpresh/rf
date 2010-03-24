@@ -140,7 +140,6 @@ def attendees(req):
 	"""
 	
 	if "user_id" in req.session:
-		print "HELLO WORLD", req
 		user = User.objects.get(id=req.session["user_id"])	
 		friends = user.get_friend_list()
 
