@@ -58,10 +58,12 @@
 			  
 		<div class="span-11 last">
       
-						<div id="visual_img">
+						<div id="visual_img" style="width: 400px; height: 500px;">
 						  <img class="center" src="/site_media/images/muse.png" />
 						</div>
-						
+						<div id="visual_map" style="width: 400px; height: 500px;"></div>						
+
+
 		    <div id="title">
 		      {% block event_title %} Boston Muse Concert {% endblock%}
 		    </div>
@@ -70,14 +72,42 @@
 		      
 
 		      <script>
-			$(document).ready(function(){
+						
+			$(document).ready(function() {
+			
+			$("#visual_map").hide();
+			$("#show_map").html("(Show Map)");
+
 			$("#show_map").click(function() {
-			$("#visual_img").hide();
-			//alert("hi");
-			})
+
+			if ($("#visual_img").is(":visible")) {
+
+			    $("#visual_img").hide(500);
+			
+			$("#visual_map").show(500, function() {
+			   
+			if (GBrowserIsCompatible()) {
+			            var map = new GMap2(document.getElementById("visual_map"));
+			            map.setCenter(new GLatLng(37.4419, -122.1419), 13);
+			            map.setUIToDefault();
+			        }
+			});
+		
+
+			    $("#show_map").html("(Hide Map)");
+			}else {
+			    $("#visual_img").show(500);
+			    $("#visual_map").hide(500);
+			    $("#show_map").html("(Show Map)");
+			}
+			});
+			
+
+
+			
 			});
 		      </script>		      
-		      <a id="show_map" href="">(Show Map)</a>
+		      <a id="show_map" href="#"></a>
 		      <br />{{event.time}} 
 		    </div>
 		 </div>

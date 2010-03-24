@@ -1,1 +1,51 @@
 {% extends "event_base.html" %}
+
+
+{% block title%} {{event.name}}{% endblock %}
+
+{% block company %} EventSpread{% endblock%}
+
+{% block event_title %} {{event.name}}{% endblock%}
+
+{% block event_venue %} {{event.venue}}{% endblock%}
+
+
+
+
+{% block login%}
+{% if user %}
+<div class="span-4 last logout"><a href="/logout/">logout, {{user.username}}</a></div>
+{% else %}
+<div class="span-4 last logout"><a href="/login/">login</a></div>
+{% endif %}
+{% endblock %}
+
+
+{% block header_notice %}
+{%if user%}
+      <div class="header notice">
+      	<h1>hello {{user.name}}!</h1>
+	<div class="quiet"><font size = 4.5em>you and your friends are 19 points away from a prize</font></div>
+	<BR>
+	  
+	  <input type="submit" class="button" value="Count me In!"> &nbsp; &nbsp;
+	    <input type="submit" class="button2" value="Interested">
+	    </div>
+{% else %}
+      <div class="header notice">
+      	<h1>Hello There!</h1>
+	<div class="quiet"><font size = 4.5em>There are {{event.num_attendees}} attending this event.</font></div>
+	<BR>
+	  
+	  <input type="submit" class="button" value="Count me In!"> &nbsp; &nbsp;
+	    <input type="submit" class="button2" value="Interested">
+	    </div>
+{% endif%}
+
+{% endblock %}
+
+
+
+{% block footer %}
+@Copyright EventSpread 2010.
+{% endblock %}

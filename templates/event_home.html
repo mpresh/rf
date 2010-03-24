@@ -14,9 +14,9 @@
 
 {% block login%}
 {% if user %}
-<div class="span-4 last logout"><a href="/logout/">logout, {{user.username}}</a></div>
+<div class="span-4 last logout"><a href="/logout/">logout, {{user.username}} <img src="{{user.profile_pic}}" /></a></div>
 {% else %}
-<div class="span-4 last logout"><a href="/login/">login</a></div>
+<div class="span-4 last logout"><a href="/login/"><img src="/site_media/images/twitter_button_5_lo.gif/" /></a></div>
 {% endif %}
 {% endblock %}
 

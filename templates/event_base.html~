@@ -7,55 +7,88 @@
 
     <script type="text/javascript" src="/site_media/jquery-1.4.2.min.js"></script>
 
-    <link rel="stylesheet" href="blueprint/screen.css" type="text/css" media="screen, projection">
-    <link rel="stylesheet" href="blueprint/print.css" type="text/css" media="print">
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <link rel="stylesheet" href="bubbles.css" type="text/css">
+    <link rel="stylesheet" href="/site_media/blueprint/screen.css" type="text/css" media="screen, projection">
+    <link rel="stylesheet" href="/site_media/blueprint/print.css" type="text/css" media="print">
+    <link rel="stylesheet" href="/site_media/style.css" type="text/css">
+    <link rel="stylesheet" href="/site_media/bubbles.css" type="text/css">
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=ABQIAAAAa-ITbIufE7xEBivOguixpRTpH3CbXHjuCVmaTc5MkkU4wO1RRhSTzuNTVqoaPQ3vE-MKmsIwUxCuEQ"
+            type="text/javascript"></script>
+
     <title>{% block title %}My amazing site{% endblock %}</title>
 </head>
 
 <body>
   <div class="container">
+
+    <div class="span-20">&nbsp;</div>
+    {% block login%}
+    <div class="span-4 last logout"><a href="/logout/">logout</a></div>
+    {% endblock %}
+
+
     <div class="span-24 last header"><BR><br>
-      <h1><font color=#ff8a00>Social Bite</font></h1><BR><BR>
+      <h1><font color=#ff8a00>{% block company %}Social Bite{% endblock %}</font></h1><BR><BR>
     </div>
+
 
     <div class="span-13">
     	
-    	<div class="header notice">
-      		<h1>hello patrickc!</h1>
-			<div class="quiet"><font size = 4.5em>you and your friends are 19 points away from a prize</font></div><BR>
-						
-			<input type="submit" class="button" value="Count me In!"> &nbsp; &nbsp;
-			<input type="submit" class="button2" value="Interested">
-		</div>
-		<BR>
+
+
+   {% block header_notice %}
+   <div class="header notice">
+     <h1>hello patrickc!</h1>
+     <div class="quiet"><font size = 4.5em>you and your friends are 19 points away from a prize</font></div><BR>
+       <input type="submit" class="button" value="Count me In!"> &nbsp; &nbsp;
+	 <input type="submit" class="button2" value="Interested">
+	 </div>
+   {% endblock %}
+
+
+	 <BR>
 		
-    	<div class="yourprice">Your Price: <font color=#9cb926>$35</font></div>
-    <div class="genprice">General Ticket Price: <font color=#ff8a00>$70</font></div>
-    <BR><BR><BR>
-    <div class="attending">Attendees <font class="quiet">(45 Spots Left!)</font></div>
-    <div class="attenddees"><img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"> <img src="images/pf.png"></div>
-    </div>
+    	   <div class="yourprice">Your Price: <font color=#9cb926>${{event.discount_price}}</font></div>
+	   <div class="genprice">General Ticket Price: <font color=#ff8a00>${{event.price}}</font></div>
+	   <BR><BR><BR>
+		 <div class="attending">Attendees <font class="quiet">({{event.spots_left}} Spots Left!)</font></div>
+		    
+		    <div class="attenddees"><img src="/site_media/images/pf.png"> <img src="/site_media/images/pf.png"> <img src="/site_media/images/pf.png"> <img src="/site_media/images/pf.png"> <img src="/site_media/images/pf.png"> <img src="/site_media/images/pf.png"> <img src="/site_media/images/pf.png"> <img src="/site_media/images/pf.png"> <img src="/site_media/images/pf.png"> <img src="/site_media/images/pf.png"> <img src="/site_media/images/pf.png"> <img src="/site_media/images/pf.png"> <img src="/site_media/images/pf.png"> <img src="/site_media/images/pf.png"></div>
+					      </div>
+		
+			  
+		<div class="span-11 last">
+      
+						<div id="visual_img">
+						  <img class="center" src="/site_media/images/muse.png" />
+						</div>
+						
+		    <div id="title">
+		      {% block event_title %} Boston Muse Concert {% endblock%}
+		    </div>
+		    <div id="details">
+		      {% block event_venue %}Marriot Hotel{% endblock %}, {{event.venue_address}}
+		      
 
-    <div class="span-11 last">
- 
-      <div id="visual">
-		<img class="center" src="images/muse.png" />
-      </div>
-      <div id="title">
-	Boston Muse Concert
-      </div>
-      <div id="details">
-	Marriot Hotel, Chicago, @7pm EST 
-      </div>
-    </div>
+		      <script>
+			$(document).ready(function(){
+			$("#show_map").click(function() {
+			$("#visual_img").hide();
+			//alert("hi");
+			})
+			});
+		      </script>		      
+		      <a id="show_map" href="">(Show Map)</a>
+		      <br />{{event.time}} 
+		    </div>
+		 </div>
 
 
-    <div class="span-24 last">
-      @Copyright SocialBite 2010.
-    </div>
-</div>
-
-</body>
+	  <div class="span-24 last footer">
+	    {% block footer %}
+    	    @Copyright SocialBite 2010.
+	    {% endblock %}
+	  </div>
+	</div>
+							
+      </body>
 </html>
