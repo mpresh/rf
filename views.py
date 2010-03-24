@@ -1,8 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
-from demo.events.models import Event, Invite
-from demo.tauth.models import User
+from events.models import Event, Invite
+from tauth.models import User
 from django.conf import settings
 import simplejson as json
 

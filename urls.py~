@@ -17,7 +17,7 @@ urlpatterns = patterns('',
                        url(r'^login/?$', 'tauth.views.login', name='tauth_login'),
                        url(r'^login/callback/?$', 'tauth.views.callback', name='tauth_callback'),
                        url(r'^logout/?$', 'tauth.views.logout', name='tauth_logout'),
-                       url(r'^tauth_info/?$', 'tauth.views.tauth_info', name='tauth_info'),
+                       url(r'^tauth_info/?$', 'tauth.views.tauth_info', name='tauth_info2'),
 
                        # json / ajax calls
                        url(r'^ajax/follow_list.json/?$', 'tauth.views.follow_list', name='follow_list'),
@@ -29,7 +29,7 @@ urlpatterns = patterns('',
                        url(r'^ajax/event_friend_attendees/(?P<event_id>\d+)/?$', 'views.event_friend_attendees', name='event_friend_attendees'),
                        url(r'^ajax/event_friend_not_attendees/(?P<event_id>\d+)/?$', 'views.event_friend_not_attendees', name='event_friend_not_attendees'),
 
-                       url(r'^ajax/event_invite/(?P<event_id>\d+)/?$', 'views.event_invite', name='event_invite'),
+                       url(r'^ajax/event_invite/(?P<event_id>\d+)/?$', 'views.event_invite_friend', name='event_invite_friend'),
 
 
                        # 
@@ -38,6 +38,7 @@ urlpatterns = patterns('',
                        # old
                        (r'^thanks/(?P<event_id>\d+)/$', event_thanks),
                        (r'^details/(?P<event_id>\d+)/$', event_details),
+                       (r'^user_details/$', user_details),
                        (r'^about/$', about),
                        (r'^list/$', event_list),
                        (r'^create/$', event_create),
@@ -49,6 +50,5 @@ urlpatterns = patterns('',
                        (r'^event_home/(?P<event_id>\d)/$', event_home),
                        #url('^login/$', twitter_signin, name='login'),
                        #url('^return/$', twitter_return, name='return'),
-
                        (r'^admin/', include(admin.site.urls)),
 )
