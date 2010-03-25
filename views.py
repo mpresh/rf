@@ -118,30 +118,30 @@ def event_home(req, event_id=""):
     e.spots_left = e.capacity - e.num_attendees
     e.discount_price = e.price / 2
     
-
-    #print "DATE TIME", dir(e.event_date_time_start), 
     e.time = e.event_date_time_start.strftime("%A, %B %d, %Y @ %I:%M %p %Z")
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])	
-
+        
         if e:
             going = False
             for event in user.events_going.all():
                 if event.id == e.id:
-                    going == True
+                    going = True
 
             return render_to_response('event_home.html', {"event" : e,
                                                           "user" : user,
-                                                          "going" : going})
+                                                          "going" : going,
+                                                          "attendees" : e.attendees.all()})
         else:
-            print "LALALA", dir(user)
-            return render_to_response('event_home.html', {"user" : user})
+            return render_to_response('event_home.html', {"user" : user,
+                                                          "attendees": []})
 
     # not logged in
     else:
         
         if e:
-            return render_to_response('event_home.html', {"event" : e})
+            return render_to_response('event_home.html', {"event" : e,
+                                                          "attendees" : e.attendees.all()})
         else:
             return render_to_response('event_home.html', {})
 
@@ -305,3 +305,13 @@ def event_not_going(req, event_id=""):
     except:
         pass
     return HttpResponse("Succesfully Not Going to Event.")
+
+def event_going(req, event_id=""):
+    if "user_id" not in req.session:
+        return HttpResponse("ERROR: User must be authenticated!")
+    
+    event = Event.objects.get(id=event_id)
+    user = User.objects.get(id=req.session["user_id"])	
+    user.events_going.add(event.id)    
+
+    return HttpResponse("Succesfully Going to Event.")

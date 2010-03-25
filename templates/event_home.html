@@ -41,7 +41,7 @@
 	<BR>
 	  
 	
-	<input id="going_button" type="submit" class="button" value="Count me In!" onClick="location.href='/ajax/going/{{event.id}}'"> &nbsp; &nbsp;
+	<input id="going_button" type="submit" class="button" value="Count me In!"> &nbsp; &nbsp;
 	<input id="maybe_going_button" type="submit" class="button2" value="Interested" onClick="location.href='/ajax/maybe_going/{{event.id}}'">
       </div>
   {% endif%}
@@ -61,8 +61,28 @@ $.get('/ajax/event_not_going/{{event.id}}', function(data) {
 location.reload();
 });
 });
+
+$("#going_button").click(function(){
+$.get('/ajax/event_going/{{event.id}}', function(data) {
+location.reload();
+});
+});
+
+
 </script>
 {% endblock %}
+
+
+
+{% block attendees %}
+<div class="attenddees">
+{% for attendee in attendees %} 
+<img src="{{attendee.profile_pic}}"> 
+{% endfor %}
+</div>
+{% endblock %}
+
+
 
 
 
