@@ -24,25 +24,65 @@
 
 {% block header_notice %}
 {%if user%}
+
+  {% if going %}
       <div class="header notice">
       	<h1>hello {{user.name}}!</h1>
-	<div class="quiet"><font size = 4.5em>you and your friends are 19 points away from a prize</font></div>
+	<div id="header_msg" class="quiet"><font size = 4.5em>You are planning to go to this event.</font></div>
 	<BR>
 	  
-	  <input type="submit" class="button" value="Count me In!"> &nbsp; &nbsp;
-	    <input type="submit" class="button2" value="Interested">
-	    </div>
+	<input id="not_going_button" type="submit" class="button" value="Can't make it :(" > &nbsp; &nbsp;
+	<input id="invite_button" type="submit" class="button2" value="Invite Friends!">
+      </div>
+  {% else %}
+      <div class="header notice">
+      	<h1>hello {{user.name}}!</h1>
+	<div id="header_msg" class="quiet"><font size = 4.5em>you and your friends are 19 points away from a prize</font></div>
+	<BR>
+	  
+	
+	<input id="going_button" type="submit" class="button" value="Count me In!"> &nbsp; &nbsp;
+	<input id="maybe_going_button" type="submit" class="button2" value="Interested" onClick="location.href='/ajax/maybe_going/{{event.id}}'">
+      </div>
+  {% endif%}
 {% else %}
       <div class="header notice">
       	<h1>Hello There!</h1>
-	<div class="quiet"><font size = 4.5em>There are {{event.num_attendees}} attending this event.</font></div>
+	<div id="header_msg" class="quiet"><font size = 4.5em>There are {{event.num_attendees}} attending this event.</font></div>
 	<BR>
 	  
-	  <input type="submit" class="button" value="Login: See if your friends are going." onClick="location.href='/login/'"> &nbsp; &nbsp;
-	    </div>
+	<input id="login_button" type="submit" class="button" value="Login: See if your friends are going." onClick="location.href='/login/'"> &nbsp; &nbsp;
+      </div>
 {% endif%}
 
+<script>
+$("#not_going_button").click(function(){
+$.get('/ajax/event_not_going/{{event.id}}', function(data) {
+location.reload();
+});
+});
+
+$("#going_button").click(function(){
+$.get('/ajax/event_going/{{event.id}}', function(data) {
+location.reload();
+});
+});
+
+
+</script>
 {% endblock %}
+
+
+
+{% block attendees %}
+<div class="attenddees">
+{% for attendee in attendees %} 
+<img src="{{attendee.profile_pic}}"> 
+{% endfor %}
+</div>
+{% endblock %}
+
+
 
 
 
