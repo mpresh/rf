@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Language" content="en-us" />
 
     <script type="text/javascript" src="/site_media/jquery-1.4.2.min.js"></script>
-
+    <script type="text/javascript" src="/site_media/myjscript.js"></script>
     <link rel="stylesheet" href="/site_media/blueprint/screen.css" type="text/css" media="screen, projection">
     <link rel="stylesheet" href="/site_media/blueprint/print.css" type="text/css" media="print">
     <link rel="stylesheet" href="/site_media/style.css" type="text/css">
@@ -18,6 +18,10 @@
 </head>
 
 <body>
+  <div id="invite_popup">
+    HELLO WORLD
+  </div>
+
   <div class="container">
 
     <div class="span-19">&nbsp;</div>
@@ -81,50 +85,6 @@
 		      {% block event_venue %}Marriot Hotel{% endblock %}, {{event.venue_address}}
 		      
 
-		      <script>
-						
-			$(document).ready(function() {
-			
-			$("#visual_map").hide();
-			$("#show_map").html("(Show Map)");
-
-			if (GBrowserIsCompatible()) {
-			            var map = new GMap2(document.getElementById("visual_map"));
-			            map.setCenter(new GLatLng(37.4419, -122.1419), 13);
-			            map.setUIToDefault();
-			}
-			
-
-
-			$("#show_map").click(function() {
-
-			if ($("#visual_img").is(":visible")) {
-
-			    $("#visual_img").hide(500);
-			
-			$("#visual_map").show(500, function() {
-			   
-			if (GBrowserIsCompatible()) {
-			            var map = new GMap2(document.getElementById("visual_map"));
-			            map.setCenter(new GLatLng(37.4419, -122.1419), 13);
-			            map.setUIToDefault();
-			        }
-			});
-		
-
-			    $("#show_map").html("(Hide Map)");
-			}else {
-			    $("#visual_img").show(500);
-			    $("#visual_map").hide(500);
-			    $("#show_map").html("(Show Map)");
-			}
-			});
-			
-
-
-			
-			});
-		      </script>		      
 		      <a id="show_map" href="#"></a>
 		      <br />{{event.time}} 
 		    </div>

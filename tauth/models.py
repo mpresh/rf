@@ -44,6 +44,14 @@ class User(models.Model):
 			status=status
 		)
 
+	def dm(self, status, to_person):
+		return api(
+			'https://twitter.com/statuses/update.json',
+			self.token(),
+			http_method='POST',
+			status=status
+		)
+
 
 	def get_follow_list(self):
 		return api(

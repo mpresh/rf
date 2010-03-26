@@ -77,7 +77,20 @@ location.reload();
 {% block attendees %}
 <div class="attenddees">
 {% for attendee in attendees %} 
-<img src="{{attendee.profile_pic}}"> 
+
+
+<a href="#">
+<img src="{{attendee.profile_pic}}" /> 
+</a>
+&nbsp;
+
+
+
+
+
+
+
+
 {% endfor %}
 </div>
 {% endblock %}
