@@ -1,9 +1,10 @@
 .header{
 	text-align: center;
-	}
+}
+
 .button  {
 -moz-border-radius:5px 5px 5px 5px;
-background:none repeat-x scroll center top #9cb926;
+background:url("images/button_bg1.png") repeat-x scroll center top #9cb926;
 border-color:#DDDDDD #CCCCCC #CCCCCC #DDDDDD;
 border-right:0 solid #CCCCCC;
 border-style:solid;
@@ -20,7 +21,7 @@ text-shadow:2px 2px #719E03;
 }
 .button2  {
 -moz-border-radius:5px 5px 5px 5px;
-background:none repeat-x scroll center top #ff8a00;
+background:url("images/button_bg2.png") repeat-x scroll center top #ff8a00;
 border-color:#DDDDDD #CCCCCC #CCCCCC #DDDDDD;
 border-right:0 solid #CCCCCC;
 border-style:solid;
@@ -37,13 +38,13 @@ text-shadow:2px 2px #666;
 }
 .yourprice{
 	float: left;
-	font-size: 1.5em;
+	font-size: 1.8em;
 	padding-left: 20px;
 }
 .genprice{
 	float: right;
-	font-size: 1.5em;
-	padding-right: 40px;
+	font-size: 1.8em;
+	padding-right: 20px;
 }
 .attending{
 	font-size: 1.2em;
@@ -68,8 +69,26 @@ display:block;
 margin-left:auto;
 margin-right:auto;
 }
-
-div.visual {
-	   width = 400px;
-	   height = 500px;
+/***********Invite Box**************************************/
+div.transbox{
+	width: 860px;
+	height: 500px;
+	border: dashed grey 1px;
+	position: absolute;
+	left: 250px;
+	top: 50px;
+	padding: 20px;
+  	color:#000000;
+	background-color: #eeeeee;
+  /* for IE */
+  filter:alpha(opacity=96);
+  /* CSS3 standard */
+  opacity:0.96;
 }
+.fbfriends{
+	float: left;
+	width: 430px;	
+}
+#invite_popup_close{ float: right; }
+
+

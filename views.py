@@ -228,10 +228,11 @@ def event_friend_not_attendees(req, event_id=""):
         if person.twitter_id != user.twitter_id and person.twitter_id in user_friends_list:
             user_friends_list.remove(person.twitter_id)
     
-
+    print "LALLA", user_friends_list
     for person in user_friends_list:
         url = "http://api.twitter.com/1/users/show/" + str(person) + ".json"
         friend_obj = json.loads(urllib.urlopen(url).read())
+        print "HAHA", friend_obj
         friends_not_going_to_event.append([friend_obj["name"],
                                            friend_obj["profile_image_url"],
                                            friend_obj["screen_name"]])

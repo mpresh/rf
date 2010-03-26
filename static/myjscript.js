@@ -3,9 +3,9 @@
 
 $(document).ready(function() {
 	//$("#invite_popup").hide();
-	$("#invite_popup").css("background-color","yellow");
-	$("#invite_popup").css("width","400px");
-	$("#invite_popup").css("height","800px");
+	//$("#invite_popup").css("background-color","yellow");
+	//$("#invite_popup").css("width","400px");
+	//$("#invite_popup").css("height","800px");
 
 
 
@@ -49,3 +49,32 @@ $(document).ready(function() {
 
 			
 			});
+
+
+
+$(document).ready(function() {
+	
+   $('#invite_popup').hide();
+
+
+$('#invite_popup_close').bind('click', function() {
+   $('#invite_popup').hide();
+   $('#twitlist').html("");
+});
+
+
+ });
+
+function make_friend_list(data) {
+html = "";
+$.each(data,function(i,list) {
+	html +=	friend_check_html(list[0],list[1],list[2]);
+});
+return html;
+}
+
+function friend_check_html(namev,urlv,userv) {
+	html = '<input type="checkbox" name="invitee" value='+userv+'  /><img src='+urlv+'/><span>'+namev+'</span><br />';
+	return html;
+}
+

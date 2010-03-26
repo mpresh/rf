@@ -72,17 +72,21 @@ location.reload();
 });
 });
 
-$("#invite_button").click(function() {
+
+
+$("#invite_button").click(function(){ 
+     showbox();
+});
+
+});
+
+function showbox() {
+$('#invite_popup').show('slow');
 $.getJSON('/ajax/event_friend_not_attendees/{{event.id}}', function(data){
-	$.each(data.items, function(index, value) {
-		alert(value);
-
-
-	    });
-	});
+$('#twitlist').append(make_friend_list(data));
 });
+}
 
-});
 
 </script>
 
