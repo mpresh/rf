@@ -17,6 +17,8 @@
             Capacity: {{event.capacity}} <br />
 	    Venue: {{event.venue }} <br />
             Venue Address: {{event.venue_address}} <br />
+	    Price: {{event.price}} <br />
+ 	    URL: {{event.url}} <br />
             Organizer: {{event.organizer_id}}
 	</li>
     {% endfor %}

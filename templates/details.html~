@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}Event Details:{% endblock %}
+{% block title %}Event Details{% endblock %}
 
 {% block content %}
-
+<p>Event Details.</p>
 {% if event %}
 <a href=/details/{{event.id}}>{{ event.name }}</a> <br />
 Event Id: {{ event.id }} <br />
