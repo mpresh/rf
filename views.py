@@ -17,6 +17,7 @@ def event_list(request):
 def event_create(request):
 
     if "user_id" not in request.session:
+        request.session["redirect"] = "/create"        
         return HttpResponseRedirect("/login")
 
     if "event_name" in request.POST and request.POST['event_name'] != "":
