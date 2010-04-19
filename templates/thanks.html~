@@ -1,7 +1,0 @@
-{% extends "base.html" %}
-
-{% block title %}Event Created, Thanks{% endblock %}
-
-{% block content %}
-<p>Event Created, Thanks..</p>
-{% endblock %}
