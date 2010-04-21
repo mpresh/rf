@@ -118,7 +118,6 @@ def event_home(req, event_id=""):
     e.num_attendees = len(e.attendees.all())
     e.spots_left = e.capacity - e.num_attendees
     e.discount_price = e.price / 2
-    
     e.time = e.event_date_time_start.strftime("%A, %B %d, %Y @ %I:%M %p %Z")
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])	
@@ -132,19 +131,22 @@ def event_home(req, event_id=""):
             return render_to_response('event_home.html', {"event" : e,
                                                           "user" : user,
                                                           "going" : going,
-                                                          "attendees" : e.attendees.all()})
+                                                          "attendees" : e.attendees.all(),
+                                                          "map_key" : settings.GOOGLE_MAP_API})
         else:
             return render_to_response('event_home.html', {"user" : user,
-                                                          "attendees": []})
+                                                          "attendees": [],
+                                                          "map_key" : settings.GOOGLE_MAP_API})
 
     # not logged in
     else:
         
         if e:
             return render_to_response('event_home.html', {"event" : e,
-                                                          "attendees" : e.attendees.all()})
+                                                          "attendees" : e.attendees.all(),
+                                                          "map_key" : settings.GOOGLE_MAP_API})
         else:
-            return render_to_response('event_home.html', {})
+            return render_to_response('event_home.html', {"map_key" : settings.GOOGLE_MAP_API})
 
 
 def event_add_user(req):
