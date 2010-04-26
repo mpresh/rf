@@ -4,8 +4,8 @@
 $(document).ready(function() {
 	//$("#invite_popup").hide();
 	//$("#invite_popup").css("background-color","yellow");
-	//$("#invite_popup").css("width","400px");
-	//$("#invite_popup").css("height","800px");
+	//$("#invite_popup").css("width","500px");
+	//$("#invite_popup").css("height","300px");
 
 
 
@@ -53,12 +53,9 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-	
-   $('#invite_popup').hide();
-
 
 $('#invite_popup_close').bind('click', function() {
-   $('#invite_popup').hide();
+    $('#invite_popup').hide();
    $('#twitlist').html("");
 });
 

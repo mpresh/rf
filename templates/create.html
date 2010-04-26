@@ -10,8 +10,21 @@
 <form action="/create/" method="post">
   <ul>
     <li><label for="event_name">Event Name:</label> <input type="text" name="event_name" /></li>
-    <li><label for="event_datetime_start">Event DateTime Start:</label> <input type="text" name="event_datetime_start" /></li>
-    <li><label for="event_datetime_end">Event DateTime End:</label> <input type="text" name="event_datetime_end" /></li>
+    <li>
+      <label for="event_date_start">Event Start Date:</label> 
+      <input type="text" name="event_date_start" id="event_date_start" />
+      <img src="/site_media/images/calendar.png" id="date_start_trigger" style="vertical-align: middle; cursor: pointer;" />
+
+      <label for="event_time_start">Time:</label> 
+      <input type="text" name="event_time_start" id="event_time_start" />
+    </li>
+    <li>
+      <label for="event_date_end">Event End Date:</label> 
+      <input type="text" name="event_date_end" id="event_date_end"/>
+       <img src="/site_media/images/calendar.png" id="date_end_trigger" style="vertical-align: middle; cursor: pointer;" />     
+
+      <label for="event_time_end">Time:</label> <input type="text" name="event_time_end" id="event_time_end" />
+    </li>
     <li><label for="event_capacity">Event Capacity:</label> <input type="text" name="event_capacity" /></li>
     <li><label for="event_venue">Event Venue:</label> <input type="text" name="event_venue" /></li>
     <li><label for="event_address">Venue Address:</label> <input type="text" name="event_address" /></li>
@@ -31,7 +44,10 @@
 
 <script>
 $(document).ready(function() {
-  // do stuff
+  $('#event_time_start').ptTimeSelect({ popupImage: 'Select Time' });
+  $('#event_time_end').ptTimeSelect({ popupImage: 'Select Time'} );
+  $('#event_date_end').calendar({triggerElement: '#date_end_trigger'});
+  $('#event_date_start').calendar({triggerElement: '#date_start_trigger'});
 });
 </script>
 {% endblock %}

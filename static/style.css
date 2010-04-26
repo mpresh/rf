@@ -89,6 +89,27 @@ div.transbox{
 	float: left;
 	width: 430px;	
 }
-#invite_popup_close{ float: right; }
+.simple_overlay{
+	display:none;
+	z-index:10000;
+	border:1px solid #666;	
+	background-color:#333;	 
+	width: 700px;
+	height: 400px;
+
+     	/* CSS3 styling for latest browsers */	 
+    	-moz-box-shadow:0 0 90px 5px #000; 
+    	-webkit-box-shadow: 0 0 90px #000;
+}
+
+.simple_overlay .close{ 
+		     background-image:url(images/close.png);
+		     position: absolute;
+		     right: -15px;
+		     top: -15px;  
+		     cursor:pointer;
+		     height:35px;
+		     width: 35px;
+}
 
 

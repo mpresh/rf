@@ -31,7 +31,9 @@
 	<BR>
 	  
 	<input id="not_going_button" type="submit" class="button" value="Can't make it :(" > &nbsp; &nbsp;
-	<input id="invite_button" type="submit" class="button2" value="Invite Friends!">
+	<button href="#" id="invite_button" class="button2" rel="#invite_popup">Invite Friends!</button>
+	
+	  
       </div>
   {% else %}
       <div class="header notice">
@@ -73,10 +75,21 @@ location.reload();
 
 
 
-$("#invite_button").click(function(){ 
-     showbox();
-});
+//$("#invite_button").click(function(){ 
+//     showbox();
+//});
 
+
+$("#invite_button").overlay(
+{
+effect: 'apple',
+expose: {
+       color: 'gray',
+       loadSpeed: 100, 
+       opacity: 0.8
+    }
+}); 
+    
 });
 
 function showbox() {
@@ -92,15 +105,6 @@ $('#twitlist').append(make_friend_list(data));
 {% endblock %}
 
 
-
-
-
-
-
-
-
-
-
 {% block attendees %}
 <div class="attenddees">
 {% for attendee in attendees %} 
@@ -114,14 +118,9 @@ $('#twitlist').append(make_friend_list(data));
 
 
 
-
-
-
-
 {% endfor %}
 </div>
 {% endblock %}
-
 
 
 
