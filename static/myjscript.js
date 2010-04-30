@@ -75,3 +75,39 @@ function friend_check_html(namev,urlv,userv) {
 	return html;
 }
 
+
+
+
+$(document).ready(function() {
+$("#not_going_button").click(function(){
+$.get('/ajax/event_not_going/{{event.id}}', function(data) {
+location.reload();
+});
+});
+
+$("#going_button").click(function(){
+$.get('/ajax/event_going/{{event.id}}', function(data) {
+location.reload();
+});
+});
+
+
+
+$("#invite_button").overlay(
+{
+expose: {
+loadSpeed: 200,
+color: 'gray',
+opacity: 0.8
+}
+}); 
+    
+});
+
+function showbox() {
+$('#invite_popup').show('slow');
+$.getJSON('/ajax/event_friend_not_attendees/{{event.id}}', function(data){
+$('#twitlist').append(make_friend_list(data));
+});
+}
+

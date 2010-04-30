@@ -1,17 +1,15 @@
 {% extends "event_base.html" %}
 
-{% block login%}
-{% if user %}
-<div class="span-4 logout"><a href="/logout/">logout, {{user.username}} <img src="{{user.profile_pic}}" /></a></div>
-{% else %}
-<div class="span-4 logout"><a href="/login/"><img src="/site_media/images/twitter_button_5_lo.gif/" /></a><br/><br/></div>
-{% endif %}
+
+{% block title  %}
+{{event.name}}
 {% endblock %}
 
 
+{% block content %}
+<div class="span-12">
 
-{% block header_notice %}
-{%if user%}
+      {%if user%}
 
   {% if going %}
       <div class="header notice">
@@ -46,50 +44,37 @@
 {% endif%}
 
 
+<div id="invite_popup" class="simple_overlay">
 
-
-<script>
-$(document).ready(function() {
-$("#not_going_button").click(function(){
-$.get('/ajax/event_not_going/{{event.id}}', function(data) {
-location.reload();
-});
-});
-
-$("#going_button").click(function(){
-$.get('/ajax/event_going/{{event.id}}', function(data) {
-location.reload();
-});
-});
-
-
-
-$("#invite_button").overlay(
-{
-expose: {
-loadSpeed: 200,
-color: 'gray',
-opacity: 0.8
-}
-}); 
+    <h2>Invite Your Friends!</h2>
+    <BR /><BR />
+    <div class="twitterfriends">
+      <h3>Twitter Friends</h3>
+      <div id="twitlist"></div>
+    </div>
     
-});
-
-function showbox() {
-$('#invite_popup').show('slow');
-$.getJSON('/ajax/event_friend_not_attendees/{{event.id}}', function(data){
-$('#twitlist').append(make_friend_list(data));
-});
-}
+    <BR /><BR /><BR /><BR /><BR /><BR />
+    <input type="submit" class="button" value="Invite my friends" />
+</div>
 
 
-</script>
+<BR />
+		
+<div class="yourprice">
+  {% if going %}
+  You Paid:
+  {% else %}
+  Your Price: 
+  {% endif %}
 
-{% endblock %}
+  <font color=#9cb926>${{event.discount_price}}</font></div>
+<div class="genprice">General Price: <font color=#ff8a00>${{event.price}}</font></div>
+	
+<BR /><BR /><BR />
 
-
-{% block attendees %}
-<div class="attenddees">
+<div class="attending">Attendees <font class="quiet">(<b>{{event.spots_left}}</b> Spots Left out of <b>{{event.capacity}}</b>!)</font></div>
+		    
+      <div class="attenddees">
 {% for attendee in attendees %} 
 
 
@@ -103,11 +88,42 @@ $('#twitlist').append(make_friend_list(data));
 
 {% endfor %}
 </div>
+
+    </div>
+		
+    <div class="span-1">&nbsp;</div>		  
+    <div class="span-11 last">
+	      
+      <div id="visual_img" style="width: 400px; height: 500px;">
+	<img class="center" src="/site_media/images/muse.png" />
+      </div>
+
+      <div id="visual_map" style="width: 400px; height: 500px;" />						
+	      
+
+      <div id="title">
+	{{event.name}}
+      </div>
+      <div id="details">
+	{{event.venue}}, {{event.venue_address}}
+		
+
+	<a id="show_map" href="#"></a>
+	<br />{{event.time}} 
+      </div>
+    </div>
+
+  </div>
 {% endblock %}
 
 
 
 
-{% block footer %}
-@Copyright EventSpread 2010.
-{% endblock %}
+
+
+
+
+
+
+
+

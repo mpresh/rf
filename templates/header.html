@@ -1,0 +1,23 @@
+<div class="span-19">&nbsp;</div>
+
+{% block login%}
+{% if user %}
+<div class="span-4 logout"><a href="/logout/">logout, {{user.username}} <img src="{{user.profile_pic}}" /></a></div>
+{% else %}
+<div class="span-4 logout"><a href="/login/"><img src="/site_media/images/twitter_button_5_lo.gif/" /></a><br/><br/></div>
+{% endif %}
+{% endblock %}
+
+<div class="span-1 last" ></div>
+
+
+
+<hr />
+
+<div class="span-24 last header">
+  <BR />
+  <a href="/event_home/{{event.id}}"> <img height="200" src="/site_media/images/logo.png" /></a>
+  <BR /><BR />
+</div>
+
+

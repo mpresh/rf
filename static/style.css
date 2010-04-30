@@ -1,6 +1,12 @@
+div.top_login{
+	background-color:#FBF5EF;			
+}
+
 .header{
 	text-align: center;
 }
+
+
 
 .button  {
 -moz-border-radius:5px 5px 5px 5px;
@@ -93,23 +99,40 @@ div.transbox{
 	display:none;
 	z-index:10000;
 	border:1px solid #666;	
-	background-color:#333;	 
+	background-color:#FBF5EF;	 
 	width: 700px;
 	height: 400px;
+	padding: 35px;
 
-     	/* CSS3 styling for latest browsers */	 
-    	-moz-box-shadow:0 0 90px 5px #000; 
-    	-webkit-box-shadow: 0 0 90px #000;
+    /* CSS3 styling for latest browsers */	 
+    -moz-box-shadow:0 0 90px 5px #000; 
+    -webkit-box-shadow: 0 0 90px #000;
 }
 
-.simple_overlay .close{ 
+.simple_overlay .close{ 	
 		     background-image:url(images/close.png);
 		     position: absolute;
-		     right: -15px;
-		     top: -15px;  
+		     right: 5px;
+		     top: 5px;  
 		     cursor:pointer;
 		     height:35px;
 		     width: 35px;
 }
 
+/* footer styling */
+div.footer {
+	   background-color: #eeeeee;
+	   //background-color:#FBF5EF;		
+	   text-align: center;
+}
 
+.footer li{
+	display:inline;
+	list-style-type: none;	
+}
+
+.footer a {
+	display:block;
+	float: left;
+	padding: 0 2em;
+}
