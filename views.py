@@ -52,16 +52,19 @@ def event_create(request):
 
         return HttpResponseRedirect("/thanks/" + str(e.id))
 
-    return render_to_response('create.html', {})
+    user = User.objects.get(id=request.session["user_id"])	
+    return render_to_response('create.html', {"user" : user})
 
 def event_register(request):
-    return render_to_response('register.html', {})
+    user = User.objects.get(id=req.session["user_id"])	
+    return render_to_response('register.html', {"user" : user})
 
 def event_thanks(request, event_id=""):
     if event_id:
         e = Event.objects.get(id=event_id)
         return render_to_response('thanks.html', {"event" : e})
-    return render_to_response('thanks.html', {})
+    user = User.objects.get(id=req.session["user_id"])	
+    return render_to_response('thanks.html', {"user" : user})
 
 def index(req):
     req.session["redirect"] = ""
@@ -83,7 +86,8 @@ def event_details(req, event_id=""):
             for u in e.attendees.all():
                 if u.twitter_id in friends:
                     friends_list.append(u)
-            return render_to_response('details.html', {"event" : e,
+            return render_to_response('details.html', {"user" : user,
+                                                       "event" : e,
                                                        "attendees":friends_list,
                                                        "invites" : e.invitation.all()})
 	else:
