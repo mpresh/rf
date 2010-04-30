@@ -1,16 +1,5 @@
 {% extends "event_base.html" %}
 
-{% block title%} {{event.name}}{% endblock %}
-
-{% block company %} <img height="200" src="/site_media/images/logo.png" />{% endblock%}
-
-{% block event_title %} {{event.name}}{% endblock%}
-
-{% block event_venue %} {{event.venue}}{% endblock%}
-
-
-
-
 {% block login%}
 {% if user %}
 <div class="span-4 logout"><a href="/logout/">logout, {{user.username}} <img src="{{user.profile_pic}}" /></a></div>
@@ -75,19 +64,13 @@ location.reload();
 
 
 
-//$("#invite_button").click(function(){ 
-//     showbox();
-//});
-
-
 $("#invite_button").overlay(
 {
-effect: 'apple',
 expose: {
-       color: 'gray',
-       loadSpeed: 100, 
-       opacity: 0.8
-    }
+loadSpeed: 200,
+color: 'gray',
+opacity: 0.8
+}
 }); 
     
 });
