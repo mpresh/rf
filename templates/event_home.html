@@ -87,33 +87,74 @@
 
 
 {% endfor %}
+      </div>
+
+</div>
+		
+<div class="span-1">&nbsp;</div>		  
+<div class="span-11 last">
+	      
+  <div id="visual_img" style="width: 400px; height: 500px;">
+    <img class="center" src="/site_media/images/muse.png" />
+  </div>
+
+  <div id="visual_map" style="width: 400px; height: 500px;" />						
+	      
+
+  <div id="title">
+    {{event.name}}
+  </div>
+  <div id="details">
+    {{event.venue}}, {{event.venue_address}}
+		
+
+    <a id="show_map" href="#"></a>
+    <br />{{event.time}} 
+  </div>
 </div>
 
-    </div>
-		
-    <div class="span-1">&nbsp;</div>		  
-    <div class="span-11 last">
-	      
-      <div id="visual_img" style="width: 400px; height: 500px;">
-	<img class="center" src="/site_media/images/muse.png" />
-      </div>
+</div>
 
-      <div id="visual_map" style="width: 400px; height: 500px;" />						
-	      
 
-      <div id="title">
-	{{event.name}}
-      </div>
-      <div id="details">
-	{{event.venue}}, {{event.venue_address}}
-		
 
-	<a id="show_map" href="#"></a>
-	<br />{{event.time}} 
-      </div>
-    </div>
+<script>
+$(document).ready(function() {
 
-  </div>
+	$('#invite_popup_close').bind('click', function() {
+		$('#invite_popup').hide();
+		$('#twitlist').html("");
+	    });
+
+
+
+
+
+	$("#not_going_button").click(function(){
+		$.get('/ajax/event_not_going/{{event.id}}', function(data) {
+			location.reload();
+		    });
+	    });
+			
+	$("#going_button").click(function(){
+		$.get('/ajax/event_going/{{event.id}}', function(data) {
+			location.reload();
+		    });
+	    });
+
+
+
+	$("#invite_button").overlay(
+				    {
+					expose: {
+					    loadSpeed: 200,
+						color: 'gray',
+						opacity: 0.8
+						}
+				    }); 
+			
+});
+</script>
+
 {% endblock %}
 
 
