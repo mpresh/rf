@@ -7,6 +7,9 @@ from django.conf import settings
 import simplejson as json
 import urllib
 
+def test(request):
+    return render_to_response('test.html', {})
+
 def about(request):
     return render_to_response('about.html', {})
 
