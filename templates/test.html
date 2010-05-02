@@ -11,8 +11,37 @@
 
 
 	<link type="text/css" href="/site_media/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />	
-	<script type="text/javascript" src="/site_media/jquery-ui-1.8.1.custom.js">  </script>
+	<script type="text/javascript" src="/site_media/jquery-ui-1.8.1.custom.js"> 
+ </script>
+<script type="text/javascript" src="/site_media/jquery.timePicker.js"></script>
+<style type="text/css">
+div.time-picker {
+  position: absolute;
+  height: 200px;
+  width:4em; /* needed for IE */
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #000;
+  z-index: 99;
+}
+div.time-picker-12hours {
+  width:6em; /* needed for IE */
+}
 
+div.time-picker ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+div.time-picker li {
+  padding: 1px;
+  cursor: pointer;
+}
+div.time-picker li.selected {
+  background: #316AC5;
+  color: #fff;
+}
+  </style>
 
 
 	
@@ -22,13 +51,19 @@
   
 <body>
 
-	<input name="time" id="time" type="text" /> 
+	<p><input name="time" id="time" type="text" /> </p>
+	<p><input name="time1" id="time1" type="text" /></p> 
+    <p><textarea rows="10" cols="20"> </textarea></p>
 
 <script>
 $(document).ready(function() {
 	$('#time').datepicker({ buttonImageOnly: false,
 		 					buttonImage: '/site_media/images/calendar.png',
 							showOn: 'button'});		
+	$("#time1").timePicker({
+				show24Hours: false,
+				separator: '.',
+			    step: 10});
 });
 
 
