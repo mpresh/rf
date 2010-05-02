@@ -25,8 +25,10 @@ def event_create(request):
 
     if "event_name" in request.POST and request.POST['event_name'] != "":
         ename = request.POST["event_name"]
-        estart = request.POST["event_datetime_start"]
-        eend = request.POST["event_datetime_end"]
+        start_date = request.POST["event_date_start"]
+        end_date = request.POST["event_date_end"]
+        start_time = request.POST["event_time_start"]
+        end_time = request.POST["event_time_end"]
         ecapacity = request.POST["event_capacity"]
         evenue = request.POST["event_venue"]
         eaddress = request.POST["event_address"]
@@ -41,10 +43,15 @@ def event_create(request):
         user.save()
 
         import datetime
+        start_dt = datetime.datetime.strptime(start_date.strip() + " " + start_time.strip(), 
+                                     "%m/%d/%Y %I:%M %p")
+        end_dt = datetime.datetime.strptime(end_date.strip() + " " + end_time.strip(), 
+                                   "%m/%d/%Y %I:%M %p")
+
         e = Event(name=ename, 
                   description=edescription, 
-                  event_date_time_start=datetime.datetime.now(),
-                  event_date_time_end=datetime.datetime.now(),
+                  event_date_time_start=start_dt,
+                  event_date_time_end=end_dt,
                   capacity=ecapacity,
                   venue=evenue,
                   venue_address=eaddress,

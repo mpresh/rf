@@ -15,6 +15,7 @@
 
 
 {% block content %}
+<!-- Content starts here -->
 <div class="span-12">
 
       {%if user%}
@@ -106,9 +107,8 @@
     <img class="center" src="/site_media/images/muse.png" />
   </div>
 
-  <div id="visual_map" style="width: 400px; height: 500px;" />						
+  <div id="visual_map" style="width: 400px; height: 500px;" > </div>						
 	      
-
   <div id="title">
     {{event.name}}
   </div>
@@ -127,7 +127,7 @@
 
 <script>
 $(document).ready(function() {
-alert("lalla");
+
 	$('#invite_popup_close').bind('click', function() {
 		$('#invite_popup').hide();
 		$('#twitlist').html("");
@@ -203,7 +203,7 @@ $(document).ready(function() {
 
     });
 </script>
-
+<!-- Content ends here -->
 {% endblock %}
 
 
