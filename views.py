@@ -56,7 +56,7 @@ def event_create(request):
         edescription = request.POST["event_description"]
         eurl = request.POST["event_url"]
         eprice = request.POST["event_price"]
-        image = request.POST["image"]
+        image = request.POST["event_image"]
 
         pemail = request.POST["person_email"]
         
