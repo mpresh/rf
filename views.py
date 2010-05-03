@@ -29,7 +29,7 @@ def upload_image(req):
     for chunk in f.chunks():     
         destination.write(chunk)
     destination.close() 
-    return HttpResponse(json.dumps({'name': '/site_media/images/tmp/' + str(user.id) + "_" + f.name}))
+    return HttpResponse(json.dumps({}))
     
 def event_create(request):
 
