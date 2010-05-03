@@ -7,6 +7,7 @@ from django.conf import settings
 import simplejson as json
 import urllib
 import os
+import shutil
 
 def test(request):
     return render_to_response('test.html', {})
@@ -20,12 +21,14 @@ def event_list(request):
 
 def upload_image(req):
     user = User.objects.get(id=req.session["user_id"])
+    cur_dir = os.path.dirname(__file__)
 
-    if not os.path.exists('static/images/tmp'):
-        os.mkdir('static/images/tmp')
+    if not os.path.exists(os.path.join(cur_dir, 'static/images/tmp')):
+        os.mkdir(os.path.join(cur_dir, 'static/images/tmp'))
 	
     f = req.FILES['image']
-    destination = open('static/images/tmp/' + str(user.id) + "_" + f.name, 'wb+')
+    destination = open(os.path.join(cur_dir, 
+                                    'static/images/tmp/' + str(user.id) + "_" + f.name), 'wb+')
     for chunk in f.chunks():     
         destination.write(chunk)
     destination.close() 
@@ -33,6 +36,8 @@ def upload_image(req):
     
 def event_create(request):
 
+    cur_dir = os.path.dirname(__file__)
+    
     if "user_id" not in request.session:
         request.session["redirect"] = "/create"        
         return HttpResponseRedirect("/login")
@@ -80,16 +85,15 @@ def event_create(request):
         e.save()
 
 
-        if not os.path.exists('static/images/events/'):
-            os.mkdir('static/images/events')
+        if not os.path.exists(os.path.join(cur_dir, 'static/images/events/')):
+            os.mkdir(os.path.join(cur_dir, 'static/images/events'))
 			
         if image:
-            os.rename('static/images/tmp/' + str(user.id) + '_' + image,
-                  	'static/images/events/' + str(e.id))
+            os.rename(os.path.join(cur_dir, 'static/images/tmp/' + str(user.id) + '_' + image),
+                  	os.path.join(cur_dir, 'static/images/events/' + str(e.id)))
         else:
-          	os.rename('static/images/muse.png',
-                  	'static/images/events/' + str(e.id))
-		
+          	shutil.copy(os.path.join(cur_dir, 'static/images/muse.png'),
+                       os.path.join(cur_dir, 'static/images/events/' + str(e.id)))
 
         return HttpResponseRedirect("/thanks/" + str(e.id))
 	
