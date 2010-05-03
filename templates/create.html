@@ -5,12 +5,15 @@
  </script>
 <script type="text/javascript" src="/site_media/jquery.ui.datepicker.js"> </script>
 <script type="text/javascript" src="/site_media/jquery.timePicker.js"> </script>
+<script type="text/javascript" src="/site_media/ajaxfileupload.js"> </script>
+<script type="text/javascript" src="/site_media/jquery.uploadify.js"> </script>
 
 	<link rel="stylesheet" href="/site_media/calendar-system.css" type="text/css" >
 	<link rel="stylesheet" href="/site_media/calendar-en.css" type="text/css" >
 	<link rel="stylesheet" href="/site_media/jquery.calendar.css" type="text/css" >
 <link rel="stylesheet" href="/site_media/jquery.ptTimeSelect.css" type="text/css" >	
 <link type="text/css" href="/site_media/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />
+
 
 {% endblock %} 
 
@@ -69,6 +72,11 @@
     <li>
 		<label for="event_url">Event URL:</label> <input type="text" name="event_url" />
 	</li>
+	<li>
+		<label for="image">Event Image:</label> 
+		<input name="image" id="image" type="file" onChange="ajaxFileUpload(this.value);"> </input>
+		<div class="image_preview"><br/><br/><br/><br/>Image Preview</div></p>
+	</li>
     
 
     <br /><br />
@@ -85,8 +93,65 @@
 </form>
 
 
-
 <script>
+function init() {
+	document.getElementById('file_upload_form').onsubmit=function() {
+		document.getElementById('file_upload_form').target = 'upload_target'; //'upload_target' is the name of the iframe
+	}
+}
+window.onload=init;
+
+function ajaxFileUpload(file_name)
+{
+        //starting setting some animation when the ajax starts and completes
+        $("div.image_preview")
+           .ajaxStart(function(){
+                $(this).html("<img src='/site_media/images/ajax-loader.gif' />");
+        })
+           .ajaxComplete(function(){ 
+	            $(this).html("<img src='/site_media/images/tmp/{{user.id}}_" + file_name + "'  />");
+        });
+
+        /*
+                prepareing ajax file upload
+                url: the url of script file handling the uploaded files
+                fileElementId: the file type of input element id and it will be the index of  $_FILES Array()
+                dataType: it support json, xml
+                secureuri:use secure protocol
+                success: call back function when the ajax complete
+                error: callback function when the ajax failed
+
+        */
+        $.ajaxFileUpload
+        (
+                {
+                        url:'/upload_image',
+                        secureuri:false,
+                        fileElementId:'image',
+                        dataType: 'json',
+                        success: function (data, status)
+                        {
+                                if(typeof(data.error) != 'undefined')
+                                {
+                                        if(data.error != '')
+                                        {
+                                                alert(" error1 " + data.error);
+                                        }else
+                                        {
+                                                alert("no error " + data.msg);
+                                        }
+                                }
+                        },
+                        error: function (data, status, e)
+                        {
+                                alert("error2 " + e);
+                        }
+                }
+        )
+
+        return false;
+
+}
 
 
 $(document).ready(function() {

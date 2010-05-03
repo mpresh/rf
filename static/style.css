@@ -165,3 +165,14 @@ div.time-picker li.selected {
   background: #316AC5;
   color: #fff;
 }
+
+div.image_preview {
+	width: 200px;
+	height: 200px;
+	border: 1px solid #000;
+	text-align: center;
+}
+div.image_preview  img{
+	width: 200px;
+	height: 200px;
+}

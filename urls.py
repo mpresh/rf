@@ -29,6 +29,7 @@ urlpatterns = patterns('',
                        url(r'^ajax/event_friend_attendees/(?P<event_id>\d+)/?$', 'views.event_friend_attendees', name='event_friend_attendees'),
                        url(r'^ajax/event_friend_not_attendees/(?P<event_id>\d+)/?$', 'views.event_friend_not_attendees', name='event_friend_not_attendees'),
 
+					
                        
                        
                        url(r'^ajax/event_not_going/(?P<event_id>\d+)/?$', 'views.event_not_going', name='event_not_going'),
@@ -40,8 +41,8 @@ urlpatterns = patterns('',
                        # miscellaneous
                        url(r'^map/?$', 'views.map', name='map'),
 					   url(r'^test/?$', 'views.test', name='test'),
-
-
+ 					   url(r'^upload_image/?$', 'views.upload_image', name='upload-image'),
+  
                        # old
                        (r'^thanks/(?P<event_id>\d+)/$', event_thanks),
                        (r'^details/(?P<event_id>\d+)/$', event_details),

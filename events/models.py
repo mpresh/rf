@@ -24,7 +24,7 @@ class Event(models.Model):
     organizer = models.ForeignKey(User, related_name="event_organized")
     attendees = models.ManyToManyField(User, related_name="events_going")
     attendees_maybe = models.ManyToManyField(User, related_name="events_maybe")
-
+   
 class Invite(models.Model):
     message = models.CharField(max_length=140)
     from_user = models.ForeignKey(User, related_name="made_invite")

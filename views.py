@@ -6,6 +6,7 @@ from tauth.models import User
 from django.conf import settings
 import simplejson as json
 import urllib
+import os
 
 def test(request):
     return render_to_response('test.html', {})
@@ -17,11 +18,26 @@ def event_list(request):
     all_events = Event.objects.all()
     return render_to_response('list.html', {"events":all_events})
 
+def upload_image(req):
+    user = User.objects.get(id=req.session["user_id"])
+
+    if not os.path.exists('static/images/tmp'):
+        os.mkdir('static/images/tmp')
+	
+    f = req.FILES['image']
+    destination = open('static/images/tmp/' + str(user.id) + "_" + f.name, 'wb+')
+    for chunk in f.chunks():     
+        destination.write(chunk)
+    destination.close() 
+    return HttpResponse(json.dumps({'name': '/site_media/images/tmp/' + str(user.id) + "_" + f.name}))
+    
 def event_create(request):
 
     if "user_id" not in request.session:
         request.session["redirect"] = "/create"        
         return HttpResponseRedirect("/login")
+
+    user = User.objects.get(id=request.session["user_id"])
 
     if "event_name" in request.POST and request.POST['event_name'] != "":
         ename = request.POST["event_name"]
@@ -35,6 +51,7 @@ def event_create(request):
         edescription = request.POST["event_description"]
         eurl = request.POST["event_url"]
         eprice = request.POST["event_price"]
+        image = request.POST["image"]
 
         pemail = request.POST["person_email"]
         
@@ -48,6 +65,8 @@ def event_create(request):
         end_dt = datetime.datetime.strptime(end_date.strip() + " " + end_time.strip(), 
                                    "%m/%d/%Y %I:%M %p")
 
+		
+
         e = Event(name=ename, 
                   description=edescription, 
                   event_date_time_start=start_dt,
@@ -60,9 +79,20 @@ def event_create(request):
                   price=eprice)
         e.save()
 
-        return HttpResponseRedirect("/thanks/" + str(e.id))
 
-    user = User.objects.get(id=request.session["user_id"])	
+        if not os.path.exists('static/images/events/'):
+            os.mkdir('static/images/events')
+			
+        if image:
+            os.rename('static/images/tmp/' + str(user.id) + '_' + image,
+                  	'static/images/events/' + str(e.id))
+        else:
+          	os.rename('static/images/muse.png',
+                  	'static/images/events/' + str(e.id))
+		
+
+        return HttpResponseRedirect("/thanks/" + str(e.id))
+	
     return render_to_response('create.html', {"user" : user})
 
 def event_register(request):
