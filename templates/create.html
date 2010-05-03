@@ -77,7 +77,7 @@
 		<input name="image" id="image" type="file" onChange="ajaxFileUpload(this.value);"> </input>
 		<div class="image_preview"><br/><br/><br/><br/>Image Preview</div></p>
 	</li>
-    
+    <input type="hidden" value="" name="event_image" id="event_image"></input>
 
     <br /><br />
 	<h3>Organizer Info:</h3>
@@ -110,6 +110,7 @@ function ajaxFileUpload(file_name)
         })
            .ajaxComplete(function(){ 
 	            $(this).html("<img src='/site_media/images/tmp/{{user.id}}_" + file_name + "'  />");
+				$('#event_image').val(file_name);
         });
 
         /*
