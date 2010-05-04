@@ -34,17 +34,17 @@
 	
     <li>
       <label for="event_date_start">Event Start Date:</label> 
-      <input type="text" name="event_date_start" id="event_date_start" />
+      <input type="text" name="event_date_start" size="12" id="event_date_start" />
       
       <label for="event_time_start">Time:</label> 
-      <input type="text" name="event_time_start" id="event_time_start" />
+      <input type="text" name="event_time_start" size="8" id="event_time_start" />
     </li>
 
     <li>
       <label for="event_date_end">Event End Date:</label> 
-      <input type="text" name="event_date_end" id="event_date_end"/>
+      <input type="text" name="event_date_end" size="12" id="event_date_end"/>
           
-      <label for="event_time_end">Time:</label> <input type="text" name="event_time_end" id="event_time_end" />
+      <label for="event_time_end">Time:</label> <input type="text" size="8" name="event_time_end" id="event_time_end" />
     </li>
 
     <li>
@@ -163,7 +163,6 @@ $(document).ready(function() {
 								onSelect: 
 									function(dateText, inst) { 
 										if ($.trim($('#event_date_end').val()) == ""){
-											alert("notta"); 
 											$('#event_date_end').val(dateText);
 										}}});
 		$('#event_date_end').datepicker({ buttonImageOnly: false,
