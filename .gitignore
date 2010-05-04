@@ -1,3 +1,5 @@
 settings.py
 *.pyc
 *~
+static/images/events/*
+static/images/tmp/*
