@@ -120,18 +120,20 @@ div.transbox{
 }
 
 /* footer styling */
-div.footer {
+div.myfooter {
 	   background-color: #eeeeee;
 	   //background-color:#FBF5EF;		
 	   text-align: center;
+	   margin: auto ;
+
 }
 
-.footer li{
+.myfooter li{
 	display:inline;
 	list-style-type: none;	
 }
 
-.footer a {
+.myfooter a {
 	display:block;
 	float: left;
 	padding: 0 2em;
