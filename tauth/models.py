@@ -52,7 +52,6 @@ class User(models.Model):
 			status=status
 		)
 
-
 	def get_follow_list(self):
 		return api(
 			'http://api.twitter.com/1/friends/ids.json',
@@ -66,7 +65,11 @@ class User(models.Model):
 	def get_friend_list(self):
 		follow = self.get_follow_list()
 		followers = self.get_follower_list()
-		return [val for val in follow if val in followers]
+		print "Get Friend List follow", follow
+		print "Get Friend List followers", followers
+		return_val = [val for val in follow if val in followers]
+		print "Friend Lsit", return_val
+		return return_val
 
 	def more_info(self, friends):
 		friends = friends[0:8]
@@ -81,3 +84,33 @@ class User(models.Model):
 				 friend_obj["profile_image_url"], 
 				 friend_obj["screen_name"]])
 		return friends_list
+
+	def get_friends_not_attending_event(self, event):
+		"""
+		Retreive friends that are not going to the event.
+		Phot url, name.
+		"""	
+		user_friends_list = self.get_friend_list()
+		event_attendees_list = event.attendees.all()
+	
+		friends_not_going_to_event = []
+		
+		# remove self from friend list
+		if self.twitter_id in user_friends_list:
+			user_friends_list.remove(self.twitter_id)
+
+		for attendee in event_attendees_list:
+			print "Attending", attendee.twitter_id
+			if attendee.twitter_id in user_friends_list:
+				user_friends_list.remove(attendee.twitter_id)
+
+		for friend in user_friends_list:
+			url = "http://api.twitter.com/1/users/show/" + str(friend) + ".json"
+			friend_obj = json.loads(urllib.urlopen(url).read())
+			print "Friend Object", friend_obj
+			friends_not_going_to_event.append([friend_obj["name"],
+							   friend_obj["profile_image_url"],
+							   friend_obj["screen_name"]])
+
+		return friends_not_going_to_event
+

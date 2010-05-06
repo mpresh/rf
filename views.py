@@ -258,37 +258,17 @@ def event_friend_not_attendees(req, event_id=""):
     Retreive friends that are not going to the event.
     Phot url, name.
     """
-    print "YAYAYYAYA"
     if "user_id" not in req.session:
         return HttpResponse("ERROR: User must be authenticated!")
     
     if not event_id:
-            return HttpResponse("ERROR: must provide event_id")
+        return HttpResponse("ERROR: must provide event_id")
 
     event = Event.objects.get(id=event_id)
-    user = User.objects.get(id=req.session["user_id"])	
+    user = User.objects.get(id=req.session["user_id"])
 
-    user_friends_list = user.get_friend_list()
-    event_attendees_list = event.attendees.all()
+    friends_not_going_to_event = user.get_friends_not_attending_event(event)
 
-    friends_not_going_to_event = []
-
-    print "HAHAHAH", user_friends_list, event_attendees_list
-    for person in event_attendees_list:
-        print "IDDDD", person.twitter_id
-        if person.twitter_id != user.twitter_id and person.twitter_id in user_friends_list:
-            user_friends_list.remove(person.twitter_id)
-    
-    print "LALLA", user_friends_list
-    for person in user_friends_list:
-        url = "http://api.twitter.com/1/users/show/" + str(person) + ".json"
-        friend_obj = json.loads(urllib.urlopen(url).read())
-        print "HAHA", friend_obj
-        friends_not_going_to_event.append([friend_obj["name"],
-                                           friend_obj["profile_image_url"],
-                                           friend_obj["screen_name"]])
-
-    print "HEEERE I AM"
     return HttpResponse(json.dumps(friends_not_going_to_event))
     
 

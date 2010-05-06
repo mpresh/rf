@@ -10,7 +10,7 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-                       (r'^$', index),
+                       #(r'^$', index),
 
                        # twitter authentication auth module
                        url(r'^info/?$', 'tauth.views.info', name='tauth_info'),

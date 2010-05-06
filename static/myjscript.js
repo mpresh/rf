@@ -1,8 +1,6 @@
 
 
 
-
-
 function make_friend_list(data) {
     html = "";
     $.each(data,function(i,list) {
@@ -16,14 +14,4 @@ function friend_check_html(namev,urlv,userv) {
     return html;
 }
 
-
-
-
-
-function showbox() {
-    $('#invite_popup').show('slow');
-    $.getJSON('/ajax/event_friend_not_attendees/{{event.id}}', function(data){
-	    $('#twitlist').append(make_friend_list(data));
-	});
-}
 
