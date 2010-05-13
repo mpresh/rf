@@ -1,8 +1,16 @@
 from django.db import models
 import oauth
-import re, httplib, simplejson
+import re, httplib
+import simplejson as json
 from utils import *
 import urllib
+import time
+import sys
+import os
+import socket
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")))
+import settings
 
 class User(models.Model):
 	username = models.CharField(max_length=40)
@@ -103,14 +111,44 @@ class User(models.Model):
 			print "Attending", attendee.twitter_id
 			if attendee.twitter_id in user_friends_list:
 				user_friends_list.remove(attendee.twitter_id)
+				
+		print "user_firneds_list", user_friends_list, self.token()
+		dict = {}
+		dict["cmd"] = "twitter_user_list_info"
+		data = {}
+		dict["data"] = data
+		dict["data"]["token"] = "token"
+		dict["data"]["users"] = user_friends_list
+		to_send = json.dumps(dict) + "\n\r\n"
+		
 
-		for friend in user_friends_list:
-			url = "http://api.twitter.com/1/users/show/" + str(friend) + ".json"
-			friend_obj = json.loads(urllib.urlopen(url).read())
-			print "Friend Object", friend_obj
-			friends_not_going_to_event.append([friend_obj["name"],
-							   friend_obj["profile_image_url"],
-							   friend_obj["screen_name"]])
+		#start = time.time()
+		#for friend in user_friends_list:
+		#	url = "http://api.twitter.com/1/users/show/" + str(friend) + ".json"
+		#	friend_obj = json.loads(urllib.urlopen(url).read())
+		#	friends_not_going_to_event.append([friend_obj["name"],
+		#					   friend_obj["profile_image_url"],
+		#					   friend_obj["screen_name"]])
+		#print time.time() - start
 
+
+		port = 5002
+		host = "localhost"
+
+		s = socket.create_connection((host, port))
+		s.send(to_send)
+
+		print "connection made", to_send
+		buf = ""
+		while 1:
+			incoming = s.recv(1000)
+			print "received ", incoming
+			if not incoming:
+				break
+			buf += incoming
+		s.close()
+		
+		print "result is", buf
+		friends_not_going_to_event = json.loads(buf)
 		return friends_not_going_to_event
 

@@ -1,0 +1,5 @@
+{"cmd": "twitter_user_info", "data": {"url": "http://www.nfl.com"}}
+
+
+
+{"cmd": "twitter_user_list_info", "data": {"token" : "user", "users": [42053149, 43722655, 78727134, 19311402, 104667446, 8453452, 16831087, 33747184, 14277276, 19532593, 90683732, 82002786]}}

@@ -4,7 +4,7 @@
 function make_friend_list(data) {
     html = "";
     $.each(data,function(i,list) {
-	    html +=	friend_check_html(list[0],list[1],list[2]);
+	    html +=	friend_check_html(list["screen_name"],list["profile_image_url"],list["name"]);
 	});
     return html;
 }
