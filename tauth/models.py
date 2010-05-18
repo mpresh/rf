@@ -112,26 +112,16 @@ class User(models.Model):
 			if attendee.twitter_id in user_friends_list:
 				user_friends_list.remove(attendee.twitter_id)
 				
-		print "user_firneds_list", user_friends_list, self.token()
+		print "user_firneds_list", user_friends_list
 		dict = {}
 		dict["cmd"] = "twitter_user_list_info"
 		data = {}
 		dict["data"] = data
-		dict["data"]["token"] = "token"
+		dict["data"]["oauth_token"] = self.oauth_token
+		dict["data"]["oauth_token_secret"] = self.oauth_token_secret
 		dict["data"]["users"] = user_friends_list
 		to_send = json.dumps(dict) + "\n\r\n"
 		
-
-		#start = time.time()
-		#for friend in user_friends_list:
-		#	url = "http://api.twitter.com/1/users/show/" + str(friend) + ".json"
-		#	friend_obj = json.loads(urllib.urlopen(url).read())
-		#	friends_not_going_to_event.append([friend_obj["name"],
-		#					   friend_obj["profile_image_url"],
-		#					   friend_obj["screen_name"]])
-		#print time.time() - start
-
-
 		port = 5002
 		host = "localhost"
 
