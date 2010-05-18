@@ -135,7 +135,8 @@ class User(models.Model):
 		port = 5002
 		host = "localhost"
 
-		s = socket.create_connection((host, port))
+		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		s.connect((host, port))
 		s.send(to_send)
 
 		print "connection made", to_send
