@@ -155,7 +155,6 @@ $(document).ready(function() {
 						opacity: 0.8
 						},
 					onLoad: function(event) {
-						alert("overlay loaded");
 						display_friends_invite();
 					}
 				    }); 
@@ -200,12 +199,9 @@ $(document).ready(function() {
     });
 
 function display_friends_invite() {
-		alert("diaply");
 	    $.getJSON('/ajax/event_friend_not_attendees/{{event.id}}', function(data){
-			alert("Json Data " + data);
 		    $('#twitlist').append(make_friend_list(data));
 		});
-		alert("done");
 }
 </script>
 <!-- Content ends here -->
