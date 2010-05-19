@@ -111,7 +111,7 @@ def event_thanks(request, event_id=""):
     return render_to_response('thanks.html', {"user" : user})
 
 def index(req):
-    req.session["redirect"] = ""
+    req.session["redirect"] = "/"
     return render_to_response('index.html', {})
 
 def event_details(req, event_id=""):
