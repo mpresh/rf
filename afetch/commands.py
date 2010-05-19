@@ -37,16 +37,20 @@ def gotUser(user_data):
 def gotError(fail):
     print "There was a fail", fail
 
-def done(result, start, **kwargs):
+def done(result, **kwargs):
+    start = kwargs["start"]
     print "SUCCESS DONE", time.time() - start
 
     p = kwargs["conn"]
     p.transport.write("DONE")
     p.connectionLost("done succesfully")
 
-def done_list(results, start, **kwargs):
+def done_list(results, **kwargs):
+    start = kwargs["start"]
     print "SUCCESS DONE", time.time() - start
 
+    mc_key = kwargs["mc_key"]
+    mc = kwargs["mc"]
     p = kwargs["conn"]
 
     result_list = []
@@ -59,32 +63,38 @@ def done_list(results, start, **kwargs):
 
     p.connectionLost("done succesfully")
 
-def get_twitter_user_info(data, **kwargs):
+    mc.set(mc_key, json_text, time=30)
+
+def get_twitter_user_info(**kwargs):
     """Get user info from twitter."""
-    username = "mpresh"
-    password = "pilotpresh25"
-    info_user = "mpresh"
 
-    print "Data", data
-    start = time.time()
+    data = kwargs["data"]
+    user_id = kwargs["username"]
+    mc = kwargs["mc"]
 
-    print "Getting User Info Twitter"
-    d = twitter.Twitter(username, password).show_user(info_user)
+    kwargs["start"] = time.time()
+    d = twitter.Twitter(consumer=consumer(), 
+                        token=token(data["oauth_token"])).show_user(info_user)
     d.addCallback(gotUser)
     d.addErrback(gotError)
-    d.addCallback(done, start, conn=kwargs["conn"])
+    d.addCallback(done, **kwargs)
 
-def get_twitter_user_list_info(data, **kwargs):
+def get_twitter_user_list_info(**kwargs):
     """Get user info from twitter."""
-    username = "mpresh"
-    password = "pilotpresh25"
-    info_user = "mpresh"
+    
+    data = kwargs["data"]
+    username = kwargs["username"]
+    mc = kwargs["mc"]
 
-    print "Data Twitter User List Info", data
-    print "token", data["oauth_token"], data["oauth_token_secret"]
+    kwargs["start"] = time.time()
+    kwargs["mc_key"] = username + "twitter_user_list_info"
 
-    start = time.time()
-    print "Getting User Info Twitter"
+    value = mc.get(kwargs["mc_key"])
+    if value:
+        p = kwargs["conn"]
+        p.transport.write(value)
+        p.connectionLost("done succesfully")
+        return
 
     deferred_list = []
     for user in data["users"]:
@@ -96,7 +106,7 @@ def get_twitter_user_list_info(data, **kwargs):
         deferred_list.append(d)
 
     dl = defer.DeferredList(deferred_list)
-    dl.addCallback(done_list, start, conn=kwargs["conn"])
+    dl.addCallback(done_list, **kwargs)
 
 command_map = {"twitter_user_info" : get_twitter_user_info,
                "twitter_user_list_info" : get_twitter_user_list_info}

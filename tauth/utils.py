@@ -79,7 +79,8 @@ def api(url, token, http_method='GET', **kwargs):
 		return json.loads(oauth_response(oauth_request(
 			url, token, http_method=http_method, parameters=kwargs
 		)))
-	except: pass
+	except Exception, e:
+		print "Exception in API", e
 	return None
 
 def is_authorized(token):

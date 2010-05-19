@@ -115,6 +115,7 @@ class User(models.Model):
 		print "user_firneds_list", user_friends_list
 		dict = {}
 		dict["cmd"] = "twitter_user_list_info"
+		dict["username"] = self.username
 		data = {}
 		dict["data"] = data
 		dict["data"]["oauth_token"] = self.oauth_token

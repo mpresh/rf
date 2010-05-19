@@ -17,6 +17,9 @@ from commands import *
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")))
 import settings
 
+import memcache
+mc = memcache.Client(['127.0.0.1:11211'], debug=0)
+
 def printPage(data, url):
     print url
 
@@ -48,7 +51,10 @@ class CacheProtocol(basic.LineReceiver):
 
         else:
             command_func = command_map[obj["cmd"]]
-            command_func(obj["data"], conn=self)
+            command_func(data=obj["data"],
+			username=obj["username"],
+	    		conn=self, 
+			mc=mc)
 
 
     def lineReceived(self, line):
