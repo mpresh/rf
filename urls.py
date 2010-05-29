@@ -58,5 +58,5 @@ urlpatterns = patterns('',
                        (r'^event_home/(?P<event_id>\d)/$', event_home),
                        #url('^login/$', twitter_signin, name='login'),
                        #url('^return/$', twitter_return, name='return'),
-                       (r'^admin/', include(admin.site.urls)),
+                       #(r'^admin/', include(admin.site.urls)),
 )

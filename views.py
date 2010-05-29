@@ -111,8 +111,13 @@ def event_thanks(request, event_id=""):
     return render_to_response('thanks.html', {"user" : user})
 
 def index(req):
+    if "user_id" not in req.session:
+        req.session["redirect"] = "/"
+        return render_to_response('index.html', {})
+
     user = User.objects.get(id=req.session["user_id"])	
     req.session["redirect"] = "/"
+
     return render_to_response('index.html', {"user" : user})
 
 def event_details(req, event_id=""):
