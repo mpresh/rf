@@ -366,12 +366,20 @@ def event_tweet_invite(req, event_id=""):
 
     if "user_id" not in req.session:
         ret_obj["error"] = "User Must be Logged in."
-        return HttpResponse(json.dumps(return_obj))
+        return HttpResponse(json.dumps(ret_obj))
 
     event = Event.objects.get(id=event_id)
     user = User.objects.get(id=req.session["user_id"])	
 
-    msg = "This is a test tweet!"
+    url = "http:// www.testmikepreshman.com"
+    if 'data' in req.GET and req.GET['data'].strip() != "":
+        msg = req.GET['data']
+    else:
+        msg = url + ": Dicounted Invite to " + event.name
+
+    if len(msg) > 140:
+        msg = msg[:140]
+
     user.tweet(msg)
     ret_obj["msg"] = "Tweeted: " +  msg
     return HttpResponse(json.dumps(ret_obj))

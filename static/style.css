@@ -101,7 +101,7 @@ div.transbox{
 	border:1px solid #666;	
 	background-color:#FBF5EF;	 
 	width: 700px;
-	height: 400px;
+	height: 410px;
 	padding: 35px;
 
     /* CSS3 styling for latest browsers */	 
@@ -192,6 +192,29 @@ div#tweet_msg {
     text-align: center;
     margin: 10px;
     color: red;
-    #vertical-align: middle;
     font-size: large;
+    margin-right: -1px;
+}
+
+#tweet_text {
+    border: 1px blue solid;
+    #float: left;
+    font-size: 80%;
+    text-align: center;
+    padding: 0;
+    font-style: italic;
+    line-height: 100%;
+    wrap: soft;
+    color: red;
+}
+
+div#tweet_title {
+    font-size: x-large; 
+}
+
+button#tweet_invite_button {
+    margin-left: 20px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-top: -6px;
 }

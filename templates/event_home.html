@@ -56,9 +56,8 @@
 <div id="invite_popup" class="simple_overlay">
 
     <h1>Invite Your Friends!</h1>
-    <BR />
     <div class="twitterfriends">
-      <div><h3>Twitter Friends&nbsp;&nbsp;&nbsp;<button id="tweet_invite_button">Tweet Invite</button></h3> </div>
+      <div id="tweet_title">&nbsp;Twitter Friends&nbsp;&nbsp;<input type="text" id="tweet_text" maxlength="140" size="30"></input><button id="tweet_invite_button">Tweet Invite</button></div>
       <div id="tweet_msg"></div>
       <div id="twitlist"><img src="/site_media/images/ajax_loader.gif" /></div>
     </div>
@@ -129,8 +128,9 @@
 <script>
 $(document).ready(function() {
 
-	$('#invite_popup_close').bind('click', function() {
+	$("#invite_popup_close").bind('click', function() {
 		$('#invite_popup').hide();
+                $('#tweet_msg').html("");
 		$('#twitlist').html("<img width='30' height='30' src='/site_media/images/ajax_loader.gif' />");
 	 });
 
@@ -151,6 +151,7 @@ $(document).ready(function() {
 		$.ajax({
                     url: '/ajax/event_tweet_invite/{{event.id}}', 
                     dataType: "json",
+                    data: {data: $("#tweet_text").val()}, 
                     success: function(data){
                         $("#tweet_msg").html(data["msg"]);  
 	        	     },
@@ -169,7 +170,8 @@ $(document).ready(function() {
 						opacity: 0.8
 						},
 					onLoad: function(event) {
-                                                $("#tweet_msg").html(""); 
+                                                $("#tweet_msg").html("");
+                                                $("#tweet_text").val("This is a test tweet!");
                                                 $("#tweet_invite_button").removeAttr("disabled");
 						display_friends_invite();
 					}
@@ -217,7 +219,7 @@ function display_friends_invite() {
                     dataType: "json",
                     success: function(data){
                                $('#twitlist').html(make_friend_list(data));
-                               $('#tweet_msg').html("Invite your friends.");
+                               $('#tweet_msg').html("Invite Your Friends");
 	        	     },
                     beforeSend: function() {
                         $('#tweet_msg').html("<img width='20' height='20' src='/site_media/images/ajax-loader.gif' />Loading Friend Data<img width='20' height='20' src='/site_media/images/ajax-loader.gif' />");
