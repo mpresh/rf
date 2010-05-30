@@ -359,3 +359,19 @@ def event_going(req, event_id=""):
     user.events_going.add(event.id)    
 
     return HttpResponse("Succesfully Going to Event.")
+
+def event_tweet_invite(req, event_id=""):
+
+    ret_obj = {}
+
+    if "user_id" not in req.session:
+        ret_obj["error"] = "User Must be Logged in."
+        return HttpResponse(json.dumps(return_obj))
+
+    event = Event.objects.get(id=event_id)
+    user = User.objects.get(id=req.session["user_id"])	
+
+    msg = "This is a test tweet!"
+    user.tweet(msg)
+    ret_obj["msg"] = "Tweeted: " +  msg
+    return HttpResponse(json.dumps(ret_obj))

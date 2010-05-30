@@ -178,3 +178,20 @@ div.image_preview  img{
 	width: 200px;
 	height: 200px;
 }
+
+div#twitlist {
+    overflow: auto;
+    height: 200px;
+    width: 100 px;
+}
+
+div#tweet_msg {
+    background: #CCCCCC;
+    height: 25px;
+    border: 1px blue solid;
+    text-align: center;
+    margin: 10px;
+    color: red;
+    #vertical-align: middle;
+    font-size: large;
+}
