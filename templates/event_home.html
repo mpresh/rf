@@ -185,12 +185,19 @@ $(document).ready(function() {
                                                 $("#tweet_text").val("TEST: Dicounted Invite to my Friends.");
                                                 $("#tweet_invite_button").removeAttr("disabled");
 						display_friends_invite();
+                                                                                                
 					}
 				    }); 
 			
     
 	$("#visual_map").hide();
 	$("#show_map").html("(Show Map)");
+
+        //$("li").toggle(function() {
+        //    alert('First handler for .toggle() called.');
+        //}, function() {
+        //    alert('Second handler for .toggle() called.');
+        //});
 
 	if (GBrowserIsCompatible()) {
 	    var map = new GMap2(document.getElementById("visual_map"));
@@ -231,6 +238,29 @@ function display_friends_invite() {
                     success: function(data){
                                $('#twitlist').html(make_friend_list(data));
                                $('#tweet_msg').html("Invite Your Friends");
+
+                               
+                               $(".friend_list_item").toggle(function() {
+                                   $(this).css("background-color", "#FF9933");    
+                                   $(this).hover(function(){
+                                         $(this).css("background-color", "#FF9933");
+                                   },
+                                   function(){
+                                         $(this).css("background-color", "#FF9933");
+                                   }
+                                   );
+                               }, function() {
+                                   $(this).css("background-color", "#fd9");
+                                   $(this).hover(function(){
+                                         $(this).css("background-color", "#fd9");
+                                   },
+                                   function(){
+                                         $(this).css("background-color", "#FBF5EF");
+                                   }
+                                   );
+
+                               });
+	                       
 	        	     },
                     beforeSend: function() {
                         $('#tweet_msg').html("<img width='20' height='20' src='/site_media/images/ajax-loader.gif' />Loading Friend Data<img width='20' height='20' src='/site_media/images/ajax-loader.gif' />");

@@ -188,7 +188,7 @@ div#twitlist {
 div#tweet_msg {
     background: #CCCCCC;
     height: 25px;
-    border: 1px blue solid;
+    border: 1px #00CCFF solid;
     text-align: center;
     margin: 10px;
     color: red;
@@ -197,7 +197,7 @@ div#tweet_msg {
 }
 
 #tweet_text {
-    border: 1px blue solid;
+    border: 1px #00CCFF solid;
     #float: left;
     font-size: 80%;
     text-align: center;
@@ -220,7 +220,7 @@ button#tweet_invite_button {
 }
 
 div#refer_info_box {
-    height: 100px;
+    height: 50px;
     background:#FFF6BF;
     #color:#514721;
     color:#3333FF;
@@ -233,3 +233,22 @@ div#refer_info_box {
     
 }
 
+span#friend_name_text {
+    font-size: x-large;
+    color: #999900;
+}
+
+ul#friend_list {
+    padding: 0;
+    margin: 0;
+}
+
+li.friend_list_item {
+    list-style-type:none;
+    border-bottom: 1px solid #00CCFF;
+    cursor: pointer;
+}
+
+li:hover {
+  background-color: #fd9;
+}
