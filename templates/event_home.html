@@ -191,10 +191,13 @@ $(document).ready(function() {
 
         $('#invite_dm_button').click(function() {
             var selected_users = [];
-            $("input:checked").each(function(index) {
-                 selected_users.push($(this).val()); 
-            });
 
+            $("input[name='invitee']").each(function(index) {
+                 if ($(this).attr("checked")) { 
+                     selected_users.push($(this).val());
+                 } 
+            });
+           
             $.ajax({
                     url: '/ajax/event_tweet_invite_dm/{{event.id}}', 
                     dataType: "json",
@@ -218,11 +221,6 @@ $(document).ready(function() {
 	$("#visual_map").hide();
 	$("#show_map").html("(Show Map)");
 
-        //$("li").toggle(function() {
-        //    alert('First handler for .toggle() called.');
-        //}, function() {
-        //    alert('Second handler for .toggle() called.');
-        //});
 
 	if (GBrowserIsCompatible()) {
 	    var map = new GMap2(document.getElementById("visual_map"));
@@ -264,18 +262,7 @@ function display_friends_invite() {
                     success: function(data){
                                $('#twitlist').html(make_friend_list(data));
                                $('#tweet_msg').html("Invite Your Friends");
-                              
-                               $("input[name='invitee']").click(function() {
-                                   if ($(this).is(':checked')) {
-                                       alert("It is checked");
-                                       $(this).attr("checked", "yes");  
-                                       
-                                   } else {
-                                       alert("it is NOT checked");
-                                       $(this).removeAttr("checked");
-                                   }      
-                               });
-                               
+                                                             
                                $(".friend_list_item").toggle(function() {
                                    $(this).css("background-color", "#FF9933");    
                                    $(this).hover(function(){
@@ -283,11 +270,9 @@ function display_friends_invite() {
                                    },
                                    function(){
                                          $(this).css("background-color", "#FF9933");
-                                   }
-                                   );
-                                   alert("Checking to yes");
+                                   });
                                    $(this).find("input[name='invitee']").attr("checked", "yes");
-                                   alert("now checked?");
+                                   $(this).find("img.checkbox_invite").attr("src", "/site_media/images/checkbox_checked.png");
                                }, function() {
                                    $(this).css("background-color", "#fd9");
                                    $(this).hover(function(){
@@ -295,10 +280,10 @@ function display_friends_invite() {
                                    },
                                    function(){
                                          $(this).css("background-color", "#FBF5EF");
-                                   }
-                                   );
-                                   alert("unchecking");
+                                   });
+
                                    $(this).find("input[name='invitee']").removeAttr("checked");
+                                   $(this).find("img.checkbox_invite").attr("src", "/site_media/images/checkbox_unchecked.png");
                                });
 	                       
 	        	     },

@@ -80,7 +80,7 @@ def api(url, token, http_method='GET', **kwargs):
 			url, token, http_method=http_method, parameters=kwargs
 		)))
 	except Exception, e:
-		print "Exception in API", e
+		print "Exception in API", e, dir(e)
 	return None
 
 def is_authorized(token):

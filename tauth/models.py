@@ -112,7 +112,6 @@ class User(models.Model):
 			if attendee.twitter_id in user_friends_list:
 				user_friends_list.remove(attendee.twitter_id)
 				
-		print "user_firneds_list", user_friends_list
 		dict = {}
 		dict["cmd"] = "twitter_user_list_info"
 		dict["username"] = self.username
