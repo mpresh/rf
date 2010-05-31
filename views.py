@@ -10,6 +10,7 @@ import os
 import hashlib
 import base64
 import shutil
+import socket
 
 def test(request):
     return render_to_response('test.html', {})
@@ -401,3 +402,67 @@ def event_tweet_invite(req, event_id=""):
     user.tweet(msg)
     ret_obj["msg"] = "Tweeted: " +  msg
     return HttpResponse(json.dumps(ret_obj))
+
+def event_tweet_invite_dm(req, event_id=""):
+
+    ret_obj = {}
+
+    if "user_id" not in req.session:
+        ret_obj["error"] = "User Must be Logged in."
+        return HttpResponse(json.dumps(ret_obj))
+
+    event = Event.objects.get(id=event_id)
+    user = User.objects.get(id=req.session["user_id"])	
+    
+    url = req.GET['invite_url']
+    friends = req.GET['invited_friends'].split(",")
+    
+    if 'data' in req.GET and req.GET['data'].strip() != "":
+        msg = url + " " + req.GET['data']
+    else:
+        msg = url + ": Dicounted Invite to " + event.name
+
+    if len(msg) > 140:
+        msg = msg[:140]
+
+    dict = {}
+    dict["cmd"] = "twitter_dm_users"
+    dict["username"] = user.username
+
+    data = {}
+    dict["data"] = data
+    dict["data"]["oauth_token"] = user.oauth_token
+    dict["data"]["oauth_token_secret"] = user.oauth_token_secret
+    dict["data"]["users"] = friends
+    dict["data"]["msg"] = msg
+    to_send = json.dumps(dict) + "\n\r\n"
+
+    print "TO SEND", to_send
+		
+    port = 5002
+    host = "localhost"
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect((host, port))
+    s.send(to_send)
+
+    print "connection made", to_send
+    buf = ""
+    while 1:
+        print "Waiting to receive"
+        incoming = s.recv(1000)
+        print "received ", incoming
+        if not incoming:
+            break
+        buf += incoming
+    s.close()
+
+    print "connection closed"
+    ret_obj = {}
+    ret_obj["ret"] = buf
+    ret_obj["msg"] = "Sent DM to " + " ".join(friends) +  " " + msg
+
+    print "HEY THERE"
+    ret_val = json.dumps(ret_obj)
+    print "RETURN", ret_val
+    return HttpResponse(ret_val)

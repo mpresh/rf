@@ -34,6 +34,10 @@ def gotUser(user_data):
 
     return dict
 
+def sentDM(result):
+    print "DM SENT", result
+    return result
+
 def gotError(fail):
     print "There was a fail", fail
 
@@ -65,6 +69,25 @@ def done_list(results, **kwargs):
 
     mc.set(mc_key, json_text, time=30)
 
+def done_dm(results, **kwargs):
+    start = kwargs["start"]
+    print "SUCCESS DONE", time.time() - start
+    print "result!!!!", results
+
+    p = kwargs["conn"]
+
+    result_list = []
+    for result in results:
+        result_list.append(result[1])
+
+    json_text = json.dumps(result_list) + "\n"
+
+    print "json text", json_text
+    p.transport.write(json_text)
+
+    print "AND NOW HERE"
+    p.connectionLost("done succesfully")
+
 def get_twitter_user_info(**kwargs):
     """Get user info from twitter."""
 
@@ -84,6 +107,8 @@ def get_twitter_user_list_info(**kwargs):
     
     data = kwargs["data"]
     username = kwargs["username"]
+
+    # get memcached
     mc = kwargs["mc"]
 
     kwargs["start"] = time.time()
@@ -108,5 +133,33 @@ def get_twitter_user_list_info(**kwargs):
     dl = defer.DeferredList(deferred_list)
     dl.addCallback(done_list, **kwargs)
 
+def send_dm_invites(**kwargs):
+    """Send DM invites to users. """
+
+    kwargs["start"] = time.time()
+    data = kwargs["data"]
+    msg = data["msg"]
+
+    deferred_list = []
+    for user in data["users"]:
+        print "Creating deferred", user
+        d = twitter.Twitter(consumer=consumer(), 
+                            token=token(data["oauth_token"], 
+                                        data["oauth_token_secret"])).send_direct_message(msg,
+                                                                                         screen_name=user)
+
+        print "D is", d, type(d)
+        d.addCallback(sentDM)
+        d.addErrback(gotError)
+        deferred_list.append(d)
+        print "KOO11"
+
+    dl = defer.DeferredList(deferred_list)
+    print "dl", dl
+    dl.addCallback(done_dm, **kwargs)
+    dl.addErrback(gotError)
+    print "exiting this"
+
 command_map = {"twitter_user_info" : get_twitter_user_info,
-               "twitter_user_list_info" : get_twitter_user_list_info}
+               "twitter_user_list_info" : get_twitter_user_list_info,
+               "twitter_dm_users" : send_dm_invites}

@@ -63,7 +63,7 @@ You have been Invited by {{refer_user.name}} &nbsp;&nbsp;<img src="{{refer_user.
 
 <div id="invite_popup" class="simple_overlay">
 
-    <h1>Invite Your Friends!</h1>
+    <h1 id="header_invite">Invite Your Friends!</h1>
     <div class="twitterfriends">
       <div id="tweet_title">&nbsp;Twitter Friends&nbsp;&nbsp;<input type="text" id="tweet_text" maxlength="140" size="30"></input><button id="tweet_invite_button">Tweet Invite</button></div>
       <div id="tweet_msg"></div>
@@ -71,7 +71,7 @@ You have been Invited by {{refer_user.name}} &nbsp;&nbsp;<img src="{{refer_user.
     </div>
     
     <BR />
-    <input type="submit" class="button" value="Invite my friends" />
+    <input id="invite_dm_button" type="submit" class="button" value="Invite my friends" />
 </div>
 
 
@@ -188,6 +188,31 @@ $(document).ready(function() {
                                                                                                 
 					}
 				    }); 
+
+        $('#invite_dm_button').click(function() {
+            var selected_users = [];
+            $("input:checked").each(function(index) {
+                 selected_users.push($(this).val()); 
+            });
+
+            $.ajax({
+                    url: '/ajax/event_tweet_invite_dm/{{event.id}}', 
+                    dataType: "json",
+                    data: {data: $("#tweet_text").val(), 
+                    invite_url: '{{invite_url}}',
+                    invited_friends: selected_users.toString(),
+                          }, 
+                    success: function(data){
+                        $("#tweet_msg").html("Tweets Sent Succesfully");
+                        $("#tweet_text").val(data["msg"]);
+                        $("#invite_dm_button").removeAttr("disabled");                      
+	        	     },
+                    beforeSend: function() {
+                        $("#invite_dm_button").attr("disabled","disabled");                      
+                        $("#tweet_msg").html("<img width='20' height='20' src='/site_media/images/ajax-loader.gif' />Sending Direct Msg Tweets<img width='20' height='20' src='/site_media/images/ajax-loader.gif' />");
+                    }
+                   });
+        });
 			
     
 	$("#visual_map").hide();
@@ -231,6 +256,7 @@ $(document).ready(function() {
 	    });
     });
 
+
 function display_friends_invite() {
             $.ajax({
                     url: '/ajax/event_friend_not_attendees/{{event.id}}', 
@@ -238,7 +264,17 @@ function display_friends_invite() {
                     success: function(data){
                                $('#twitlist').html(make_friend_list(data));
                                $('#tweet_msg').html("Invite Your Friends");
-
+                              
+                               $("input[name='invitee']").click(function() {
+                                   if ($(this).is(':checked')) {
+                                       alert("It is checked");
+                                       $(this).attr("checked", "yes");  
+                                       
+                                   } else {
+                                       alert("it is NOT checked");
+                                       $(this).removeAttr("checked");
+                                   }      
+                               });
                                
                                $(".friend_list_item").toggle(function() {
                                    $(this).css("background-color", "#FF9933");    
@@ -249,6 +285,9 @@ function display_friends_invite() {
                                          $(this).css("background-color", "#FF9933");
                                    }
                                    );
+                                   alert("Checking to yes");
+                                   $(this).find("input[name='invitee']").attr("checked", "yes");
+                                   alert("now checked?");
                                }, function() {
                                    $(this).css("background-color", "#fd9");
                                    $(this).hover(function(){
@@ -258,7 +297,8 @@ function display_friends_invite() {
                                          $(this).css("background-color", "#FBF5EF");
                                    }
                                    );
-
+                                   alert("unchecking");
+                                   $(this).find("input[name='invitee']").removeAttr("checked");
                                });
 	                       
 	        	     },

@@ -37,7 +37,7 @@ urlpatterns = patterns('',
                        #url(r'^ajax/event_maybe_going/(?P<event_maybe_id>\d+)/?$', 'views.event_maybe_going', name='event_maybe_going'),
                        url(r'^ajax/event_invite/(?P<event_id>\d+)/?$', 'views.event_invite_friend', name='event_invite_friend'),
                        url(r'^ajax/event_tweet_invite/(?P<event_id>\d+)/?$', 'views.event_tweet_invite', name='event_tweet_invite'),
-
+                       url(r'^ajax/event_tweet_invite_dm/(?P<event_id>\d+)/?$', 'views.event_tweet_invite_dm', name='event_tweet_invite_dm'),
 
                        # miscellaneous
                        url(r'^map/?$', 'views.map', name='map'),

@@ -6,7 +6,13 @@ div.top_login{
 	text-align: center;
 }
 
-
+h1#header_invite {
+    color: #9CB926;
+    border-style:solid;
+    border-color:#DDDDDD #CCCCCC #CCCCCC #DDDDDD;
+    border-right:0 solid #CCCCCC;
+    text-shadow:2px 2px #719E03;
+}
 
 .button  {
 -moz-border-radius:5px 5px 5px 5px;
@@ -190,8 +196,8 @@ div#tweet_msg {
     height: 25px;
     border: 1px #00CCFF solid;
     text-align: center;
-    margin: 10px;
-    color: red;
+    margin: 2px;
+    color: #0066CC;
     font-size: large;
     margin-right: -1px;
 }
@@ -205,7 +211,7 @@ div#tweet_msg {
     font-style: italic;
     line-height: 100%;
     wrap: soft;
-    color: red;
+    color: #0066CC;
 }
 
 div#tweet_title {

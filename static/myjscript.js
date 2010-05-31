@@ -11,7 +11,7 @@ function make_friend_list(data) {
 
 
 function friend_check_html(namev,urlv,userv) {
-    html = '<li class="friend_list_item"><input type="checkbox" name="invitee" value='+userv+'  /><img src="' + urlv + '"/>&nbsp;&nbsp;&nbsp;&nbsp;<span id="friend_name_text">'+namev+'</span></li>';
+    html = '<li class="friend_list_item"><input type="checkbox" name="invitee" value='+ userv +  ' /><img src="' + urlv + '"/>&nbsp;&nbsp;&nbsp;&nbsp;<span id="friend_name_text">'+namev+'</span></li>';
 
     return html;
 }
