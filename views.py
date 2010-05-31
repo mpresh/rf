@@ -7,6 +7,8 @@ from django.conf import settings
 import simplejson as json
 import urllib
 import os
+import hashlib
+import base64
 import shutil
 
 def test(request):
@@ -167,7 +169,13 @@ def event_home(req, event_id=""):
         e = Event.objects.get(id=event_id)
     else:
         e = None
-        
+    
+    if 'refer' in req.GET:
+        refer_username = base64.b64decode(req.GET['refer'])
+        refer_user = User.objects.get(username=refer_username)	
+    else:
+        refer_user = None
+
     # logged in
     e.num_attendees = len(e.attendees.all())
     e.spots_left = e.capacity - e.num_attendees
@@ -182,15 +190,23 @@ def event_home(req, event_id=""):
                 if event.id == e.id:
                     going = True
 
+            invite_url = req.build_absolute_uri() 
+            if invite_url.find("?") == -1:
+                invite_url = invite_url + "?"
+            #invite_url = invite_url + "&refer=" + hashlib.sha1(user.name + e.name).hexdigest()[:8]
+            invite_url = invite_url + "&refer=" + base64.b64encode(user.username)
             return render_to_response('event_home.html', {"event" : e,
                                                           "user" : user,
                                                           "going" : going,
                                                           "attendees" : e.attendees.all(),
-                                                          "map_key" : settings.GOOGLE_MAP_API})
+                                                          "map_key" : settings.GOOGLE_MAP_API,
+                                                          "invite_url" : invite_url,
+                                                          "refer_user": refer_user})
         else:
             return render_to_response('event_home.html', {"user" : user,
                                                           "attendees": [],
-                                                          "map_key" : settings.GOOGLE_MAP_API})
+                                                          "map_key" : settings.GOOGLE_MAP_API,
+                                                          "refer_user": refer_user})
 
     # not logged in
     else:
@@ -198,9 +214,11 @@ def event_home(req, event_id=""):
         if e:
             return render_to_response('event_home.html', {"event" : e,
                                                           "attendees" : e.attendees.all(),
-                                                          "map_key" : settings.GOOGLE_MAP_API})
+                                                          "map_key" : settings.GOOGLE_MAP_API,
+                                                          "refer_user": refer_user})
         else:
-            return render_to_response('event_home.html', {"map_key" : settings.GOOGLE_MAP_API})
+            return render_to_response('event_home.html', {"map_key" : settings.GOOGLE_MAP_API,
+                                                          "refer_user": refer_user})
 
 
 def event_add_user(req):
@@ -371,9 +389,9 @@ def event_tweet_invite(req, event_id=""):
     event = Event.objects.get(id=event_id)
     user = User.objects.get(id=req.session["user_id"])	
 
-    url = "http:// www.testmikepreshman.com"
+    url = req.GET['invite_url']
     if 'data' in req.GET and req.GET['data'].strip() != "":
-        msg = req.GET['data']
+        msg = url + req.GET['data']
     else:
         msg = url + ": Dicounted Invite to " + event.name
 

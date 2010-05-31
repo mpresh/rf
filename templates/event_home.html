@@ -37,7 +37,6 @@
 	<div id="header_msg" class="quiet"><font size = 4.5em>you and your friends are 19 points away from a prize</font></div>
 	<BR>
 	  
-	
 	<input id="going_button" type="submit" class="button" value="Count me In!"> &nbsp; &nbsp;
 	<button href='#' id="invite_button" class="button2" rel="#invite_popup">Tell Friends</button>
       </div>
@@ -51,6 +50,15 @@
 	<input id="login_button" type="submit" class="button" value="Login: See if your friends are going." onClick="location.href='/login/'"> &nbsp; &nbsp;
       </div>
 {% endif%}
+
+
+{% if refer_user %}
+
+<div id="refer_info_box">
+You have been Invited by {{refer_user.name}} &nbsp;&nbsp;<img src="{{refer_user.profile_pic}}" />
+</div>
+
+{% endif %}
 
 
 <div id="invite_popup" class="simple_overlay">
@@ -151,9 +159,12 @@ $(document).ready(function() {
 		$.ajax({
                     url: '/ajax/event_tweet_invite/{{event.id}}', 
                     dataType: "json",
-                    data: {data: $("#tweet_text").val()}, 
+                    data: {data: $("#tweet_text").val(), 
+                    invite_url: '{{invite_url}}',
+                          }, 
                     success: function(data){
-                        $("#tweet_msg").html(data["msg"]);  
+                        $("#tweet_msg").html("Tweet Sent Succesfully");
+                        $("#tweet_text").val(data["msg"]);
 	        	     },
                     beforeSend: function() {
                         $("#tweet_invite_button").attr("disabled","disabled");                               
@@ -171,7 +182,7 @@ $(document).ready(function() {
 						},
 					onLoad: function(event) {
                                                 $("#tweet_msg").html("");
-                                                $("#tweet_text").val("This is a test tweet!");
+                                                $("#tweet_text").val("TEST: Dicounted Invite to my Friends.");
                                                 $("#tweet_invite_button").removeAttr("disabled");
 						display_friends_invite();
 					}
