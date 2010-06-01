@@ -60,18 +60,37 @@ You have been Invited by {{refer_user.name}} &nbsp;&nbsp;<img src="{{refer_user.
 
 {% endif %}
 
-
+<!-- This is the Invite popup code -->
 <div id="invite_popup" class="simple_overlay">
 
     <h1 id="header_invite">Invite Your Friends!</h1>
+
+    <ul class="tabs">
+       <li><a href="#">Twitter</a></li>
+       <li><a href="#">Facebook</a></li>
+       <li><a href="#">Email</a></li>
+    </ul>
+
+
+<!-- tab "panes" -->
+<div class="panes">
+  <div>
     <div class="twitterfriends">
-      <div id="tweet_title">&nbsp;Twitter Friends&nbsp;&nbsp;<input type="text" id="tweet_text" maxlength="140" size="30"></input><button id="tweet_invite_button">Tweet Invite</button></div>
+      <div id="tweet_title"><input type="text" id="tweet_text" maxlength="140" size="45"></input><button id="tweet_invite_button">Tweet Invite</button></div>
       <div id="tweet_msg"></div>
       <div id="twitlist"><img src="/site_media/images/ajax_loader.gif" /></div>
     </div>
     
     <BR />
     <input id="invite_dm_button" type="submit" class="button" value="Invite my friends" />
+  </div>
+
+
+  <div>Second tab content</div>
+
+  <div>Third tab content</div>
+</div>
+  
 </div>
 
 
@@ -254,6 +273,11 @@ $(document).ready(function() {
 	    });
     });
 
+// perform JavaScript after the document is scriptable.
+$(function() {
+    // setup ul.tabs to work as tabs for each div directly under div.panes
+    $("ul.tabs").tabs("div.panes > div");
+});
 
 function display_friends_invite() {
             $.ajax({
