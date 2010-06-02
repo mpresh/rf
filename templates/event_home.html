@@ -21,8 +21,8 @@
 {%if user%}
 
   {% if going %}
-      <div class="header notice">
-      	<h1>hello {{user.name}}!</h1>
+      <div class="headernote">
+      <h1>hello {{user.name}}!</h1>
 	<div id="header_msg" class="quiet"><font size = 4.5em>You are planning to go to this event.</font></div>
 	<BR>
 	  
@@ -32,9 +32,9 @@
 	  
       </div>
   {% else %}
-      <div class="header notice">
-      	<h1>hello {{user.name}}!</h1>
-	<div id="header_msg" class="quiet"><font size = 4.5em>you and your friends are 19 points away from a prize</font></div>
+      <div class="headernote">
+       	<h1>hello {{user.name}}!</h1>
+      	<div id="header_msg" class="quiet"><font size = 4.5em>you and your friends are 19 points away from a prize</font></div>
 	<BR>
 	  
 	<input id="going_button" type="submit" class="button" value="Count me In!"> &nbsp; &nbsp;
@@ -42,7 +42,7 @@
       </div>
   {% endif%}
 {% else %}
-      <div class="header notice">
+      <div class="headernote">
       	<h1>Hello There!</h1>
 	<div id="header_msg" class="quiet"><font size = 4.5em>There are {{event.num_attendees}} attending this event.</font></div>
 	<BR>

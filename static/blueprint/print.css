@@ -12,7 +12,6 @@
 ----------------------------------------------------------------------- */
 
 /* print.css */
-body {line-height:1.5;font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;color:#000;background:none;font-size:10pt;}
 .container {background:none;}
 hr {background:#ccc;color:#ccc;width:100%;height:2px;margin:2em 0;padding:0;border:none;}
 hr.space {background:#fff;color:#fff;visibility:hidden;}
@@ -27,3 +26,10 @@ blockquote {margin:1.5em;padding:1em;font-style:italic;font-size:.9em;}
 .hide {display:none;}
 a:link, a:visited {background:transparent;font-weight:700;text-decoration:underline;}
 a:link:after, a:visited:after {content:" (" attr(href) ")";font-size:90%;}
+.note1{
+	font-size: 24px;
+	color: red;
+	}
+.note1 h1{
+font-size: 24px;
+}
