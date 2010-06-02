@@ -25,30 +25,31 @@
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form action="/create/" method="post">
+<form id="createForm" action="/create/" method="post">
   <ul>
     <li>
 		<label for="event_name">Event Name:</label> 
-		<input type="text" name="event_name" id="event_name" />
+		<input type="text" name="event_name" id="event_name" class="required" />
 	</li>
 	
     <li>
       <label for="event_date_start">Event Start Date:</label> 
-      <input type="text" name="event_date_start" size="12" id="event_date_start" />
+      <input type="text" name="event_date_start" size="12" id="event_date_start" class="required" />
       
       <label for="event_time_start">Time:</label> 
-      <input type="text" name="event_time_start" size="8" id="event_time_start" />
+      <input type="text" name="event_time_start" size="8" id="event_time_start" class="required"/>
     </li>
 
     <li>
       <label for="event_date_end">Event End Date:</label> 
-      <input type="text" name="event_date_end" size="12" id="event_date_end"/>
+      <input type="text" name="event_date_end" size="12" id="event_date_end" class="required" />
           
-      <label for="event_time_end">Time:</label> <input type="text" size="8" name="event_time_end" id="event_time_end" />
+      <label for="event_time_end">Time:</label> 
+      <input type="text" size="8" name="event_time_end" id="event_time_end" class="required"/>
     </li>
 
     <li>
-		<label for="event_capacity">Event Capacity:</label> <input type="text" name="event_capacity" />
+		<label for="event_capacity">Event Capacity:</label> <input type="text" class="digits" name="event_capacity" />
 	</li>
 	
     <li>
@@ -66,11 +67,11 @@
 	</li>
 	
     <li>
-		<label for="event_price">Event Price:</label> <input type="text" name="event_price" />
+		<label for="event_price">Event Price:</label> <input type="text" class="number" name="event_price" />
 	</li>
 	
     <li>
-		<label for="event_url">Event URL:</label> <input type="text" name="event_url" />
+		<label for="event_url">Event URL:</label> <input type="text" name="event_url" class="url" />
 	</li>
 	<li>
 		<label for="image">Event Image:</label> 
@@ -83,7 +84,7 @@
 	<h3>Organizer Info:</h3>
     
 	<li>
-		<label for="person_email">Organizer Contact Email:</label> <input type="text" name="person_email" value="{{user.email}}" />
+		<label for="person_email">Organizer Contact Email:</label> <input type="text" name="person_email" class="required email" value="{{user.email}}" />
 	</li>
 
   </ul>
@@ -156,6 +157,7 @@ function ajaxFileUpload(file_name)
 
 
 $(document).ready(function() {
+                $("#createForm").validate();
 		$('#event_name').focus();	                			
 		$('#event_date_start').datepicker({ buttonImageOnly: false,
 			 					buttonImage: '/site_media/images/calendar.png',
