@@ -4,4 +4,4 @@ settings.py
 static/images/events/*
 static/images/tmp/*
 afetch/twistd.pid
-afetch/twistd.log
+afetch/twistd.log*

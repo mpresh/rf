@@ -72,29 +72,29 @@ You have been Invited by {{refer_user.name}} &nbsp;&nbsp;<img src="{{refer_user.
     </ul>
 
 
-<!-- tab "panes" -->
-<div class="panes">
-  <div>
-    <div class="twitterfriends">
-      <div id="tweet_title"><input type="text" id="tweet_text" maxlength="140" size="45"></input><button id="tweet_invite_button">Tweet Invite</button></div>
-      <div id="tweet_msg"></div>
-      <div id="twitlist"><img src="/site_media/images/ajax_loader.gif" /></div>
+    <!-- tab "panes" -->
+    <div class="panes">
+      <div>
+        <div class="twitterfriends">
+          <div id="tweet_title"><input type="text" id="tweet_text" maxlength="140" size="45"></input><button id="tweet_invite_button">Tweet Invite</button></div>
+          <div id="tweet_msg"></div>
+          <div id="twitlist"><img src="/site_media/images/ajax_loader.gif" /></div>
+        </div>
+        
+        <BR />
+        <input id="invite_dm_button" type="submit" class="button" value="Invite my friends" />
+      </div>
+    
+    
+      <div>Second tab content</div>
+    
+      <div>Third tab content</div>
+    </div>
+      
     </div>
     
+    
     <BR />
-    <input id="invite_dm_button" type="submit" class="button" value="Invite my friends" />
-  </div>
-
-
-  <div>Second tab content</div>
-
-  <div>Third tab content</div>
-</div>
-  
-</div>
-
-
-<BR />
 		
 <div class="yourprice">
   {% if going %}
@@ -121,7 +121,6 @@ You have been Invited by {{refer_user.name}} &nbsp;&nbsp;<img src="{{refer_user.
 
 
 
-
 {% endfor %}
       </div>
 
@@ -137,13 +136,11 @@ You have been Invited by {{refer_user.name}} &nbsp;&nbsp;<img src="{{refer_user.
   <div id="visual_map" style="width: 400px; height: 500px;" > </div>						
 	      
   <div id="title">
-    {{event.name}}
+    <a href="{{event.url}}" target="_blank" class="no_underline">{{event.name}}</a> 
   </div>
   <div id="details">
     {{event.venue}}, {{event.venue_address}}
-		
-
-    <a id="show_map" href="#"></a>
+    <a id="show_map" class="button no_underline" href="#"></a>
     <br />{{event.time}} 
   </div>
 </div>
@@ -186,7 +183,7 @@ $(document).ready(function() {
                         $("#tweet_text").val(data["msg"]);
 	        	     },
                     beforeSend: function() {
-                        $("#tweet_invite_button").attr("disabled","disabled");                               
+                        //$("#tweet_invite_button").attr("disabled","disabled");                               
                         $("#tweet_msg").html("<img width='20' height='20' src='/site_media/images/ajax-loader.gif' />Sending Tweet<img width='20' height='20' src='/site_media/images/ajax-loader.gif' />");
                     }
                    });

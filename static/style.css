@@ -242,16 +242,20 @@ div#refer_info_box {
 span#friend_name_text {
     font-size: x-large;
     color: #999900;
-}
-
-ul#friend_list {
     padding: 0;
     margin: 0;
 }
 
+ul#friend_list {
+    padding: 20px 50px 20px 50px;
+    margin: 0 0 0 0;
+}
+
 li.friend_list_item {
+    padding-bottom: 10px 10px 10px 10px;
+    margin: 0;
     list-style-type:none;
-    border-bottom: 1px solid #00CCFF;
+    border-bottom: 2px solid #00CCFF;
     cursor: pointer;
 }
 
@@ -327,3 +331,6 @@ ul.tabs a.current {
 }
 
 
+a.no_underline {
+    text-decoration: none;
+}
