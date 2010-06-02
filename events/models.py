@@ -19,6 +19,8 @@ class Event(models.Model):
     venue = models.CharField(max_length=100)
     venue_address = models.CharField(max_length=300)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    lat = models.DecimalField(max_digits=10, decimal_places=4)
+    lng = models.DecimalField(max_digits=10, decimal_places=4)
     url = models.URLField(verify_exists=True)
     image = models.URLField()
     organizer = models.ForeignKey(User, related_name="event_organized")

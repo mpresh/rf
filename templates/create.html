@@ -7,6 +7,9 @@
 <script type="text/javascript" src="/site_media/jquery.timePicker.js"> </script>
 <script type="text/javascript" src="/site_media/ajaxfileupload.js"> </script>
 <script type="text/javascript" src="/site_media/jquery.uploadify.js"> </script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key={{key}}"
+        type="text/javascript"></script> 
+
 
 	<link rel="stylesheet" href="/site_media/calendar-system.css" type="text/css" >
 	<link rel="stylesheet" href="/site_media/calendar-en.css" type="text/css" >
@@ -58,9 +61,14 @@
 	
     <li>
 		<label for="event_address">Venue Address:</label> 
-		<textarea rows="2" cols="30" name="event_address" ></textarea>
+		<input type="hidden" value="" name="event_lat" id="event_lat"></input>
+		<input type="hidden" value="" name="event_lng" id="event_lng"></input>                
+
+
+		<textarea rows="2" cols="30" name="event_address" id="event_address"></textarea>
+		<div id="address_map"></div>
 	</li>
-	
+	<br />
     <li>
 		<label for="event_description">Event Description:</label> 
 		<textarea rows="6" cols="40" name="event_description"> </textarea>
@@ -98,6 +106,14 @@
 
 
 <script>
+function initialize() {
+      if (GBrowserIsCompatible()) {
+        var map = new GMap2(document.getElementById("address_map"));
+        map.setCenter(new GLatLng(37.4419, -122.1419), {{zoom}});
+        map.setUIToDefault();
+      }
+    }
+
 function init() {
 	document.getElementById('file_upload_form').onsubmit=function() {
 		document.getElementById('file_upload_form').target = 'upload_target'; //'upload_target' is the name of the iframe
@@ -160,6 +176,28 @@ function ajaxFileUpload(file_name)
 
 
 $(document).ready(function() {
+                $("#event_address").keypress(function(){
+                    var map = new GMap2(document.getElementById("address_map"));
+                    var geocoder = new GClientGeocoder();
+
+                    geocoder.getLatLng(
+                        $(this).val(),
+                        function(point) {
+                            if (!point) {
+                                 //alert(" error, address not found");
+                            } else {
+                                 map.setCenter(point, 13);
+                                 var marker = new GMarker(point);
+                                 map.addOverlay(marker);
+                                 $("#event_lat").val(point.lat());
+                                 $("#event_lng").val(point.lng());
+                            }
+                        }
+                     );
+                });
+
+
+                initialize();
                 $("#createForm").validate();
 		$('#event_name').focus();	                			
 		$('#event_date_start').datepicker({ buttonImageOnly: false,

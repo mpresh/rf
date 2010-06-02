@@ -344,3 +344,10 @@ hr.horizontal_line {
     margin: 0;
     padding: 0;
 }
+
+div#address_map {
+    height: 300px;
+    width: 500px;
+    border:1px solid #666;
+    float: inherit;
+}
