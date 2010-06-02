@@ -60,6 +60,8 @@ def event_create(request):
         eurl = request.POST["event_url"]
         eprice = request.POST["event_price"]
         image = request.POST["event_image"]
+        elat = request.POST["event_lat"]
+        elng = request.POST["event_lng"]
 
         pemail = request.POST["person_email"]
         
@@ -73,8 +75,6 @@ def event_create(request):
         end_dt = datetime.datetime.strptime(end_date.strip() + " " + end_time.strip(), 
                                    "%m/%d/%Y %I:%M %p")
 
-		
-
         e = Event(name=ename, 
                   description=edescription, 
                   event_date_time_start=start_dt,
@@ -84,7 +84,9 @@ def event_create(request):
                   venue_address=eaddress,
                   organizer_id=user.id,
                   url=eurl,
-                  price=eprice)
+                  price=eprice,
+                  lat=elat,
+                  lng=elng)
         e.save()
 
 
@@ -100,7 +102,9 @@ def event_create(request):
 
         return HttpResponseRedirect("/thanks/" + str(e.id))
 	
-    return render_to_response('create.html', {"user" : user})
+    return render_to_response('create.html', {"user" : user, 
+                                              "key": settings.GOOGLE_MAP_API,
+                                              "zoom": 14})
 
 def event_register(request):
     user = User.objects.get(id=req.session["user_id"])	

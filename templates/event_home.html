@@ -72,29 +72,31 @@ You have been Invited by {{refer_user.name}} &nbsp;&nbsp;<img src="{{refer_user.
     </ul>
 
 
-<!-- tab "panes" -->
-<div class="panes">
-  <div>
-    <div class="twitterfriends">
-      <div id="tweet_title"><input type="text" id="tweet_text" maxlength="140" size="45"></input><button id="tweet_invite_button">Tweet Invite</button></div>
-      <div id="tweet_msg"></div>
-      <div id="twitlist"><img src="/site_media/images/ajax_loader.gif" /></div>
+    <!-- tab "panes" -->
+    <div class="panes">
+      <div>
+        <div class="twitterfriends">
+          <div id="tweet_title"><input type="text" id="tweet_text" maxlength="140" size="45"></input><button id="tweet_invite_button">Tweet Invite</button></div>
+          <div id="tweet_msg"></div>
+	  <a href="#" class="select_all_arrow"><img class="select_all_arrow" src="/site_media/images/arrow-down.gif"></img></a>
+	  <hr  class="horizontal_line "/>
+          <div id="twitlist"><img src="/site_media/images/ajax_loader.gif" /></div>
+        </div>
+        
+        <BR />
+        <input id="invite_dm_button" type="submit" class="button" value="Invite my friends" />
+      </div>
+    
+    
+      <div>Second tab content</div>
+    
+      <div>Third tab content</div>
+    </div>
+      
     </div>
     
+    
     <BR />
-    <input id="invite_dm_button" type="submit" class="button" value="Invite my friends" />
-  </div>
-
-
-  <div>Second tab content</div>
-
-  <div>Third tab content</div>
-</div>
-  
-</div>
-
-
-<BR />
 		
 <div class="yourprice">
   {% if going %}
@@ -121,7 +123,6 @@ You have been Invited by {{refer_user.name}} &nbsp;&nbsp;<img src="{{refer_user.
 
 
 
-
 {% endfor %}
       </div>
 
@@ -137,13 +138,11 @@ You have been Invited by {{refer_user.name}} &nbsp;&nbsp;<img src="{{refer_user.
   <div id="visual_map" style="width: 400px; height: 500px;" > </div>						
 	      
   <div id="title">
-    {{event.name}}
+    <a href="{{event.url}}" target="_blank" class="no_underline">{{event.name}}</a> 
   </div>
   <div id="details">
     {{event.venue}}, {{event.venue_address}}
-		
-
-    <a id="show_map" href="#"></a>
+    <br/><a id="show_map" class="button no_underline" href="#"></a>
     <br />{{event.time}} 
   </div>
 </div>
@@ -186,7 +185,7 @@ $(document).ready(function() {
                         $("#tweet_text").val(data["msg"]);
 	        	     },
                     beforeSend: function() {
-                        $("#tweet_invite_button").attr("disabled","disabled");                               
+                        //$("#tweet_invite_button").attr("disabled","disabled");                               
                         $("#tweet_msg").html("<img width='20' height='20' src='/site_media/images/ajax-loader.gif' />Sending Tweet<img width='20' height='20' src='/site_media/images/ajax-loader.gif' />");
                     }
                    });
@@ -201,7 +200,7 @@ $(document).ready(function() {
 						},
 					onLoad: function(event) {
                                                 $("#tweet_msg").html("");
-                                                $("#tweet_text").val("TEST: Dicounted Invite to my Friends.");
+                                                $("#tweet_text").val("TEST: Discounted Invite to my Friends.");
                                                 $("#tweet_invite_button").removeAttr("disabled");
 						display_friends_invite();
                                                                                                 
@@ -243,7 +242,7 @@ $(document).ready(function() {
 
 	if (GBrowserIsCompatible()) {
 	    var map = new GMap2(document.getElementById("visual_map"));
-	    map.setCenter(new GLatLng(37.4419, -122.1419), 13);
+	    map.setCenter(new GLatLng({{event.lat}}, {{event.lng}}), 13);
 	    map.setUIToDefault();
 	}			
 
@@ -258,7 +257,7 @@ $(document).ready(function() {
 			   
 			    if (GBrowserIsCompatible()) {
 				var map = new GMap2(document.getElementById("visual_map"));
-				map.setCenter(new GLatLng(37.4419, -122.1419), 13);
+				map.setCenter(new GLatLng({{event.lat}}, {{event.lng}}), 13);
 				map.setUIToDefault();
 			    }
 			});
@@ -278,6 +277,25 @@ $(function() {
     // setup ul.tabs to work as tabs for each div directly under div.panes
     $("ul.tabs").tabs("div.panes > div");
 });
+
+
+function setup_select_all_button() {
+    $("a.select_all_arrow").toggle(function() {
+       $(".friend_list_item").each(function(index) {
+                $(this).css("background-color", "#FF9933");    
+                $(this).find("input[name='invitee']").attr("checked", "yes");
+                $(this).find("img.checkbox_invite").attr("src", "/site_media/images/checkbox_checked.png");
+            });
+    }, 
+    function() {
+        $(".friend_list_item").each(function(index) {
+                $(this).css("background-color", "#FBF5EF");    
+                $(this).find("input[name='invitee']").removeAttr("checked");
+                $(this).find("img.checkbox_invite").attr("src", "/site_media/images/checkbox_unchecked.png");
+        });
+    });
+
+}
 
 function display_friends_invite() {
             $.ajax({
@@ -309,6 +327,7 @@ function display_friends_invite() {
                                    $(this).find("input[name='invitee']").removeAttr("checked");
                                    $(this).find("img.checkbox_invite").attr("src", "/site_media/images/checkbox_unchecked.png");
                                });
+                               setup_select_all_button(); 
 	                       
 	        	     },
                     beforeSend: function() {

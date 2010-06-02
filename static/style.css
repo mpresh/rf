@@ -113,7 +113,7 @@ div.transbox{
 	border:1px solid #666;	
 	background-color:#FBF5EF;	 
 	width: 700px;
-	height: 410px;
+	height: 430px;
 	padding: 35px;
 
     /* CSS3 styling for latest browsers */	 
@@ -195,6 +195,7 @@ div#twitlist {
     overflow: auto;
     height: 200px;
     width: 100 px;
+    margin: 0 0 0 0;
 }
 
 div#tweet_msg {
@@ -248,16 +249,20 @@ div#refer_info_box {
 span#friend_name_text {
     font-size: x-large;
     color: #999900;
-}
-
-ul#friend_list {
     padding: 0;
     margin: 0;
 }
 
+ul#friend_list {
+    padding: 0px 20px 2px 20px;
+    margin: 0 0 0 0;
+}
+
 li.friend_list_item {
+    padding: 2px 2px 2px 2px;
+    margin: 0;
     list-style-type:none;
-    border-bottom: 1px solid #00CCFF;
+    border-bottom: 2px solid #00CCFF;
     cursor: pointer;
 }
 
@@ -333,3 +338,22 @@ ul.tabs a.current {
 }
 
 
+a.no_underline {
+    text-decoration: none;
+}
+
+a.select_all_arrow {
+    margin: 0 0 0 589px;
+}
+
+hr.horizontal_line {
+    margin: 0;
+    padding: 0;
+}
+
+div#address_map {
+    height: 300px;
+    width: 500px;
+    border:1px solid #666;
+    float: inherit;
+}
