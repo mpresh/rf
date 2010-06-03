@@ -22,6 +22,10 @@ blockquote:before, blockquote:after, q:before, q:after {content:"";}
 blockquote, q {quotes:"" "";}
 a img {border:none;}
 
+ul, li {
+    list-style-type: none;
+}
+
 /* forms.css */
 label {
 	font-size: 16px;

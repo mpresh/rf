@@ -271,6 +271,10 @@ li:hover {
   background-color: #fd9;
 }
 
+#createForm li:hover {
+  background-color: #e5f2ff;
+}
+
 img.checkbox_invite {
     float: right;
     padding-right: 20px;
