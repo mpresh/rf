@@ -158,14 +158,14 @@ div.myfooter {
 div.time-picker {
   position: absolute;
   height: 200px;
-  width:4em; /* needed for IE */
+  width:11em; /* needed for IE */
   overflow: auto;
   background: #fff;
   border: 1px solid #000;
   z-index: 99;
 }
 div.time-picker-12hours {
-  width:6em; /* needed for IE */
+  width:11em; /* needed for IE */
 }
 
 div.time-picker ul {
@@ -176,6 +176,8 @@ div.time-picker ul {
 div.time-picker li {
   padding: 1px;
   cursor: pointer;
+  font-size: 14px;
+  text-align: center;
 }
 div.time-picker li.selected {
   background: #316AC5;
