@@ -351,3 +351,13 @@ div#address_map {
     border:1px solid #666;
     float: inherit;
 }
+
+div#description_box {
+    height: 60px;
+    width: 470px;
+    background-color: #FFF6BF;
+    border:1px solid #FFD324;
+    text-align: center;
+    font-size: 1.5em;
+    overflow: auto;
+}
