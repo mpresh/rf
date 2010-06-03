@@ -22,7 +22,7 @@
 
   {% if going %}
       <div class="headernote">
-      <h1>hello {{user.name}}!</h1>
+      <h1 ckass="header_name"> hello {{user.name}}!</h1>
 	<div id="header_msg" class="quiet"><font size = 4.5em>You are planning to go to this event.</font></div>
 	<BR>
 	  
@@ -33,7 +33,7 @@
       </div>
   {% else %}
       <div class="headernote">
-       	<h1>hello {{user.name}}!</h1>
+       	<h1 class="header_name">hello {{user.name}}!</h1>
       	<div id="header_msg" class="quiet"><font size = 4.5em>you and your friends are 19 points away from a prize</font></div>
 	<BR>
 	  
@@ -43,7 +43,7 @@
   {% endif%}
 {% else %}
       <div class="headernote">
-      	<h1>Hello There!</h1>
+      	<h1 class="header_name">Hello There!</h1>
 	<div id="header_msg" class="quiet"><font size = 4.5em>There are {{event.num_attendees}} attending this event.</font></div>
 	<BR>
 	  

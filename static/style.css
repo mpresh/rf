@@ -65,8 +65,9 @@ text-shadow:2px 2px #666;
 	font-size: 1.8em;
 	padding-right: 20px;
 }
-.attending{
+div.attending{
 	font-size: 1.2em;
+	overflow: auto;
 }
 #title{
 	font-size: 3em;
@@ -367,10 +368,14 @@ div#description_box {
     height: 60px;
     width: 446px;
     background-color: #FFF6BF;
-    border:1px solid #FFD324;
+    border:2px solid #FFD324;
     text-align: center;
     font-size: 1.5em;
     overflow: auto;
     padding: .8em;
 
+}
+
+h1.header_name {
+    font-size: 36px;
 }
