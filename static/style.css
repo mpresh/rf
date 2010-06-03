@@ -363,10 +363,14 @@ div#description_box {
     height: 60px;
     width: 446px;
     background-color: #FFF6BF;
-    border:1px solid #FFD324;
+    border:2px solid #FFD324;
     text-align: center;
     font-size: 1.5em;
     overflow: auto;
     padding: .8em;
 
+}
+
+h1.header_name {
+    font-size: 36px;
 }
