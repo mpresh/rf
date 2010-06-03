@@ -92,8 +92,6 @@
 	</li>
     <input type="hidden" value="" name="event_image" id="event_image"></input>
 
-    <br /><br />
-	<h3>Organizer Info: </h3>
     
 	<li>
 		<label for="person_email">Organizer Contact Email: </label> <input type="text" name="person_email" class="required email" value="{{user.email}}" />
@@ -110,7 +108,7 @@
 function initialize() {
       if (GBrowserIsCompatible()) {
         var map = new GMap2(document.getElementById("address_map"));
-        map.setCenter(new GLatLng(30.267153, -97.7430608), {{zoom}});
+        map.setCenter(new GLatLng(37.4419, -122.1419), {{zoom}});
         map.setUIToDefault();
       }
     }
