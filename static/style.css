@@ -2,16 +2,22 @@ div.top_login{
 	background-color:#FBF5EF;			
 }
 
-.header{
+.headernote{
+	background: none repeat scroll 0 0 #FFF6BF;
 	text-align: center;
+	font-size: 24px;
+	padding:.8em;
+	margin-bottom:1em;
+	border:2px solid #FFD324;
+	color: #514721;
 }
 
 h1#header_invite {
+	font-size: 16px;
     color: #9CB926;
     border-style:solid;
     border-color:#DDDDDD #CCCCCC #CCCCCC #DDDDDD;
     border-right:0 solid #CCCCCC;
-    text-shadow:2px 2px #719E03;
 }
 
 .button  {

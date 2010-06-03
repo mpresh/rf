@@ -1,0 +1,5 @@
+/* float clearing for ie */
+.clearthis, #main, #content-side #feed, #footer ul, .archive-nav
+{
+	zoom: 1;
+}

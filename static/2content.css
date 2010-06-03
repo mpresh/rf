@@ -1,0 +1,57 @@
+/*******************************/
+/**** absolute positioning  ****/
+/*******************************/
+#header #featured
+{
+	position: absolute;
+}
+#main, #header
+{
+	background-image: url(/site_media/images/look/body-bg.jpg);
+}
+#header
+, #header>div
+{
+	height: 141px;
+	position: relative;
+}
+#header>div
+{
+	padding: 20px;
+	background: url(/site_media/images/look/centerboard2.png) left top no-repeat;
+	width: 960px;
+}
+#header h1
+{
+	height: 115px;
+	left: 386px;
+	top: 121px;
+	width: 321px;
+}
+#header #featured
+{
+	left: 15px;
+	top: 329px;
+}
+#header #featured>div:first-child
+{
+	background-position: left top;
+	height: auto;
+	padding: 20px 0 6px;
+}
+#content
+{
+	background: #fff;
+}
+#content-main h2
+{
+	color: #7a7a7a;
+	font-size: 1.4em;
+	padding-bottom: 0;
+	text-transform: uppercase;
+}
+img
+{
+	border: 0;
+	text-decoration: none;
+}
