@@ -25,43 +25,43 @@
 
 {% block content %}
 <BR><BR><BR><BR>
-<h1>Create Event</h1>
+<h1><font size=18px>Create Event</font></h1>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <form id="createForm" action="/create/" method="post">
   <ul>
     <li>
-		<label for="event_name">Event Name:</label> 
+		<label for="event_name">Event Name: </label> 
 		<input type="text" name="event_name" id="event_name" class="required" />
 	</li>
 	
     <li>
-      <label for="event_date_start">Event Start Date:</label> 
+      <label for="event_date_start">Event Start Date: </label> 
       <input type="text" name="event_date_start" size="12" id="event_date_start" class="required" />
       
-      <label for="event_time_start">Time:</label> 
+      <label for="event_time_start">Time: </label> 
       <input type="text" name="event_time_start" size="8" id="event_time_start" class="required"/>
     </li>
 
     <li>
-      <label for="event_date_end">Event End Date:</label> 
+      <label for="event_date_end">Event End Date: </label> 
       <input type="text" name="event_date_end" size="12" id="event_date_end" class="required" />
           
-      <label for="event_time_end">Time:</label> 
+      <label for="event_time_end">Time: </label> 
       <input type="text" size="8" name="event_time_end" id="event_time_end" class="required"/>
     </li>
 
     <li>
-		<label for="event_capacity">Target # of Invites:</label> <input type="text" class="digits" name="event_capacity" />
+		<label for="event_capacity">Target # of Invites: </label> <input type="text" class="digits" name="event_capacity" />
 	</li>
 	
     <li>
-		<label for="event_venue">Event Venue:</label> <input type="text" name="event_venue" />
+		<label for="event_venue">Event Venue: </label> <input type="text" name="event_venue" />
 	</li>
 	
     <li>
-		<label for="event_address">Venue Address:</label> 
+		<label for="event_address">Venue Address: </label> 
 		<input type="hidden" value="" name="event_lat" id="event_lat"></input>
 		<input type="hidden" value="" name="event_lng" id="event_lng"></input>                
 
@@ -71,32 +71,32 @@
 	</li>
 	<br />
     <li>
-		<label for="event_description">Event Description:</label> 
+		<label for="event_description">Event Description: </label> 
 		<textarea rows="6" cols="40" name="event_description"> </textarea>
 	</li>
 	
     <li>
-		<label for="event_price">Event Price:</label> <input type="text" class="number" name="event_price" />
+		<label for="event_price">Event Price: </label> <input type="text" class="number" name="event_price" />
 	</li>
 <li>
-		<label for="event_discount">Early Bird Discounted Price:</label> <input type="text" class="number" name="event_discount" />
+		<label for="event_discount">Early Bird Discounted Price: </label> <input type="text" class="number" name="event_discount" />
 	</li>
 	
     <li>
-		<label for="event_url">Event URL:</label> <input type="text" name="event_url" class="url" />
+		<label for="event_url">Event URL: </label> <input type="text" name="event_url" class="url" />
 	</li>
 	<li>
-		<label for="image">Event Image:</label> 
+		<label for="image">Event Image: </label> 
 		<input name="image" id="image" type="file" onChange="ajaxFileUpload(this.value);"> </input>
 		<div class="image_preview"><br/><br/><br/><br/>Image Preview</div></p>
 	</li>
     <input type="hidden" value="" name="event_image" id="event_image"></input>
 
     <br /><br />
-	<h3>Organizer Info:</h3>
+	<h3>Organizer Info: </h3>
     
 	<li>
-		<label for="person_email">Organizer Contact Email:</label> <input type="text" name="person_email" class="required email" value="{{user.email}}" />
+		<label for="person_email">Organizer Contact Email: </label> <input type="text" name="person_email" class="required email" value="{{user.email}}" />
 	</li>
 
   </ul>
