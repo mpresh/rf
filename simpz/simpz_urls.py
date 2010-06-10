@@ -8,7 +8,7 @@ from tauth.views import *
 from django.contrib import admin
 admin.autodiscover()
 
-simpz_urlpatterns = patterns('',
+urlpatterns = patterns('',
                        (r'^$', index),
 
                        # twitter authentication auth module
@@ -54,9 +54,7 @@ simpz_urlpatterns = patterns('',
                        (r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
                         {'document_root': settings.MEDIA_ROOT}),
 
-                       #(r'^twitter/', include('twitter_app.urls')),
+                       
                        (r'^event_home/(?P<event_id>\d)/$', event_home),
-                       #url('^login/$', twitter_signin, name='login'),
-                       #url('^return/$', twitter_return, name='return'),
-                       #(r'^admin/', include(admin.site.urls)),
+                       
 )
