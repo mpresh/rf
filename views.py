@@ -42,8 +42,8 @@ def event_create(request):
     cur_dir = os.path.dirname(__file__)
     
     if "user_id" not in request.session:
-        request.session["redirect"] = "/create"        
-        return HttpResponseRedirect("/login")
+        request.session["redirect"] = "/simpz/create"        
+        return HttpResponseRedirect("/simpz/login")
 
     user = User.objects.get(id=request.session["user_id"])
 
@@ -100,7 +100,7 @@ def event_create(request):
           	shutil.copy(os.path.join(cur_dir, 'static/images/muse.png'),
                        os.path.join(cur_dir, 'static/images/events/' + str(e.id)))
 
-        return HttpResponseRedirect("/thanks/" + str(e.id))
+        return HttpResponseRedirect("/simpz/thanks/" + str(e.id))
 	
     return render_to_response('create.html', {"user" : user, 
                                               "key": settings.GOOGLE_MAP_API,
@@ -119,16 +119,16 @@ def event_thanks(request, event_id=""):
 
 def index(req):
     if "user_id" not in req.session:
-        req.session["redirect"] = "/"
+        req.session["redirect"] = "/simpz/"
         return render_to_response('index.html', {})
 
     user = User.objects.get(id=req.session["user_id"])	
-    req.session["redirect"] = "/"
+    req.session["redirect"] = "/simpz/"
 
     return render_to_response('index.html', {"user" : user})
 
 def event_details(req, event_id=""):
-    req.session["redirect"] = "/event_details/" + event_id
+    req.session["redirect"] = "/simpz/event_details/" + event_id
     if event_id:
         e = Event.objects.get(id=event_id)
         print "DIR", dir(e), e.invitation.all()
@@ -169,7 +169,7 @@ def user_details(req):
         return render_to_response('user.html')
 
 def event_home(req, event_id=""):
-    req.session["redirect"] = "/event_home/" + event_id
+    req.session["redirect"] = "/simpz/event_home/" + event_id
     if event_id:
         e = Event.objects.get(id=event_id)
     else:
@@ -264,7 +264,6 @@ def event_friend_attendees(req, event_id=""):
 
     if "user_id" not in req.session:
         return HttpResponse("ERROR: User must be authenticated!")
-
 
     if not event_id:
             return HttpResponse("ERROR: must provide event_id")

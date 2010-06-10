@@ -1,21 +1,21 @@
 {% extends "event_base.html" %}
 
 {% block  js_css_include %}
-	<script type="text/javascript" src="/site_media/jquery-ui-1.8.1.custom.js"> 
+	<script type="text/javascript" src="/simpz/site_media/jquery-ui-1.8.1.custom.js"> 
  </script>
-<script type="text/javascript" src="/site_media/jquery.ui.datepicker.js"> </script>
-<script type="text/javascript" src="/site_media/jquery.timePicker.js"> </script>
-<script type="text/javascript" src="/site_media/ajaxfileupload.js"> </script>
-<script type="text/javascript" src="/site_media/jquery.uploadify.js"> </script>
+<script type="text/javascript" src="/simpz/site_media/jquery.ui.datepicker.js"> </script>
+<script type="text/javascript" src="/simpz/site_media/jquery.timePicker.js"> </script>
+<script type="text/javascript" src="/simpz/site_media/ajaxfileupload.js"> </script>
+<script type="text/javascript" src="/simp/site_media/jquery.uploadify.js"> </script>
 <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key={{key}}"
         type="text/javascript"></script> 
 
 
-	<link rel="stylesheet" href="/site_media/calendar-system.css" type="text/css" >
-	<link rel="stylesheet" href="/site_media/calendar-en.css" type="text/css" >
-	<link rel="stylesheet" href="/site_media/jquery.calendar.css" type="text/css" >
-<link rel="stylesheet" href="/site_media/jquery.ptTimeSelect.css" type="text/css" >	
-<link type="text/css" href="/site_media/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />
+	<link rel="stylesheet" href="/simpz/site_media/calendar-system.css" type="text/css" >
+	<link rel="stylesheet" href="/simpz/site_media/calendar-en.css" type="text/css" >
+	<link rel="stylesheet" href="/simpz/site_media/jquery.calendar.css" type="text/css" >
+<link rel="stylesheet" href="/simpz/site_media/jquery.ptTimeSelect.css" type="text/css" >	
+<link type="text/css" href="/simpz/site_media/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />
 
 
 {% endblock %} 
@@ -29,7 +29,7 @@
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form id="createForm" action="/create/" method="post">
+<form id="createForm" action="/simpz/create/" method="post">
   <ul>
     <li>
 		<label for="event_name">Event Name: </label> 
@@ -125,10 +125,10 @@ function ajaxFileUpload(file_name)
         //starting setting some animation when the ajax starts and completes
         $("div.image_preview")
            .ajaxStart(function(){
-                $(this).html("<img src='/site_media/images/ajax-loader.gif' />");
+                $(this).html("<img src='/simpz/site_media/images/ajax-loader.gif' />");
         })
            .ajaxComplete(function(){ 
-	            $(this).html("<img src='/site_media/images/tmp/{{user.id}}_" + file_name + "'  />");
+	            $(this).html("<img src='/simpz/site_media/images/tmp/{{user.id}}_" + file_name + "'  />");
 				$('#event_image').val(file_name);
         });
 
@@ -145,7 +145,7 @@ function ajaxFileUpload(file_name)
         $.ajaxFileUpload
         (
                 {
-                        url:'/upload_image',
+                        url:'/simpz/upload_image',
                         secureuri:false,
                         fileElementId:'image',
                         dataType: 'json',
@@ -200,7 +200,7 @@ $(document).ready(function() {
                 $("#createForm").validate();
 		$('#event_name').focus();	                			
 		$('#event_date_start').datepicker({ buttonImageOnly: false,
-			 					buttonImage: '/site_media/images/calendar.png',
+			 					buttonImage: '/simpz/site_media/images/calendar.png',
 								showOn: 'both',
 								onSelect: 
 									function(dateText, inst) { 
@@ -208,7 +208,7 @@ $(document).ready(function() {
 											$('#event_date_end').val(dateText);
 										}}});
 		$('#event_date_end').datepicker({ buttonImageOnly: false,
-							    buttonImage: '/site_media/images/calendar.png',
+							    buttonImage: '/simpz/site_media/images/calendar.png',
 								showOn: 'both'});
 		$("#event_time_start").timePicker({
 				show24Hours: false,

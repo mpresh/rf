@@ -7,7 +7,7 @@
 }
 #main, #header
 {
-	background-image: url(/site_media/images/look/body-bg2.jpg);
+	background-image: url(/simpz/site_media/images/look/body-bg2.jpg);
 }
 #header
 , #header>div
@@ -17,7 +17,7 @@
 }
 #header>div
 {
-	background: url(/site_media/images/look/centerboard.png) center top no-repeat;
+	background: url(/simpz/site_media/images/look/centerboard.png) center top no-repeat;
 	width: 960px;
 }
 #header h1
