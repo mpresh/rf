@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponseServerError, HttpResponse
 from django.core.urlresolvers import reverse
-import oauth
+from pylib import oauth
 from utils import *
 from models import User
 from decorators import wants_user, needs_user
@@ -39,9 +39,8 @@ def tauth_info(req):
 
 @wants_user
 def login(req):
-	print "HERE I AM"
 	if 'redirect' not in req.session:
-		req.session['redirect'] = "/tauth_info"
+		req.session['redirect'] = "/simpz/tauth_info"
 
 	if req.user: 
 		redirect = req.session['redirect']
@@ -84,7 +83,6 @@ def callback(req):
 
 	if user.name == "":
 		info = user.is_authorized()
-		print "AAAAA", info
 		user.twitter_id = str(info["id"])
 		user.name = str(info["name"])
 		user.profile_pic = str(info["profile_image_url"])
@@ -155,10 +153,3 @@ def attendees(req):
 
 		return HttpResponse(json.dumps(friends_dict))
 	
-def maybe(req):
-	"""
-	Return a list of users maybe attending the event.
-	If logged in, friends returned first.
-	GET Parameter: event_id
-
-	"""

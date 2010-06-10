@@ -1,5 +1,5 @@
 from django.db import models
-import oauth
+from pylib import oauth
 import re, httplib
 import simplejson as json
 from utils import *
@@ -73,10 +73,7 @@ class User(models.Model):
 	def get_friend_list(self):
 		follow = self.get_follow_list()
 		followers = self.get_follower_list()
-		print "Get Friend List follow", follow
-		print "Get Friend List followers", followers
 		return_val = [val for val in follow if val in followers]
-		print "Friend Lsit", return_val
 		return return_val
 
 	def more_info(self, friends):
@@ -84,7 +81,6 @@ class User(models.Model):
 		friends_list = []
 		for friend in friends:
 			url = "http://api.twitter.com/1/users/show/" + str(friend) + ".json"
-			print "FRIEND", str(friend), url
 			friend_obj = json.loads(urllib.urlopen(url).read())
 			friends_list.append(
 				[friend,
@@ -108,7 +104,6 @@ class User(models.Model):
 			user_friends_list.remove(self.twitter_id)
 
 		for attendee in event_attendees_list:
-			print "Attending", attendee.twitter_id
 			if attendee.twitter_id in user_friends_list:
 				user_friends_list.remove(attendee.twitter_id)
 				
@@ -129,17 +124,14 @@ class User(models.Model):
 		s.connect((host, port))
 		s.send(to_send)
 
-		print "connection made", to_send
 		buf = ""
 		while 1:
 			incoming = s.recv(1000)
-			print "received ", incoming
 			if not incoming:
 				break
 			buf += incoming
 		s.close()
 		
-		print "result is", buf
 		friends_not_going_to_event = json.loads(buf)
 		return friends_not_going_to_event
 

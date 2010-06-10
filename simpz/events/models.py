@@ -1,7 +1,7 @@
 from django.db import models
-import oauth
+from pylib import oauth
 import re, httplib, simplejson
-from tauth.models import User
+from simpz.tauth.models import User
 
 #class Organizer(models.Model):
 #    fname = models.CharField(max_length=50)

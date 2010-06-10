@@ -24,7 +24,7 @@ def event_list(request):
 
 def upload_image(req):
     user = User.objects.get(id=req.session["user_id"])
-    cur_dir = os.path.dirname(__file__)
+    cur_dir = os.path.join(os.path.dirname(__file__), "..")
 
     if not os.path.exists(os.path.join(cur_dir, 'static/images/tmp')):
         os.mkdir(os.path.join(cur_dir, 'static/images/tmp'))
@@ -39,7 +39,7 @@ def upload_image(req):
     
 def event_create(request):
 
-    cur_dir = os.path.dirname(__file__)
+    cur_dir = os.path.join(os.path.dirname(__file__), "..")
     
     if "user_id" not in request.session:
         request.session["redirect"] = "/simpz/create"        
