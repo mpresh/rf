@@ -12,14 +12,22 @@ import base64
 import shutil
 import socket
 
-def test(request):
+def test(req):
+    req.session["redirect"] = "/simpz/test"        
     return render_to_response('test.html', {})
 
-def about(request):
+def about(req):
+    req.session["redirect"] = "/simpz/about"        
     return render_to_response('about.html', {})
 
-def event_list(request):
+def event_list(req):
+    req.session["redirect"] = "/simpz/list"        
     all_events = Event.objects.all()
+    if "user_id" in req.session:
+        user = User.objects.get(id=req.session["user_id"])
+        return render_to_response('list.html', {"events":all_events,
+                                                "user":user})
+
     return render_to_response('list.html', {"events":all_events})
 
 def upload_image(req):
@@ -37,35 +45,35 @@ def upload_image(req):
     destination.close() 
     return HttpResponse(json.dumps({}))
     
-def event_create(request):
+def event_create(req):
 
     cur_dir = os.path.join(os.path.dirname(__file__), "..")
     
-    if "user_id" not in request.session:
-        request.session["redirect"] = "/simpz/create"        
+    if "user_id" not in req.session:
+        req.session["redirect"] = "/simpz/create"        
         return HttpResponseRedirect("/simpz/login")
 
-    user = User.objects.get(id=request.session["user_id"])
+    user = User.objects.get(id=req.session["user_id"])
 
-    if "event_name" in request.POST and request.POST['event_name'] != "":
-        ename = request.POST["event_name"]
-        start_date = request.POST["event_date_start"]
-        end_date = request.POST["event_date_end"]
-        start_time = request.POST["event_time_start"]
-        end_time = request.POST["event_time_end"]
-        ecapacity = request.POST["event_capacity"]
-        evenue = request.POST["event_venue"]
-        eaddress = request.POST["event_address"]
-        edescription = request.POST["event_description"]
-        eurl = request.POST["event_url"]
-        eprice = request.POST["event_price"]
-        image = request.POST["event_image"]
-        elat = request.POST["event_lat"]
-        elng = request.POST["event_lng"]
+    if "event_name" in req.POST and req.POST['event_name'] != "":
+        ename = req.POST["event_name"]
+        start_date = req.POST["event_date_start"]
+        end_date = req.POST["event_date_end"]
+        start_time = req.POST["event_time_start"]
+        end_time = req.POST["event_time_end"]
+        ecapacity = req.POST["event_capacity"]
+        evenue = req.POST["event_venue"]
+        eaddress = req.POST["event_address"]
+        edescription = req.POST["event_description"]
+        eurl = req.POST["event_url"]
+        eprice = req.POST["event_price"]
+        image = req.POST["event_image"]
+        elat = req.POST["event_lat"]
+        elng = req.POST["event_lng"]
 
-        pemail = request.POST["person_email"]
+        pemail = req.POST["person_email"]
         
-        user = User.objects.get(id=request.session["user_id"])
+        user = User.objects.get(id=req.session["user_id"])
         user.email = pemail
         user.save()
 
@@ -106,11 +114,12 @@ def event_create(request):
                                               "key": settings.GOOGLE_MAP_API,
                                               "zoom": 14})
 
-def event_register(request):
+def event_register(req):
     user = User.objects.get(id=req.session["user_id"])	
     return render_to_response('register.html', {"user" : user})
 
-def event_thanks(request, event_id=""):
+def event_thanks(req, event_id=""):
+    req.session["redirect"] = "/simpz/thanks"        
     if event_id:
         e = Event.objects.get(id=event_id)
         return render_to_response('thanks.html', {"event" : e})
@@ -118,6 +127,7 @@ def event_thanks(request, event_id=""):
     return render_to_response('thanks.html', {"user" : user})
 
 def index(req):
+    req.session["redirect"] = "/simpz/"        
     if "user_id" not in req.session:
         req.session["redirect"] = "/simpz/"
         return render_to_response('index.html', {})
