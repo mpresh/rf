@@ -114,10 +114,6 @@ def event_create(req):
                                               "key": settings.GOOGLE_MAP_API,
                                               "zoom": 14})
 
-def event_register(req):
-    user = User.objects.get(id=req.session["user_id"])	
-    return render_to_response('register.html', {"user" : user})
-
 def event_thanks(req, event_id=""):
     req.session["redirect"] = "/simpz/thanks"        
     if event_id:

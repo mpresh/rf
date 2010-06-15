@@ -27,9 +27,7 @@ urlpatterns = patterns('',
                        url(r'ajax/event_attendees/(?P<event_id>\d+)/?$', 'views.event_attendees', name='event_attendees'),
                        url(r'ajax/event_friend_attendees/(?P<event_id>\d+)/?$', 'views.event_friend_attendees', name='event_friend_attendees'),
                        url(r'ajax/event_friend_not_attendees/(?P<event_id>\d+)/?$', 'views.event_friend_not_attendees', name='event_friend_not_attendees'),
-
 					
-                       
                        
                        url(r'ajax/event_not_going/(?P<event_id>\d+)/?$', 'views.event_not_going', name='event_not_going'),
                        url(r'ajax/event_going/(?P<event_id>\d+)/?$', 'views.event_going', name='event_going'),
@@ -38,22 +36,23 @@ urlpatterns = patterns('',
                        url(r'ajax/event_tweet_invite/(?P<event_id>\d+)/?$', 'views.event_tweet_invite', name='event_tweet_invite'),
                        url(r'ajax/event_tweet_invite_dm/(?P<event_id>\d+)/?$', 'views.event_tweet_invite_dm', name='event_tweet_invite_dm'),
 
+
                        # miscellaneous
                        url(r'map/?$', 'views.map', name='map'),
                        url(r'test/?$', 'views.test', name='test'),
                        url(r'upload_image/?$', 'views.upload_image', name='upload-image'),
   
-                       # old
-                       (r'thanks/(?P<event_id>\d+)/$', event_thanks),
-                       (r'details/(?P<event_id>\d+)/$', event_details),
-                       (r'user_details/$', user_details),
-                       (r'about/$', about),
-                       (r'list/$', event_list),
-                       (r'create/$', event_create),
-                       (r'register/$', event_register),
+                       url(r'event_home/(?P<event_id>\d)/?$', 'views.event_home', name='event_home'),                       
+                       url(r'thanks/(?P<event_id>\d+)/$', 'views.event_thanks', 'event_thanks'),
+                       url(r'details/(?P<event_id>\d+)/$', 'views.event_details', 'event_details'),
+                       url(r'user_details/$', 'views.user_details', 'user_details'),
+                       url(r'about/$', 'views.about', 'about'),
+                       url(r'list/$', 'views.event_list', 'event_list'),
+                       url(r'create/$', 'views.event_create', 'event_create'),
+                       
                        (r'site_media/(?P<path>.*)$', 'django.views.static.serve',
                               {'document_root': settings.MEDIA_ROOT}),
-                       (r'event_home/(?P<event_id>\d)/$', event_home),                       
+                       
 )
 
 #urlpatterns = patterns('',
