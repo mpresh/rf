@@ -2,17 +2,11 @@
 
 {% block login%}
 {% if user %}
-<div class="span-4 logout"><a href="/simpz/logout/">logout, {{user.username}} <img src="{{user.profile_pic}}" /></a></div>
+<div class="logout"><a href="/simpz/logout/">logout, {{user.username}} <img src="{{user.profile_pic}}" /></a></div>
 {% else %}
-<div class="span-4 logout"><a href="/simpz/login/"><img src="/simpz/site_media/images/twitter_button_5_lo.gif/" /></a><br/><br/></div>
+<div class="logout"><a href="/simpz/login/"><img src="/simpz/site_media/images/twitter_button_5_lo.gif/" /></a><br/><br/></div>
 {% endif %}
 {% endblock %}
-
-<div class="span-1 last" ></div>
-
-<div class="span-24 last header">
-  <BR />
-  <BR /><BR />
 </div>
 
 

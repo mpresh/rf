@@ -16,3 +16,13 @@ function friend_check_html(namev,urlv,userv) {
     return html;
 }
 
+
+$(document).ready(function() {
+    alert("here i AAAam");
+    $("#header").click(function() {
+        alert("clicked");
+        window.location = "/simpz/";
+    });
+
+    });
+

@@ -5,6 +5,8 @@ body,form,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,p,blockquote,fieldset /* reset */
 	margin: 0;
 	padding: 0;
 }
+
+
 /*******************************/
 /****    float clearing     ****/
 /*******************************/
@@ -70,15 +72,7 @@ a:hover {
 /*******************************/
 /****        header         ****/
 /*******************************/
-#header
-{
-	height: 147px;
-}
-#header h1
-{
-	left: 21px;
-	top: 15px;
-}
+
 #header h1 a
 {
 	background-image: url(/simpz/site_media/images/look/logo.png);
@@ -123,26 +117,25 @@ a:hover {
 {
 	color: #189aad;
 }
-/*******************************/
-/****         footer         ****/
-/*******************************/
 #footer, #footer>div
 {
-	background-color: black;
+	background: #fff url(/simpz/site_media/images/look/body-bg2.jpg) repeat-x;
 	height: 30px;
-	color: white;
+	color: #999999;
 	padding-top: 20px;
 	padding-left: 40px;
 	font-size: 1.1em;
 }
 /*******************************/
-/****      content-mai      ****/
+/****      content-main      ****/
 /*******************************/
 #content
 {
 	background-position: 0 -147px;
-	padding: 0 0 40px 20px;
-	width: 940px;
+	padding: 40px 0 40px 20px;
+	margin-left: 20%;
+	//width: 940px;
+	width: 60%;
 }
 #content h2
 , #content-main h3

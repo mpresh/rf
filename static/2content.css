@@ -28,11 +28,11 @@
 	top: 121px;
 	width: 321px;
 }
-#header #featured
-{
-	left: 15px;
-	top: 329px;
-}
+//#header #featured
+//{
+//	left: 15px;
+//	top: 329px;
+//}
 #header #featured>div:first-child
 {
 	background-position: left top;
