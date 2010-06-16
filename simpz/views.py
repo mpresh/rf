@@ -162,6 +162,8 @@ def map(request):
 def user_details(req, user_id=""):
     print "USER ID IS", user_id
     if user_id:
+        if user_id == "0":
+            return render_to_response('user.html', {"all": True})
         user = User.objects.get(id=user_id)	
         return render_to_response('user.html', {"user":user})
 
@@ -406,10 +408,11 @@ def event_tweet_invite(req, event_id=""):
     if len(msg) > 140:
         msg = msg[:140]
 
-    invite = Invite(message=msg,
-                    from_user_id=user.id,
-                    to_user_id=0,
-                    event_id=event.id)
+    (u, c) = User.objects.get_or_create(username="DEFAULT")
+    (invite, created) = Invite.objects.get_or_create(from_user=user,
+                                                     to_user=u,
+                                                     event=event)
+    invite.message = msg
     invite.save()
 
     user.tweet(msg)
@@ -438,6 +441,23 @@ def event_tweet_invite_dm(req, event_id=""):
     if len(msg) > 140:
         msg = msg[:140]
 
+    # iterate over friends and create a friend User record for each if doesnt exist
+    # create invite record for each
+    new_invites = []
+    for friend in friends:
+        print "FRIEND", friend
+        u = User.objects.get_or_create(username=friend)[0]
+        print "user", u.id, u
+        (invite, created) = Invite.objects.get_or_create(from_user=user,
+                                                         to_user=u,
+                                                         event=event)
+        invite.message = msg
+        invite.save()
+        print "INVITE", invite
+
+        if created:
+            new_invites.append(friend)
+
     dict = {}
     dict["cmd"] = "twitter_dm_users"
     dict["username"] = user.username
@@ -446,7 +466,7 @@ def event_tweet_invite_dm(req, event_id=""):
     dict["data"] = data
     dict["data"]["oauth_token"] = user.oauth_token
     dict["data"]["oauth_token_secret"] = user.oauth_token_secret
-    dict["data"]["users"] = friends
+    dict["data"]["users"] = new_invites
     dict["data"]["msg"] = msg
     to_send = json.dumps(dict) + "\n\r\n"
 
@@ -471,19 +491,6 @@ def event_tweet_invite_dm(req, event_id=""):
     s.close()
 
     print "done"
-    # iterate over friends and create a friend User record for each if doesnt exist
-    # create invite record for each
-    for friend in friends:
-        print "friends", friend
-        u = User.objects.get_or_create(username=friend)[0]
-
-        print "created user", u
-        invite = Invite(message=msg,
-                        from_user_id=user.id,
-                        to_user_id=u.id,
-                        event_id=event.id)
-        invite.save()
-        print "created invite"
 
     print "connection closed"
     ret_obj = {}

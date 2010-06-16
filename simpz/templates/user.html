@@ -19,8 +19,14 @@ URL: {{user.url}}
 </div>
 
 
-{% else %}
-<p>No User logged in.</p>
+{% else %} 
+         {% if all %}
+          <p>Receiver Represental ALL Users..</p>
+
+         {% else %}
+         <p>No User logged in.</p>
+         {% endif %}
+
 {% endif %}
 
 {% endblock %}
