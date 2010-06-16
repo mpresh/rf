@@ -5,6 +5,7 @@
 {% block content %}
 <p>User Details.</p>
 {% if user %}
+<img src="{{user.profile_pic}}" /><br />
 User Id: {{ user.id }} <br />
 Username: {{user.username}} <br />
 Email: {{user.email}} <br />

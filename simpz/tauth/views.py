@@ -12,7 +12,6 @@ import urllib
 def info(req):
 	if 'POST' == req.method:
 		req.user.email = req.POST['email']
-		#errors = req.user.validate()
 		errors = []
 		if not errors: req.user.save()
 		return render_to_response('info.html', {
@@ -145,7 +144,6 @@ def attendees(req):
 		friends_dict = {}
 		for friend in friends:
 			url = "http://api.twitter.com/1/users/show/" + str(friend) + ".json"
-			print "FRIEND", str(friend), url
 			friend_obj = json.loads(urllib.urlopen(url).read())
 			friends_dict[friend] = [friend_obj["name"], 
 						friend_obj["profile_image_url"], 

@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ObjectDoesNotExist
 from events.models import Event, Invite
 from tauth.models import User
 from django.conf import settings
@@ -154,6 +155,45 @@ def user_details(req, user_id=""):
         return render_to_response('user.html', {"user":user})
     else:
         return render_to_response('user.html')
+
+def invite(req, invite_id):
+    req.session["redirect"] = "/simpz/invite/" + invite_id
+    invite = None
+    if invite_id:
+        try:
+            invite = Invite.objects.get(id=invite_id)
+        except ObjectDoesNotExist as o:
+            invite = None
+
+    dict = {}
+    if "user_id" in req.session:
+        user = User.objects.get(id=req.session["user_id"])	
+        dict['user'] = user
+
+    if not invite:
+        return render_to_response('404.html', dict)
+    
+    dict["event"] = Event.objects.get(id=invite.event_id)
+    dict["from_user"] = User.objects.get(id=invite.from_user_id)
+    dict["to_user"] = User.objects.get(id=invite.to_user_id)
+    dict["attendees"] = invite.event.attendees.all()
+    dict["map_key"]  = settings.GOOGLE_MAP_API    
+    dict["created_at"]  = invite.created_at
+    dict["msg"]  = invite.message
+
+    if user:
+        # if this invite is not for you, don't show page
+        if user.id != dict['to_user'].id and user.username != "DEFAULT": 
+            return render_to_response('404.html', dict)
+
+        going = False
+        for event in user.events_going.all():
+            if event.id == e.id:
+                going = True
+
+        dict['going'] = going
+        
+    return render_to_response('invite.html', dict)
 
 def event_home(req, event_id=""):
     req.session["redirect"] = "/simpz/event_home/" + event_id

@@ -14,6 +14,8 @@ import socket
 import datetime
 
 def upload_image(req):
+    """Upload an image from the creation page onto server."""
+
     user = User.objects.get(id=req.session["user_id"])
     cur_dir = os.path.join(os.path.dirname(__file__), "..")
 
@@ -28,8 +30,8 @@ def upload_image(req):
     destination.close() 
     return HttpResponse(json.dumps({}))
 
-
 def event_add_user(req):
+    """Add user to event as attendee."""
     if "user_id" not in req.session:
         return HttpResponse("ERROR: User must be authenticated!")
 
@@ -55,7 +57,6 @@ def event_attendees(req, event_id=""):
         attendees_list.append([person.profile_pic, person.name])
 
     return HttpResponse(json.dumps(attendees_list))
-
 
 def event_friend_attendees(req, event_id=""):
     """
@@ -101,65 +102,8 @@ def event_friend_not_attendees(req, event_id=""):
 
     return HttpResponse(json.dumps(friends_not_going_to_event))
     
-
-def event_invite_friend(req, event_id=""):
-    """
-    Invite friend to event.
-    """
-    if "user_id" not in req.session:
-        return HttpResponse("ERROR: User must be authenticated!")
-
-    if not event_id:
-        return HttpResponse("ERROR: must provide event_id")
-
-    event = Event.objects.get(id=event_id)
-    user = User.objects.get(id=req.session["user_id"])	
-            
-    key = None
-    if "friend_twitter_id" in req.GET:
-        friend_twitter_id = req.GET["friend_twitter_id"]
-        key = "friend_twitter_id"
-    elif "friend_id" in req.GET:
-        friend_id = req.GET["friend_id"]
-        key = "friend_id"
-    elif "friend_username" in req.GET:
-        friend_username = req.GET["friend_username"]
-        key = "friend_username"
-
-    if not key:
-        return HttpResponse("ERROR: user invite info not provided.")
-
-    friend_obj = None
-    
-    try:
-        if key == "friend_twitter_id":
-            friend_obj = User.objects.get(twitter_id=friend_twitter_id)
-        elif key == "friend_id":
-            friend_obj = User.objects.get(id=friend_id)
-        else:
-            friend_obj = User.objects.get(username=friend_username)
-    except:
-        return HttpResponse("ERROR: user to invite does not exist.")
-
-
-    try:
-        Invite.objects.get(event=event.id,
-                           from_user_id=user.id,
-                           to_user_id=friend_obj.id)
-        return HttpResponse("Error: this invite already exists.")
-    except:
-        pass
-
-
-    i = Invite(message="come to my party",
-               from_user_id=1,
-               to_user_id=1,
-               event_id=1)
-    i.save()
-    return HttpResponse("Succesfully Invited User.")
-
-
 def event_not_going(req, event_id=""):
+    """ Not goign to event."""
     if "user_id" not in req.session:
         return HttpResponse("ERROR: User must be authenticated!")
 
@@ -175,6 +119,7 @@ def event_not_going(req, event_id=""):
     return HttpResponse("Succesfully Not Going to Event.")
 
 def event_going(req, event_id=""):
+    """ Going to event. """
     if "user_id" not in req.session:
         return HttpResponse("ERROR: User must be authenticated!")
     
@@ -185,7 +130,7 @@ def event_going(req, event_id=""):
     return HttpResponse("Succesfully Going to Event.")
 
 def event_tweet_invite(req, event_id=""):
-
+    """ Tweet out invite to everyone. """
     ret_obj = {}
 
     if "user_id" not in req.session:
@@ -216,7 +161,7 @@ def event_tweet_invite(req, event_id=""):
     return HttpResponse(json.dumps(ret_obj))
 
 def event_tweet_invite_dm(req, event_id=""):
-
+    """ Send invite to one person."""
     ret_obj = {}
 
     if "user_id" not in req.session:
