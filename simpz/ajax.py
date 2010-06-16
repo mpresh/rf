@@ -13,6 +13,10 @@ import shutil
 import socket
 import datetime
 
+AFETCH_PORT = 5002
+AFETCH_HOST = "localhost"
+
+
 def upload_image(req):
     """Upload an image from the creation page onto server."""
 
@@ -175,70 +179,56 @@ def event_tweet_invite_dm(req, event_id=""):
     friends = req.GET['invited_friends'].split(",")
     
     if 'data' in req.GET and req.GET['data'].strip() != "":
-        msg = url + " " + req.GET['data']
+        msg = req.GET['data']
     else:
-        msg = url + ": Dicounted Invite to " + event.name
+        msg = ": Dicounted Invite to " + event.name
 
-    if len(msg) > 140:
-        msg = msg[:140]
+    # shorten message so that it fits into a tweet
+    if len(msg) > 115:
+        msg = msg[:115]
+    msg = url + " " + msg
 
     # iterate over friends and create a friend User record for each if doesnt exist
     # create invite record for each
     new_invites = []
     for friend in friends:
-        print "FRIEND", friend
-        u = User.objects.get_or_create(username=friend)[0]
-        print "user", u.id, u
-        (invite, created) = Invite.objects.get_or_create(from_user=user,
-                                                         to_user=u,
-                                                         event=event)
+        (u, created_user) = User.objects.get_or_create(username=friend)
+        (invite, created_invite) = Invite.objects.get_or_create(from_user=user,
+                                                                to_user=u,
+                                                                event=event)
         invite.message = msg
         invite.save()
-        print "INVITE", invite
 
-        if created:
-            new_invites.append(friend)
+        if created_invite:
+            new_friends.append(friend)
 
     dict = {}
     dict["cmd"] = "twitter_dm_users"
     dict["username"] = user.username
 
     data = {}
+    data["oauth_token"] = user.oauth_token
+    data["oauth_token_secret"] = user.oauth_token_secret
+    data["users"] = new_friends
+    data["msg"] = msg
     dict["data"] = data
-    dict["data"]["oauth_token"] = user.oauth_token
-    dict["data"]["oauth_token_secret"] = user.oauth_token_secret
-    dict["data"]["users"] = new_invites
-    dict["data"]["msg"] = msg
     to_send = json.dumps(dict) + "\n\r\n"
 
-    print "TO SEND", to_send
-		
-    port = 5002
-    host = "localhost"
+    afetch_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    afetch_socket.connect((AFETCH_HOST, AFETCH_PORT))
+    afetch_socket.send(to_send)
 
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((host, port))
-    s.send(to_send)
-
-    print "connection made", to_send
-    buf = ""
+    buffer = ""
     while 1:
-        print "Waiting to receive"
-        incoming = s.recv(1000)
-        print "received ", incoming
+        incoming = afetch_socket.recv(1000)
         if not incoming:
             break
-        buf += incoming
-    s.close()
+        buffer += incoming
+    afetch_socket.close()
 
-    print "done"
-
-    print "connection closed"
     ret_obj = {}
-    ret_obj["ret"] = buf
+    ret_obj["ret"] = buffer
     ret_obj["msg"] = "Sent DM to " + " ".join(friends) +  " " + msg
 
-    print "HEY THERE"
     ret_val = json.dumps(ret_obj)
-    print "RETURN", ret_val
     return HttpResponse(ret_val)

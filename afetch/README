@@ -2,5 +2,5 @@ This is an asynchronous Twisted server that receives
 commands on port 5002 and executes some functionality.
 
 To start this server, run
-twistd -y afetch.tac
+twistd -y afetch.py
 

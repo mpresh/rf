@@ -6,16 +6,19 @@ import os
 import sys
 
 from twisted.internet import reactor, defer, task, protocol
-from twisted.web import client
+from twisted.web import client, static, server
 from twisted.protocols import basic
+from twisted.application import service, internet
 
 import simplejson as json
 
 from commands import *
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")))
-
 import settings
+
+import memcache
+mc = memcache.Client(['127.0.0.1:11211'], debug=0)
 
 def printPage(data, url):
     print url
@@ -48,7 +51,10 @@ class CacheProtocol(basic.LineReceiver):
 
         else:
             command_func = command_map[obj["cmd"]]
-            command_func(obj["data"], conn=self)
+            command_func(data=obj["data"],
+			username=obj["username"],
+	    		conn=self, 
+			mc=mc)
 
 
     def lineReceived(self, line):
@@ -83,10 +89,10 @@ class CacheServerFactory(protocol.ServerFactory):
     def stopFactory(self):
         print "Factory stopped"
 
-def main():
-    port = 5002
-    reactor.listenTCP(port, CacheServerFactory( ))
-    reactor.run( )
 
-if __name__ == "__main__":
-    sys.exit(main())
+port = 5002
+
+application = service.Application("afetch") 
+fetchService = internet.TCPServer(port, CacheServerFactory())
+fetchService.setServiceParent(application)
+
