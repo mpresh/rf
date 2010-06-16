@@ -134,34 +134,22 @@ def index(req):
     return render_to_response('index.html', {"user" : user})
 
 def event_details(req, event_id=""):
+
+    dict = {}
+    if "user_id" in req.session:
+        user = User.objects.get(id=req.session["user_id"])
+        dict['user'] = user
+
     req.session["redirect"] = "/simpz/event_details/" + event_id
     if event_id:
         e = Event.objects.get(id=event_id)
-        print "DIR", dir(e), e.invitation.all()
-
-        if "user_id" in req.session:
-            user = User.objects.get(id=req.session["user_id"])
-            print "User registered", dir(user)
+        dict['event'] = e
+        dict['invites'] = e.invitation.all()
+        dict['attendess'] = e.attendees.all()
             
-            # provide information about friends that are attending with profile pic, name, twitter_name, twitter_id
-            friends = user.get_friend_list()
-            friends_list = []
-            for u in e.attendees.all():
-                if u.twitter_id in friends:
-                    friends_list.append(u)
-            return render_to_response('details.html', {"user" : user,
-                                                       "event" : e,
-                                                       "attendees":friends_list,
-                                                       "invites" : e.invitation.all()})
-	else:
-
-            # provide people that are attending with profile pic, name, twitter_name, twitter_id
-            return render_to_response('details.html', {"event" : e,
-                                                       "attendees" : e.attendees.all(),
-                                                       "invites" : e.invitation.all()})
-
-
-    return render_to_response('details.html', {})
+        return render_to_response('details.html', dict)
+	
+    return render_to_response('details.html', dict)
 
 def map(request):
     return render_to_response('map.html', {"key": settings.GOOGLE_MAP_API,
@@ -302,6 +290,7 @@ def event_friend_not_attendees(req, event_id=""):
     user = User.objects.get(id=req.session["user_id"])
 
     friends_not_going_to_event = user.get_friends_not_attending_event(event)
+    print "HERE I AM", friends_not_going_to_event
 
     return HttpResponse(json.dumps(friends_not_going_to_event))
     

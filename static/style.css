@@ -197,7 +197,7 @@ div.image_preview  img{
 
 div#twitlist {
     overflow: auto;
-    height: 200px;
+    height: 240px;
     width: 100 px;
     margin: 0 0 0 0;
 }
@@ -271,7 +271,7 @@ li.friend_list_item {
 }
 
 li:hover {
-  background-color: #fd9;
+  background-color: #e5f2ff;
 }
 
 #createForm li:hover {
@@ -380,4 +380,9 @@ div#description_box {
 
 h1.header_name {
     font-size: 36px;
+}
+
+
+div.logout {
+	   margin-bottom: 70px;
 }

@@ -43,6 +43,11 @@
 {
 	background: #fff;
 }
+
+#content h2 {
+     font-size: 26px;
+}
+
 #content-main h2
 {
 	color: #7a7a7a;
