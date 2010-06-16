@@ -190,7 +190,7 @@ def event_tweet_invite_dm(req, event_id=""):
 
     # iterate over friends and create a friend User record for each if doesnt exist
     # create invite record for each
-    new_invites = []
+    new_friends = []
     for friend in friends:
         (u, created_user) = User.objects.get_or_create(username=friend)
         (invite, created_invite) = Invite.objects.get_or_create(from_user=user,

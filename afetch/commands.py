@@ -15,6 +15,14 @@ import oauth
 
 from twittytwister import twitter
 
+os.environ['DJANGO_SETTINGS_MODULE'] = "settings"
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render_to_response, get_object_or_404
+from django.core.urlresolvers import reverse
+from simpz.events.models import Event, Invite
+from simpz.tauth.models import User
+from django.conf import settings
+
 def consumer():
     try: return consumer._consumer
     except AttributeError:
@@ -24,6 +32,19 @@ def consumer():
 
 def token(oauth_token, oauth_token_secret):
     return oauth.OAuthToken(oauth_token, oauth_token_secret)
+
+def fillUserInfo(user_data):
+    """Fill In User Information."""
+    print "Filling User Info", user_data
+    user = User.objects.get(username=user_data.screen_name)
+    user.profile_pic = user_data.profile_image_url
+    user.name = user_data.name
+    user.username = user_data.screen_name
+    user.twitter_id = user_data.id
+    user.save()
+
+    print "Finished Filling In User Info", user.name
+    return True
 
 def gotUser(user_data):
     dict = {}
@@ -39,7 +60,8 @@ def sentDM(result):
     return result
 
 def gotError(fail):
-    print "There was a fail", fail
+    print "There was an ERROR:", dir(fail)
+    print "Fail:", fail
 
 def done(result, **kwargs):
     start = kwargs["start"]
@@ -97,7 +119,8 @@ def get_twitter_user_info(**kwargs):
 
     kwargs["start"] = time.time()
     d = twitter.Twitter(consumer=consumer(), 
-                        token=token(data["oauth_token"])).show_user(info_user)
+                        token=token(data["oauth_token"],
+                                    data["oauth_token_secret"])).show_user(info_user)
     d.addCallback(gotUser)
     d.addErrback(gotError)
     d.addCallback(done, **kwargs)
@@ -135,24 +158,29 @@ def get_twitter_user_list_info(**kwargs):
 
 def send_dm_invites(**kwargs):
     """Send DM invites to users. """
-
+    print "JJJJJJJJJJJJJJJJJJJJJJJJ"
     kwargs["start"] = time.time()
     data = kwargs["data"]
     msg = data["msg"]
 
     deferred_list = []
+    print "DATA", data
     for user in data["users"]:
         print "Creating deferred", user
-        d = twitter.Twitter(consumer=consumer(), 
-                            token=token(data["oauth_token"], 
-                                        data["oauth_token_secret"])).send_direct_message(msg,
-                                                                                         screen_name=user)
+        dm_deferred = twitter.Twitter(consumer=consumer(), 
+                                      token=token(data["oauth_token"], 
+                                                  data["oauth_token_secret"])).send_direct_message(msg,
+                                                                                                   screen_name=user)
 
-        print "D is", d, type(d)
-        d.addCallback(sentDM)
-        d.addErrback(gotError)
-        deferred_list.append(d)
-        print "KOO11"
+        print "here I am creating", user
+        user_info_deferred = twitter.Twitter(consumer=consumer(), 
+                                             token=token(data["oauth_token"],
+                                                         data["oauth_token_secret"])).show_user(user)
+        user_info_deferred.addCallback(fillUserInfo)
+
+        dm_deferred.addCallback(sentDM)
+        dm_deferred.addErrback(gotError)
+        deferred_list.append(user_info_deferred)
 
     dl = defer.DeferredList(deferred_list)
     print "dl", dl
