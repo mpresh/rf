@@ -236,19 +236,6 @@ button#tweet_invite_button {
     margin-top: -6px;
 }
 
-div#refer_info_box {
-    height: 50px;
-    background:#FFF6BF;
-    #color:#514721;
-    color:#3333FF;
-    border-color:#FFD324;
-    padding:.8em;
-    margin-bottom:1em;
-    border:2px solid #FFD324;
-    text-align: center;
-    font-size: large;
-    
-}
 
 span#friend_name_text {
     font-size: x-large;
@@ -378,6 +365,23 @@ div#description_box {
 
 }
 
+
+div#refer_info_box {
+    height: 50px;
+    width: 442px;
+    background:#FFF6BF;
+    #color:#514721;
+    color:#3333FF;
+    border-color:#FFD324;
+    padding:.8em;
+    margin-top: 1em;
+    margin-bottom:1em;
+    border:2px solid #FFD324;
+    text-align: center;
+    font-size: large;
+}
+
+
 h1.header_name {
     font-size: 36px;
 }
@@ -386,3 +390,19 @@ h1.header_name {
 div.logout {
 	   margin-bottom: 70px;
 }
+
+table#details_table th{
+    padding: 5px;
+    border-width: 1px;
+    //background-color: green;
+    border-style: solid;
+}
+
+
+table#details_table td{
+    padding: 10px;
+    border-width: 1px;
+    //background-color: green;
+    border-style: solid;
+}
+

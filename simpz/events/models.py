@@ -3,13 +3,6 @@ from pylib import oauth
 import re, httplib, simplejson
 from simpz.tauth.models import User
 
-#class Organizer(models.Model):
-#    fname = models.CharField(max_length=50)
-#    lname = models.CharField(max_length=50)
-#    email = models.EmailField()
-#    twitter = models.CharField(max_length=50, default="")
-#    #events = models.ManyToManyField('Event', related_name="organizers")
-
 class Event(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
@@ -33,10 +26,5 @@ class Invite(models.Model):
     to_user = models.ForeignKey(User, related_name="received_invite")
     event = models.ForeignKey(Event, related_name="invitation")
     created_at = models.DateTimeField(auto_now_add=True)
+    
 
-
-#class Attendee(models.Model):
-#    fname = models.CharField(max_length=50)
-#    lname = models.CharField(max_length=50)
-#    email = models.EmailField()
-#    twitter = models.CharField(max_length=50, default="")

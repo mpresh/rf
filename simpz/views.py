@@ -11,6 +11,7 @@ import hashlib
 import base64
 import shutil
 import socket
+import datetime
 
 def test(req):
     req.session["redirect"] = "/simpz/test"        
@@ -77,7 +78,7 @@ def event_create(req):
         user.email = pemail
         user.save()
 
-        import datetime
+        
         start_dt = datetime.datetime.strptime(start_date.strip() + " " + start_time.strip(), 
                                      "%m/%d/%Y %I:%M %p")
         end_dt = datetime.datetime.strptime(end_date.strip() + " " + end_time.strip(), 
@@ -147,6 +148,9 @@ def event_details(req, event_id=""):
         dict['invites'] = e.invitation.all()
         dict['attendess'] = e.attendees.all()
             
+        invites = Invite.objects.filter(event=e.id)
+        dict['invites'] = invites
+
         return render_to_response('details.html', dict)
 	
     return render_to_response('details.html', dict)
@@ -155,7 +159,12 @@ def map(request):
     return render_to_response('map.html', {"key": settings.GOOGLE_MAP_API,
                                            "zoom": 14})
 
-def user_details(req):
+def user_details(req, user_id=""):
+    print "USER ID IS", user_id
+    if user_id:
+        user = User.objects.get(id=user_id)	
+        return render_to_response('user.html', {"user":user})
+
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])	
         return render_to_response('user.html', {"user":user})
@@ -397,6 +406,12 @@ def event_tweet_invite(req, event_id=""):
     if len(msg) > 140:
         msg = msg[:140]
 
+    invite = Invite(message=msg,
+                    from_user_id=user.id,
+                    to_user_id=0,
+                    event_id=event.id)
+    invite.save()
+
     user.tweet(msg)
     ret_obj["msg"] = "Tweeted: " +  msg
     return HttpResponse(json.dumps(ret_obj))
@@ -454,6 +469,21 @@ def event_tweet_invite_dm(req, event_id=""):
             break
         buf += incoming
     s.close()
+
+    print "done"
+    # iterate over friends and create a friend User record for each if doesnt exist
+    # create invite record for each
+    for friend in friends:
+        print "friends", friend
+        u = User.objects.get_or_create(username=friend)[0]
+
+        print "created user", u
+        invite = Invite(message=msg,
+                        from_user_id=user.id,
+                        to_user_id=u.id,
+                        event_id=event.id)
+        invite.save()
+        print "created invite"
 
     print "connection closed"
     ret_obj = {}

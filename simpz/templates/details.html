@@ -5,7 +5,7 @@
 {% block content %}
 <h2>Event Details.</h2>
 {% if event %}
-<a href=/event_home/{{event.id}}>{{ event.name }}</a> <br />
+<a href=/simpz/event_home/{{event.id}}>{{ event.name }}</a> <br />
 Event Id: {{ event.id }} <br />
 Description: {{event.description}} <br />
 Start Time: {{event.event_date_time_start}} <br />
@@ -14,6 +14,25 @@ Capacity: {{event.capacity}} <br />
 Venue: {{event.venue }} <br />
 Venue Address: {{event.venue_address}} <br />
 Organizer: {{event.organizer_id}}
+
+<hr/>
+<table id="details_table">
+<tr>
+  <th>From</th>
+  <th>To</th>
+  <th>Message</th>
+  <th>CreatedAt</th>
+</tr>
+{% for invite in invites %}
+
+<tr>
+<td><a href="/simpz/user_details/{{invite.from_user_id}}/">{{invite.from_user_id}}</a></td>
+<td><a href="/simpz/user_details/{{invite.to_user_id}}/">{{invite.to_user_id}}</a></td>
+<td>{{invite.message}}</td>
+<td>{{invite.created_at}}</td>
+</tr>
+{% endfor %}
+<table>
 
 {% else %}
 <p>No valid event provided.</p>

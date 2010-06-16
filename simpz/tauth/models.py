@@ -13,12 +13,12 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(
 import settings
 
 class User(models.Model):
-	username = models.CharField(max_length=40)
-	email = models.EmailField()
-	name = models.CharField(max_length=100)
-	profile_pic = models.CharField(max_length=100)
-	twitter_id = models.CharField(max_length=20)
-	url = models.URLField()
+	username = models.CharField(max_length=40, default="")
+	email = models.EmailField(default="")
+	name = models.CharField(max_length=100, default="")
+	profile_pic = models.CharField(max_length=100, default="")
+	twitter_id = models.CharField(max_length=20, default="")
+	url = models.URLField(default="")
 
 	oauth_token = models.CharField(max_length=200)
 	oauth_token_secret = models.CharField(max_length=200)
