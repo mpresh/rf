@@ -129,8 +129,6 @@ def event_thanks(req, invite_id=""):
     if dict["event"].organizer_id != user.id:
         return HttpResponseRedirect("/simpz/")
 
-    print "A", util.get_invite_url(req) 
-    print "B", str(invite.id)
     dict["invite_url"] = util.get_invite_url(req) + str(invite.id)
     return render_to_response('thanks.html', dict)
 
@@ -173,15 +171,16 @@ def map(request):
 def user_details(req, user_id=""):
     req.session["redirect"] = "/simpz/user_details/" + user_id
 
+    dict = {}
     if user_id:
         user = User.objects.get(id=user_id)	
-        return render_to_response('user.html', {"user":user})
+        dict["user_info"] = user
 
     if "user_id" in req.session:
-        user = User.objects.get(id=req.session["user_id"])	
-        return render_to_response('user.html', {"user":user})
-    else:
-        return render_to_response('user.html')
+        user = User.objects.get(id=req.session["user_id"])
+	dict["user"] = user
+    
+    return render_to_response('user.html', dict)    
 
 def invite(req, invite_id):
     req.session["redirect"] = "/simpz/invite/" + invite_id
@@ -198,9 +197,9 @@ def invite(req, invite_id):
         dict['user'] = user
 
     if not invite:
-        print "LALALAL"
         return render_to_response('404.html', dict)
     
+    dict['invite_url'] = util.get_invite_url(req)
     dict["event"] = Event.objects.get(id=invite.event_id)
     dict["from_user"] = User.objects.get(id=invite.from_user_id)
     dict["to_user"] = User.objects.get(id=invite.to_user_id)

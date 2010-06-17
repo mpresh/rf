@@ -213,7 +213,6 @@ def event_tweet_invite_dm(req, event_id=""):
     data["oauth_token"] = user.oauth_token
     data["oauth_token_secret"] = user.oauth_token_secret
     data["users"] = new_friends
-    #data["msg"] = msg
     dict["data"] = data
     to_send = json.dumps(dict) + "\n\r\n"
 

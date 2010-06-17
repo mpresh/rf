@@ -166,7 +166,6 @@ def send_dm_invites(**kwargs):
     deferred_list = []
 
     for (user, msg) in data["users"]:
-        print "Creating deferred", user
         dm_deferred = twitter.Twitter(consumer=consumer(), 
                                       token=token(data["oauth_token"], 
                                                   data["oauth_token_secret"])).send_direct_message(msg,

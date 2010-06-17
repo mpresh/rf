@@ -5,13 +5,13 @@
 {% block content %}
 <p>User Details.</p>
 {% if user %}
-<img src="{{user.profile_pic}}" /><br />
-User Id: {{ user.id }} <br />
-Username: {{user.username}} <br />
-Email: {{user.email}} <br />
-Name: {{user.name }} <br />
-Twitter ID: {{user.twitter_id}} <br />
-URL: {{user.url}}
+<img src="{{user_info.profile_pic}}" /><br />
+User Id: {{ user_info.id }} <br />
+Username: {{user_info.username}} <br />
+Email: {{user_info.email}} <br />
+Name: {{user_info.name }} <br />
+Twitter ID: {{user_info.twitter_id}} <br />
+URL: {{user_info.url}}
 
 <br /><br />
 <input id="showfriends" type="submit" value="ShowFriends" />
@@ -33,10 +33,3 @@ URL: {{user.url}}
 {% endblock %}
 
 
-{% block jscript %}
-<script type="text/javascript">
-  $("#showfriends").click(function(){
-  $("#friends").html("HELLO ");
-  });
-</script>
-{% endblock %}
