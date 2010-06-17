@@ -188,7 +188,7 @@ def invite(req, invite_id):
     if invite_id:
         try:
             invite = Invite.objects.get(id=invite_id)
-        except ObjectDoesNotExist as o:
+        except ObjectDoesNotExist:
             invite = None
 
     dict = {}
