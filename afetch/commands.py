@@ -10,6 +10,7 @@ import simplejson as json
 # use local twitter lib                                                                                                                                                                                                                    
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)))))
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "../pylib")))
 import settings
 import oauth
 
