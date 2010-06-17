@@ -95,7 +95,11 @@ def event_create(req):
           	shutil.copy(os.path.join(cur_dir, 'static/images/muse.png'),
                        os.path.join(cur_dir, 'static/images/events/' + str(e.id)))
 
-        return HttpResponseRedirect("/simpz/thanks/" + str(e.id))
+        (u, c) = User.objects.get_or_create(username="DEFAULT")
+        (invite, created) = Invite.objects.get_or_create(from_user=user,
+                                                         to_user=u,
+                                                         event=e)
+        return HttpResponseRedirect("/simpz/thanks/" + str(invite.id))
 	
     dict = {}
     dict["user"] = user
@@ -104,13 +108,31 @@ def event_create(req):
     dict["invite_url"] = invite_url
     return render_to_response('create.html', dict)
 
-def event_thanks(req, event_id=""):
-    req.session["redirect"] = "/simpz/thanks"        
-    if event_id:
-        e = Event.objects.get(id=event_id)
-        return render_to_response('thanks.html', {"event" : e})
+def event_thanks(req, invite_id=""):
+    req.session["redirect"] = "/simpz/thanks/" + invite_id        
+    if "user_id" not in req.session:
+        return HttpResponseRedirect("/simpz/login")
+
+    dict = {}
     user = User.objects.get(id=req.session["user_id"])	
-    return render_to_response('thanks.html', {"user" : user})
+    dict["user"] = user
+
+    if invite_id:
+        invite = Invite.objects.get(id=invite_id)
+        dict["invite"] = invite
+        dict["from_user"] = User.objects.get(id=invite.from_user_id)
+        dict["to_user"] = User.objects.get(id=invite.to_user_id)
+        dict["event"] = Event.objects.get(id=invite.event_id)
+
+    if dict["from_user"].id != user.id:
+        return HttpResponseRedirect("/simpz/")
+    if dict["event"].organizer_id != user.id:
+        return HttpResponseRedirect("/simpz/")
+
+    print "A", util.get_invite_url(req) 
+    print "B", str(invite.id)
+    dict["invite_url"] = util.get_invite_url(req) + str(invite.id)
+    return render_to_response('thanks.html', dict)
 
 def index(req):
     req.session["redirect"] = "/simpz/"        
@@ -176,6 +198,7 @@ def invite(req, invite_id):
         dict['user'] = user
 
     if not invite:
+        print "LALALAL"
         return render_to_response('404.html', dict)
     
     dict["event"] = Event.objects.get(id=invite.event_id)
@@ -188,7 +211,7 @@ def invite(req, invite_id):
 
     if user:
         # if this invite is not for you, don't show page
-        if user.id != dict['to_user'].id and user.username != "DEFAULT": 
+        if user.id != dict['to_user'].id and dict["to_user"].username != "DEFAULT": 
             return render_to_response('404.html', dict)
 
         going = False

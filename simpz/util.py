@@ -1,6 +1,7 @@
 def get_invite_url(req):
     # getting the right path
     invite_url = req.build_absolute_uri() 
+
     start = invite_url.find("?")
     if start != -1:
         invite_url = invite_url[:start]
@@ -13,3 +14,4 @@ def get_invite_url(req):
         path = path[:-1]
 
     invite_url = invite_url[:len(path) * -1] + "/simpz/invite/"
+    return invite_url

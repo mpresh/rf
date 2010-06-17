@@ -51,10 +51,10 @@
 Description: {{event.description}}
 </div>
 
-{% if refer_user %}
+{% if from_user %}
 
 <div id="refer_info_box">
-You have been Invited by {{from_user.name}} &nbsp;&nbsp;<img src="{{refer_user.profile_pic}}" />
+You have been Invited by {{from_user.name}} &nbsp;&nbsp;<img src="{{from_user.profile_pic}}" />
 </div>
 
 {% endif %}

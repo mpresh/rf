@@ -39,7 +39,7 @@ urlpatterns = patterns('',
                        url(r'test/?$', 'views.test', name='test'),
 
                        url(r'event_home/(?P<event_id>\d)/?$', 'views.event_home', name='event_home'),                       
-                       url(r'thanks/(?P<event_id>\d+)/$', 'views.event_thanks', name='event_thanks'),
+                       url(r'thanks/(?P<invite_id>\d+)/$', 'views.event_thanks', name='event_thanks'),
                        url(r'event_details/(?P<event_id>\d+)/$', 'views.event_details', name='event_details'),
                        url(r'user_details/(?P<user_id>\d+)/$', 'views.user_details', name='user_details'),
                        url(r'about/$', 'views.about', name='about'),
