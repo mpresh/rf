@@ -13,6 +13,7 @@ import base64
 import shutil
 import socket
 import datetime
+import util
 
 def test(req):
     req.session["redirect"] = "/simpz/test"        
@@ -34,7 +35,8 @@ def event_list(req):
     
 def event_create(req):
     cur_dir = os.path.join(os.path.dirname(__file__), "..")
-    
+    invite_url = util.get_invite_url(req)
+
     if "user_id" not in req.session:
         req.session["redirect"] = "/simpz/create"        
         return HttpResponseRedirect("/simpz/login")
@@ -95,9 +97,12 @@ def event_create(req):
 
         return HttpResponseRedirect("/simpz/thanks/" + str(e.id))
 	
-    return render_to_response('create.html', {"user" : user, 
-                                              "key": settings.GOOGLE_MAP_API,
-                                              "zoom": 14})
+    dict = {}
+    dict["user"] = user
+    dict["key"] = settings.GOOGLE_MAP_API
+    dict["zoom"] = 14
+    dict["invite_url"] = invite_url
+    return render_to_response('create.html', dict)
 
 def event_thanks(req, event_id=""):
     req.session["redirect"] = "/simpz/thanks"        
@@ -202,11 +207,11 @@ def event_home(req, event_id=""):
     else:
         e = None
     
-    if 'refer' in req.GET:
-        refer_username = base64.b64decode(req.GET['refer'])
-        refer_user = User.objects.get(username=refer_username)	
-    else:
-        refer_user = None
+    #if 'refer' in req.GET:
+    #    refer_username = base64.b64decode(req.GET['refer'])
+    #    refer_user = User.objects.get(username=refer_username)	
+    #else:
+    #    refer_user = None
 
     # logged in
     e.num_attendees = len(e.attendees.all())
@@ -217,7 +222,7 @@ def event_home(req, event_id=""):
     dict = {}
     dict['event'] = e
     dict["map_key"]  = settings.GOOGLE_MAP_API
-    dict["refer_user"] = refer_user
+    #dict["refer_user"] = refer_user
     dict['attendees'] = []
 
     if "user_id" in req.session:
@@ -230,11 +235,11 @@ def event_home(req, event_id=""):
                 if event.id == e.id:
                     going = True
 
-            invite_url = req.build_absolute_uri() 
-            if invite_url.find("?") == -1:
-                invite_url = invite_url + "?"
-            #invite_url = invite_url + "&refer=" + hashlib.sha1(user.name + e.name).hexdigest()[:8]
-            invite_url = invite_url + "&refer=" + base64.b64encode(user.username)
+            invite_url = util.get_invite_url(req)
+
+            #if invite_url.find("?") == -1:
+            #    invite_url = invite_url + "?"
+            #invite_url = invite_url + "&refer=" + base64.b64encode(user.username)
             dict['going'] = going
             dict['attendees'] = e.attendees.all()
             dict['invite_url'] = invite_url

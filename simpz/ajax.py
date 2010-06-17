@@ -146,17 +146,20 @@ def event_tweet_invite(req, event_id=""):
 
     url = req.GET['invite_url']
     if 'data' in req.GET and req.GET['data'].strip() != "":
-        msg = url + req.GET['data']
+        msg = req.GET['data']
     else:
-        msg = url + ": Dicounted Invite to " + event.name
+        msg = " : Dicounted Invite to " + event.name
 
-    if len(msg) > 140:
+    if len(msg) > 115:
         msg = msg[:140]
-
+    
     (u, c) = User.objects.get_or_create(username="DEFAULT")
     (invite, created) = Invite.objects.get_or_create(from_user=user,
                                                      to_user=u,
                                                      event=event)
+    url = url + str(invite.id)
+    msg = url + " " + msg
+
     invite.message = msg
     invite.save()
 
@@ -186,7 +189,6 @@ def event_tweet_invite_dm(req, event_id=""):
     # shorten message so that it fits into a tweet
     if len(msg) > 115:
         msg = msg[:115]
-    msg = url + " " + msg
 
     # iterate over friends and create a friend User record for each if doesnt exist
     # create invite record for each
@@ -200,7 +202,8 @@ def event_tweet_invite_dm(req, event_id=""):
         invite.save()
 
         if created_invite:
-            new_friends.append(friend)
+            tmp_msg = url + str(invite.id) + " " + msg
+            new_friends.append((friend, tmp_msg))
 
     dict = {}
     dict["cmd"] = "twitter_dm_users"
@@ -210,7 +213,7 @@ def event_tweet_invite_dm(req, event_id=""):
     data["oauth_token"] = user.oauth_token
     data["oauth_token_secret"] = user.oauth_token_secret
     data["users"] = new_friends
-    data["msg"] = msg
+    #data["msg"] = msg
     dict["data"] = data
     to_send = json.dumps(dict) + "\n\r\n"
 

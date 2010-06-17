@@ -158,14 +158,13 @@ def get_twitter_user_list_info(**kwargs):
 
 def send_dm_invites(**kwargs):
     """Send DM invites to users. """
-    print "JJJJJJJJJJJJJJJJJJJJJJJJ"
     kwargs["start"] = time.time()
     data = kwargs["data"]
-    msg = data["msg"]
+    #msg = data["msg"]
 
     deferred_list = []
-    print "DATA", data
-    for user in data["users"]:
+
+    for (user, msg) in data["users"]:
         print "Creating deferred", user
         dm_deferred = twitter.Twitter(consumer=consumer(), 
                                       token=token(data["oauth_token"], 

@@ -190,7 +190,7 @@ $(document).ready(function() {
                     beforeSend: function() {
                         //$("#tweet_invite_button").attr("disabled","disabled");                               
                         $("#tweet_msg").html("Sending Tweet");
-                        ajax_loader_image();
+                        //ajax_loader_image();
                     }
                    });
 	    });
@@ -235,7 +235,7 @@ $(document).ready(function() {
                     beforeSend: function() {
                         $("#invite_dm_button").attr("disabled","disabled");                      
                         $("#tweet_msg").html("Sending Direct Msg Tweets");
-                        ajax_loader_image();
+                        //ajax_loader_image();
                     }
                    });
         });
@@ -311,7 +311,7 @@ function display_friends_invite() {
                     url: '/simpz/ajax/event_friend_not_attendees/{{event.id}}', 
                     dataType: "json",
                     success: function(data){
-                               var friend_list_html = make_friend_list(data); 
+                               $('#twitlist').html(make_friend_list(data));
                                $('#tweet_msg').html("Invite Your Friends");
                                                              
                                $(".friend_list_item").toggle(function() {
@@ -337,7 +337,7 @@ function display_friends_invite() {
                                    $(this).find("img.checkbox_invite").attr("src", "/simpz/site_media/images/checkbox_unchecked.png");
                                });
                                setup_select_all_button(); 
-                               $('#twitlist').html(friend_list_html);
+
 	                       
 	        	     },
                     beforeSend: function() {
