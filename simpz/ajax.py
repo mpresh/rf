@@ -41,10 +41,16 @@ def event_add_user(req):
 
     user = User.objects.get(id=req.session["user_id"])	
 
+    dict = {}
     if "event_id" in req.POST:
-        user.events_going.add(req.POST["event_id"])
-        return HttpResponse("User added to event")
-    return HttpResponse("ERROR: event_id must be passed in POST")
+        user.events_going.add(Event.objects.get(id=req.POST["event_id"]))
+        dict = {}
+        dict["status"] = "ok"
+        return HttpResponse(json.dumps(attendees_list))
+    
+    dict["status"] = "error"
+    dict["message"] = "event_id must be passed in POST"
+    return HttpResponse(json.dumps(attendees_list))
 
 def event_attendees(req, event_id=""):
     """ 
@@ -68,11 +74,16 @@ def event_friend_attendees(req, event_id=""):
     Relevant information includes: photo url, name.
     """
 
+    dict = {}
     if "user_id" not in req.session:
-        return HttpResponse("ERROR: User must be authenticated!")
+        dict["status"] = "error"
+        dict["message"] = "user must be authenticated"
+        return HttpResponse(json.dumps(attendees_list))
 
     if not event_id:
-            return HttpResponse("ERROR: must provide event_id")
+        dict["status"] = "error"
+        dict["message"] = "must provide event_id"
+        return HttpResponse(json.dumps(attendees_list))
 
     event = Event.objects.get(id=event_id)
     user = User.objects.get(id=req.session["user_id"])	
@@ -92,17 +103,21 @@ def event_friend_not_attendees(req, event_id=""):
     Retreive friends that are not going to the event.
     Phot url, name.
     """
+    dict = {}
     if "user_id" not in req.session:
-        return HttpResponse("ERROR: User must be authenticated!")
+        dict["status"] = "error"
+        dict["message"] = "User must be authenticated!"
+        return HttpResponse(json.dumps(attendees_list))
     
     if not event_id:
-        return HttpResponse("ERROR: must provide event_id")
+        dict["status"] = "error"
+        dict["message"] = "must provide event_id"
+        return HttpResponse(json.dumps(attendees_list))
 
     event = Event.objects.get(id=event_id)
     user = User.objects.get(id=req.session["user_id"])
 
     friends_not_going_to_event = user.get_friends_not_attending_event(event)
-    print "HERE I AM", friends_not_going_to_event
 
     return HttpResponse(json.dumps(friends_not_going_to_event))
     
@@ -111,7 +126,6 @@ def event_not_going(req, event_id=""):
     if "user_id" not in req.session:
         return HttpResponse("ERROR: User must be authenticated!")
 
-    print "NOT GOING!!!"
     event = Event.objects.get(id=event_id)
     user = User.objects.get(id=req.session["user_id"])	
     
@@ -120,7 +134,11 @@ def event_not_going(req, event_id=""):
         user.events_going.remove(event)
     except:
         pass
-    return HttpResponse("Succesfully Not Going to Event.")
+
+    dict = {}
+    dict["status"] = "ok"
+    dict["message"] = "not going to event"
+    return HttpResponse(json.dumps(attendees_list))
 
 def event_going(req, event_id=""):
     """ Going to event. """
@@ -131,14 +149,18 @@ def event_going(req, event_id=""):
     user = User.objects.get(id=req.session["user_id"])	
     user.events_going.add(event.id)    
 
-    return HttpResponse("Succesfully Going to Event.")
+    dict = {}
+    dict["status"] = "ok"
+    dict["message"] = "going to event"
+    return HttpResponse(json.dumps(attendees_list))
 
 def event_tweet_invite(req, event_id=""):
     """ Tweet out invite to everyone. """
     ret_obj = {}
 
     if "user_id" not in req.session:
-        ret_obj["error"] = "User Must be Logged in."
+        ret_obj["status"] = "error"
+        ret_obj["message"] = "User Must be Logged in."
         return HttpResponse(json.dumps(ret_obj))
 
     event = Event.objects.get(id=event_id)
@@ -156,8 +178,9 @@ def event_tweet_invite(req, event_id=""):
     (u, c) = User.objects.get_or_create(username="DEFAULT")
 
     (invite, created) = Invite.objects.get_or_create(from_user=user,
-                                                         to_user=u,
                                                          event=event)
+    invite.to_users.add(u)
+
     if "invite_id" in req.GET:
         from_invite = Invite.objects.get(id=req.GET['invite_id'])    
         invite.from_invite = from_invite
@@ -204,8 +227,8 @@ def event_tweet_invite_dm(req, event_id=""):
     for friend in friends:
         (u, created_user) = User.objects.get_or_create(username=friend)
         (invite, created_invite) = Invite.objects.get_or_create(from_user=user,
-                                                                to_user=u,
                                                                 event=event)
+        invite.to_users.add(u)
 
         if "invite_id" in req.GET:
             invite.from_invite = from_invite

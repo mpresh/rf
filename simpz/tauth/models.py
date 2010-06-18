@@ -14,11 +14,11 @@ import settings
 
 class User(models.Model):
 	username = models.CharField(max_length=40, default="")
-	email = models.EmailField(default="")
-	name = models.CharField(max_length=100, default="")
-	profile_pic = models.CharField(max_length=100, default="")
-	twitter_id = models.CharField(max_length=20, default="")
-	url = models.URLField(default="")
+	email = models.EmailField(default="", blank=True)
+	name = models.CharField(max_length=100, default="", blank=True)
+	profile_pic = models.CharField(max_length=100, default="", blank=True)
+	twitter_id = models.CharField(max_length=20, default="", blank=True)
+	url = models.URLField(default="", blank=True)
 
 	oauth_token = models.CharField(max_length=200)
 	oauth_token_secret = models.CharField(max_length=200)

@@ -97,8 +97,9 @@ def event_create(req):
 
         (u, c) = User.objects.get_or_create(username="DEFAULT")
         (invite, created) = Invite.objects.get_or_create(from_user=user,
-                                                         to_user=u,
                                                          event=e)
+        invite.to_users.add(u)
+        
         return HttpResponseRedirect("/simpz/thanks/" + str(invite.id))
 	
     dict = {}
@@ -121,7 +122,7 @@ def event_thanks(req, invite_id=""):
         invite = Invite.objects.get(id=invite_id)
         dict["invite"] = invite
         dict["from_user"] = User.objects.get(id=invite.from_user_id)
-        dict["to_user"] = User.objects.get(id=invite.to_user_id)
+        dict["to_user"] = User.objects.get(id=invite.to_users.all()[0].id)
         dict["event"] = Event.objects.get(id=invite.event_id)
 
     if dict["from_user"].id != user.id:
@@ -154,7 +155,7 @@ def event_details(req, event_id=""):
     if event_id:
         e = Event.objects.get(id=event_id)
         dict['event'] = e
-        dict['invites'] = e.invitation.all()
+        dict['invites'] = e.invitations.all()
         dict['attendess'] = e.attendees.all()
             
         invites = Invite.objects.filter(event=e.id)
@@ -202,7 +203,7 @@ def invite(req, invite_id):
     dict['invite_url'] = util.get_invite_url(req)
     dict["event"] = Event.objects.get(id=invite.event_id)
     dict["from_user"] = User.objects.get(id=invite.from_user_id)
-    dict["to_user"] = User.objects.get(id=invite.to_user_id)
+    dict["to_user"] = User.objects.get(id=invite.to_users.all()[0].id)
     dict["attendees"] = invite.event.attendees.all()
     dict["map_key"]  = settings.GOOGLE_MAP_API    
     dict["created_at"]  = invite.created_at
