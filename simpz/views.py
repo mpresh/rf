@@ -207,6 +207,7 @@ def invite(req, invite_id):
     dict["map_key"]  = settings.GOOGLE_MAP_API    
     dict["created_at"]  = invite.created_at
     dict["msg"]  = invite.message
+    dict['invite_id'] = invite_id
 
     if user:
         # if this invite is not for you, don't show page

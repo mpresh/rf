@@ -152,11 +152,16 @@ def event_tweet_invite(req, event_id=""):
 
     if len(msg) > 115:
         msg = msg[:140]
-    
+
     (u, c) = User.objects.get_or_create(username="DEFAULT")
+
     (invite, created) = Invite.objects.get_or_create(from_user=user,
-                                                     to_user=u,
-                                                     event=event)
+                                                         to_user=u,
+                                                         event=event)
+    if "invite_id" in req.GET:
+        from_invite = Invite.objects.get(id=req.GET['invite_id'])    
+        invite.from_invite = from_invite
+
     url = url + str(invite.id)
     msg = url + " " + msg
 
@@ -190,6 +195,9 @@ def event_tweet_invite_dm(req, event_id=""):
     if len(msg) > 115:
         msg = msg[:115]
 
+    if "invite_id" in req.GET:
+        from_invite = Invite.objects.get(id=req.GET['invite_id'])    
+
     # iterate over friends and create a friend User record for each if doesnt exist
     # create invite record for each
     new_friends = []
@@ -198,6 +206,10 @@ def event_tweet_invite_dm(req, event_id=""):
         (invite, created_invite) = Invite.objects.get_or_create(from_user=user,
                                                                 to_user=u,
                                                                 event=event)
+
+        if "invite_id" in req.GET:
+            invite.from_invite = from_invite
+
         invite.message = msg
         invite.save()
 

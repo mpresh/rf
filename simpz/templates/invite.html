@@ -156,7 +156,7 @@ $(document).ready(function() {
 	$("#invite_popup_close").bind('click', function() {
 		$('#invite_popup').hide();
                 $('#tweet_msg').html("");
-		$('#twitlist').html("<img width='30' height='30' src='/simpz/site_media/images/ajax_loader.gif' />");
+		ajax_loader_image();
 	 });
 
 
@@ -178,6 +178,7 @@ $(document).ready(function() {
                     dataType: "json",
                     data: {data: $("#tweet_text").val(), 
                     invite_url: '{{invite_url}}',
+                    invite_id: {{invite_id}}
                           }, 
                     success: function(data){
                         $("#tweet_msg").html("Tweet Sent Succesfully");
@@ -220,6 +221,7 @@ $(document).ready(function() {
                     dataType: "json",
                     data: {data: $("#tweet_text").val(), 
                     invite_url: '{{invite_url}}',
+                    invite_id: '{{invite_id}}',
                     invited_friends: selected_users.toString(),
                           }, 
                     success: function(data){
@@ -296,6 +298,11 @@ function setup_select_all_button() {
 
 }
 
+function ajax_loader_image() {
+    $('#twitlist').html("<img style='margin-left:275px; margin-top:40px;' width='130' height='130' src='/simpz/site_media/images/ajax-loader.gif' />");
+}
+
+
 function display_friends_invite() {
             $.ajax({
                     url: '/simpz/ajax/event_friend_not_attendees/{{event.id}}', 
@@ -330,7 +337,8 @@ function display_friends_invite() {
 	                       
 	        	     },
                     beforeSend: function() {
-                        $('#tweet_msg').html("<img width='20' height='20' src='/simpz/site_media/images/ajax-loader.gif' />Loading Friend Data<img width='20' height='20' src='/simpz/site_media/images/ajax-loader.gif' />");
+                        $('#tweet_msg').html("Loading Friend Data");
+                        ajax_loader_image();
                     }
                    });
  
