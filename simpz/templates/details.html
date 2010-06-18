@@ -19,6 +19,7 @@ Organizer: {{event.organizer_id}}
 <table id="details_table">
 <tr>
   <th>Invite</th>
+  <th>Parent Invite</th>
   <th>From</th>
   <th>To</th>
   <th>Message</th>
@@ -28,6 +29,7 @@ Organizer: {{event.organizer_id}}
 
 <tr>
 <td><a href="/simpz/invite/{{invite.id}}/">{{invite.id}}</a></td>
+<td><a href="/simpz/invite/{{invite.id}}/">{{invite.from_invite.id}}</a></td>
 <td><a href="/simpz/user_details/{{invite.from_user_id}}/">{{invite.from_user_id}}</a></td>
 <td><a href="/simpz/user_details/{{invite.to_user_id}}/">{{invite.to_user_id}}</a></td>
 <td>{{invite.message}}</td>
