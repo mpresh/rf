@@ -406,3 +406,12 @@ table#details_table td{
     border-style: solid;
 }
 
+input[type=text] {
+      text-align: center;
+      color: #E0E0E0; 
+}
+
+textarea {
+     text-align: center;
+      color: #E0E0E0; 
+}

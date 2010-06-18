@@ -42,21 +42,35 @@ def login(req):
 		req.session['redirect'] = "/simpz/tauth_info"
 
 	if req.user: 
+		print "login redirect:", req.session['redirect']
 		redirect = req.session['redirect']
 		del req.session["redirect"]
 		return HttpResponseRedirect(redirect)
 
 	token = get_unauthorized_token()
+	print "login: unauthorized token", token.to_string()
 	req.session['token'] = token.to_string()
+	url_auth = get_authorization_url(token)
+	print "Authorization Url", url_auth, req.session.keys()
+	req.session['test'] = "HEY THERE MIKE"
+	for key in req.session.keys():
+		print "KEY", key, req.session[key]
 
-	return HttpResponseRedirect(get_authorization_url(token))
+
+	return HttpResponseRedirect(url_auth)
 
 def callback(req):
+	print req.session.keys()
+	for key in req.session.keys():
+		print "KEY CALLBACK", key, req.session[key]
 	token = req.session.get('token', None)
+	print "token is ", token
 	if not token:
+		print "am I here"
 		return render_to_response('callback.html', {
 			'token': True
 		})
+
 	token = oauth.OAuthToken.from_string(token)
 
 	if token.key != req.GET.get('oauth_token', 'no-token'):
@@ -65,6 +79,7 @@ def callback(req):
 		})
 	token = get_authorized_token(token)
 
+	print "TOKEN MATCHES", token
 	# Actually login
 	obj = is_authorized(token)
 	if obj is None:
@@ -97,7 +112,7 @@ def logout(req):
 		redirect = req.session["redirect"]
 		del req.session["redirect"]
 	else:
-		redirect = None
+		redirect = "/simpz/"
 
 	if req.user is not None:
 		req.user.oauth_token = ''

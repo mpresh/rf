@@ -25,6 +25,7 @@ class Invite(models.Model):
     from_user = models.ForeignKey(User, related_name="made_invite")
     to_user = models.ForeignKey(User, related_name="received_invite")
     event = models.ForeignKey(Event, related_name="invitation")
+    from_invite = models.ForeignKey('self', related_name="invite_parent", default=None)
     created_at = models.DateTimeField(auto_now_add=True)
     
 

@@ -33,57 +33,63 @@
   <ul>
     <li>
 		<label for="event_name">Event Name: </label> 
-		<input type="text" name="event_name" id="event_name" class="required" />
+		<input type="text" name="event_name" id="event_name" value="PyCon 2010" class="required" />
 	</li>
 	
     <li>
       <label for="event_date_start">Event Start Date: </label> 
-      <input type="text" name="event_date_start" size="12" id="event_date_start" class="required" />
+      <input type="text" name="event_date_start" size="12" id="event_date_start" value="06/16/2010" class="required" />
       
       <label for="event_time_start">Time: </label> 
-      <input type="text" name="event_time_start" size="8" id="event_time_start" class="required"/>
+      <input type="text" name="event_time_start" size="8" id="event_time_start" value="12:30 AM" class="required"/>
     </li>
 
     <li>
       <label for="event_date_end">Event End Date: </label> 
-      <input type="text" name="event_date_end" size="12" id="event_date_end" class="required" />
+      <input type="text" name="event_date_end" size="12" id="event_date_end" value="06/16/2010" class="required" />
           
       <label for="event_time_end">Time: </label> 
-      <input type="text" size="8" name="event_time_end" id="event_time_end" class="required"/>
+      <input type="text" size="8" name="event_time_end" id="event_time_end" value="12:30 PM" class="required"/>
     </li>
 
     <li>
-		<label for="event_capacity">Target # of Invites: </label> <input type="text" class="digits" name="event_capacity" />
+		<label for="event_capacity">Target # of Invites: </label> 
+		<input type="text" class="digits" value="100" name="event_capacity" />
 	</li>
 	
     <li>
-		<label for="event_venue">Event Venue: </label> <input type="text" name="event_venue" />
+		<label for="event_venue">Event Venue: 
+		</label> <input type="text" value="Marriot Hotel" name="event_venue" />
 	</li>
 	
     <li>
-		<label for="event_address">Venue Address: </label> 
-		<input type="hidden" value="" name="event_lat" id="event_lat"></input>
-		<input type="hidden" value="" name="event_lng" id="event_lng"></input>                
+		<label for="event_address">Venue Address: </label>
+		<input type="hidden" value="30.267153" name="event_lat" id="event_lat"></input>
+		<input type="hidden" value="-97.7430608" name="event_lng" id="event_lng"></input>                
 
 
-		<textarea rows="2" cols="30" name="event_address" id="event_address"></textarea>
+		<textarea rows="2" cols="30" name="event_address" id="event_address">Austin, Tx</textarea>
+
 		<div id="address_map"></div>
 	</li>
 	<br />
     <li>
 		<label for="event_description">Event Description: </label> 
-		<textarea rows="6" cols="40" name="event_description"> </textarea>
+		<textarea rows="6" cols="40"  name="event_description">There will be open bar!</textarea>
 	</li>
 	
     <li>
-		<label for="event_price">Event Price: </label> <input type="text" class="number" name="event_price" />
+		<label for="event_price">Event Price: </label> 
+		<input type="text" class="number" value="100" name="event_price" />
 	</li>
 <li>
-		<label for="event_discount">Early Bird Discounted Price: </label> <input type="text" class="number" name="event_discount" />
+		<label for="event_discount">Early Bird Discounted Price: </label> 
+		<input type="text" class="number" value="50" name="event_discount" />
 	</li>
 	
     <li>
-		<label for="event_url">Event URL: </label> <input type="text" name="event_url" class="url" />
+		<label for="event_url">Event URL: </label> 
+		<input type="text" value="http://www.simpz.com" name="event_url" class="url" />
 	</li>
 	<li>
 		<label for="image">Event Image: </label> 
@@ -108,7 +114,7 @@
 function initialize() {
       if (GBrowserIsCompatible()) {
         var map = new GMap2(document.getElementById("address_map"));
-        map.setCenter(new GLatLng(37.4419, -122.1419), {{zoom}});
+        map.setCenter(new GLatLng(30.267153,  -97.7430608), {{zoom}});
         map.setUIToDefault();
       }
     }
@@ -198,7 +204,15 @@ $(document).ready(function() {
 
                 initialize();
                 $("#createForm").validate();
-		$('#event_name').focus();	                			
+                //$('#event_name').focus();	
+                $("input").focus(function() {
+                    $(this).val("");
+                    $(this).css("color", "black");
+                });
+                $("textarea").focus(function() {
+                    $(this).val("");
+                    $(this).css("color", "black");
+                });                			
 		$('#event_date_start').datepicker({ buttonImageOnly: false,
 			 					buttonImage: '/simpz/site_media/images/calendar.png',
 								showOn: 'both',
@@ -209,7 +223,7 @@ $(document).ready(function() {
 										}}});
 		$('#event_date_end').datepicker({ buttonImageOnly: false,
 							    buttonImage: '/simpz/site_media/images/calendar.png',
-								showOn: 'both'});
+                                                            showOn: 'both'});
 		$("#event_time_start").timePicker({
 				show24Hours: false,
 				separator: ':',
@@ -218,6 +232,8 @@ $(document).ready(function() {
 				show24Hours: false,
 				separator: ':',
                                 step: 15});
+
+                
 });
 </script>
 

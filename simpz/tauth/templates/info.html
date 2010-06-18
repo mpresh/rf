@@ -1,6 +1,7 @@
 
 {% block content %}
 <h1>{% block title %}Info for {{ user.username }}{% endblock %}</h1>
+<h1>SHOULD NEVER BE HERE</h1>
 <form action="{% url tauth_info %}" method="post">
 {% for error in errors %}
 	{% ifequal 'email' error %}
