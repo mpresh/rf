@@ -156,7 +156,8 @@ def event_details(req, event_id=""):
         e = Event.objects.get(id=event_id)
         dict['event'] = e
         dict['invites'] = e.invitations.all()
-        dict['attendess'] = e.attendees.all()
+        dict['attendees'] = e.attendees.all()
+        dict['attendees_maybe'] = e.attendees_maybe.all()
             
         invites = Invite.objects.filter(event=e.id)
         dict['invites'] = invites
@@ -176,11 +177,16 @@ def user_details(req, user_id=""):
     if user_id:
         user = User.objects.get(id=user_id)	
         dict["user_info"] = user
+        dict["events_going"] = user.events_going.all()
+        dict["events_organized"] = user.events_organized.all()
+        dict["received_invites"] = user.received_invites.all()
+        dict["made_invites"] = user.made_invites.all()
+        dict["events_maybe"] = user.events_maybe.all()
 
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])
 	dict["user"] = user
-    
+
     return render_to_response('user.html', dict)    
 
 def invite(req, invite_id):
@@ -196,12 +202,12 @@ def invite(req, invite_id):
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])	
         dict['user'] = user
-
+    
     if not invite:
         return render_to_response('404.html', dict)
     
-    dict['invite_url'] = util.get_invite_url(req)
     dict["event"] = Event.objects.get(id=invite.event_id)
+    dict['invite_url'] = util.get_invite_url(req)    
     dict["from_user"] = User.objects.get(id=invite.from_user_id)
     dict["to_user"] = User.objects.get(id=invite.to_users.all()[0].id)
     dict["attendees"] = invite.event.attendees.all()
@@ -212,8 +218,14 @@ def invite(req, invite_id):
 
     if user:
         # if this invite is not for you, don't show page
-        if user.id != dict['to_user'].id and dict["to_user"].username != "DEFAULT": 
-            return render_to_response('404.html', dict)
+        to_users = invite.to_users.all()
+        print "TO USERS", to_users
+        to_user_ids = [u.id for u in to_users]
+        to_user_usernames = [u.username for u in to_users]
+
+        print to_user_ids, to_user_usernames
+        if user.id not in to_user_ids and "DEFAULT" not in to_user_usernames: 
+            return HttpResponseRedirect("/simpz/event_home/" + str(dict["event"].id) + "/")
 
         going = False
         for event in user.events_going.all():

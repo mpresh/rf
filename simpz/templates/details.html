@@ -13,14 +13,15 @@ End Time: {{event.event_date_time_end}} <br />
 Capacity: {{event.capacity}} <br />
 Venue: {{event.venue }} <br />
 Venue Address: {{event.venue_address}} <br />
-Organizer: {{event.organizer_id}}
+Organizer: <a href="/simpz/user_details/{{event.organizer_id}}">{{event.organizer_id}}</a>
 
 <hr/>
+<h1>INVITES</h1>
 <table id="details_table">
 <tr>
-  <th>Invite</th>
+  <th>Invites</th>
   <th>Parent Invite</th>
-  <th>From</th>
+  <th>From Person</th>
   <th>To</th>
   <th>Message</th>
   <th>CreatedAt</th>
@@ -30,13 +31,56 @@ Organizer: {{event.organizer_id}}
 <tr>
 <td><a href="/simpz/invite/{{invite.id}}/">{{invite.id}}</a></td>
 <td><a href="/simpz/invite/{{invite.id}}/">{{invite.from_invite.id}}</a></td>
-<td><a href="/simpz/user_details/{{invite.from_user_id}}/">{{invite.from_user_id}}</a></td>
+<td><a href="/simpz/user_details/{{invite.from_user_id}}/">{{invite.from_user_id}}</a>&nbsp;{{invite.from_user.username}}</td>
 <td><a href="/simpz/user_details/{{invite.to_user_id}}/">{{invite.to_user_id}}</a></td>
 <td>{{invite.message}}</td>
 <td>{{invite.created_at}}</td>
 </tr>
 {% endfor %}
 <table>
+
+
+
+<hr/>
+<h1>USERS GOING</h1>
+<table id="details_table">
+<tr>
+  <th>Attendees</th>
+  <th>Name</th>
+  <th>username</th>
+  <th>Picture</th>
+</tr>
+{% for user in attendees %}
+
+<tr>
+<td><a href="/simpz/user_details/{{user.id}}/">{{user.id}}</a></td>
+<td>{{user.name}}</td>
+<td>{{user.username}}</td>
+<td><a href="/simpz/user_details/{{user.id}}"><img src="{{user.profile_pic}}" /></a></td>
+</tr>
+{% endfor %}
+<table>
+
+<hr/>
+<h1>USERS MAYBE GOING</h1>
+<table id="details_table">
+<tr>
+  <th>Attendees</th>
+  <th>Name</th>
+  <th>username</th>
+  <th>Picture</th>
+</tr>
+{% for user in attendees_maybe %}
+
+<tr>
+<td><a href="/simpz/user_details/{{user.id}}/">{{user.id}}</a></td>
+<td>{{user.name}}</td>
+<td>{{user.username}}</td>
+<td><a href="/simpz/user_details/{{user.id}}"><img src="{{user.profile_pic}}" /></a></td>
+</tr>
+{% endfor %}
+<table>
+
 
 {% else %}
 <p>No valid event provided.</p>

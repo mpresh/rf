@@ -50,7 +50,7 @@ def event_add_user(req):
     
     dict["status"] = "error"
     dict["message"] = "event_id must be passed in POST"
-    return HttpResponse(json.dumps(attendees_list))
+    return HttpResponse(json.dumps(dict))
 
 def event_attendees(req, event_id=""):
     """ 
@@ -78,12 +78,12 @@ def event_friend_attendees(req, event_id=""):
     if "user_id" not in req.session:
         dict["status"] = "error"
         dict["message"] = "user must be authenticated"
-        return HttpResponse(json.dumps(attendees_list))
+        return HttpResponse(json.dumps(dict))
 
     if not event_id:
         dict["status"] = "error"
         dict["message"] = "must provide event_id"
-        return HttpResponse(json.dumps(attendees_list))
+        return HttpResponse(json.dumps(dict))
 
     event = Event.objects.get(id=event_id)
     user = User.objects.get(id=req.session["user_id"])	
@@ -138,7 +138,7 @@ def event_not_going(req, event_id=""):
     dict = {}
     dict["status"] = "ok"
     dict["message"] = "not going to event"
-    return HttpResponse(json.dumps(attendees_list))
+    return HttpResponse(json.dumps(dict))
 
 def event_going(req, event_id=""):
     """ Going to event. """
@@ -152,7 +152,7 @@ def event_going(req, event_id=""):
     dict = {}
     dict["status"] = "ok"
     dict["message"] = "going to event"
-    return HttpResponse(json.dumps(attendees_list))
+    return HttpResponse(json.dumps(dict))
 
 def event_tweet_invite(req, event_id=""):
     """ Tweet out invite to everyone. """
