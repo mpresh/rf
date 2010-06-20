@@ -9,6 +9,7 @@
     <script type="text/javascript" src="/simpz/site_media/myjscript.js" ></script>
     <script type="text/javascript" src="/simpz/site_media/jquery.tools.min.js" ></script>
     <script type="text/javascript" src="/simpz/site_media/jquery.validate.js" ></script>
+    <script type="text/javascript" src="/simpz/site_media/jquery.cookie.js" ></script>
 
 	{% block  js_css_include %}
 	{% endblock %}
@@ -25,6 +26,7 @@
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
+
 	<div id="main">
 		<div id="header">
 			<div>
@@ -62,20 +64,72 @@
  <!-- Footer content -->
       {% include "footer.html" %}							
 
-<fb:login-button></fb:login-button>
-<div id="fb-root"></div>
+
+
+
+
+
+
+{% if facebook %}
+<button id="logoutnow">LOGOUT</button><br/>
+<fb:profile-pic uid={{facebook}} linked="false" />
+
+{% else %}
+<button id="login">LOGIN</button>
+<fb:login-button id="fb-login" v="2"><fb:intl>Connect with Facebook and stuff</fb:intl></fb:login-button>
+<fb:profile-pic uid="1809480" linked="true" />
+{% endif %}
+
 <script src="http://connect.facebook.net/en_US/all.js"></script>
+<div id="fb-root"></div>
+
 <script>
-  FB.init({appId: '130071620346580', status: true, cookie: true, xfbml: true});
-  FB.Event.subscribe('auth.sessionChange', function(response) {
-    if (response.session) {
-      // A user has logged in, and ea new cookie has been saved
-  alert("user is logged in");
-    } else {
-      // The user has logged out, and the cookie has been cleared
-  alert("user is logged out");
-    }
+  FB.init({appId: '374592118121', status: true, cookie: true, xfbml: true});
+
+  $('#login').click(function() {
+
+  FB.login(function(response) {
+  if (response.session) {
+      var a = response.session;
+      var options = { path: '/simpz/', expires: 10 };
+      $.cookie("uid", a.uid, options);
+      $.cookie("session_key", a.session_key, options);
+      $.cookie("secret", a.secret, options);
+      $.cookie("expires", a.expires, options);
+      $.cookie("base_domain", a.base_domain, options);
+      $.cookie("access_token", a.access_token, options);
+      $.cookie("sig", a.sig, options);
+  
+      // A user has logged in, and a new cookie has been saved
+      //location.reload();
+      //window.location.reload(True);
+      window.location.href = "/simpz/facebook_callback/";
+  } else {
+    // user cancelled login
+  }
   });
+});
+
+
+  $('#logoutnow').click(function() {
+      alert("loggin out");
+      $.cookie("uid", null);
+      $.cookie("session_key", null);
+      $.cookie("secret", null);
+      $.cookie("expires", null);
+      $.cookie("base_domain", null);
+      $.cookie("access_token", null);
+      $.cookie("sig", null);
+      alert("before callback");
+      FB.logout(function(response) { 
+            alert("logout callback");
+            window.location.href = "/simpz/facebook_callback/";
+     });
+  });
+
+
+
+
 </script>
 </body>
 

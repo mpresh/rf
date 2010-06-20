@@ -134,15 +134,28 @@ def event_thanks(req, invite_id=""):
     return render_to_response('thanks.html', dict)
 
 def index(req):
+    print req
+    print "COOKIES", req.COOKIES
+    print "session!!!!!!!!!!!!!!", req.session.keys()
+    for key in req.session.keys():
+        print key, req.session[key]
+    dict = {}
+    if "uid" in req.session:
+        dict["facebook"] = req.session['uid']
+
     req.session["redirect"] = "/simpz/"        
     if "user_id" not in req.session:
-        req.session["redirect"] = "/simpz/"
-        return render_to_response('index.html', {})
+        print "returning ", dict
+        return render_to_response('index.html', dict)
 
+    
     user = User.objects.get(id=req.session["user_id"])	
     req.session["redirect"] = "/simpz/"
+    dict["user"] = user
+    
 
-    return render_to_response('index.html', {"user" : user})
+    print dict
+    return render_to_response('index.html', dict)
 
 def event_details(req, event_id=""):
 
