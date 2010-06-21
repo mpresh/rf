@@ -64,6 +64,7 @@ def callback(req):
 	for key in req.session.keys():
 		print "KEY CALLBACK", key, req.session[key]
 	token = req.session.get('token', None)
+	#token = req.GET["oauth_token"]
 	print "token is ", token
 	if not token:
 		print "am I here"

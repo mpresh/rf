@@ -2,7 +2,7 @@ from django.conf.urls.defaults import *
 from django.conf import settings
 
 from views import *
-from facebook_auth import *
+from fauth.facebook_auth import *
 from tauth.views import *
 
 # Uncomment the next two lines to enable the admin:
@@ -48,8 +48,10 @@ urlpatterns = patterns('',
                        url(r'create/$', 'views.event_create', name='event_create'),
                        url(r'invite/(?P<invite_id>\d+)/$', 'views.invite', name='event_invite'),
                        
-                       url(r'facebook_callback/$', 'facebook_auth.facebook_callback', name='facebook_callback'),
-                       
+                       #url(r'facebook_callback/$', 'facebook_auth.facebook_server_callback', name='facebook_callback'),
+                       url(r'facebook_callback/$', 'fauth.facebook_auth.facebook_callback', name='facebook_callback'),
+                       url(r'facebook_logout_callback/$', 'fauth.facebook_auth.facebook_logout_callback', name='facebook_logout_callback'),
+
                        (r'site_media/(?P<path>.*)$', 'django.views.static.serve',
                               {'document_root': settings.MEDIA_ROOT}),
                        

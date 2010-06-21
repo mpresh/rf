@@ -71,13 +71,15 @@
 
 
 {% if facebook %}
-<button id="logoutnow">LOGOUT</button><br/>
-<fb:profile-pic uid={{facebook}} linked="false" />
+
+<fb:profile-pic uid={{facebook}} linked="false" ></fb:profile-pic> 
+<button id="logoutnow">LOGOUT</button>
 
 {% else %}
 <button id="login">LOGIN</button>
-<fb:login-button id="fb-login" v="2"><fb:intl>Connect with Facebook and stuff</fb:intl></fb:login-button>
-<fb:profile-pic uid="1809480" linked="true" />
+
+
+<!-- <fb:login-button id="fb-login" v="2"><fb:intl>Connect with Facebook and stuff</fb:intl></fb:login-button> -->
 {% endif %}
 
 <script src="http://connect.facebook.net/en_US/all.js"></script>
@@ -112,7 +114,7 @@
 
 
   $('#logoutnow').click(function() {
-      alert("loggin out");
+      
       $.cookie("uid", null);
       $.cookie("session_key", null);
       $.cookie("secret", null);
@@ -120,11 +122,11 @@
       $.cookie("base_domain", null);
       $.cookie("access_token", null);
       $.cookie("sig", null);
-      alert("before callback");
-      FB.logout(function(response) { 
-            alert("logout callback");
-            window.location.href = "/simpz/facebook_callback/";
-     });
+            
+      //FB.logout(function(response) { 
+      //      window.location.href = "/simpz/facebook_logout_callback/";
+      //});
+     window.location.href = "/simpz/facebook_logout_callback/";
   });
 
 
