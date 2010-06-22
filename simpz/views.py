@@ -65,7 +65,7 @@ def event_create(req):
         user = User.objects.get(id=req.session["user_id"])
         user.email = pemail
         user.save()
-        
+
         start_dt = datetime.datetime.strptime(start_date.strip() + " " + start_time.strip(), 
                                      "%m/%d/%Y %I:%M %p")
         end_dt = datetime.datetime.strptime(end_date.strip() + " " + end_time.strip(), 
@@ -84,7 +84,6 @@ def event_create(req):
                   lat=elat,
                   lng=elng)
         e.save()
-
 
         if not os.path.exists(os.path.join(cur_dir, 'static/images/events/')):
             os.mkdir(os.path.join(cur_dir, 'static/images/events'))
