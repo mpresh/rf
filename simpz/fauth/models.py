@@ -2,10 +2,7 @@ from django.db import models
 from pylib import oauth
 import re, httplib
 import simplejson as json
-<<<<<<< HEAD
-=======
-#from utils import *
->>>>>>> 49039fee52a8d739f5876a97f5a85fd59c2791f0
+
 import urllib
 import time
 import sys
