@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from events.models import Event, Invite
 from tauth.models import User
+from fauth.models import FBUser
 from django.conf import settings
 import simplejson as json
 import urllib

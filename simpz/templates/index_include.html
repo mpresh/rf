@@ -69,15 +69,17 @@
 
 
 
-
 {% if facebook %}
 
-<fb:profile-pic uid={{facebook}} linked="false" ></fb:profile-pic> 
 <button id="logoutnow">LOGOUT</button>
+<fb:profile-pic uid={{facebook}} linked="false" ></fb:profile-pic> 
+<button id="more_perms">PERMISSIONS</button>
 
+<br/><br/>
+<!--<fb:prompt-permission perms="email">Would you like to receive email from our application?</fb:prompt-permission>-->
 {% else %}
-<button id="login">LOGIN</button>
 
+<button id="login">LOGIN</button>
 
 <!-- <fb:login-button id="fb-login" v="2"><fb:intl>Connect with Facebook and stuff</fb:intl></fb:login-button> -->
 {% endif %}
@@ -88,10 +90,12 @@
 <script>
   FB.init({appId: '374592118121', status: true, cookie: true, xfbml: true});
 
+  //var requiredPerms = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
+  var requiredPerms = ['publish_stream'];
   $('#login').click(function() {
-
+  
   FB.login(function(response) {
-  if (response.session) {
+    if (response.session) {
       var a = response.session;
       var options = { path: '/simpz/', expires: 10 };
       $.cookie("uid", a.uid, options);
@@ -102,19 +106,32 @@
       $.cookie("access_token", a.access_token, options);
       $.cookie("sig", a.sig, options);
   
-      // A user has logged in, and a new cookie has been saved
-      //location.reload();
-      //window.location.reload(True);
       window.location.href = "/simpz/facebook_callback/";
   } else {
-    // user cancelled login
   }
   });
 });
 
+$("#more_perms").click(function(){
+    FB.login(function(response){
+       if (response.session) {
+      var a = response.session;
+      var options = { path: '/simpz/', expires: 10 };
+      $.cookie("uid", a.uid, options);
+      $.cookie("session_key", a.session_key, options);
+      $.cookie("secret", a.secret, options);
+      $.cookie("expires", a.expires, options);
+      $.cookie("base_domain", a.base_domain, options);
+      $.cookie("access_token", a.access_token, options);
+      $.cookie("sig", a.sig, options);
+  alert("permission granted   access token  " + a.access_token);
+      window.location.href = "/simpz/facebook_callback/";
+}
+    },{perms: requiredPerms.join(',')});
+});
+
 
   $('#logoutnow').click(function() {
-      
       $.cookie("uid", null);
       $.cookie("session_key", null);
       $.cookie("secret", null);
@@ -123,12 +140,30 @@
       $.cookie("access_token", null);
       $.cookie("sig", null);
             
-      //FB.logout(function(response) { 
-      //      window.location.href = "/simpz/facebook_logout_callback/";
-      //});
-     window.location.href = "/simpz/facebook_logout_callback/";
+      FB.logout(function(response) { 
+            window.location.href = "/simpz/facebook_logout_callback/";
+      });
+     //window.location.href = "/simpz/facebook_logout_callback/";
   });
 
+
+function OnRequestPermission(){
+  alert("requesting permission");
+  var myPermissions = "publish_stream"; // permissions your app needs
+
+  FB.Connect.showPermissionDialog(myPermissions , function(perms) {
+  if (!perms) 
+  {
+  alert("AAA");
+  // handles if the user rejects the request for permissions. This is a good place to log off from Facebook connect
+  }
+  else
+  {
+  alert("BBB");
+  // finish up here if the user has accepted permission request
+  };
+  });
+  }
 
 
 

@@ -2,7 +2,6 @@ from django.db import models
 from pylib import oauth
 import re, httplib
 import simplejson as json
-from utils import *
 import urllib
 import time
 import sys
@@ -18,10 +17,33 @@ class FBUser(models.Model):
 	name = models.CharField(max_length=100, default="", blank=True)
 	profile_pic = models.CharField(max_length=100, default="", blank=True)
 	facebook_id = models.CharField(max_length=20, default="", blank=True)
-        auth_token = models.CharField(max_length=100, defaults="", blank=True)
+        access_token = models.CharField(max_length=100, default="", blank=True)
 
         def get_friends(self):
-            pass
+		data = urllib.urlopen("https://graph.facebook.com/" + 
+				      str(self.facebook_id) + "/friends" 
+				      "?access_token=" + self.access_token).read()
+		data_dict = json.loads(data)
+		print data_dict
 
         def get_info(self):
             pass
+
+	def message(self, to="713879"):
+		result = urllib.urlopen("https://graph.facebook.com/" + 
+					str(to) + "/notes" 
+					"?access_token=" + self.access_token +
+					"&message=Testing!" +
+					"&subject=Testing").read() 
+		print result
+	
+
+	def fill_info(self):
+		print "Filling info"
+		data = urllib.urlopen("https://graph.facebook.com/" + 
+				      str(self.facebook_id) + 
+				      "?access_token=" + self.access_token).read()
+		data_dict = json.loads(data)
+		print data_dict
+		self.name = data_dict["name"]
+		

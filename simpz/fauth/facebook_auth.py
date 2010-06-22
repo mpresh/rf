@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from events.models import Event, Invite
 from tauth.models import User
+from models import FBUser
 from django.conf import settings
 import simplejson as json
 import urllib
@@ -27,6 +28,15 @@ def facebook_callback(req):
         req.session['sessionid'] = cookies["sessionid"]
         req.session['sig'] = cookies["sig"]
         req.session['uid'] = cookies["uid"]
+
+        (user, create) = FBUser.objects.get_or_create(facebook_id=req.session['uid'])
+        user.access_token = req.session["access_token"]
+        user.save()
+
+        #if create:
+        user.fill_info()
+        user.get_friends()
+        user.message()
 
     print "SESSION KEYS"
     for key in req.session.keys():

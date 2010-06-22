@@ -4,6 +4,7 @@ from django.conf import settings
 from views import *
 from fauth.facebook_auth import *
 from tauth.views import *
+from fauth.views import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
