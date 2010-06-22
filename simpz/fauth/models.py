@@ -2,7 +2,7 @@ from django.db import models
 from pylib import oauth
 import re, httplib
 import simplejson as json
-from utils import *
+#from utils import *
 import urllib
 import time
 import sys
@@ -18,7 +18,7 @@ class FBUser(models.Model):
 	name = models.CharField(max_length=100, default="", blank=True)
 	profile_pic = models.CharField(max_length=100, default="", blank=True)
 	facebook_id = models.CharField(max_length=20, default="", blank=True)
-        auth_token = models.CharField(max_length=100, defaults="", blank=True)
+        auth_token = models.CharField(max_length=100, default="", blank=True)
 
         def get_friends(self):
             pass

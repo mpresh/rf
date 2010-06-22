@@ -23,7 +23,7 @@ class Event(models.Model):
 class Invite(models.Model):
     message = models.CharField(max_length=140, default="")
     from_user = models.ForeignKey(User, related_name="made_invites")
-    to_users = models.ManyToManyField(User, related_name="received_invites")
+    to_users = models.ManyToManyField(User, related_name="received_invites", null=True)
     event = models.ForeignKey(Event, related_name="invitations")
     from_invite = models.ForeignKey('self', related_name="invite_children", default=None, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
