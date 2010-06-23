@@ -52,6 +52,7 @@ urlpatterns = patterns('',
                        #url(r'facebook_callback/$', 'facebook_auth.facebook_server_callback', name='facebook_callback'),
                        url(r'facebook_callback/$', 'fauth.facebook_auth.facebook_callback', name='facebook_callback'),
                        url(r'facebook_logout_callback/$', 'fauth.facebook_auth.facebook_logout_callback', name='facebook_logout_callback'),
+                       url(r'ajax/facebook_update_feed/$', 'fauth.ajax.update_feed', name='facebook_update_feed'),
 
                        (r'site_media/(?P<path>.*)$', 'django.views.static.serve',
                               {'document_root': settings.MEDIA_ROOT}),

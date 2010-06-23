@@ -68,7 +68,7 @@
 
 
 
-
+<button id="status">STATUS</button>
 {% if facebook %}
 
 <button id="logoutnow">LOGOUT</button>
@@ -90,10 +90,22 @@
 <script>
   FB.init({appId: '374592118121', status: true, cookie: true, xfbml: true});
 
+  $('#status').click(function(){
+  FB.getLoginStatus(function(response) {
+  if (response.session) {
+    // logged in and connected user, someone you know
+    alert("logged in "  + $.cookie("access_token"));
+  } else {
+    // no user session available, someone you dont know
+   alert("logged out");
+  }
+});
+  });
+
   //var requiredPerms = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
   var requiredPerms = ['publish_stream'];
   $('#login').click(function() {
-  
+ 
   FB.login(function(response) {
     if (response.session) {
       var a = response.session;
@@ -132,6 +144,7 @@ $("#more_perms").click(function(){
 
 
   $('#logoutnow').click(function() {
+
       $.cookie("uid", null);
       $.cookie("session_key", null);
       $.cookie("secret", null);
@@ -139,31 +152,14 @@ $("#more_perms").click(function(){
       $.cookie("base_domain", null);
       $.cookie("access_token", null);
       $.cookie("sig", null);
-            
+
       FB.logout(function(response) { 
+            alert("LALA");            
             window.location.href = "/simpz/facebook_logout_callback/";
       });
      //window.location.href = "/simpz/facebook_logout_callback/";
   });
 
-
-function OnRequestPermission(){
-  alert("requesting permission");
-  var myPermissions = "publish_stream"; // permissions your app needs
-
-  FB.Connect.showPermissionDialog(myPermissions , function(perms) {
-  if (!perms) 
-  {
-  alert("AAA");
-  // handles if the user rejects the request for permissions. This is a good place to log off from Facebook connect
-  }
-  else
-  {
-  alert("BBB");
-  // finish up here if the user has accepted permission request
-  };
-  });
-  }
 
 
 

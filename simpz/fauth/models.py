@@ -3,7 +3,7 @@ from pylib import oauth
 import re, httplib
 import simplejson as json
 
-import urllib
+import urllib, httplib
 import time
 import sys
 import os
@@ -28,19 +28,38 @@ class FBUser(models.Model):
 		data_dict = json.loads(data)
 		print data_dict
 
-        def get_info(self):
-            pass
 
-	def message(self, to="713879"):
-		result = urllib.urlopen("https://graph.facebook.com/" + 
-					str(to) + "/notes" 
-					"?access_token=" + self.access_token +
-					"&message=Testing!" +
-					"&subject=Testing").read() 
-		print result
+	def feed(self, to="713879", message="Testing."):
+		params = urllib.urlencode({'access_token' : self.access_token,
+					   'message' : message})
+		headers = {}
+		conn = httplib.HTTPSConnection("graph.facebook.com")
+		conn.request("POST", str(to) + "/feed", params, headers) 
+		response = conn.getresponse()
+		print "RESPONSE", response.status, response.reason
+		data = response.read()
+		conn.close()
+
+		print "DATA IS", data
+
+
+	def message(self, to="713879", message="Testing.", subject="subject"):
+		params = urllib.urlencode({'access_token' : self.access_token,
+					   'message' : message,
+					   'subject' : subject})
+		headers = {}
+		conn = httplib.HTTPSConnection("graph.facebook.com")
+		conn.request("POST", str(to) + "/notes", params, headers) 
+		response = conn.getresponse()
+		print "RESPONSE", response.status, response.reason
+		data = response.read()
+		conn.close()
+
+		print "DATA IS", data
 	
 
 	def fill_info(self):
+		""" Fill in information about user synchronously."""
 		print "Filling info"
 		data = urllib.urlopen("https://graph.facebook.com/" + 
 				      str(self.facebook_id) + 
