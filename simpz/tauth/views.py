@@ -38,23 +38,16 @@ def tauth_info(req):
 
 @wants_user
 def login(req):
-	print "login1", req
 	if 'redirect' not in req.session:
 		req.session['redirect'] = "/simpz/tauth_info"
-	print "login2"
 	if req.user: 
 		print "login redirect:", req.session['redirect']
 		redirect = req.session['redirect']
 		del req.session["redirect"]
 		return HttpResponseRedirect(redirect)
-	print "login3"
 	token = get_unauthorized_token()
-	print "login4", token
-	print "login: unauthorized token", token.to_string()
 	req.session['token'] = token.to_string()
 	url_auth = get_authorization_url(token)
-	print "Authorization Url", url_auth, req.session.keys()
-	req.session['test'] = "HEY THERE MIKE"
 	for key in req.session.keys():
 		print "KEY", key, req.session[key]
 

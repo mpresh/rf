@@ -41,24 +41,16 @@ def oauth_request(
 
 def oauth_response(req):
 	url = req.to_url()
-	print "url", url
 	parameters = req.parameters
-	print "parameters", parameters
 	conn = connection()
 	conn.request(req.http_method, url)
 	return connection().getresponse().read()
 
 def get_unauthorized_token(signature_method=signature_method):
-	print "get1"
 	req = oauth.OAuthRequest.from_consumer_and_token(
 		consumer(), http_url='https://twitter.com/oauth/request_token'
 	)
-	print "get2", dir(req)
-	print "get3", req.to_url()
 	req.sign_request(signature_method, consumer(), None)
-	print "get4", req.to_url()
-	result = oauth_response(req)
-	print "get5 result", result
 	return oauth.OAuthToken.from_string(oauth_response(req))
 
 def get_authorization_url(token, signature_method=signature_method):
