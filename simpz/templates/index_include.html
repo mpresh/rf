@@ -73,7 +73,9 @@
 
 <button id="logoutnow">LOGOUT</button>
 <fb:profile-pic uid={{facebook}} linked="false" ></fb:profile-pic> 
-<button id="more_perms">PERMISSIONS</button>
+ <button id="more_perms">PERMISSIONS</button>
+<button id="feed">FEED</button>
+<button id="message">MESSAGE</button>
 
 <br/><br/>
 <!--<fb:prompt-permission perms="email">Would you like to receive email from our application?</fb:prompt-permission>-->
@@ -90,6 +92,34 @@
 <script>
   FB.init({appId: '374592118121', status: true, cookie: true, xfbml: true});
 
+$("#feed").click(function(){
+     $.ajax({
+       url: '/simpz/ajax/facebook_update_feed/', 
+       dataType: "json",
+       data: {},
+       success: function(data){
+          alert("REQUEST DONE", data);
+       },
+       beforeSend: function() {
+           alert("sending feed request");
+        }
+      });
+});
+
+$("#message").click(function(){
+     $.ajax({
+       url: '/simpz/ajax/facebook_message/', 
+       dataType: "json",
+       data: {},
+       success: function(data){
+          alert("REQUEST DONE", data);
+       },
+       beforeSend: function() {
+           alert("sending message");
+        }
+      });
+});
+
   $('#status').click(function(){
   FB.getLoginStatus(function(response) {
   if (response.session) {
@@ -102,8 +132,8 @@
 });
   });
 
-  //var requiredPerms = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
-  var requiredPerms = ['publish_stream'];
+  var requiredPerms = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
+  //var requiredPerms = ['publish_stream'];
   $('#login').click(function() {
  
   FB.login(function(response) {
@@ -154,7 +184,6 @@ $("#more_perms").click(function(){
       $.cookie("sig", null);
 
       FB.logout(function(response) { 
-            alert("LALA");            
             window.location.href = "/simpz/facebook_logout_callback/";
       });
      //window.location.href = "/simpz/facebook_logout_callback/";

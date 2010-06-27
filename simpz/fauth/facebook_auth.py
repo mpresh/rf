@@ -19,7 +19,11 @@ import util
 
 def facebook_callback(req):
 
+    print "inside facebook callbacsk"
     cookies = req.COOKIES;
+    print "COOKIES KEYS"
+    for key in cookies.keys():
+        print "KEY", key, cookies[key]
     if "access_token" in cookies:
         req.session['access_token'] = cookies["access_token"]
         req.session['base_domain']  = cookies["base_domain"]
@@ -36,12 +40,14 @@ def facebook_callback(req):
         #if create:
         user.fill_info()
         user.get_friends()
-        user.message()
+        user.feed()
 
     print "SESSION KEYS"
     for key in req.session.keys():
         print "KEY", key, req.session[key]
 
+    if "redirect" not in req.session:
+        req.session["redirect"] = "/simpz/"
     return HttpResponseRedirect(req.session['redirect'])
 
 def facebook_logout_callback(req):

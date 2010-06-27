@@ -21,35 +21,37 @@ class FBUser(models.Model):
 
         access_token = models.CharField(max_length=100, default="", blank=True)
 
-        def get_friends(self):
+        def friends(self):
 		data = urllib.urlopen("https://graph.facebook.com/" + 
 				      str(self.facebook_id) + "/friends" 
 				      "?access_token=" + self.access_token).read()
-		data_dict = json.loads(data)
-		print data_dict
+		#data_dict = json.loads(data)
+		return data
 
-
-	def feed(self, to="713879", message="Testing."):
+	def feed(self, to="me", message="Testing."):
+		self.access_token = self.access_token.replace("%7C", "|")
 		params = urllib.urlencode({'access_token' : self.access_token,
 					   'message' : message})
-		headers = {}
+		headers = {"Content-Type": "multipart/form-data",
+			   "Accept": "*/*"}
+		print "PARAMS", params
 		conn = httplib.HTTPSConnection("graph.facebook.com")
-		conn.request("POST", str(to) + "/feed", params, headers) 
+		conn.request("POST", "/" + str(to) + "/feed", params, headers) 
 		response = conn.getresponse()
-		print "RESPONSE", response.status, response.reason
+		print "RESPONSE FEED", response.status, response.reason
 		data = response.read()
 		conn.close()
-
 		print "DATA IS", data
 
-
 	def message(self, to="713879", message="Testing.", subject="subject"):
+		self.access_token = self.access_token.replace("%7C", "|")
 		params = urllib.urlencode({'access_token' : self.access_token,
 					   'message' : message,
 					   'subject' : subject})
-		headers = {}
+		headers = {"Content-Type": "multipart/form-data",
+			   "Accept": "*/*"}
 		conn = httplib.HTTPSConnection("graph.facebook.com")
-		conn.request("POST", str(to) + "/notes", params, headers) 
+		conn.request("POST", "/" + str(to) + "/notes", params, headers) 
 		response = conn.getresponse()
 		print "RESPONSE", response.status, response.reason
 		data = response.read()

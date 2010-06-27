@@ -205,7 +205,7 @@ $(document).ready(function() {
                 initialize();
                 $("#createForm").validate();
                 //$('#event_name').focus();	
-                $("input").focus(function() {
+                $("input[type=text]").focus(function() {
                     $(this).val("");
                     $(this).css("color", "black");
                 });

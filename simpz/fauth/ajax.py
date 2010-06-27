@@ -28,3 +28,42 @@ def update_feed(req):
     dict = {}
     dict["status"] = "ok!"
     return HttpResponse(json.dumps(dict))
+
+
+def message(req):
+    print "message"
+    print "SESSION KEYS"
+    for key in req.session.keys():
+        print "KEY", key, req.session[key]
+
+    if "uid" in req.session:
+        fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
+        fbuser.message()
+
+        dict = {}
+        dict["status"] = "ok!"
+        return HttpResponse(json.dumps(dict))
+    else:
+        dict = {}
+        dict["status"] = "error"
+        dict["message"] = "no user"
+        return HttpResponse(json.dumps(dict))
+
+def friends(req):
+    if "uid" in req.session:
+        fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
+        data = fbuser.friends()
+        
+        print "DAAAATAAAA", data
+        #for friend in data:
+        #    print item
+
+        dict = {}
+        dict["status"] = "ok!"
+        dict["data"] = data
+        return HttpResponse(json.dumps(dict))
+    else:
+        dict = {}
+        dict["status"] = "error"
+        dict["message"] = "no user"
+        return HttpResponse(json.dumps(dict))

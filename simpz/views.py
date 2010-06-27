@@ -292,17 +292,17 @@ def event_home(req, event_id=""):
             dict['attendees'] = e.attendees.all()
             dict['invite_url'] = invite_url
             #dict['invite_id'] = Invite.objects.get(event_id=e.id, from_user_id=user.id)
-            return render_to_response('event_home.html', dict) 
+            return render_to_response('invite.html', dict) 
                                       
         else:
-            return render_to_response('event_home.html', dict)
+            return render_to_response('invite.html', dict)
                                                           
     # not logged in
     else:
         
         if e:
             dict["attendees"] = e.attendees.all()
-            return render_to_response('event_home.html', dict)                                
+            return render_to_response('invite.html', dict)                                
         else:
-            return render_to_response('event_home.html', dict)
+            return render_to_response('invite.html', dict)
 
