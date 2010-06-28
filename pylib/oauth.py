@@ -138,7 +138,9 @@ class OAuthToken(object):
         """ Returns a token from something like:
         oauth_token_secret=xxx&oauth_token=xxx
         """
+        print "FROM STRING", s
         params = cgi.parse_qs(s, keep_blank_values=False)
+        print "PARAMS", params
         key = params['oauth_token'][0]
         secret = params['oauth_token_secret'][0]
         token = OAuthToken(key, secret)

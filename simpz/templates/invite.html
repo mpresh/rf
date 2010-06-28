@@ -350,7 +350,7 @@ function display_friends_invite_facebook() {
                     dataType: "json",
 
                     success: function(data){
-                        #alert(data);
+                        //alert(data);
 	        	     },
                     beforeSend: function() {
                         
@@ -359,10 +359,11 @@ function display_friends_invite_facebook() {
  
 }
 
+
 $(document).ready(function() {
 // background processing
-setTimeout ( display_friends_invite_twitter(), 100 );
-setTimeout ( display_friends_invite_facebook(), 10 );
+setTimeout ( "display_friends_invite_twitter()", 100 );
+setTimeout ( "display_friends_invite_facebook()", 10 );
    
 });
 

@@ -39,19 +39,20 @@ def tauth_info(req):
 @wants_user
 def login(req):
 	if 'redirect' not in req.session:
-		req.session['redirect'] = "/simpz/tauth_info"
+		req.session['redirect'] = "/simpz/"
 	if req.user: 
 		print "login redirect:", req.session['redirect']
 		redirect = req.session['redirect']
 		del req.session["redirect"]
 		return HttpResponseRedirect(redirect)
 	token = get_unauthorized_token()
+	print "unauthorized token", token
 	req.session['token'] = token.to_string()
 	url_auth = get_authorization_url(token)
 	for key in req.session.keys():
-		print "KEY", key, req.session[key]
+		print "KEY LOGIN", key, req.session[key]
 
-
+	print "url is ", url_auth
 	return HttpResponseRedirect(url_auth)
 
 def callback(req):
@@ -67,7 +68,9 @@ def callback(req):
 			'token': True
 		})
 
+	print "this is problem", oauth.__file__
 	token = oauth.OAuthToken.from_string(token)
+	print "AM I HERE"
 
 	if token.key != req.GET.get('oauth_token', 'no-token'):
 		return render_to_response('callback.html', {

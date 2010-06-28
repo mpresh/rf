@@ -214,7 +214,9 @@ def invite(req, invite_id):
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])	
         dict['user'] = user
-    
+    else:
+        user = None
+
     if not invite:
         return render_to_response('404.html', dict)
     
@@ -266,6 +268,11 @@ def event_home(req, event_id=""):
     e.spots_left = e.capacity - e.num_attendees
     e.discount_price = e.price / 2
     e.time = e.event_date_time_start.strftime("%A, %B %d, %Y @ %I:%M %p %Z")
+
+    invites = e.invitations.all()
+    invite = invites[0]
+    # redirect to invite
+    return HttpResponseRedirect("/simpz/invite/" + str(invite.id) + "/")
 
     dict = {}
     dict['event'] = e
