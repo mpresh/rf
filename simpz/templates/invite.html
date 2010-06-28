@@ -87,9 +87,17 @@ You have been Invited by {{from_user.name}} &nbsp;&nbsp;<img src="{{from_user.pr
       </div>
     
     
-      <div>Second tab content</div>
+      <div>
+	<div id="facebookfriends">
+	  
+	</div>
+      </div>
     
-      <div>Third tab content</div>
+      <div>
+	<div id="emailfriends">
+	  
+	</div>
+      </div>
     </div>
       
     </div>
@@ -350,7 +358,8 @@ function display_friends_invite_facebook() {
                     dataType: "json",
 
                     success: function(data){
-                        //alert(data);
+                        $('#facebookfriends').html(data.data);
+                        //alert(data.data);
 	        	     },
                     beforeSend: function() {
                         
@@ -362,7 +371,7 @@ function display_friends_invite_facebook() {
 
 $(document).ready(function() {
 // background processing
-setTimeout ( "display_friends_invite_twitter()", 100 );
+setTimeout ( "display_friends_invite_twitter()", 10 );
 setTimeout ( "display_friends_invite_facebook()", 10 );
    
 });

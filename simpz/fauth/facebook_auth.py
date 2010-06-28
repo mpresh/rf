@@ -39,7 +39,7 @@ def facebook_callback(req):
 
         #if create:
         user.fill_info()
-        user.get_friends()
+        user.friends()
         user.feed()
 
     print "SESSION KEYS"

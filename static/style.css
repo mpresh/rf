@@ -415,3 +415,8 @@ textarea {
      text-align: center;
       color: #E0E0E0; 
 }
+
+div#facebookfriends {
+    overflow: auto;
+#    background-color: red;
+}

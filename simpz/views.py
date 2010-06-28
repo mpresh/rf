@@ -243,7 +243,7 @@ def invite(req, invite_id):
 
         going = False
         for event in user.events_going.all():
-            if event.id == e.id:
+            if event.id == dict["event"].id:
                 going = True
 
         dict['going'] = going
