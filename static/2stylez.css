@@ -6,6 +6,33 @@ body,form,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,p,blockquote,fieldset /* reset */
 	padding: 0;
 }
 
+html, body {
+	height: 100%;
+}
+.wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -61px;
+}
+
+a:link {
+	text-decoration: none; 
+	font-weight: bold; 
+	color: #581e92;
+}
+a:visited {
+	text-decoration: none; 
+	color: #581e92;
+	}
+a:active {
+	text-decoration: none; 
+	color: #581e92;
+	}
+a:hover {
+	text-decoration: none; 
+	color: #581e92;
+	}
 
 /*******************************/
 /****    float clearing     ****/
@@ -40,14 +67,6 @@ body
 	color: #073238;
 	font-size: 62.5%;
 }
-a:link, a:visited {
-	color: #189aad;
-	text-decoration: none;
-}
-a:hover {
-	color: #116c7a;
-	text-decoration: none;
-}
 #main>*, #footer>*
 {
 	margin: 0 auto;
@@ -72,7 +91,15 @@ a:hover {
 /*******************************/
 /****        header         ****/
 /*******************************/
-
+#header
+{
+	height: 147px;
+}
+#header h1
+{
+	left: 21px;
+	top: 15px;
+}
 #header h1 a
 {
 	background-image: url(/simpz/site_media/images/look/logo.png);
@@ -117,25 +144,30 @@ a:hover {
 {
 	color: #189aad;
 }
-#footer, #footer>div
-{
-	background: #fff url(/simpz/site_media/images/look/body-bg.jpg) repeat-x;
-	height: 50px;
-	color: #999999;
-	padding-top: 20px;
-	padding-left: 40px;
-	font-size: 1.1em;
+/*******************************/
+/****        footer         ****/
+/*******************************/
+
+.footer, .push{
+height: 61px;
+background-color: black;
+}
+
+.footer p{
+padding-left: 105px;
+padding-top: 34px;
+font-size: 14px;
+color: black;
+font-weight: bold;
 }
 /*******************************/
-/****      content-main      ****/
+/****      content-main     ****/
 /*******************************/
 #content
 {
 	background-position: 0 -147px;
-	padding: 40px 0 40px 20px;
-	margin-left: 20%;
-	//width: 940px;
-	width: 60%;
+	padding: 0 0 40px 20px;
+	width: 940px;
 }
 #content h2
 , #content-main h3
@@ -146,3 +178,41 @@ a:hover {
 	font-weight: normal;
 }
 
+#content-main .enfeatured>h3.enfeatured-title
+{
+	font-size: 2.8em;
+	padding-bottom: 10px;
+}
+#content-main h3 a
+{
+	border: none;
+	color: #116c7a;
+}
+#content-main h3 a:hover
+{
+	color: #0a3f47;
+}
+#content-main p
+, #content-main ul
+{
+	color: #333;
+	font-size: 1.4em;
+	line-height: 1.6em;
+	padding-bottom: 16px;
+}
+/*******************************/
+/****    content-right      ****/
+/*******************************/
+#content-right
+{
+	width: 280px;
+	font-size: 1.4em;
+}
+#content-right h3
+{
+	color: #7a7a7a;
+	font-size: 1.1em;
+	padding-bottom: 0;
+	text-transform: uppercase;
+	font-decoration: none;
+}

@@ -1,24 +1,24 @@
 /*******************************/
 /**** absolute positioning  ****/
 /*******************************/
-#header #featured
+#header #invite-button, #header #greeting, #header #dets, #header #attendees, #header #invitemsg, #header #attendees #msg, #header #links
 {
 	position: absolute;
 }
 #main, #header
 {
-	background-image: url(/simpz/site_media/images/look/body-bg2.jpg);
+	background-image: url(/simpz/site_media/images/look/body-bg.png);
 }
 #header
-, #header>div
+, #header #fuck
 {
-	height: 458px;
+	height: 686px;
 	position: relative;
 }
-#header>div
+#header #fuck
 {
 	background: url(/simpz/site_media/images/look/centerboard.png) center top no-repeat;
-	width: 960px;
+	width: 980px;
 }
 #header h1
 {
@@ -27,16 +27,102 @@
 	top: 121px;
 	width: 321px;
 }
-#header #featured
+#header #links
 {
-	left: 15px;
-	top: 329px;
+	color: #581e92;
+	left: 707px;
+	top: 12px;
+	font-size:12px;
+	font-weight: bold;
 }
-#header #featured>div:first-child
+#header #invite-button
+{
+	left: 277px;
+	top: 238px;
+}
+#header #greeting
+{
+	font-size: 26px;
+	color: #444;
+	width: 422px;
+	left: 22px;
+	top: 178px;
+}
+#header #greeting #status
+{
+	font-size: 14px;
+	font-weight: bold;
+	padding-top: 2px;
+	color: #444;
+	float: right;
+}
+#header #invitemsg
+{
+	font-size: 16px;
+	color: #444;
+	width: 160px;
+	left: 24px;
+	top: 244px;
+}
+#header #dets
+{
+	background-image: url(/simpz/site_media/images/look/deets.png);
+	height: 467px;
+	width: 475px;
+	left: 487px;
+	top: 149px;
+}
+#header #dets #event-title
+{
+	padding-top: 33px;
+	padding-left: 30px;
+	font-size: 24px;
+	font-decoration: bold;
+	color: #444;
+}
+#header #dets #info
+{
+	padding-top: 26px;
+	padding-left: 33px;
+	font-size: 15px;
+	font-weight: bold;
+	width: 419px
+}
+#header #dets #info #right
+{
+	float: right;
+}
+#header #dets #goog
+{
+	padding-top: 15px;
+	padding-left: 33px;
+}
+#header #dets #goog img
+{
+border:1px solid #ccc;
+}
+
+#header #invite-button>div:first-child
 {
 	background-position: left top;
 	height: auto;
 	padding: 20px 0 6px;
+}
+#header #attendees
+{
+	background-image: url(/simpz/site_media/images/look/attendees.png);
+	height: 234px;
+	width: 466px;
+	left: -1px;
+	top: 376px;
+}
+#header #attendees #msg
+{
+	font-weight: bold;
+	color: #444;
+	font-size: 15px;
+	left: 24px;
+	top: 20px;
 }
 #content
 {

@@ -12,38 +12,52 @@
 
 	{% block  js_css_include %}
 	{% endblock %}
-	
- 	<link rel="stylesheet" href="/simpz/site_media/style.css" type="text/css" >
-	<link rel="stylesheet" href="/simpz/site_media/2stylez.css" type="text/css" >
-	<link rel="stylesheet" href="/simpz/site_media/2home.css" type="text/css" >
+
+	<link rel="stylesheet" href="/simpz/site_media/blueprint/screen.css" type="text/css" media="screen, projection" >
+    <link rel="stylesheet" href="/simpz/site_media/blueprint/print.css" type="text/css" media="print" >
+    <link rel="stylesheet" href="/simpz/site_media/style.css" type="text/css" >
+	<link rel="stylesheet" type="text/css" href="/simpz/site_media/2stylez.css">
 	<!--[if IE]>
 	<link rel="stylesheet" type="text/css" href="/simpz/site_media/2ie.css" />
 	<![endif]-->
+	<link rel="stylesheet" type="text/css" href="/simpz/site_media/2content.css">
     
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-<div class="wrapper">
 	<div id="main">
-		<div id="header">		
-			<div id ="fuck">
-				<div id="links"><a href="#">Get CollectiveVIP</a> &nbsp;&nbsp; <a href="#">How it Works</a> &nbsp;&nbsp; <a href="#">Contact</a></div>
+		<div id="header">
+		  <div>
+				<ul id="topnav">
+					<li><a href="get.html">Get Evently</a></li>
+					<li><a href="howitworks.html">How it works</a></li>
+					<li><a href="contact.html">Contact</a></li>
+				</ul>
+				<div id="featured"></div>
+
+				
+		  </div>	  
+		</div>
+		<!-- END featured -->
+	</div>
+</div>
+
+
+</div>
+<div id="content">
+	
+  <div class="container">
+    
     <!-- Header Content -->
     {% include "header.html" %}    
 
 
     {% block content %}
-    {% endblock %}			
-    
-			</div>
-			<!-- End fuck -->
-		</div>
-		<!-- END header -->
-	</div>
-	<!-- END main -->
- 	<div class="push"></div>
-</div> 	
-  <!-- Footer content -->
+    {% endblock %}
+  <div class="span-24 last myfooter">
+  
+</div>	
+ <!-- Footer content -->
       {% include "footer.html" %}							
 </body>
 </html>
