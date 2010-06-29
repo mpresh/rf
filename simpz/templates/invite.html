@@ -2,6 +2,7 @@
 
 	{% block  js_css_include %}
     <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key={{map_key}}" type="text/javascript" > </script>
+    <script src="http://connect.facebook.net/en_US/all.js"></script>
 	{% endblock %}
 
 
@@ -157,9 +158,10 @@ You have been Invited by {{from_user.name}} &nbsp;&nbsp;<img src="{{from_user.pr
 
 
 
-
+<div id="fb-root"></div>
 <script>
 $(document).ready(function() {
+        FB.init({appId: '374592118121', status: true, cookie: true, xfbml: true});
 
 	$("#invite_popup_close").bind('click', function() {
 		$('#invite_popup').hide();
@@ -358,8 +360,17 @@ function display_friends_invite_facebook() {
                     dataType: "json",
 
                     success: function(data){
-                        $('#facebookfriends').html(data.data);
-                        //alert(data.data);
+
+                        var obj = JSON.parse(data.data);
+                        var user;
+                        var html = "<ul>";
+                        for (user in obj.data) {
+                            html = html + "<li><fb:profile-pic uid=" + obj.data[user].id + " linked='false' ></fb:profile-pic> </li>";
+                        }
+                        html = html + "</ul>";
+                        $('#facebookfriends').css("overflow", "auto");
+                        $('#facebookfriends').html("<fb:profile-pic uid=5388 linked='false' ></fb:profile-pic>LALALAL");
+                        alert(html);
 	        	     },
                     beforeSend: function() {
                         
