@@ -250,6 +250,56 @@ def invite(req, invite_id):
         
     return render_to_response('invite.html', dict)
 
+def blogvip(req, invite_id):
+    req.session["redirect"] = "/simpz/blogvip/" + invite_id
+    invite = None
+    if invite_id:
+        try:
+            invite = Invite.objects.get(id=invite_id)
+        except ObjectDoesNotExist:
+            invite = None
+
+    dict = {}
+    if "user_id" in req.session:
+        user = User.objects.get(id=req.session["user_id"])	
+        dict['user'] = user
+    else:
+        user = None
+
+    if not invite:
+        return render_to_response('404.html', dict)
+    
+    dict["event"] = Event.objects.get(id=invite.event_id)
+    dict['invite_url'] = util.get_invite_url(req)    
+    dict["from_user"] = User.objects.get(id=invite.from_user_id)
+    dict["to_user"] = User.objects.get(id=invite.to_users.all()[0].id)
+    dict["attendees"] = invite.event.attendees.all()
+    dict["map_key"]  = settings.GOOGLE_MAP_API    
+    dict["created_at"]  = invite.created_at
+    dict["msg"]  = invite.message
+    dict['invite_id'] = invite_id
+
+    if user:
+        # if this invite is not for you, don't show page
+        to_users = invite.to_users.all()
+        print "TO USERS", to_users
+        to_user_ids = [u.id for u in to_users]
+        to_user_usernames = [u.username for u in to_users]
+
+        print to_user_ids, to_user_usernames
+        if user.id not in to_user_ids and "DEFAULT" not in to_user_usernames: 
+            return HttpResponseRedirect("/simpz/event_home/" + str(dict["event"].id) + "/")
+
+        going = False
+        for event in user.events_going.all():
+            if event.id == dict["event"].id:
+                going = True
+
+        dict['going'] = going
+        
+    return render_to_response('blogvip.html', dict)
+
+
 def event_home(req, event_id=""):
     req.session["redirect"] = "/simpz/event_home/" + event_id
     if event_id:

@@ -48,7 +48,7 @@ urlpatterns = patterns('',
                        url(r'list/$', 'views.event_list', name='event_list'),
                        url(r'create/$', 'views.event_create', name='event_create'),
                        url(r'invite/(?P<invite_id>\d+)/$', 'views.invite', name='event_invite'),
-                       url(r'blogvip/(?P<invite_id>\d+)/$', 'views.invite', name='event_invite'),
+                       url(r'blogvip/(?P<invite_id>\d+)/$', 'views.blogvip', name='event_blogvip'),
 
                        #url(r'facebook_callback/$', 'facebook_auth.facebook_server_callback', name='facebook_callback'),
                        url(r'facebook_callback/$', 'fauth.facebook_auth.facebook_callback', name='facebook_callback'),
