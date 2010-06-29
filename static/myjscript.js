@@ -67,12 +67,3 @@ function friend_check_html(namev,urlv,userv) {
 
     return html;
 }
-
-
-$(document).ready(function() {
-    $("#header").click(function() {
-        window.location = "/simpz/";
-    });
-
-    });
-
