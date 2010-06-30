@@ -1,7 +1,7 @@
 def get_invite_url(req):
     # getting the right path
     invite_url = req.build_absolute_uri() 
-
+    return invite_url
     start = invite_url.find("?")
     if start != -1:
         invite_url = invite_url[:start]

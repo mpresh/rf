@@ -32,26 +32,28 @@
 
 <div id="overlay-blogger-login" class="overlay-blogger">
 
-<div class="overlay-top"><img src="/simpz/site_media/images/sharetxt.png"></div>
-<div class="overlay-bot"></div>
-<BR><BR>
+  <div class="overlay-top"><img src="/simpz/site_media/images/sharetxt.png"></div>
+  <div class="overlay-bot"></div>
+  <BR /><BR />
 
   <div id="overlay-div-facebook-login">
-    <script src="http://connect.facebook.net/en_US/all.js"></script>
+  <script src="http://connect.facebook.net/en_US/all.js"></script>
     <div id="fb-root"></div>
 
-    <button id="status_button">STATUS</button>
+    <!--<button id="status_button">STATUS</button>-->
     {% if fbuser %}
-    <button id="logoutnow">LOGOUT</button>
-    <button id="more_perms">PERMISSIONS</button>
-    <button id="feed">FEED</button>
-    <button id="message">MESSAGE</button>
-    <fb:profile-pic uid={{fbuser.facebook_id}} linked="false" ></fb:profile-pic> 
+    Logged In To Facebook<br />
+    <!--<button class="logoutnow">LOGOUT</button>-->
+    <!--<button id="more_perms">PERMISSIONS</button>-->
+    <!--<button id="feed">FEED</button>-->
+    <!--<button id="message">MESSAGE</button>-->
+    <fb:profile-pic height="45px" width="45px" uid={{fbuser.facebook_id}} linked="false" ></fb:profile-pic> 
     <!--<img src="{{fbuser.profile_pic}}" />-->
-
-    <button id="facebook invite">Post Invite To Feed</button>
+    <br/>
+    <a class="logoutnow" href="#">logout from facebook</a>
+    <!--<button id="facebook invite">Post Invite To Feed</button>-->
     {% else %}
-    <button id="login">LOGIN</button>
+    <a href="#"><img id="facebook-login" src="/simpz/site_media/images/Facebook-Button.png"/></a>
     {% endif %}
 
   </div>
@@ -59,25 +61,27 @@
   <div id="overlay-div-twitter-login">
 
     {% if user %}
-    Twitter Logged In
-    <a href="/simpz/logout/">logout, {{user.username}} <img src="{{user.profile_pic}}" /></a>
+    Logged In To Twitter<br />
+    <img id="twitter-profile-image" src="{{user.profile_pic}}" />
+    <br/>
+    <a href="/simpz/logout/">logout from twitter</a>
     {% else %}
-    <a href="/simpz/login/"><img src="/simpz/site_media/images/twitter_button_5_lo.gif/" /></a><br/><br/>
+    <a href="/simpz/login/"><img id="twitter-login" src="/simpz/site_media/images/twitter_button_5_lo.gif/" /></a><br/><br/>
     {% endif %}
   </div>
 
-  {% if fbuser or user %}
+  
 
-  <textarea id="overlay-textarea" rows="5" cols="97">HELLO THERE</textarea>
+  <textarea id="overlay-textarea" >Great Event, Come with me. {{invite_url}}</textarea>
 
-  {% endif %}
+  
 
   {%if fbuser %}
-  <div id="facebook-feed-update"><button>UPDATE FACEBOOK FEED</button></div>
+  <div id="facebook-div-feed-update"><button id="facebook-feed-update">UPDATE FACEBOOK FEED</button></div>
   {% endif %}
 
   {%if user %}
-  <div id="twitter-feed-update"><button>UPDATE TWITTER FEED</button></div>
+  <div id="twitter-div-feed-update"><button id="twitter-feed-update">UPDATE TWITTER FEED</button></div>
   {% endif %}
 </div>
 
@@ -176,12 +180,13 @@ $("#twitter-feed-update").click(function(){
 $("#facebook-feed-update").click(function(){
     alert("facebook ckicked");
     $(this).attr("disabled", "disabled"); 
+    //$(this).hide();
     $.ajax({
        url: '/simpz/ajax/facebook_update_feed/', 
        dataType: "json",
        data: {message: $("#overlay-textarea").val()},
        success: function(data){
-
+    
        },
        beforeSend: function() {
            alert("sending feed request");
@@ -205,7 +210,7 @@ alert("HAHA" + response + inspect(response));
 
   var requiredPerms = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
   //var requiredPerms = ['publish_stream'];
-  $('#login').click(function() {
+  $('#facebook-login').click(function() {
  
   FB.login(function(response) {
     if (response.session) {
@@ -244,7 +249,7 @@ $("#more_perms").click(function(){
 });
 
 
-  $('#logoutnow').click(function() {
+  $('.logoutnow').click(function() {
 
       $.cookie("uid", null);
       $.cookie("session_key", null);

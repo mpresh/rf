@@ -36,9 +36,9 @@
 
 .overlay-blogger .overlay-bot{
 	position: absolute;
-	top: 270px;
+	top: 275px;
 	left: 0px;
-	height: 46px;
+	height: 41px;
 	width: 100%;
 	background-image: url(images/overlaybot-bg.png);
 	/* CSS3 styling for latest browsers */	
@@ -66,18 +66,82 @@
 }
 
 #overlay-div-facebook-login {
-	background-color: white;
+	text-align: center;
+	background-color: #DEDEDE;
 	margin: 5px;
 	width: 46%;
 	float: left;
 	height: 90px;
+	font-size: 15px;
+}
+
+.overlay-blogger img {
+	margin-top: 5px;
+	margin-botom: 5px;
 }
 
 #overlay-div-twitter-login {
-	background-color: yellow;
-	#position: relative;
+	text-align: center;
+	background-color: #DEDEDE;
 	float: right;
 	margin: 5px;
 	width: 46%;
 	height: 90px;
+	font-size: 15px;
+}
+
+#facebook-div-feed-update {
+	margin-top: 5px;
+	text-align: center;
+	height: 31px;
+	width: 200px;
+	float: left;
+	background-color: #8263E5;
+}
+
+#twitter-div-feed-update {
+	margin-top: 5px;
+	text-align: center;
+	height: 31px;
+	width: 200px;
+	float: right;
+	background-color: #8263E5;
+}
+
+#twitter-feed-update {
+        margin-top: 3px;
+        height: 25px;
+	width: 190px;
+}
+
+#facebook-feed-update {
+        height: 25px;
+	margin-top: 3px;
+	width: 190px;	
+}
+
+#overlay-textarea {
+        color: black;
+	font-size: 15px;
+	width: 470px;
+	height: 50px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#facebook-login {
+	       margin-top: 10px;
+		width: 70px;
+		height: 70px;
+}
+
+#twitter-login {
+	       margin-top: 25px;
+		width: 190px;
+		height: 40px;
+}
+
+#twitter-profile-image {
+		       width: 45px;
+		       height: 45px;
 }
