@@ -50,10 +50,12 @@
     <button id="message">MESSAGE</button>
     <fb:profile-pic uid={{fbuser.facebook_id}} linked="false" ></fb:profile-pic> 
     <!--<img src="{{fbuser.profile_pic}}" />-->
+
+    <button id="facebook invite">Post Invite To Feed</button>
     {% else %}
     <button id="login">LOGIN</button>
     {% endif %}
-    
+
   </div>
 
   <div id="overlay-div-twitter-login">
@@ -65,6 +67,18 @@
     <a href="/simpz/login/"><img src="/simpz/site_media/images/twitter_button_5_lo.gif/" /></a><br/><br/>
     {% endif %}
   </div>
+
+  {% if fbuser or user %}
+  <textarea rows="5" cols="97">HELLO THERE</textarea>
+  {% endif %}
+
+  {%if fbuser %}
+  <div id="facebook-feed-update"><button>UPDATE FACEBOOK FEED</button></div>
+  {% endif %}
+
+  {%if user %}
+  <div id="twitter-feed-update"><button>UPDATE TWITTER FEED</button></div>
+  {% endif %}
 </div>
 
 <!-- This is the Invite popup code -->
