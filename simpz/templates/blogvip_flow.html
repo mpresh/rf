@@ -79,11 +79,14 @@
   
 
   {%if fbuser %}
+<!--<img id="facebook-feed-update" src="/simpz/site_media/images/facebook-invite.png">-->
   <div id="facebook-div-feed-update"><button id="facebook-feed-update">UPDATE FACEBOOK FEED</button></div>
   {% endif %}
   {%if user %}
+ 
   <div id="twitter-div-feed-update"><button id="twitter-feed-update">UPDATE TWITTER FEED</button></div>
   {% endif %}
+<!--<img id="twitter-feed-update" src="/simpz/site_media/images/tweet-invite.png">-->
   <div class="discount-code">Discount Code: <br/><a href="http://www.eventbrite.come">3DESXV</a></div>  
 </div>
 
@@ -188,7 +191,7 @@ $("#twitter-feed-update").click(function(){
                           }, 
                     success: function(data){
                         $.get('/simpz/ajax/event_going/{{event.id}}', function(data) {
-                            location.reload();
+                            //location.reload();
 		        });
 	        	     },
                     beforeSend: function() {
