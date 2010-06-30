@@ -65,7 +65,8 @@
       {% include "footer.html" %}							
 
 
-
+<div id="fb-root"></div>
+<script src="http://connect.facebook.net/en_US/all.js"></scrpt>
 
 
 <button id="status">STATUS</button>
@@ -74,7 +75,7 @@
 <button id="logoutnow">LOGOUT</button>
 <fb:profile-pic uid={{facebook}} linked="false" ></fb:profile-pic> 
 <fb:profile-pic uid=5388 linked='false' ></fb:profile-pic>
- <button id="more_perms">PERMISSIONS</button>
+<button id="more_perms">PERMISSIONS</button>
 <button id="feed">FEED</button>
 <button id="message">MESSAGE</button>
 
@@ -87,11 +88,9 @@
 <!-- <fb:login-button id="fb-login" v="2"><fb:intl>Connect with Facebook and stuff</fb:intl></fb:login-button> -->
 {% endif %}
 
-<script src="http://connect.facebook.net/en_US/all.js"></script>
-<div id="fb-root"></div>
 
 <script>
-  FB.init({appId: '374592118121', status: true, cookie: true, xfbml: true});
+FB.init({appId: '374592118121', status: true, cookie: true, xfbml: true});
 
 $("#feed").click(function(){
      $.ajax({
@@ -191,9 +190,10 @@ $("#more_perms").click(function(){
   });
 
 
-
-
 </script>
+
+
+
 </body>
 
 </html>

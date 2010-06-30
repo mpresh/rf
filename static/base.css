@@ -1,0 +1,90 @@
+
+#wrapper
+{
+	background-image: url(/simpz/site_media/images/look/body-bg.png);
+	background-repeat: repeat-x;
+}
+#backgroundIMG
+{
+	background: url(/simpz/site_media/images/look/centerboard.png) center top no-repeat;
+	border-width:1px;
+	width: 980px;
+	margin: 0 auto;
+	align: center;
+}
+#header
+{
+	height: 29px;
+	padding-top: 9px;
+}
+#links
+{
+	color: #581e92;
+	font-size:12px;
+	font-weight: bold;
+}
+
+#rTop
+{
+	padding-top: 145px;
+	padding-left: 20px;
+	height: 200px;
+}
+#lanyardHeader
+{
+    height: 35px;
+}
+#lanyardBody
+{
+    height: 80px;
+}
+#lanyardFooter
+{
+    height: 50px;
+}
+#lTop
+{
+    margin-top: 111px;
+}
+#lTopHeader
+{
+	height: 70px;
+	background-image: url(/simpz/site_media/images/look/ptop.png);
+	background-repeat: no-repeat;
+}
+#lTopBody
+{
+	background-image: url(/simpz/site_media/images/look/pmid.png);
+	background-repeat: repeat-y;
+}
+#lTopFooter
+{
+	background-image: url(/simpz/site_media/images/look/pbot.png);
+	background-repeat: no-repeat;
+	height: 46px;
+}
+#lTopHeader > div, #lTopBody > div, #lTopFooter > div
+{
+    padding-left: 27px;
+}
+#lTopHeader > div
+{
+    padding-top: 30px;
+}
+a:link {
+	text-decoration: none; 
+	font-weight: bold; 
+	color: #581e92;
+}
+a:visited {
+	text-decoration: none; 
+	color: #581e92;
+}
+a:active {
+	text-decoration: none; 
+	color: #581e92;
+}
+a:hover {
+	text-decoration: none; 
+	color: #581e92;
+}

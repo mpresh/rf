@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="Content-Language" content="en-us" />
+
+    <script type="text/javascript" src="/simpz/site_media/jquery-1.4.2.min.js" ></script>
+    <script type="text/javascript" src="/simpz/site_media/myjscript.js" ></script>
+    <script type="text/javascript" src="/simpz/site_media/jquery.tools.min.js" ></script>
+    <script type="text/javascript" src="/simpz/site_media/jquery.validate.js" ></script>
+
+	{% block  js_css_include %}{% endblock %}
+	
+        <!-- BluePrint CSS -->
+ 	<link rel="stylesheet" href="/simpz/site_media/blueprint/reset.css" type="text/css">
+	<link rel="stylesheet" href="/simpz/site_media/blueprint/grid.css" type="text/css" media="screen, projection">
+	<!--[if lt IE 8]><link rel="stylesheet" href="/simpz/site_media/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<!-- End BluePrint CSS -->
+
+	<link rel="stylesheet" href="/simpz/site_media/base.css" type="text/css">
+    
+    <title>{% block title %} {% endblock %}</title>
+  </head>
+<body>
+<div id="wrapper">
+	<div id="backgroundIMG">
+	    <div class="container">
+	        <!-- Header -->
+	     	<div id="header" class="span-22 last">		
+		     <div id="links" class="span-7 prepend-15 last">
+		          <a href="#">Get CollectiveVIP</a> &nbsp;&nbsp; 
+			  <a href="#">How it Works</a> &nbsp;&nbsp; 
+			  <a href="#">Contact</a>
+		     </div>
+		</div>
+		<!-- END header -->
+
+		<!-- Right Column -->
+		<div id="rightColumn" class="span-11">
+		     <!-- Top part -->
+		     <div id="rTop" class="span-11 last">
+		         <div id="lanyardHeader" class="span-11 last">{% block lanyardHeader %} {% endblock %}</div>
+		         <div id="lanyardBody" class="span-11 last">{% block lanyardBody %} {% endblock %}</div>
+		         <div id="lanyardFooter" class="span-11 last">{% block lanyardFooter %} {% endblock %}</div>
+		     </div>
+		     <!-- Mid Part -->
+		     <div id="rMid" class="span-11 last">
+		          {% block rightMid %} {% endblock %}
+		     </div>
+		     <!-- Bot Part-->
+		     <div id="rBot" class="span-11 last">
+		          {% block rightBot %} {% endblock %}
+		     </div>
+		<!-- End Right Column -->
+		</div>
+
+		<!-- Left Column -->
+		<div id="leftColumn" class="span-11 last">
+		  <!-- Top part -->
+		  <div id="lTop" class="span-11 last">
+		       <div id="lTopHeader" class="span-11 last"><div>{% block paperHeader %} {% endblock %}</div></div>
+		       <div id="lTopBody" class="span-11 last"><div>{% block paperBody %} {% endblock %}</div></div>
+		       <div id="lTopFooter" class="span-11 last"><div></div></div>
+		  </div>
+		  <!-- Mid Part -->
+		  <div id="rMid" class="span-11 last">{% block leftMid %} {% endblock %}</div>
+		  <!-- Bot Part-->
+		  <div id="rBot" class="span-11 last">{% block leftBot %} {% endblock %}</div>
+		<!-- End Left Column -->
+		</div>
+	     <!--End Container --> 
+             </div>
+	<!-- END backgroundIMG -->
+	</div>
+ 	<div class="push"></div>
+</div> 	
+  <!-- Footer content -->
+      {% include "footer.html" %}
+{% block jsContent %} {% endblock %}						
+</body>
+</html>
+    
