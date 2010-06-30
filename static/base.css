@@ -88,3 +88,61 @@ a:hover {
 	text-decoration: none; 
 	color: #581e92;
 }
+
+#attendees
+{
+	background-image: url(/simpz/site_media/images/look/attendees.png);
+	height: 234px;
+	width: 466px;
+	left: -1px;
+	top: 376px;
+}
+#attendees #msg
+{
+	font-weight: bold;
+	color: #444;
+	font-size: 20px;
+	left: 25px;
+	top: 20px;
+	position: relative;
+}
+
+
+#dets
+{
+	background-image: url(/simpz/site_media/images/look/deets.png);
+	height: 467px;
+	width: 475px;
+	left: 487px;
+	top: 149px;
+	position: relative;
+}
+#dets #event-title
+{
+	padding-top: 33px;
+	padding-left: 30px;
+	font-size: 24px;
+	font-decoration: bold;
+	color: #444;
+}
+#dets #info
+{
+	padding-top: 26px;
+	padding-left: 33px;
+	font-size: 15px;
+	font-weight: bold;
+	width: 419px
+}
+#dets #info #right
+{
+	float: right;
+}
+#dets #goog
+{
+	padding-top: 15px;
+	padding-left: 33px;
+}
+#dets #goog img
+{
+border:1px solid #ccc;
+}
