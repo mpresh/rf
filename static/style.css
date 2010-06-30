@@ -366,6 +366,9 @@ h1.header_name {
 
 div.logout {
 	   margin-bottom: 70px;
+	   position: absolute;
+	   top: 80px;
+	   left: 790px;
 }
 
 table#details_table th{
