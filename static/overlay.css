@@ -2,7 +2,7 @@
 	display:none;
 	z-index:10000;
 	border:0px solid #666;	
-	background-color:#fff;	 
+	background-color:#000;	 
 	width: 700px;
 	height: 400px;
 	padding: 35px;
@@ -27,6 +27,15 @@
 	-moz-border-radius-topright: 12px;
 	-webkit-border-top-right-radius: 12px;
 	}
+
+.overlay-blogger .overlay-top p{
+	padding-left: 10px;
+	color: #fff;
+	padding-top: 5px;
+	font-weight: bold;
+	font-size: 16px;
+	}
+
 
 .overlay-blogger .overlay-bot{
 	position: absolute;
@@ -54,7 +63,7 @@
 
 #overlay-div-header-login {
         background-color: white;
-        margin: 10px 20px 30px 20px;
+        margin: 10px 20px 130px 20px;
 	width: 640px;
 	text-align: center;
 }
