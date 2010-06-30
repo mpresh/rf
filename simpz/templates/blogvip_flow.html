@@ -69,7 +69,7 @@
   </div>
 
   {% if fbuser or user %}
-  <textarea rows="5" cols="97">HELLO THERE</textarea>
+  <textarea id="overlay-textarea" rows="5" cols="97">HELLO THERE</textarea>
   {% endif %}
 
   {%if fbuser %}
@@ -104,8 +104,6 @@
 	<div id="info"><img src="images/map-ico.png"> {{event.venue}}, {{event.venue_address}} <div id="right">{{event.time}} <img src="images/cal-ico.png"></div></div>
 	<div id="goog"><img src="images/map.png"></div>
 </div>
-
-
 
 
 <script>
@@ -156,6 +154,39 @@ $("#message").click(function(){
            alert("sending message");
         }
       });
+});
+
+$("#twitter-feed-update").click(function(){
+              alert("clicked twiiter");
+              $(this).attr("disabled", "disabled"); 
+              $.ajax({
+                    url: '/simpz/ajax/event_tweet_invite/{{event.id}}', 
+                    dataType: "json",
+                    data: {data: $("#overlay-textarea").val(), 
+                    invite_url: '{{invite_url}}',
+                    invite_id: {{invite_id}}
+                          }, 
+                    success: function(data){
+	        	     },
+                    beforeSend: function() {
+                    }
+                 });
+});
+
+$("#facebook-feed-update").click(function(){
+    alert("facebook ckicked");
+    $(this).attr("disabled", "disabled"); 
+    $.ajax({
+       url: '/simpz/ajax/facebook_update_feed/', 
+       dataType: "json",
+       data: {message: $("#overlay-textarea").val()},
+       success: function(data){
+
+       },
+       beforeSend: function() {
+           alert("sending feed request");
+        }
+      });   
 });
 
 $("#status_button").click(function(){
