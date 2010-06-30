@@ -118,7 +118,7 @@ def logout(req):
 		req.user.oauth_token = ''
 		req.user.oauth_token_secret = ''
 		req.user.save()
-	req.session.flush()
+	del req.session["user_id"]
 
 	if redirect:
 		return HttpResponseRedirect(redirect)

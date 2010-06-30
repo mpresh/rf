@@ -51,11 +51,12 @@
 .overlay-blogger .close{ 	
 		     background-image:url(images/close.png);
 		     position: absolute;
-		     right: 10px;
-		     top: 10px;  
+		     right: 4px;
+		     top: 2px;  
 		     cursor:pointer;
 		     height:35px;
 		     width: 35px;
+		     z-index: 100001;
 }
 
 #overlay-div-header-login {

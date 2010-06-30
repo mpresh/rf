@@ -161,7 +161,7 @@ $("#message").click(function(){
 });
 
 $("#twitter-feed-update").click(function(){
-              alert("clicked twiiter");
+              //alert("clicked twiiter");
               $(this).attr("disabled", "disabled"); 
               $.ajax({
                     url: '/simpz/ajax/event_tweet_invite/{{event.id}}', 
@@ -195,9 +195,8 @@ $("#facebook-feed-update").click(function(){
 });
 
 $("#status_button").click(function(){
-  alert("LALAL");
   FB.getLoginStatus(function(response) {
-alert("HAHA" + response + inspect(response));
+//alert("HAHA" + response + inspect(response));
   if (response.session) {
     // logged in and connected user, someone you know
     alert("logged in ");
@@ -250,7 +249,7 @@ $("#more_perms").click(function(){
 
 
   $('.logoutnow').click(function() {
-
+      //alert("LAL");
       $.cookie("uid", null);
       $.cookie("session_key", null);
       $.cookie("secret", null);
@@ -259,7 +258,9 @@ $("#more_perms").click(function(){
       $.cookie("access_token", null);
       $.cookie("sig", null);
 
+      //window.location.href = "/simpz/facebook_logout_callback/";
       FB.logout(function(response) { 
+            //alert("status");
             window.location.href = "/simpz/facebook_logout_callback/";
       });
      //window.location.href = "/simpz/facebook_logout_callback/";
