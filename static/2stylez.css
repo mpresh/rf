@@ -152,11 +152,13 @@ body
 height: 61px;
 }
 
+.footer{	
+background-image: url(/simpz/site_media/images/footer.png);
+}
 .footer p{
-padding-left: 105px;
+padding-left: 135px;
 padding-top: 34px;
 font-size: 14px;
-color: black;
 font-weight: bold;
 }
 /*******************************/
