@@ -1,0 +1,74 @@
+.simple_overlay{
+	display:none;
+	z-index:10000;
+	border:1px solid #666;	
+	background-color:#FBF5EF;	 
+	width: 700px;
+	height: 430px;
+	padding: 35px;
+
+    /* CSS3 styling for latest browsers */	 
+    -moz-box-shadow:0 0 90px 5px #000; 
+    -webkit-box-shadow: 0 0 90px #000;
+}
+
+.simple_overlay .close{ 	
+		     background-image:url(images/close.png);
+		     position: absolute;
+		     right: 5px;
+		     top: 5px;  
+		     cursor:pointer;
+		     height:35px;
+		     width: 35px;
+}
+
+
+.overlay-blogger{
+	display:none;
+	z-index:10000;
+	border:1px solid #666;	
+	background-color:#333;	 
+	width: 700px;
+	height: 430px;
+	padding: 35px;
+
+    /* CSS3 styling for latest browsers */	 
+    -moz-box-shadow:0 0 90px 5px #000; 
+    -webkit-box-shadow: 0 0 90px #000;
+    -moz-border-radius:30px; 
+    -webkit-border-radius:30px;
+}
+
+.overlay-blogger .close{ 	
+		     background-image:url(images/close.png);
+		     position: absolute;
+		     right: 10px;
+		     top: 10px;  
+		     cursor:pointer;
+		     height:35px;
+		     width: 35px;
+}
+
+#overlay-div-header-login {
+        background-color: white;
+        margin: 10px 20px 130px 20px;
+	width: 640px;
+	text-align: center;
+}
+
+#overlay-div-facebook-login {
+	background-color: white;
+	margin: 10px;
+	width: 46%;
+	float: left;
+	height: 100px;
+}
+
+#overlay-div-twitter-login {
+	background-color: yellow;
+	#position: relative;
+	float: right;
+	margin: 10px;
+	width: 46%;
+	height: 100px;
+}
