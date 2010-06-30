@@ -1,0 +1,83 @@
+.overlay-blogger{
+	display:none;
+	z-index:10000;
+	border:0px;	
+	background-color:#fff;	 
+	width: 480px;
+	height: 246px;
+	padding: 35px;
+
+    /* CSS3 styling for latest browsers */	 
+    -moz-box-shadow:0 0 90px 5px #000; 
+    -webkit-box-shadow: 0 0 90px #000;
+    -moz-border-radius:12px; 
+    -webkit-border-radius:12px;
+}
+
+.overlay-blogger .overlay-top{
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 40px;
+	width: 100%;
+	background-image: url(images/overlaytop-bg.png);
+	/* CSS3 styling for latest browsers */	
+	-moz-border-radius-topleft: 12px;
+	-webkit-border-top-left-radius: 12px;
+	-moz-border-radius-topright: 12px;
+	-webkit-border-top-right-radius: 12px;
+	}
+
+.overlay-blogger .overlay-top img{
+	padding-left: 15px;
+	padding-top: 12px;
+	}
+
+
+.overlay-blogger .overlay-bot{
+	position: absolute;
+	top: 270px;
+	left: 0px;
+	height: 46px;
+	width: 100%;
+	background-image: url(images/overlaybot-bg.png);
+	/* CSS3 styling for latest browsers */	
+	-moz-border-radius-bottomleft: 12px;
+	-webkit-border-bottom-left-radius: 12px;
+	-moz-border-radius-bottomright: 12px;
+	-webkit-border-bottom-right-radius: 12px;
+	}
+
+.overlay-blogger .close{ 	
+		     background-image:url(images/close.png);
+		     position: absolute;
+		     right: 10px;
+		     top: 10px;  
+		     cursor:pointer;
+		     height:35px;
+		     width: 35px;
+}
+
+#overlay-div-header-login {
+        background-color: white;
+        margin: 5px 5px 5px 5px;
+	width: 440px;
+	text-align: center;
+}
+
+#overlay-div-facebook-login {
+	background-color: white;
+	margin: 5px;
+	width: 46%;
+	float: left;
+	height: 90px;
+}
+
+#overlay-div-twitter-login {
+	background-color: yellow;
+	#position: relative;
+	float: right;
+	margin: 5px;
+	width: 46%;
+	height: 90px;
+}

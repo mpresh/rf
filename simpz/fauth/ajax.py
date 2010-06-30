@@ -23,7 +23,8 @@ def update_feed(req):
         print "KEY", key, req.session[key]
 
     fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
-    fbuser.feed()
+    print "message ", req.GET["message"]
+    fbuser.feed(message=req.GET["message"])
 
     dict = {}
     dict["status"] = "ok!"

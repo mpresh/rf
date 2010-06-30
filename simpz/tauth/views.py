@@ -70,12 +70,13 @@ def callback(req):
 
 	print "this is problem", oauth.__file__
 	token = oauth.OAuthToken.from_string(token)
-	print "AM I HERE"
+	print "AM I HERE!!", token
 
 	if token.key != req.GET.get('oauth_token', 'no-token'):
 		return render_to_response('callback.html', {
 			'mismatch': True
 		})
+	print "get authorized oken"
 	token = get_authorized_token(token)
 
 	print "TOKEN MATCHES", token

@@ -1,0 +1,480 @@
+{% extends "event_base.html" %}
+
+	{% block  js_css_include %}
+          <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key={{map_key}}" type="text/javascript" > </script> 
+    <script type="text/javascript" src="/simpz/site_media/jquery.cookie.js" ></script>
+	  <link rel="stylesheet" href="/simpz/site_media/overlay.css" type="text/css" >
+	{% endblock %}
+
+{% block title  %}
+{{event.name}}
+{% endblock %}
+
+
+{% block content %}
+<!-- Content starts here -->
+
+
+
+                        <div id="greeting">
+                                Hi {{user.name}}!
+                                <div id="status"><img src="/simpz/site_media/images/look/gr.png"></div>
+                        </div>
+                        
+			
+                        <div id="invite-button">
+                                <a href="#" id="invite_button" rel="#overlay-blogger-login"><img src="/simpz/site_media/images/look/button.png"></a>
+                        </div>
+
+                        
+                        <div id="invitemsg">There are {{event.num_attendees}} attending. join us</div>
+
+
+<div id="overlay-blogger-login" class="overlay-blogger">
+
+<div class="overlay-top"><img src="/simpz/site_media/images/sharetxt.png"></div>
+<div class="overlay-bot"></div>
+<BR><BR>
+
+  <div id="overlay-div-facebook-login">
+    <script src="http://connect.facebook.net/en_US/all.js"></script>
+    <div id="fb-root"></div>
+
+    <button id="status_button">STATUS</button>
+    {% if fbuser %}
+    <button id="logoutnow">LOGOUT</button>
+    <button id="more_perms">PERMISSIONS</button>
+    <button id="feed">FEED</button>
+    <button id="message">MESSAGE</button>
+    <fb:profile-pic uid={{fbuser.facebook_id}} linked="false" ></fb:profile-pic> 
+    <!--<img src="{{fbuser.profile_pic}}" />-->
+
+    <button id="facebook invite">Post Invite To Feed</button>
+    {% else %}
+    <button id="login">LOGIN</button>
+    {% endif %}
+
+  </div>
+
+  <div id="overlay-div-twitter-login">
+
+    {% if user %}
+    Twitter Logged In
+    <a href="/simpz/logout/">logout, {{user.username}} <img src="{{user.profile_pic}}" /></a>
+    {% else %}
+    <a href="/simpz/login/"><img src="/simpz/site_media/images/twitter_button_5_lo.gif/" /></a><br/><br/>
+    {% endif %}
+  </div>
+
+  {% if fbuser or user %}
+
+  <textarea id="overlay-textarea" rows="5" cols="97">HELLO THERE</textarea>
+
+  {% endif %}
+
+  {%if fbuser %}
+  <div id="facebook-feed-update"><button>UPDATE FACEBOOK FEED</button></div>
+  {% endif %}
+
+  {%if user %}
+  <div id="twitter-feed-update"><button>UPDATE TWITTER FEED</button></div>
+  {% endif %}
+</div>
+
+
+<div id="attendees">
+		<div id="msg">Current Guest List</div>
+
+		{% for attendee in attendees %} 
+
+		<a href="#">
+		<!--<img src="{{attendee.profile_pic}}" /> -->
+		</a>
+		&nbsp;
+
+		{% endfor %}
+	</div>
+
+</div>
+		
+<div id="visual_map" style="width: 416px; height: 307px;" > </div>						
+	      
+<div id="dets">
+	<div id="event-title">{{event.name}}</div>
+	<div id="info"><img src="images/map-ico.png"> {{event.venue}}, {{event.venue_address}} <div id="right">{{event.time}} <img src="images/cal-ico.png"></div></div>
+	<div id="goog"><img src="images/map.png"></div>
+</div>
+
+
+<script>
+
+
+$(document).ready(function() {
+
+ $("#invite_button").overlay(
+				    {
+					expose: {
+					    loadSpeed: 200,
+						color: 'gray',
+						opacity: 0.8
+						},
+					onLoad: function(event) {
+                                                                                                
+					},
+                                        top: 200,
+                                        left: 50,
+				    });
+       $("#invite_button").overlay().load();
+
+  FB.init({appId: '374592118121', status: true, cookie: true, xfbml: true});
+
+$("#feed").click(function(){
+     $.ajax({
+       url: '/simpz/ajax/facebook_update_feed/', 
+       dataType: "json",
+       data: {},
+       success: function(data){
+          alert("REQUEST DONE", data);
+       },
+       beforeSend: function() {
+           alert("sending feed request");
+        }
+      });
+});
+
+$("#message").click(function(){
+     $.ajax({
+       url: '/simpz/ajax/facebook_message/', 
+       dataType: "json",
+       data: {},
+       success: function(data){
+          alert("REQUEST DONE", data);
+       },
+       beforeSend: function() {
+           alert("sending message");
+        }
+      });
+});
+
+$("#twitter-feed-update").click(function(){
+              alert("clicked twiiter");
+              $(this).attr("disabled", "disabled"); 
+              $.ajax({
+                    url: '/simpz/ajax/event_tweet_invite/{{event.id}}', 
+                    dataType: "json",
+                    data: {data: $("#overlay-textarea").val(), 
+                    invite_url: '{{invite_url}}',
+                    invite_id: {{invite_id}}
+                          }, 
+                    success: function(data){
+	        	     },
+                    beforeSend: function() {
+                    }
+                 });
+});
+
+$("#facebook-feed-update").click(function(){
+    alert("facebook ckicked");
+    $(this).attr("disabled", "disabled"); 
+    $.ajax({
+       url: '/simpz/ajax/facebook_update_feed/', 
+       dataType: "json",
+       data: {message: $("#overlay-textarea").val()},
+       success: function(data){
+
+       },
+       beforeSend: function() {
+           alert("sending feed request");
+        }
+      });   
+});
+
+$("#status_button").click(function(){
+  alert("LALAL");
+  FB.getLoginStatus(function(response) {
+alert("HAHA" + response + inspect(response));
+  if (response.session) {
+    // logged in and connected user, someone you know
+    alert("logged in ");
+  } else {
+    // no user session available, someone you dont know
+   alert("logged out");
+  }
+});
+  });
+
+  var requiredPerms = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
+  //var requiredPerms = ['publish_stream'];
+  $('#login').click(function() {
+ 
+  FB.login(function(response) {
+    if (response.session) {
+      var a = response.session;
+      var options = { path: '/simpz/', expires: 10 };
+      $.cookie("uid", a.uid, options);
+      $.cookie("session_key", a.session_key, options);
+      $.cookie("secret", a.secret, options);
+      $.cookie("expires", a.expires, options);
+      $.cookie("base_domain", a.base_domain, options);
+      $.cookie("access_token", a.access_token, options);
+      $.cookie("sig", a.sig, options);
+  
+      window.location.href = "/simpz/facebook_callback/";
+  } else {
+  }
+  });
+});
+
+$("#more_perms").click(function(){
+    FB.login(function(response){
+       if (response.session) {
+      var a = response.session;
+      var options = { path: '/simpz/', expires: 10 };
+      $.cookie("uid", a.uid, options);
+      $.cookie("session_key", a.session_key, options);
+      $.cookie("secret", a.secret, options);
+      $.cookie("expires", a.expires, options);
+      $.cookie("base_domain", a.base_domain, options);
+      $.cookie("access_token", a.access_token, options);
+      $.cookie("sig", a.sig, options);
+  alert("permission granted   access token  " + a.access_token);
+      window.location.href = "/simpz/facebook_callback/";
+}
+    },{perms: requiredPerms.join(',')});
+});
+
+
+  $('#logoutnow').click(function() {
+
+      $.cookie("uid", null);
+      $.cookie("session_key", null);
+      $.cookie("secret", null);
+      $.cookie("expires", null);
+      $.cookie("base_domain", null);
+      $.cookie("access_token", null);
+      $.cookie("sig", null);
+
+      FB.logout(function(response) { 
+            window.location.href = "/simpz/facebook_logout_callback/";
+      });
+     //window.location.href = "/simpz/facebook_logout_callback/";
+  });
+
+
+	$("#invite_popup_close").bind('click', function() {
+		$('#invite_popup').hide();
+                $('#tweet_msg').html("");
+		ajax_loader_image();
+	 });
+
+
+	$("#not_going_button").click(function(){
+		$.get('/simpz/ajax/event_not_going/{{event.id}}', function(data) {
+			location.reload();
+		    });
+	    });
+			
+	$("#going_button").click(function(){
+		$.get('/simpz/ajax/event_going/{{event.id}}', function(data) {
+			location.reload();
+		    });
+	    });
+
+       $("#tweet_invite_button").click(function(){
+		$.ajax({
+                    url: '/simpz/ajax/event_tweet_invite/{{event.id}}', 
+                    dataType: "json",
+                    data: {data: $("#tweet_text").val(), 
+                    invite_url: '{{invite_url}}',
+                    invite_id: {{invite_id}}
+                          }, 
+                    success: function(data){
+                        $("#tweet_msg").html("Tweet Sent Succesfully");
+                        $("#tweet_text").val(data["msg"]);
+	        	     },
+                    beforeSend: function() {
+                        //$("#tweet_invite_button").attr("disabled","disabled");                               
+                        $("#tweet_msg").html("<img width='20' height='20' src='/simpz/site_media/images/ajax-loader.gif' />Sending Tweet<img width='20' height='20' src='/simpz/site_media/images/ajax-loader.gif' />");
+                    }
+                   });
+	    });
+
+
+        $('#invite_dm_button').click(function() {
+            var selected_users = [];
+
+            $("input[name='invitee']").each(function(index) {
+                 if ($(this).attr("checked")) { 
+                     selected_users.push($(this).val());
+                 } 
+            });
+           
+            $.ajax({
+                    url: '/simpz/ajax/event_tweet_invite_dm/{{event.id}}', 
+                    dataType: "json",
+                    data: {data: $("#tweet_text").val(), 
+                    invite_url: '{{invite_url}}',
+                    invite_id: '{{invite_id}}',
+                    invited_friends: selected_users.toString(),
+                          }, 
+                    success: function(data){
+                        $("#tweet_msg").html("Tweets Sent Succesfully");
+                        $("#tweet_text").val(data["msg"]);
+                        $("#invite_dm_button").removeAttr("disabled");                      
+	        	     },
+                    beforeSend: function() {
+                        $("#invite_dm_button").attr("disabled","disabled");                      
+                        $("#tweet_msg").html("<img width='20' height='20' src='/simpz/site_media/images/ajax-loader.gif' />Sending Direct Msg Tweets<img width='20' height='20' src='/simpz/site_media/images/ajax-loader.gif' />");
+                    }
+                   });
+        });
+			
+    
+	$("#visual_map").hide();
+	$("#show_map").html("(Show Map)");
+
+
+	if (GBrowserIsCompatible()) {
+	    var map = new GMap2(document.getElementById("visual_map"));
+	    map.setCenter(new GLatLng({{event.lat}}, {{event.lng}}), 13);
+	    map.setUIToDefault();
+	}			
+
+
+	$("#show_map").click(function() {
+
+		if ($("#visual_img").is(":visible")) {
+
+		    $("#visual_img").hide(500);
+			
+		    $("#visual_map").show(500, function() {
+			   
+			    if (GBrowserIsCompatible()) {
+				var map = new GMap2(document.getElementById("visual_map"));
+				map.setCenter(new GLatLng({{event.lat}}, {{event.lng}}), 13);
+				map.setUIToDefault();
+			    }
+			});
+		
+
+		    $("#show_map").html("(Hide Map)");
+		}else {
+		    $("#visual_img").show(500);
+		    $("#visual_map").hide(500);
+		    $("#show_map").html("(Show Map)");
+		}
+	    });
+    });
+
+// perform JavaScript after the document is scriptable.
+$(function() {
+    // setup ul.tabs to work as tabs for each div directly under div.panes
+    $("ul.tabs").tabs("div.panes > div");
+});
+
+
+function setup_select_all_button() {
+    $("a.select_all_arrow").toggle(function() {
+       $(".friend_list_item").each(function(index) {
+                $(this).css("background-color", "#FF9933");    
+                $(this).find("input[name='invitee']").attr("checked", "yes");
+                $(this).find("img.checkbox_invite").attr("src", "/simpz/site_media/images/checkbox_checked.png");
+            });
+    }, 
+    function() {
+        $(".friend_list_item").each(function(index) {
+                $(this).css("background-color", "#FBF5EF");    
+                $(this).find("input[name='invitee']").removeAttr("checked");
+                $(this).find("img.checkbox_invite").attr("src", "/simpz/site_media/images/checkbox_unchecked.png");
+        });
+    });
+
+}
+
+function ajax_loader_image() {
+    $('#twitlist').html("<img style='margin-left:275px; margin-top:40px;' width='130' height='130' src='/simpz/site_media/images/ajax-loader.gif' />");
+}
+
+
+function display_friends_invite_twitter() {
+            $.ajax({
+                    url: '/simpz/ajax/event_friend_not_attendees/{{event.id}}', 
+                    dataType: "json",
+                    success: function(data){
+                               $('#twitlist').html(make_friend_list(data));
+                               $('#tweet_msg').html("Invite Your Friends");
+                                                             
+                               $(".friend_list_item").toggle(function() {
+                                   $(this).css("background-color", "#FF9933");    
+                                   $(this).hover(function(){
+                                         $(this).css("background-color", "#FF9933");
+                                   },
+                                   function(){
+                                         $(this).css("background-color", "#FF9933");
+                                   });
+                                   $(this).find("input[name='invitee']").attr("checked", "yes");
+                                   $(this).find("img.checkbox_invite").attr("src", "/simpz/site_media/images/checkbox_checked.png");
+                               }, function() {
+                                   $(this).css("background-color", "#fd9");
+                                   $(this).hover(function(){
+                                         $(this).css("background-color", "#fd9");
+                                   },
+                                   function(){
+                                         $(this).css("background-color", "#FBF5EF");
+                                   });
+
+                                   $(this).find("input[name='invitee']").removeAttr("checked");
+                                   $(this).find("img.checkbox_invite").attr("src", "/simpz/site_media/images/checkbox_unchecked.png");
+                               });
+                               setup_select_all_button(); 
+	                       
+	        	     },
+                    beforeSend: function() {
+                        $('#tweet_msg').html("Loading Friend Data");
+                        ajax_loader_image();
+                    }
+                   });
+ 
+}
+
+function display_friends_invite_facebook() {
+            $.ajax({
+                    url: '/simpz/ajax/facebook_friends', 
+                    dataType: "json",
+
+                    success: function(data){
+                        $('#facebookfriends').html(data.data);
+                        //alert(data.data);
+	        	     },
+                    beforeSend: function() {
+                        
+                    }
+                   });
+ 
+}
+
+
+$(document).ready(function() {
+// background processing
+//setTimeout ( "display_friends_invite_twitter()", 10 );
+//setTimeout ( "display_friends_invite_facebook()", 10 );
+
+
+   
+});
+
+</script>
+<!-- Content ends here -->
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
