@@ -96,14 +96,19 @@
 <div id="attendees">
 		<div id="msg">Current Guest List</div>
 
+
+		<br/><br/><br/><br/><br/><br/>
+		<div id="attendees_thumbs">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		{% for attendee in attendees %} 
 
 		<a href="#">
-		<!--<img src="{{attendee.profile_pic}}" /> -->
+		<img src="{{attendee.profile_pic}}" /> 
 		</a>
 		&nbsp;
 
 		{% endfor %}
+		</div>
 	</div>
 
 </div>
@@ -182,7 +187,9 @@ $("#twitter-feed-update").click(function(){
                     invite_id: {{invite_id}}
                           }, 
                     success: function(data){
-                            
+                        $.get('/simpz/ajax/event_going/{{event.id}}', function(data) {
+                            location.reload();
+		        });
 	        	     },
                     beforeSend: function() {
                     }
