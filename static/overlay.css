@@ -59,6 +59,19 @@
 		     z-index: 100001;
 }
 
+.discount-code	{ 	
+		     display: none;
+		     background-color: #DEDEDE;
+		     height:70px;
+		     width: 80px;
+		     float: right;
+		     margin-top: 2px;
+		     text-align: center;
+		     font-size: 10px;
+                     padding-top: 6px;
+}
+
+
 #overlay-div-header-login {
         background-color: white;
         margin: 5px 5px 5px 5px;

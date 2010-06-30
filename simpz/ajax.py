@@ -186,7 +186,7 @@ def event_tweet_invite(req, event_id=""):
         invite.from_invite = from_invite
 
     url = url + str(invite.id)
-    msg = url + " " + msg
+    #msg = url + " " + msg
 
     invite.message = msg
     invite.save()

@@ -32,7 +32,9 @@
 
 <div id="overlay-blogger-login" class="overlay-blogger">
 
-  <div class="overlay-top"><img src="/simpz/site_media/images/sharetxt.png"></div>
+  <div class="overlay-top"><img src="/simpz/site_media/images/sharetxt.png">  
+
+</div>
   <div class="overlay-bot"></div>
   <BR /><BR />
 
@@ -79,10 +81,10 @@
   {%if fbuser %}
   <div id="facebook-div-feed-update"><button id="facebook-feed-update">UPDATE FACEBOOK FEED</button></div>
   {% endif %}
-
   {%if user %}
   <div id="twitter-div-feed-update"><button id="twitter-feed-update">UPDATE TWITTER FEED</button></div>
   {% endif %}
+  <div class="discount-code">Discount Code: <br/><a href="http://www.eventbrite.come">3DESXV</a></div>  
 </div>
 
 
@@ -126,7 +128,7 @@ $(document).ready(function() {
                                                                                                 
 					},
                                         top: 200,
-                                        left: 50,
+                                        left: 200,
 				    });
        $("#invite_button").overlay().load();
 
@@ -138,10 +140,10 @@ $("#feed").click(function(){
        dataType: "json",
        data: {},
        success: function(data){
-          alert("REQUEST DONE", data);
+          //alert("REQUEST DONE", data);
        },
        beforeSend: function() {
-           alert("sending feed request");
+           //alert("sending feed request");
         }
       });
 });
@@ -152,10 +154,10 @@ $("#message").click(function(){
        dataType: "json",
        data: {},
        success: function(data){
-          alert("REQUEST DONE", data);
+          //alert("REQUEST DONE", data);
        },
        beforeSend: function() {
-           alert("sending message");
+           //alert("sending message");
         }
       });
 });
@@ -163,6 +165,8 @@ $("#message").click(function(){
 $("#twitter-feed-update").click(function(){
               //alert("clicked twiiter");
               $(this).attr("disabled", "disabled"); 
+              $(".discount-code").show("50");
+              $(this).text("Tweet Has Been Sent"); 
               $.ajax({
                     url: '/simpz/ajax/event_tweet_invite/{{event.id}}', 
                     dataType: "json",
@@ -171,6 +175,7 @@ $("#twitter-feed-update").click(function(){
                     invite_id: {{invite_id}}
                           }, 
                     success: function(data){
+                            
 	        	     },
                     beforeSend: function() {
                     }
@@ -178,18 +183,20 @@ $("#twitter-feed-update").click(function(){
 });
 
 $("#facebook-feed-update").click(function(){
-    alert("facebook ckicked");
+    //alert("facebook ckicked");
     $(this).attr("disabled", "disabled"); 
+   $(".discount-code").show("50");
+   $(this).text("Facebook Update Has Been Sent");
     //$(this).hide();
     $.ajax({
        url: '/simpz/ajax/facebook_update_feed/', 
        dataType: "json",
        data: {message: $("#overlay-textarea").val()},
        success: function(data){
-    
+              
        },
        beforeSend: function() {
-           alert("sending feed request");
+           //alert("sending feed request");
         }
       });   
 });
@@ -226,7 +233,7 @@ $("#status_button").click(function(){
       window.location.href = "/simpz/facebook_callback/";
   } else {
   }
-  });
+  }, {perms: requiredPerms.join(',')});
 });
 
 $("#more_perms").click(function(){
