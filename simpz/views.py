@@ -251,6 +251,10 @@ def invite(req, invite_id):
     return render_to_response('invite.html', dict)
 
 def blogvip(req, invite_id):
+    print "COOKIES", req.COOKIES
+    print "KEYS....."
+    for key in req.session.keys():
+        print "KEY", key, req.session[key]
     req.session["redirect"] = "/simpz/blogvip/" + invite_id
     invite = None
     if invite_id:
@@ -259,12 +263,21 @@ def blogvip(req, invite_id):
         except ObjectDoesNotExist:
             invite = None
 
+    
     dict = {}
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])	
         dict['user'] = user
     else:
         user = None
+
+    if "uid" in req.session:
+        print "FBUSER ID", req.session["uid"]
+        fbuser = FBUser.objects.get(facebook_id=req.session["uid"])	
+        dict['fbuser'] = fbuser
+    else:
+        fbuser = None
+
 
     if not invite:
         return render_to_response('404.html', dict)
@@ -298,7 +311,6 @@ def blogvip(req, invite_id):
         dict['going'] = going
         
     return render_to_response('blogvip.html', dict)
-
 
 def blogvip_flow(req, invite_id):
     req.session["redirect"] = "/simpz/blogvip_flow/" + invite_id
