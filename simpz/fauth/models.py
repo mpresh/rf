@@ -22,6 +22,7 @@ class FBUser(models.Model):
         access_token = models.CharField(max_length=100, default="", blank=True)
 
         def friends(self):
+		print "grabbing friends data"
 		data = urllib.urlopen("https://graph.facebook.com/" + 
 				      str(self.facebook_id) + "/friends" 
 				      "?access_token=" + self.access_token).read()
