@@ -15,6 +15,7 @@ import shutil
 import socket
 import datetime
 import util
+from fauth import fauth_utils
 
 def test(req):
     req.session["redirect"] = "/simpz/test"        
@@ -251,10 +252,15 @@ def invite(req, invite_id):
     return render_to_response('invite.html', dict)
 
 def blogvip(req, invite_id):
-    print "COOKIES", req.COOKIES
-    print "KEYS....."
+    for key in req.GET.keys():
+        print "KEY GET", key, req.GET[key]
+
     for key in req.session.keys():
-        print "KEY", key, req.session[key]
+        print "KEY SESSION", key, req.session[key]
+
+    for key in req.COOKIES.keys():
+        print "KEY COOKIE", key, req.COOKIES[key]
+
     req.session["redirect"] = "/simpz/blogvip/" + invite_id
     invite = None
     if invite_id:
@@ -263,8 +269,10 @@ def blogvip(req, invite_id):
         except ObjectDoesNotExist:
             invite = None
 
-    
     dict = {}
+    if "overlay" in req.GET:
+        dict["overlay"] = True
+
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])	
         dict['user'] = user
@@ -275,9 +283,14 @@ def blogvip(req, invite_id):
         print "FBUSER ID", req.session["uid"]
         fbuser = FBUser.objects.get(facebook_id=req.session["uid"])	
         dict['fbuser'] = fbuser
+    elif "uid" in req.COOKIES:
+        print "calling sync from blogvip"
+        fauth_utils.sync_session_cookies(req)
+        print "FBUSER ID", req.COOKIES["uid"]
+        fbuser = FBUser.objects.get(facebook_id=req.COOKIES["uid"])	
+        dict['fbuser'] = fbuser
     else:
         fbuser = None
-
 
     if not invite:
         return render_to_response('404.html', dict)

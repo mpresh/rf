@@ -40,6 +40,17 @@ def tauth_info(req):
 def login(req):
 	if 'redirect' not in req.session:
 		req.session['redirect'] = "/simpz/"
+
+	if "redirectArgs" in req.GET:
+		redirectargs_list = req.GET["redirectArgs"].split("AND")
+		redirect_string = ""
+		for param in redirectargs_list:
+			(key, value) = param.split("EQUALS")
+			redirect_string += key + "=" + value + "&" 
+		if redirect_string:
+			redirect_string = redirect_string[:-1]
+		req.session["redirect"] = req.session["redirect"] + "?" + redirect_string
+
 	if req.user: 
 		print "login redirect:", req.session['redirect']
 		redirect = req.session['redirect']
@@ -113,6 +124,16 @@ def logout(req):
 		del req.session["redirect"]
 	else:
 		redirect = "/simpz/"
+
+	if "redirectArgs" in req.GET:
+		redirectargs_list = req.GET["redirectArgs"].split("AND")
+		redirect_string = ""
+		for param in redirectargs_list:
+			(key, value) = param.split("EQUALS")
+			redirect_string += key + "=" + value + "&" 
+		if redirect_string:
+			redirect_string = redirect_string[:-1]
+		redirect = redirect + "?" + redirect_string
 
 	if req.user is not None:
 		req.user.oauth_token = ''

@@ -15,53 +15,93 @@ import shutil
 import socket
 import datetime
 import util
-
+import fauth_utils
 
 def facebook_callback(req):
 
     print "inside facebook callbacsk"
-    cookies = req.COOKIES;
-    print "COOKIES KEYS"
+    cookies = req.GET;
+    print "GET KEYS"
     for key in cookies.keys():
         print "KEY", key, cookies[key]
-    if "access_token" in cookies:
-        req.session['access_token'] = cookies["access_token"]
-        req.session['base_domain']  = cookies["base_domain"]
-        req.session['secret'] = cookies["secret"]
-        req.session['session_key'] = cookies["session_key"]
-        req.session['sessionid'] = cookies["sessionid"]
-        req.session['sig'] = cookies["sig"]
-        req.session['uid'] = cookies["uid"]
 
-        (user, create) = FBUser.objects.get_or_create(facebook_id=req.session['uid'])
-        user.access_token = req.session["access_token"]
-        user.save()
+    fauth_utils.sync_session_cookies(req)
+    
+    (user, create) = FBUser.objects.get_or_create(facebook_id=req.session['uid'])
+    user.access_token = req.session["access_token"]
+    user.save()
 
-        #if create:
-        user.fill_info()
-        user.friends()
-        user.feed()
+    #if create:
+    user.fill_info()
+    #user.friends()
+    #user.feed()
 
     print "SESSION KEYS"
     for key in req.session.keys():
         print "KEY", key, req.session[key]
 
+    print "COOKIES KEYS"
+    for key in req.COOKIES.keys():
+        print "KEY", key, req.COOKIES[key]
+
     if "redirect" not in req.session:
-        req.session["redirect"] = "/simpz/"
-    return HttpResponseRedirect(req.session['redirect'])
+        redirect = "/simpz/"
+    else:
+        redirect = req.session['redirect']
+
+    if "redirectArgs" in req.GET:
+        redirectargs_list = req.GET["redirectArgs"].split("AND")
+        redirect_string = ""
+        for param in redirectargs_list:
+            (key, value) = param.split("EQUALS")
+            redirect_string += key + "=" + value + "&" 
+        if redirect_string:
+            redirect_string = redirect_string[:-1]
+    redirect = redirect + "?" + redirect_string
+
+    return HttpResponseRedirect(redirect)
 
 def facebook_logout_callback(req):
     print "LOGOUT"
-    del req.session['access_token']
-    del req.session['base_domain']
-    del req.session['secret']
-    del req.session['session_key']
-    del req.session['sessionid']
-    del req.session['sig']
-    del req.session['uid']
+    if "access_token" in req.session:
+        del req.session['access_token']
+        del req.session['base_domain']
+        del req.session['secret']
+        del req.session['session_key']
+        del req.session['sessionid']
+        del req.session['sig']
+        del req.session['uid']
 
-    return HttpResponseRedirect(req.session['redirect'])
+    if "access_token" in req.COOKIES:
+        del req.COOKIES['access_token']
+        del req.COOKIES['base_domain']
+        del req.COOKIES['secret']
+        del req.COOKIES['session_key']
+        del req.COOKIES['sessionid']
+        del req.COOKIES['sig']
+        del req.COOKIES['uid']
 
+    redirect = req.session['redirect']
+    if "redirectArgs" in req.GET:
+        redirectargs_list = req.GET["redirectArgs"].split("AND")
+        redirect_string = ""
+        for param in redirectargs_list:
+            (key, value) = param.split("EQUALS")
+            redirect_string += key + "=" + value + "&" 
+        if redirect_string:
+            redirect_string = redirect_string[:-1]
+        redirect = redirect + "?" + redirect_string
+
+
+    print "SESSION KEYS"
+    for key in req.session.keys():
+        print "KEY", key, req.session[key]
+
+    print "COOKIES KEYS"
+    for key in req.COOKIES.keys():
+        print "KEY", key, req.COOKIES[key]
+    print "redirecting logout", redirect
+    return HttpResponseRedirect(redirect)
 
 
 def facebook_server_callback(req):
