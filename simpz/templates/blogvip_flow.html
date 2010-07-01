@@ -66,9 +66,9 @@
     Logged In To Twitter<br />
     <img id="twitter-profile-image" src="{{user.profile_pic}}" />
     <br/>
-    <a href="/simpz/logout/">logout from twitter</a>
+    <a href="/simpz/logout/?redirectArgs=overlayEQUALStrue">logout from twitter</a>
     {% else %}
-    <a href="/simpz/login/"><img id="twitter-login" src="/simpz/site_media/images/twitter_button_5_lo.gif/" /></a><br/><br/>
+    <a href="/simpz/login/?redirectArgs=overlayEQUALStrue"><img id="twitter-login" src="/simpz/site_media/images/twitter_button_5_lo.gif/" /></a><br/><br/>
     {% endif %}
   </div>
 
@@ -156,7 +156,10 @@ $(document).ready(function() {
                                         top: 200,
                                         left: 200,
 				    });
+
+   {% if overlay %}
        $("#invite_button").overlay().load();
+   {% endif %}
 
   FB.init({appId: '374592118121', status: true, cookie: true, xfbml: true});
 
@@ -249,7 +252,7 @@ $("#status_button").click(function(){
   FB.login(function(response) {
     if (response.session) {
       var a = response.session;
-      var options = { path: '/simpz/', expires: 10 };
+      var options = { path: '/', expires: 10 };
       $.cookie("uid", a.uid, options);
       $.cookie("session_key", a.session_key, options);
       $.cookie("secret", a.secret, options);
@@ -258,7 +261,8 @@ $("#status_button").click(function(){
       $.cookie("access_token", a.access_token, options);
       $.cookie("sig", a.sig, options);
   
-      window.location.href = "/simpz/facebook_callback/";
+      var url = "/simpz/facebook_callback?redirectArgs=overlayEQUALStrue";
+      window.location.href = url;
   } else {
   }
   }, {perms: requiredPerms.join(',')});
@@ -268,7 +272,7 @@ $("#more_perms").click(function(){
     FB.login(function(response){
        if (response.session) {
       var a = response.session;
-      var options = { path: '/simpz/', expires: 10 };
+      var options = { path: '/', expires: 10 };
       $.cookie("uid", a.uid, options);
       $.cookie("session_key", a.session_key, options);
       $.cookie("secret", a.secret, options);
@@ -277,28 +281,29 @@ $("#more_perms").click(function(){
       $.cookie("access_token", a.access_token, options);
       $.cookie("sig", a.sig, options);
   alert("permission granted   access token  " + a.access_token);
-      window.location.href = "/simpz/facebook_callback/";
+      window.location.href = "/simpz/facebook_callback/?redirectArgs=overlayEQUALStrue";
 }
     },{perms: requiredPerms.join(',')});
 });
 
 
   $('.logoutnow').click(function() {
-      //alert("LAL");
-      $.cookie("uid", null);
-      $.cookie("session_key", null);
-      $.cookie("secret", null);
-      $.cookie("expires", null);
-      $.cookie("base_domain", null);
-      $.cookie("access_token", null);
-      $.cookie("sig", null);
 
-      //window.location.href = "/simpz/facebook_logout_callback/";
+      var options = { path: '/', expires: -1 };
+      $.cookie("uid", null, options);
+      $.cookie("session_key", null, options);
+      $.cookie("secret", null, options);
+      $.cookie("expires", null, options);
+      $.cookie("base_domain", null, options);
+      $.cookie("access_token", null, options);
+      $.cookie("sig", null, options);
+
+      //window.location.href = "/simpz/facebook_logout_callback/?redirectArgs=overlayEQUALStrue";
       FB.logout(function(response) { 
             //alert("status");
-            window.location.href = "/simpz/facebook_logout_callback/";
+            window.location.href = "/simpz/facebook_logout_callback/?redirectArgs=overlayEQUALStrue";
       });
-     //window.location.href = "/simpz/facebook_logout_callback/";
+     window.location.href = "/simpz/facebook_logout_callback/?redirectArgs=overlayEQUALStrue";
   });
 
 

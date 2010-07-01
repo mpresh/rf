@@ -63,10 +63,11 @@ class FBUser(models.Model):
 
 	def fill_info(self):
 		""" Fill in information about user synchronously."""
-		print "Filling info"
+		print "Filling info", self.facebook_id, self.access_token
 		data = urllib.urlopen("https://graph.facebook.com/" + 
 				      str(self.facebook_id) + 
 				      "?access_token=" + self.access_token).read()
+		print "Returned value", data
 		data_dict = json.loads(data)
 		print data_dict
 		self.name = data_dict["name"]

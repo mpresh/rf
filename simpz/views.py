@@ -335,15 +335,26 @@ def blogvip_flow(req, invite_id):
             invite = None
 
     dict = {}
+    if "overlay" in req.GET:
+        dict["overlay"] = True
+
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])	
         dict['user'] = user
     else:
         user = None
 
+
+
     if "uid" in req.session:
         print "FBUSER ID", req.session["uid"]
         fbuser = FBUser.objects.get(facebook_id=req.session["uid"])	
+        dict['fbuser'] = fbuser
+    elif "uid" in req.COOKIES:
+        print "calling sync from blogvip"
+        fauth_utils.sync_session_cookies(req)
+        print "FBUSER ID", req.COOKIES["uid"]
+        fbuser = FBUser.objects.get(facebook_id=req.COOKIES["uid"])	
         dict['fbuser'] = fbuser
     else:
         fbuser = None
