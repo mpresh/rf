@@ -32,64 +32,87 @@
 
 <div id="overlay-blogger-login" class="overlay-blogger">
 
-	<div class="overlay-top"><img src="/simpz/site_media/images/sharetxt.png">  
+	<div id="overlay-div-content1">
+		<div class="overlay-top"><img src="/simpz/site_media/images/sharetxt.png">  
+
+		</div>
+		<div class="overlay-bot"></div>
+		<BR /><BR />
+
+		<div id="overlay-div-facebook-login">
+			<script src="http://connect.facebook.net/en_US/all.js"></script>
+			<div id="fb-root"></div>
+
+			<!--<button id="status_button">STATUS</button>-->
+			{% if fbuser %}
+			Logged In To Facebook<br />
+			<!--<button class="logoutnow">LOGOUT</button>-->
+			<fb:profile-pic height="45px" width="45px" uid={{fbuser.facebook_id}} linked="false" ></fb:profile-pic> 
+			<br/>
+			<a class="logoutnow" href="#">logout from facebook</a>
+			{% else %}
+			<a href="#"><img id="facebook-login" src="/simpz/site_media/images/Facebook-Button.png"/></a>
+			{% endif %}
+
+		</div>
+
+		<div id="overlay-div-twitter-login">
+
+			{% if user %}
+			Logged In To Twitter<br />
+			<img id="twitter-profile-image" src="{{user.profile_pic}}" />
+			<br/>
+			<a href="/simpz/logout/?redirectArgs=overlayEQUALStrue">logout from twitter</a>
+			{% else %}
+			<a href="/simpz/login/?redirectArgs=overlayEQUALStrue"><img id="twitter-login" src="/simpz/site_media/images/twitter_button_5_lo.gif/" /></a><br/><br/>
+			{% endif %}
+		</div>
 
 	</div>
-	<div class="overlay-bot"></div>
-	<BR /><BR />
 
-	<div id="overlay-div-facebook-login">
-		<script src="http://connect.facebook.net/en_US/all.js"></script>
-		<div id="fb-root"></div>
+	<div id="overlay-div-content2-facebook" >
 
-		<!--<button id="status_button">STATUS</button>-->
-		{% if fbuser %}
-		Logged In To Facebook<br />
-		<!--<button class="logoutnow">LOGOUT</button>-->
-		<fb:profile-pic height="45px" width="45px" uid={{fbuser.facebook_id}} linked="false" ></fb:profile-pic> 
-		<br/>
-		<a class="logoutnow" href="#">logout from facebook</a>
-		{% else %}
-		<a href="#"><img id="facebook-login" src="/simpz/site_media/images/Facebook-Button.png"/></a>
+		<div class="overlay-top"><img src="/simpz/site_media/images/sharetxt.png">  
+
+		</div>
+		<div class="overlay-bot"></div>
+		<BR /><BR />
+		FACEBOOK
+		<textarea id="overlay-textarea" >Great Event, Come with me. {{invite_url}}</textarea>
+
+		{%if fbuser %}
+		<!--<img id="facebook-feed-update" src="/simpz/site_media/images/facebook-invite.png">-->
+		<div id="facebook-div-feed-update"><button id="facebook-feed-update">UPDATE FACEBOOK FEED</button></div>
 		{% endif %}
-
 	</div>
+	<div id="overlay-div-content2-twitter" >
 
-	<div id="overlay-div-twitter-login">
+		<div class="overlay-top"><img src="/simpz/site_media/images/sharetxt.png">  
 
-		{% if user %}
-		Logged In To Twitter<br />
-		<img id="twitter-profile-image" src="{{user.profile_pic}}" />
-		<br/>
-		<a href="/simpz/logout/?redirectArgs=overlayEQUALStrue">logout from twitter</a>
-		{% else %}
-		<a href="/simpz/login/?redirectArgs=overlayEQUALStrue"><img id="twitter-login" src="/simpz/site_media/images/twitter_button_5_lo.gif/" /></a><br/><br/>
-		{% endif %}
+		</div>
+		<div class="overlay-bot"></div>
+		<BR /><BR />
+		TWIITER LALA
+		<textarea id="overlay-textarea" >Great Event, Come with me. {{invite_url}}</textarea>
+
+		<div id="twitter-div-feed-update"><button id="twitter-feed-update">UPDATE TWITTER FEED!</button></div>
+	</div>
+	<div id="overlay-div-content3" >
+
+		<div class="overlay-top"><img src="/simpz/site_media/images/sharetxt.png">  
+
+		</div>
+		<div class="overlay-bot"></div>
+		<BR /><BR />
+
+         
+		<h1>THANKS YOU: Dicount Code Is KAJSDKASDKA</h1>
+
+		<button id="okay">Okay!</button> 
 	</div>
 
 </div>
 
-<div id="overlay-blogger-login2" class="overlay-blogger">
-
-	<div class="overlay-top"><img src="/simpz/site_media/images/sharetxt.png">  
-
-	</div>
-	<div class="overlay-bot"></div>
-	<BR /><BR />
-
-	<textarea id="overlay-textarea" >Great Event, Come with me. {{invite_url}}</textarea>
-
-	{%if fbuser %}
-	<!--<img id="facebook-feed-update" src="/simpz/site_media/images/facebook-invite.png">-->
-	<div id="facebook-div-feed-update"><button id="facebook-feed-update">UPDATE FACEBOOK FEED</button></div>
-	{% endif %}
-	
-	{%if user %}
-	<div id="twitter-div-feed-update"><button id="twitter-feed-update">UPDATE TWITTER FEED</button></div>
-	{% endif %}
-	<!--<img id="twitter-feed-update" src="/simpz/site_media/images/tweet-invite.png">-->
-	<div class="discount-code">Discount Code: <br/><a href="http://www.eventbrite.com">3DESXV</a></div>  
-</div>
 
 
 <div id="dets"> 
@@ -153,14 +176,37 @@ $(document).ready(function() {
 				opacity: 0.8
 			},
 			onLoad: function(event) {
+				//$("#facebook-feed-update").removeAttr("disabled");
+				//$("#twitter-feed-update").removeAttr("disabled");
+				{% if not user and not fbuser %}
+				    $('#overlay-div-content1').show(); 
+				    $('#overlay-div-content2-facebook').hide(); 
+				    $('#overlay-div-content2-twitter').hide();
+				    $('#overlay-div-content3').hide();
+				{% else %} 	{% if user %}
+				    $('#overlay-div-content1').hide(); 
+			        $('#overlay-div-content2-facebook').hide(); 
+				    $('#overlay-div-content2-twitter').show();
+			        $('#overlay-div-content3').hide();
 
+				{% else %} 	{% if fbuser %}
+				    $('#overlay-div-content1').hide(); 
+			        $('#overlay-div-content2-facebook').show(); 
+			        $('#overlay-div-content2-twitter').hide();
+			        $('#overlay-div-content3').hide();	
+				{% endif %}
+				{% endif %}
+		        {% endif %}
+				
 			},
 			top: 200,
 			left: 200,
 		});
 
 		{% if overlay %}
+	
 		$("#invite_button").overlay().load();
+		
 		{% endif %}
 
 		FB.init({appId: '374592118121', status: true, cookie: true, xfbml: true});
@@ -194,10 +240,13 @@ $(document).ready(function() {
 		});
 
 		$("#twitter-feed-update").click(function(){
-			//alert("clicked twiiter");
-			$(this).attr("disabled", "disabled"); 
-			$(".discount-code").show("50");
-			$(this).text("Tweet Has Been Sent"); 
+			$('#overlay-div-content1').hide(); 
+			$('#overlay-div-content2-facebook').hide();	 
+			$('#overlay-div-content2-twitter').hide();
+			$('#overlay-div-content3').show();
+			//$(this).attr("disabled", "disabled"); 
+			//$(".discount-code").show("50");
+			//$(this).text("Tweet Has Been Sent"); 
 			$.ajax({
 				url: '/simpz/ajax/event_tweet_invite/{{event.id}}', 
 				dataType: "json",
@@ -207,7 +256,7 @@ $(document).ready(function() {
 			}, 
 			success: function(data){
 				$.get('/simpz/ajax/event_going/{{event.id}}', function(data) {
-					//location.reload();
+					location.reload();
 				});
 			},
 			beforeSend: function() {
@@ -217,9 +266,9 @@ $(document).ready(function() {
 
 	$("#facebook-feed-update").click(function(){
 		//alert("facebook ckicked");
-		$(this).attr("disabled", "disabled"); 
-		$(".discount-code").show("50");
-		$(this).text("Facebook Update Has Been Sent");
+		//$(this).attr("disabled", "disabled"); 
+		//$(".discount-code").show("50");
+		//$(this).text("Facebook Update Has Been Sent");
 		//$(this).hide();
 		$.ajax({
 			url: '/simpz/ajax/facebook_update_feed/', 
@@ -253,7 +302,6 @@ $(document).ready(function() {
 	});
 
 
-
 	$('.logoutnow').click(function() {
 
 		var options = { path: '/', expires: -1 };
@@ -285,6 +333,9 @@ $(document).ready(function() {
 		ajax_loader_image();
 	});
 
+    $("#okay").click(function(){
+	   $("#invite_button").overlay().close();
+    });
 
 	$("#not_going_button").click(function(){
 		$.get('/simpz/ajax/event_not_going/{{event.id}}', function(data) {
@@ -346,7 +397,7 @@ $('#invite_dm_button').click(function() {
 	}
 });
 });
-
+  
 
 $("#visual_map").hide();
 $("#show_map").html("(Show Map)");
