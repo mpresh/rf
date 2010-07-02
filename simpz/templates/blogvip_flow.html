@@ -244,9 +244,6 @@ $(document).ready(function() {
 			$('#overlay-div-content2-facebook').hide();	 
 			$('#overlay-div-content2-twitter').hide();
 			$('#overlay-div-content3').show();
-			//$(this).attr("disabled", "disabled"); 
-			//$(".discount-code").show("50");
-			//$(this).text("Tweet Has Been Sent"); 
 			$.ajax({
 				url: '/simpz/ajax/event_tweet_invite/{{event.id}}', 
 				dataType: "json",
@@ -265,11 +262,10 @@ $(document).ready(function() {
 	});
 
 	$("#facebook-feed-update").click(function(){
-		//alert("facebook ckicked");
-		//$(this).attr("disabled", "disabled"); 
-		//$(".discount-code").show("50");
-		//$(this).text("Facebook Update Has Been Sent");
-		//$(this).hide();
+		$('#overlay-div-content1').hide(); 
+		$('#overlay-div-content2-facebook').hide();	 
+		$('#overlay-div-content2-twitter').hide();
+		$('#overlay-div-content3').show();
 		$.ajax({
 			url: '/simpz/ajax/facebook_update_feed/', 
 			dataType: "json",
