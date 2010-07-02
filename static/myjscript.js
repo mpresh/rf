@@ -72,3 +72,25 @@ function friend_check_html(namev,urlv,userv) {
 function del_cookie(name) {
     document.cookie = name + '=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
 }
+
+
+function facebook_login_click() {
+  var requiredPerms = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
+  FB.login(function(response) {
+    if (response.session) {
+      var a = response.session;
+      var options = { path: '/', expires: 10 };
+      $.cookie("uid", a.uid, options);
+      $.cookie("session_key", a.session_key, options);
+      $.cookie("secret", a.secret, options);
+      $.cookie("expires", a.expires, options);
+      $.cookie("base_domain", a.base_domain, options);
+      $.cookie("access_token", a.access_token, options);
+      $.cookie("sig", a.sig, options);
+  
+      var url = "/simpz/facebook_callback?redirectArgs=overlayEQUALStrue";
+      window.location.href = url;
+  } else {
+  }
+  }, {perms: requiredPerms.join(',')});
+}
