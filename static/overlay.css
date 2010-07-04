@@ -1,10 +1,9 @@
 .overlay-blogger{
 	display:none;
 	z-index:10000;
-	border:0px;	
 	background-color:#fff;	 
 	width: 480px;
-	height: 246px;
+	height: 146px;
 	padding: 35px;
 	margin: auto;
 
@@ -23,10 +22,10 @@
 	width: 100%;
 	background-image: url(images/overlaytop-bg.png);
 	/* CSS3 styling for latest browsers */	
-	-moz-border-radius-topleft: 12px;
-	-webkit-border-top-left-radius: 12px;
-	-moz-border-radius-topright: 12px;
-	-webkit-border-top-right-radius: 12px;
+	-moz-border-radius-topleft: 10px;
+	-webkit-border-top-left-radius: 10px;
+	-moz-border-radius-topright: 10px;
+	-webkit-border-top-right-radius: 10px;
 	}
 
 .overlay-blogger .overlay-top img{
@@ -37,7 +36,7 @@
 
 .overlay-blogger .overlay-bot{
 	position: absolute;
-	top: 275px;
+	top: 175px;
 	left: 0px;
 	height: 41px;
 	width: 100%;
@@ -80,6 +79,23 @@
 	text-align: center;
 }
 
+.overlay-blogger img {
+	margin-top: 5px;
+	margin-botom: 5px;
+}
+
+#overlay-textarea {
+	font-family: Arial, Helvetica,sans-serif;
+    color: #444;
+	font-size: 15px;
+	border: 1px solid #ccc;
+	width: 470px;
+	height: 50px;
+	margin:0px auto;
+}
+/*************************************/
+//Facebook Elements
+/*************************************/
 #overlay-div-facebook-login {
 	text-align: center;
 	background-color: #DEDEDE;
@@ -95,12 +111,32 @@
 	-moz-border-radius-topright: 12px;
 	-webkit-border-top-right-radius: 12px;
 }
-
-.overlay-blogger img {
-	margin-top: 5px;
-	margin-botom: 5px;
+#facebook-top-msg{
+	font-family: helvetica,arial,sans-serif;
+	font-size: 14px;
 }
-
+#facebook-div-feed-update {
+	margin-top: 5px;
+	text-align: center;
+	height: 27px;
+	width: 120px;
+	float: left;
+	background-color: #fff;
+	cursor: pointer;
+}
+#facebook-feed-update {
+    height: 27px;
+	margin-top: 3px;
+	width: 120px;	
+}
+#facebook-login {
+	    margin-top: 10px;
+		width: 70px;
+		height: 70px;
+}
+/*************************************/
+//Twitter Elements
+/*************************************/
 #overlay-div-twitter-login {
 	text-align: center;
 	background-color: #DEDEDE;
@@ -116,59 +152,30 @@
 	-moz-border-radius-topright: 12px;
 	-webkit-border-top-right-radius: 12px;
 }
-
-#facebook-div-feed-update {
-	margin-top: 5px;
-	text-align: center;
-	height: 31px;
-	width: 200px;
-	float: left;
-	background-color: #8263E5;
+#twitter-top-msg{
+	font-size: 16px;
+	margin: 20px 0px 10px 0px;
+	font-family: Arial, Helvetica,sans-serif;
 }
-
 #twitter-div-feed-update {
 	margin-top: 5px;
 	text-align: center;
-	height: 31px;
-	width: 200px;
+	height: 27px;
+	width: 52px;
 	float: right;
-	background-color: #8263E5;
+	background-color: #fff;
+	cursor: pointer;
 }
-
 #twitter-feed-update {
-        margin-top: 3px;
-        height: 25px;
-	width: 190px;
+    margin-top: 3px;
+    height: 27px;
+	width: 52px;
 }
-
-#facebook-feed-update {
-        height: 25px;
-	margin-top: 3px;
-	width: 190px;	
-}
-
-#overlay-textarea {
-        color: black;
-	font-size: 15px;
-	width: 470px;
-	height: 50px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	text-align: center;
-}
-
-#facebook-login {
-	       margin-top: 10px;
-		width: 70px;
-		height: 70px;
-}
-
 #twitter-login {
 	       margin-top: 25px;
 		width: 190px;
 		height: 40px;
 }
-
 #twitter-profile-image {
 		       width: 45px;
 		       height: 45px;
