@@ -1,3 +1,25 @@
+/***** Sticky Footer *********/
+#wrap {min-height: 100%;}
+
+#main {
+	padding-bottom: 150px;}  /* must be same height as the footer */
+
+#footer {position: relative;
+	margin-top: -150px; /* negative value of footer height */
+	height: 150px;
+	clear:both;} 
+
+/*Opera Fix*/
+body:before {
+	content:"";
+	height:100%;
+	float:left;
+	width:0;
+	margin-top:-32767px;/
+}
+
+/****** End Sticky Footer *****/
+
 body,form,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,p,blockquote,fieldset /* reset */
 {
 	border: none;
@@ -8,12 +30,6 @@ body,form,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,p,blockquote,fieldset /* reset */
 
 html, body {
 	height: 100%;
-}
-.wrapper {
-	min-height: 100%;
-	height: auto !important;
-	height: 100%;
-	margin: 0 auto -61px;
 }
 
 a:link {
@@ -147,19 +163,13 @@ body
 /*******************************/
 /****        footer         ****/
 /*******************************/
-
-.footer, .push{
-height: 61px;
-}
-
-.footer{	
-background-image: url(/simpz/site_media/images/footer.png);
-}
 .footer p{
-padding-left: 135px;
+width: 960px;
 padding-top: 34px;
+padding-left: 15px;
 font-size: 14px;
 font-weight: bold;
+margin: auto;
 }
 /*******************************/
 /****      content-main     ****/
