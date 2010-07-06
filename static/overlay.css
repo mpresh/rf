@@ -1,7 +1,9 @@
+
 .overlay-blogger{
 	display:none;
 	z-index:10000;
-	background-color:#fff;	 
+	#background-color:#fff;	 
+	background-color:green;	 
 	width: 480px;
 	height: 146px;
 	padding: 35px;
@@ -13,6 +15,7 @@
     -moz-border-radius:12px; 
    -webkit-border-radius:12px;
 }
+
 
 .overlay-blogger .overlay-top{
 	position: absolute;
@@ -93,18 +96,22 @@
 	height: 50px;
 	margin:0px auto;
 }
-/*************************************/
-//Facebook Elements
-/*************************************/
+/*************************************
+Facebook Elements
+*************************************/
+
 #overlay-div-facebook-login {
 	text-align: center;
-	background-color: #DEDEDE;
+	//background-color: #DEDEDE;
+	background-color: red;
 	margin: 5px;
-	width: 130px;
+	width: 90px;
 	float: left;
 	height: 90px;
 	font-size: 15px;
+
 }
+
 #facebook-top-msg{
 	font-family: helvetica,arial,sans-serif;
 	font-size: 14px;
@@ -125,12 +132,12 @@
 }
 #facebook-login {
 	    margin-top: 10px;
-		width: 128px;
-		height: 128px;
+	    width: 128px;
+	    height: 128px;
 }
-/*************************************/
-//Twitter Elements
-/*************************************/
+/*************************************
+Twitter Elements
+*************************************/
 #overlay-div-twitter-login {
 	text-align: center;
 	background-color: #DEDEDE;
