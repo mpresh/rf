@@ -83,7 +83,6 @@ def callback(req):
 			'token': True
 		})
 
-	print "this is problem", oauth.__file__
 	token = oauth.OAuthToken.from_string(token)
 	print "AM I HERE!!", token
 
@@ -102,8 +101,10 @@ def callback(req):
 			'username': True
 		})
 
-	try: user = User.objects.get(username=obj['screen_name'])
-	except: user = User(username=obj['screen_name'])
+	try: 
+		user = User.objects.get(username=obj['screen_name'])
+	except: 
+		user = User(username=obj['screen_name'])
 	user.oauth_token = token.key
 	user.oauth_token_secret = token.secret
 	user.save()
@@ -146,7 +147,9 @@ def logout(req):
 		req.user.oauth_token = ''
 		req.user.oauth_token_secret = ''
 		req.user.save()
-	del req.session["user_id"]
+	
+	if "user_id" in req.session:
+		del req.session["user_id"]
 
 	if redirect:
 		return HttpResponseRedirect(redirect)

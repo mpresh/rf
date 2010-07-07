@@ -51,7 +51,7 @@
 			<!--<button class="logoutnow">LOGOUT</button>-->
 			<fb:profile-pic id="facebook-profile-image" height="45px" width="45px" uid={{fbuser.facebook_id}} linked="false" ></fb:profile-pic> 
 			<br/>
-			<a class="logoutnow" href="">logout from facebook</a>
+			<div class="logoutnow" href="">logout from facebook</div>
 			{% else %}
 			<a href=""><img id="facebook-login" src="/simpz/site_media/images/facebook-button.png"/></a>
 			{% endif %}
@@ -364,12 +364,13 @@ $(document).ready(function() {
 
 	var requiredPerms = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
 	$('#facebook-login').click(function(){
-		facebook_login_click(requiredPerms);
+                alert("hello facebook login");
+		facebook_login_click();
 	});
 
 
 	$('.logoutnow').click(function() {
-
+                alert("hello");
 		var options = { path: '/', expires: -1 };
 		$.cookie("uid", null, options);
 		$.cookie("session_key", null, options);
@@ -379,17 +380,16 @@ $(document).ready(function() {
 		$.cookie("access_token", null, options);
 		$.cookie("sig", null, options);
 
-
-		//window.location.href = "/simpz/facebook_logout_callback/?redirectArgs=overlayEQUALStrue";
 		FB.logout(function(response) { 
 
 			$.get('/simpz/facebook_logout_callback/', function(data) {
 				$("#overlay-div-facebook-login").html("<a href='#'><img id='facebook-login' src='/simpz/site_media/images/Facebook-Button.png'/></a>");
 				$("#overlay-div-facebook-login").click(function(){
-					facebook_login_click();
+					facebook_login_click(requirePerms);
 				});
 			});
 		});
+                window.location.href = "/simpz/facebook_logout_callback/?redirectArgs=overlayEQUALStrue";
 	});
 
 	$("#invite_popup_close").bind('click', function() {

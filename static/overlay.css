@@ -171,6 +171,10 @@
 Facebook Elements
 *************************************/
 
+.logoutnow {
+	   cursor: pointer;
+}
+
 #overlay-div-facebook-login {
 	text-align: center;
 	//background-color: #DEDEDE;
