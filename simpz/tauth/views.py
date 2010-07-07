@@ -120,6 +120,8 @@ def callback(req):
 
 	redirect = req.session["redirect"]
 	del req.session['redirect']
+	
+	print "REQUEST", req
 	return HttpResponseRedirect(redirect)
 
 @wants_user
