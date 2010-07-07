@@ -135,6 +135,12 @@ def event_thanks(req, invite_id=""):
     return render_to_response('thanks.html', dict)
 
 def index(req):
+    print req
+    domain = req.META['HTTP_HOST'].split(".")[0]
+    print "DOMAIN IS", domain
+    if domain == "johnchow":
+        return HttpResponseRedirect("/simpz/blogvip_flow?event=1")
+
     print "COOKIES", req.COOKIES
     print "KEYS....."
     for key in req.session.keys():
