@@ -71,9 +71,6 @@ def login(req):
 	return HttpResponseRedirect(url_auth)
 
 def callback(req):
-	print req.session.keys()
-	for key in req.session.keys():
-		print "KEY CALLBACK", key, req.session[key]
 	token = req.session.get('token', None)
 	#token = req.GET["oauth_token"]
 	print "token is ", token
@@ -119,9 +116,16 @@ def callback(req):
 		user.save()
 
 	redirect = req.session["redirect"]
-	del req.session['redirect']
 	
 	print "REQUEST", req
+	for key in req.session.keys():
+		print "KEY CALLBACK", key, req.session[key]
+	del req.session['redirect']
+	base_url = "http://" + req.META["SERVER_NAME"] + ":" + req.META["SERVER_PORT"]
+	redirect = base_url + redirect
+	if "refer_domain" in req.session:
+		redirect = redirect.replace("www", req.session["refer_domain"])
+	print "REDIRECT", redirect
 	return HttpResponseRedirect(redirect)
 
 @wants_user
