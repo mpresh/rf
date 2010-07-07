@@ -78,10 +78,10 @@
 			<img src="/simpz/site_media/images/sharetxt.png">
 		</div>
 		<div class="overlay-bot">
-			<div id="previous"><img src="/simpz/site_media/images/previous.png"></div>
+			<div id="previous"><a href=""><img src="/simpz/site_media/images/previous.png"></a></div>
 			<div id="invite-progress"><ul><li>Select Network</li> <li class="active">Message</li> <li>Discount</li></div>
 					{%if fbuser %}
-			<!--<img id="facebook-feed-update" src="/simpz/site_media/images/facebook-invite.png">-->
+			<!--<img id="facebook-feed-update" src="/simpz/site_media/images/facebook-sinvite.png">-->
 			<!--FB Back Button-->
 			<!--<div id="facebook-div-back"><img src="/simpz/site_media/images/back.png" id="facebook-back"></div>-->
 			<div id="facebook-div-feed-update"><img src="/simpz/site_media/images/share.png" id="facebook-feed-update"></div>
@@ -98,7 +98,7 @@
 			<img src="/simpz/site_media/images/sharetxt.png">  
 		</div>
 		<div class="overlay-bot">
-			<div id="previous"><img src="/simpz/site_media/images/previous.png"></div>
+			<div id="previous"><a href=""><img src="/simpz/site_media/images/previous.png"></a></div>
 			<div id="invite-progress"><ul><li>Select Network</li> <li class="active">Message</li> <li>Discount</li></div>
 			<div id="twitter-div-feed-update"><img src="/simpz/site_media/images/share.png" id="twitter-feed-update"></div>
 		</div>
@@ -114,7 +114,7 @@
 		</div>
 		<div class="overlay-bot">
 			<div id="previous">
-				<img src="/simpz/site_media/images/previous.png">
+				<a href=""><img src="/simpz/site_media/images/previous.png"></a>
 			</div>
 			<div id="invite-progress"><ul><li>Select Network</li> <li>Message</li> <li class="active">Discount</li></div>
 			<div id="okay"><img src="/simpz/site_media/images/done.png"></div>
@@ -221,6 +221,13 @@ $(document).ready(function() {
 			top: 200,
 			left: 200,
 		});
+
+                $('#previous').click(function(){
+                                    $('#overlay-div-content1').show();  
+				    $('#overlay-div-content2-facebook').hide(); 
+				    $('#overlay-div-content2-twitter').hide();
+				    $('#overlay-div-content3').hide();
+                });
 
 		{% if overlay %}
 	
