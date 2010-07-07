@@ -2,16 +2,16 @@
 .overlay-blogger{
 	display:none;
 	z-index:10000;
-	#background-color:#fff;	 
-	background-color:green;	 
-	width: 480px;
-	height: 146px;
-	padding: 35px;
+	background-color:#fff;	 
+	//background-color:green;	 
+	width: 460px;
+	height: 251px;
+	padding-top: 35px;
 	margin: auto;
 
     /* CSS3 styling for latest browsers */	 
-    -moz-box-shadow:0 0 90px 5px #000; 
-    -webkit-box-shadow: 0 0 90px #000;
+    //-moz-box-shadow:0 0 90px 5px #000; 
+    //-webkit-box-shadow: 0 0 90px #000;
     -moz-border-radius:12px; 
    -webkit-border-radius:12px;
 }
@@ -39,9 +39,9 @@
 
 .overlay-blogger .overlay-bot{
 	position: absolute;
-	top: 175px;
+	top: 240px;
 	left: 0px;
-	height: 41px;
+	height: 46px;
 	width: 100%;
 	background-image: url(images/overlaybot-bg.png);
 	/* CSS3 styling for latest browsers */	
@@ -82,20 +82,79 @@
 	text-align: center;
 }
 
-.overlay-blogger img {
-	margin-top: 5px;
-	margin-botom: 5px;
-}
+//.overlay-blogger img {
+//	margin-top: 5px;
+//	margin-botom: 5px;
+//}
 
 #overlay-textarea {
 	font-family: Arial, Helvetica,sans-serif;
     color: #444;
+    text-align: left;
 	font-size: 15px;
 	border: 1px solid #ccc;
-	width: 470px;
-	height: 50px;
-	margin:0px auto;
+	width: 433px;
+	height: 118px;
+	margin-left: 12px;
 }
+#invite-progress{
+	font-size: 12px;
+	float: left;
+	margin: 18px 0px 0px 17px; 
+	}
+#invite-progress li{
+	display: inline;
+	color: #414141;
+	list-style-type: none;
+	padding: 0px 15px 0px 15px;
+}
+#invite-progress .active{
+	color: #8929e9;
+}
+#previous-grey{
+	float:left;
+	margin: 10px 0px 0px 15px;
+	width: 70px;
+	height: 27px;
+	}
+#previous{
+	float:left;
+	margin: 10px 0px 0px 15px;
+	width: 70px;
+	height: 27px;
+	}
+#next{
+	float:left;
+	margin: 10px 0px 0px 25px;
+	width: 45px;
+	height: 27px;
+	}
+#share{
+	float:left;
+	margin: 10px 0px 0px 25px;
+	width: 45px;
+	height: 27px;
+	}
+#okay{
+	float:left;
+	margin: 10px 0px 0px 25px;
+	width: 45px;
+	height: 27px;	
+	}
+#code{
+	width: 421px;
+	margin-left: 20px;
+	height: 53px;
+	background-image: url(images/code.png);
+	}
+#code p{
+	font-size: 32px;
+	padding: 14px 0px 0px 20px;
+	}
+#code-msg{
+	font-size: 14px;
+	padding: 0px 0px 12px 18px;
+	}
 /*************************************
 Facebook Elements
 *************************************/
@@ -103,32 +162,30 @@ Facebook Elements
 #overlay-div-facebook-login {
 	text-align: center;
 	//background-color: #DEDEDE;
-	background-color: red;
-	margin: 5px;
-	width: 90px;
+	padding: 15px 0px 0px 70px;
+	width: 128px;
 	float: left;
-	height: 90px;
+	height: 128px;
 	font-size: 15px;
-
 }
 
 #facebook-top-msg{
-	font-family: helvetica,arial,sans-serif;
-	font-size: 14px;
+	padding: 15px 0px 14px 0px;
+	margin-left: 10px;
 }
 #facebook-div-feed-update {
-	margin-top: 5px;
-	text-align: center;
+	//margin-top: 5px;
+	//margin-right: 10px;
+	float:left;
+	margin: 10px 0px 0px 25px;
 	height: 27px;
-	width: 120px;
-	float: left;
-	background-color: #fff;
+	width: 45px;
+	//float: right;
 	cursor: pointer;
 }
 #facebook-feed-update {
     height: 27px;
-	margin-top: 3px;
-	width: 120px;	
+	width: 45px;	
 }
 #facebook-login {
 	    margin-top: 10px;
@@ -140,31 +197,30 @@ Twitter Elements
 *************************************/
 #overlay-div-twitter-login {
 	text-align: center;
-	background-color: #DEDEDE;
+	//background-color: #DEDEDE;
+	padding: 15px 70px 0px 0px;
 	float: right;
-	margin: 5px;
-	width: 130px;
-	height: 90px;
+	width: 128px;
+	height: 128px;
 	font-size: 15px;
 }
 #twitter-top-msg{
-	font-size: 16px;
-	margin: 20px 0px 10px 0px;
-	font-family: Arial, Helvetica,sans-serif;
+	padding: 15px 0px 14px 0px;
+	margin-left: 10px;
+	//font-family: Arial, Helvetica,sans-serif;
 }
 #twitter-div-feed-update {
-	margin-top: 5px;
-	text-align: center;
+	//margin: 5px 5px 0px 0px;
+	margin: 10px 0px 0px 25px;
 	height: 27px;
-	width: 52px;
-	float: right;
-	background-color: #fff;
+	width: 45px;
+	float: left;
 	cursor: pointer;
 }
 #twitter-feed-update {
-    margin-top: 3px;
+    //margin-top: 3px;
     height: 27px;
-	width: 52px;
+	width: 45px;
 }
 #twitter-login {
 	    margin-top: 10px;
