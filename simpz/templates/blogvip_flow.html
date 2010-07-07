@@ -48,21 +48,20 @@
 
 			<!--<button id="status_button">STATUS</button>-->
 			{% if fbuser %}
-			Logged In To Facebook<br />
+			<br/>Facebook<br/>
 			<!--<button class="logoutnow">LOGOUT</button>-->
-			<fb:profile-pic height="45px" width="45px" uid={{fbuser.facebook_id}} linked="false" ></fb:profile-pic> 
+			<fb:profile-pic id="facebook-profile-image" height="45px" width="45px" uid={{fbuser.facebook_id}} linked="false" ></fb:profile-pic> 
 			<br/>
 			<a class="logoutnow" href="">logout from facebook</a>
 			{% else %}
 			<a href=""><img id="facebook-login" src="/simpz/site_media/images/facebook-button.png"/></a>
 			{% endif %}
-
 		</div>
 
 		<div id="overlay-div-twitter-login">
 
 			{% if user %}
-			Logged In To Twitter<br />
+			<br/>Twitter<br />
 			<img id="twitter-profile-image" src="{{user.profile_pic}}" />
 			<br/>
 			<a href="/simpz/logout/?redirectArgs=overlayEQUALStrue">logout from twitter</a>
@@ -78,14 +77,14 @@
 			<img src="/simpz/site_media/images/sharetxt.png">
 		</div>
 		<div class="overlay-bot">
-			<div id="previous"><a href=""><img src="/simpz/site_media/images/previous.png"></a></div>
+			<div id="previous" class="previous"><img src="/simpz/site_media/images/previous.png"></div>
 			<div id="invite-progress"><ul><li>Select Network</li> <li class="active">Message</li> <li>Discount</li></div>
-					{%if fbuser %}
+			{%if fbuser %}
 			<!--<img id="facebook-feed-update" src="/simpz/site_media/images/facebook-sinvite.png">-->
 			<!--FB Back Button-->
 			<!--<div id="facebook-div-back"><img src="/simpz/site_media/images/back.png" id="facebook-back"></div>-->
 			<div id="facebook-div-feed-update"><img src="/simpz/site_media/images/share.png" id="facebook-feed-update"></div>
-		{% endif %}
+			{% endif %}
 		</div>
 		<div id="facebook-top-msg">
 			<img src="/simpz/site_media/images/facebook-share-msg.png">
@@ -98,7 +97,7 @@
 			<img src="/simpz/site_media/images/sharetxt.png">  
 		</div>
 		<div class="overlay-bot">
-			<div id="previous"><a href=""><img src="/simpz/site_media/images/previous.png"></a></div>
+			<div id="previous" class="previous"><img src="/simpz/site_media/images/previous.png"></div>
 			<div id="invite-progress"><ul><li>Select Network</li> <li class="active">Message</li> <li>Discount</li></div>
 			<div id="twitter-div-feed-update"><img src="/simpz/site_media/images/share.png" id="twitter-feed-update"></div>
 		</div>
@@ -113,17 +112,17 @@
 
 		</div>
 		<div class="overlay-bot">
-			<div id="previous">
-				<a href=""><img src="/simpz/site_media/images/previous.png"></a>
+			<div id="previous" class="previous">
+				<img src="/simpz/site_media/images/previous.png">
 			</div>
 			<div id="invite-progress"><ul><li>Select Network</li> <li>Message</li> <li class="active">Discount</li></div>
 			<div id="okay"><img src="/simpz/site_media/images/done.png"></div>
 		</div>
 		
 			<BR /><BR />
-			<div id="code-msg">Thanks! You've shared your discount with your friends.			<BR>
+			<div id="code-msg">Thanks! You've shared your discount with your friends.			<BR>
 			<BR>
-			Here’s your discount code:</div>       	<div id="code"><p>blahblah</p></div>
+			Here’s your discount code:</div>      	<div id="code"><p>blahblah</p></div>
 
 	</div>
 
@@ -225,7 +224,23 @@ $(document).ready(function() {
 			left: 200,
 		});
 
-                $('#previous').click(function(){
+                $('#facebook-profile-image').click(function(){
+                                    contentView = 2;
+				    $('#overlay-div-content1').hide(); 
+			            $('#overlay-div-content2-facebook').show(); 
+				    $('#overlay-div-content2-twitter').hide();
+			            $('#overlay-div-content3').hide();
+                });
+
+                $('#twitter-profile-image').click(function(){
+                                    contentView = 2;
+				    $('#overlay-div-content1').hide(); 
+			            $('#overlay-div-content2-facebook').hide(); 
+				    $('#overlay-div-content2-twitter').show();
+			            $('#overlay-div-content3').hide();
+                });
+
+                $('.previous').click(function(){
                                     if (contentView == 2){
                                
                                         contentView = 1;
@@ -246,7 +261,7 @@ $(document).ready(function() {
 
                                 // if fbuser logged in
                                 {% if fbuser %}
-                                    contentView = 3;
+                                    contentView = 2;
 				    $('#overlay-div-content1').hide(); 
 			            $('#overlay-div-content2-facebook').show(); 
 			            $('#overlay-div-content2-twitter').hide();
@@ -254,7 +269,6 @@ $(document).ready(function() {
 				{% endif %}
 				{% endif %}
                                     }
-alert("boom");
                 });
 
 		{% if overlay %}

@@ -49,7 +49,11 @@ def login(req):
 			redirect_string += key + "=" + value + "&" 
 		if redirect_string:
 			redirect_string = redirect_string[:-1]
-		req.session["redirect"] = req.session["redirect"] + "?" + redirect_string
+
+		if req.session["redirect"].find("?") != -1:
+			req.session["redirect"] = req.session["redirect"] + "&" + redirect_string
+		else:
+			req.session["redirect"] = req.session["redirect"] + "?" + redirect_string
 
 	if req.user: 
 		print "login redirect:", req.session['redirect']

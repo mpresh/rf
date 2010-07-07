@@ -57,7 +57,11 @@ def facebook_callback(req):
             redirect_string += key + "=" + value + "&" 
         if redirect_string:
             redirect_string = redirect_string[:-1]
-    redirect = redirect + "?" + redirect_string
+    
+        if redirect.find("?") != -1:
+            redirect = redirect + "&" + redirect_string
+        else:
+            redirect = redirect + "?" + redirect_string
 
     return HttpResponseRedirect(redirect)
 
@@ -90,7 +94,11 @@ def facebook_logout_callback(req):
             redirect_string += key + "=" + value + "&" 
         if redirect_string:
             redirect_string = redirect_string[:-1]
-        redirect = redirect + "?" + redirect_string
+
+        if redirect.find("?") != -1:
+            redirect = redirect + "&" + redirect_string
+        else:
+            redirect = redirect + "?" + redirect_string
 
 
     print "SESSION KEYS"

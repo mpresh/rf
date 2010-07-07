@@ -204,6 +204,11 @@ Facebook Elements
 	    width: 128px;
 	    height: 128px;
 }
+
+#facebook-profile-image {
+		       cursor: pointer;
+}
+
 /*************************************
 Twitter Elements
 *************************************/
@@ -242,4 +247,6 @@ Twitter Elements
 #twitter-profile-image {
 		       width: 45px;
 		       height: 45px;
+		       cursor: pointer;
 }
+
