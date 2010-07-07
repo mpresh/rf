@@ -211,6 +211,9 @@ margin: auto;
 	line-height: 1.6em;
 	padding-bottom: 16px;
 }
+#attendees_thumbs{
+	padding-left: 10px;
+	}
 /*******************************/
 /****    content-right      ****/
 /*******************************/
