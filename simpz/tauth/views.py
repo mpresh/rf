@@ -120,12 +120,17 @@ def callback(req):
 	print "REQUEST", req
 	for key in req.session.keys():
 		print "KEY CALLBACK", key, req.session[key]
+	
 	del req.session['redirect']
+	if req.META["SERVER_NAME"].find("localhost") != -1:
+		return HttpResponseRedirect(redirect)
+
 	base_url = "http://" + req.META["SERVER_NAME"] + ":" + req.META["SERVER_PORT"]
 	redirect = base_url + redirect
-	if "refer_domain" in req.session:
+	if "refer_domain" in req.session and req.session["refer_domain"] != "wwww":
 		redirect = redirect.replace("www", req.session["refer_domain"])
 	print "REDIRECT", redirect
+
 	return HttpResponseRedirect(redirect)
 
 @wants_user
