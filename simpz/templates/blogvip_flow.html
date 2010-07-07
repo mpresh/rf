@@ -23,7 +23,7 @@
 
 
 <div id="invite-button">
-	<a href="#" id="invite_button" rel="#overlay-blogger-login"><img src="/simpz/site_media/images/look/button.png"></a>
+	<a href="" id="invite_button" rel="#overlay-blogger-login"><img src="/simpz/site_media/images/look/button.png"></a>
 </div>
 
 
@@ -52,9 +52,9 @@
 			<!--<button class="logoutnow">LOGOUT</button>-->
 			<fb:profile-pic height="45px" width="45px" uid={{fbuser.facebook_id}} linked="false" ></fb:profile-pic> 
 			<br/>
-			<a class="logoutnow" href="#">logout from facebook</a>
+			<a class="logoutnow" href="">logout from facebook</a>
 			{% else %}
-			<a href="#"><img id="facebook-login" src="/simpz/site_media/images/facebook-button.png"/></a>
+			<a href=""><img id="facebook-login" src="/simpz/site_media/images/facebook-button.png"/></a>
 			{% endif %}
 
 		</div>
@@ -157,7 +157,7 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		{% for attendee in attendees %} 
 
-		<a href="#">
+		<a href="">
 			<img src="{{attendee.profile_pic}}" /> 
 		</a>
 		&nbsp;
@@ -183,7 +183,6 @@
 
 
 $(document).ready(function() {
-
 	$("#invite_button").overlay(
 		{
 			expose: {
@@ -192,7 +191,6 @@ $(document).ready(function() {
 				opacity: 0.8
 			},
 			onLoad: function(event) {
-
 				// show first view with facebook and twitter login buttons
 				{% if not user and not fbuser %}
 				    $('#overlay-div-content1').show(); 
@@ -269,8 +267,8 @@ $(document).ready(function() {
 				url: '/simpz/ajax/event_tweet_invite/{{event.id}}', 
 				dataType: "json",
 				data: {data: $("#overlay-textarea").val(), 
-				invite_url: '{{invite_url}}',
-				invite_id: {{invite_id}}
+				invite_url: '{{invite_url}}'
+				//invite_id: {{invite_id}}
 			}, 
 			success: function(data){
 				$.get('/simpz/ajax/event_going/{{event.id}}', function(data) {
@@ -371,8 +369,8 @@ $(document).ready(function() {
 			url: '/simpz/ajax/event_tweet_invite/{{event.id}}', 
 			dataType: "json",
 			data: {data: $("#tweet_text").val(), 
-			invite_url: '{{invite_url}}',
-			invite_id: {{invite_id}}
+			invite_url: '{{invite_url}}'
+			//invite_id: {{invite_id}}
 		}, 
 		success: function(data){
 			$("#tweet_msg").html("Tweet Sent Succesfully");
