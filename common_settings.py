@@ -55,6 +55,7 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(ROOT_PATH, 'simpz/templates'),
     os.path.join(ROOT_PATH, 'simpz/tauth/templates'),
+    os.path.join(ROOT_PATH, 'frontpage/templates'),
 )
 
 INSTALLED_APPS = (
@@ -65,7 +66,8 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'demo.simpz.events',
     'demo.simpz.fauth',       
-    'demo.simpz.tauth', 
+    'demo.simpz.tauth',
+    'demo.frontpage', 
     #'django_extensions',
 )
 
