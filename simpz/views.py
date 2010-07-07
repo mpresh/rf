@@ -357,6 +357,8 @@ def blogvip_flow(req):
             event = None
 
     dict = {}
+    dict["fbappid"] = settings.FACEBOOK_APP_ID
+    
     if "overlay" in req.GET:
         dict["overlay"] = True
 
