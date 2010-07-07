@@ -137,7 +137,10 @@ def logout(req):
 			redirect_string += key + "=" + value + "&" 
 		if redirect_string:
 			redirect_string = redirect_string[:-1]
-		redirect = redirect + "?" + redirect_string
+		if redirect.find("?") != -1:
+			redirect = redirect + "&" + redirect_string
+		else:
+			redirect = redirect + "?" + redirect_string
 
 	if req.user is not None:
 		req.user.oauth_token = ''
