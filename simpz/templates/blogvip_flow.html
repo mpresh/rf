@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block title  %}
-{{event.name}}[]
+{{event.name}}
 {% endblock %}
 
 
@@ -28,7 +28,6 @@
 
 
 <div id="invitemsg">There are {{event.num_attendees}} attending. join us</div>
-
 
 <div id="overlay-blogger-login" class="overlay-blogger">
 
@@ -178,11 +177,12 @@
 </div>
 
 -->
-<script>
 
+<script>
 
 $(document).ready(function() {
         var contentView = 0;
+
 	$("#invite_button").overlay(
 		{
 			expose: {
@@ -464,139 +464,11 @@ $('#invite_dm_button').click(function() {
 });
 });
   
-
-//$("#visual_map").hide();
-//$("#show_map").html("(Show Map)");
-//
-//
-//if (GBrowserIsCompatible()) {
-//	var map = new GMap2(document.getElementById("visual_map"));
-//	map.setCenter(new GLatLng({{event.lat}}, {{event.lng}}), 13);
-//	map.setUIToDefault();
-//}			
-//
-//
-//$("#show_map").click(function() {
-//
-//	if ($("#visual_img").is(":visible")) {
-//
-//		$("#visual_img").hide(500);
-//
-//		$("#visual_map").show(500, function() {
-//
-//			if (GBrowserIsCompatible()) {
-//				var map = new GMap2(document.getElementById("visual_map"));
-//				map.setCenter(new GLatLng({{event.lat}}, {{event.lng}}), 13);
-//				map.setUIToDefault();
-//			}
-//		});
-//
-//
-//		$("#show_map").html("(Hide Map)");
-//	}else {
-//		$("#visual_img").show(500);
-//		$("#visual_map").hide(500);
-//		$("#show_map").html("(Show Map)");
-//	}
-//});
-//});
-
-// perform JavaScript after the document is scriptable.
-$(function() {
-	// setup ul.tabs to work as tabs for each div directly under div.panes
-	$("ul.tabs").tabs("div.panes > div");
 });
 
 
-function setup_select_all_button() {
-	$("a.select_all_arrow").toggle(function() {
-		$(".friend_list_item").each(function(index) {
-			$(this).css("background-color", "#FF9933");    
-			$(this).find("input[name='invitee']").attr("checked", "yes");
-			$(this).find("img.checkbox_invite").attr("src", "/simpz/site_media/images/checkbox_checked.png");
-		});
-	}, 
-	function() {
-		$(".friend_list_item").each(function(index) {
-			$(this).css("background-color", "#FBF5EF");    
-			$(this).find("input[name='invitee']").removeAttr("checked");
-			$(this).find("img.checkbox_invite").attr("src", "/simpz/site_media/images/checkbox_unchecked.png");
-		});
-	});
-
-}
-
-function ajax_loader_image() {
-	$('#twitlist').html("<img style='margin-left:275px; margin-top:40px;' width='130' height='130' src='/simpz/site_media/images/ajax-loader.gif' />");
-}
 
 
-function display_friends_invite_twitter() {
-	$.ajax({
-		url: '/simpz/ajax/event_friend_not_attendees/{{event.id}}', 
-		dataType: "json",
-		success: function(data){
-			$('#twitlist').html(make_friend_list(data));
-			$('#tweet_msg').html("Invite Your Friends");
-
-			$(".friend_list_item").toggle(function() {
-				$(this).css("background-color", "#FF9933");    
-				$(this).hover(function(){
-					$(this).css("background-color", "#FF9933");
-				},
-				function(){
-					$(this).css("background-color", "#FF9933");
-				});
-				$(this).find("input[name='invitee']").attr("checked", "yes");
-				$(this).find("img.checkbox_invite").attr("src", "/simpz/site_media/images/checkbox_checked.png");
-			}, function() {
-				$(this).css("background-color", "#fd9");
-				$(this).hover(function(){
-					$(this).css("background-color", "#fd9");
-				},
-				function(){
-					$(this).css("background-color", "#FBF5EF");
-				});
-
-				$(this).find("input[name='invitee']").removeAttr("checked");
-				$(this).find("img.checkbox_invite").attr("src", "/simpz/site_media/images/checkbox_unchecked.png");
-			});
-			setup_select_all_button(); 
-
-		},
-		beforeSend: function() {
-			$('#tweet_msg').html("Loading Friend Data");
-			ajax_loader_image();
-		}
-	});
-
-}
-
-function display_friends_invite_facebook() {
-	$.ajax({
-		url: '/simpz/ajax/facebook_friends', 
-		dataType: "json",
-
-		success: function(data){
-			$('#facebookfriends').html(data.data);
-			//alert(data.data);
-		},
-		beforeSend: function() {
-
-		}
-	});
-
-}
-
-
-$(document).ready(function() {
-	// background processing
-	//setTimeout ( "display_friends_invite_twitter()", 10 );
-	//setTimeout ( "display_friends_invite_facebook()", 10 );
-
-
-
-});
 
 </script>
 <!-- Content ends here -->
