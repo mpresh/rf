@@ -19,6 +19,9 @@ class Event(models.Model):
     organizer = models.ForeignKey(User, related_name="events_organized")
     attendees = models.ManyToManyField(User, related_name="events_going")
     attendees_maybe = models.ManyToManyField(User, related_name="events_maybe")
+
+    def __unicode__(self):
+        return "<Event: %s %s>" % (self.id, self.name)
    
 class Invite(models.Model):
     message = models.CharField(max_length=140, default="")
@@ -28,4 +31,6 @@ class Invite(models.Model):
     from_invite = models.ForeignKey('self', related_name="invite_children", default=None, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     
+    def __unicode__(self):
+        return "<Invite: %s>" % (self.id)
 

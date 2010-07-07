@@ -23,6 +23,9 @@ class User(models.Model):
 	oauth_token = models.CharField(max_length=200)
 	oauth_token_secret = models.CharField(max_length=200)
 
+	def __unicode__(self):
+		return "<Twitter User: %s %s %s %s>" % (self.id, self.username, self.twitter_id, self.name)
+
 	def validate(self):
 		errors = []
 		if self.username and not re.compile('^[a-zA-Z0-9_]{1,40}$').match( \
