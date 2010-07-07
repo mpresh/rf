@@ -1,7 +1,7 @@
 /*******************************/
 /**** absolute positioning  ****/
 /*******************************/
-#header #invite-button, #header #greeting, #header #dets, #header #attendees, #header #invitemsg, #header #attendees #msg, #header #links
+#header #invite-button, #header #greeting, #header #dets, #header #attendees, #header #invitemsg, #header #attendees #msg, #header #links, #jclink
 {
 	position: absolute;
 }
@@ -10,12 +10,12 @@
 	background-image: url(/simpz/site_media/images/look/body-bg.png);
 }
 #header
-, #header #fuck
+, #header #f
 {
 	height: 616px;
 	position: relative;
 }
-#header #fuck
+#header #f
 {
 	background: url(/simpz/site_media/images/look/centerboard.png) center top no-repeat;
 	width: 980px;
@@ -171,3 +171,7 @@ img
 	border: 0;
 	text-decoration: none;
 }
+#jclink{
+	top: 62px;
+	left: 0px;
+	}
