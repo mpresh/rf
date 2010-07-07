@@ -16,6 +16,18 @@
    -webkit-border-radius:12px;
 }
 
+#overlay-div-content1 {
+  display: none;
+}
+#overlay-div-content2-facebook {
+  display: none;
+}
+#overlay-div-content2-twitter {
+  display: none;
+}
+#overlay-div-content3 {
+  display: none;
+}
 
 .overlay-blogger .overlay-top{
 	position: absolute;

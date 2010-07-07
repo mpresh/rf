@@ -192,27 +192,32 @@ $(document).ready(function() {
 				opacity: 0.8
 			},
 			onLoad: function(event) {
-				//$("#facebook-feed-update").removeAttr("disabled");
-				//$("#twitter-feed-update").removeAttr("disabled");
+
+				// show first view with facebook and twitter login buttons
 				{% if not user and not fbuser %}
 				    $('#overlay-div-content1').show(); 
 				    $('#overlay-div-content2-facebook').hide(); 
 				    $('#overlay-div-content2-twitter').hide();
 				    $('#overlay-div-content3').hide();
-				{% else %} 	{% if user %}
+				{% else %} 	
+                                
+                                // if twitter user logged in, show twitter page
+                                {% if user %}
 				    $('#overlay-div-content1').hide(); 
-			        $('#overlay-div-content2-facebook').hide(); 
+			            $('#overlay-div-content2-facebook').hide(); 
 				    $('#overlay-div-content2-twitter').show();
-			        $('#overlay-div-content3').hide();
+			            $('#overlay-div-content3').hide();
+				{% else %} 	
 
-				{% else %} 	{% if fbuser %}
+                                // if fbuser logged in
+                                {% if fbuser %}
 				    $('#overlay-div-content1').hide(); 
-			        $('#overlay-div-content2-facebook').show(); 
-			        $('#overlay-div-content2-twitter').hide();
-			        $('#overlay-div-content3').hide();	
+			            $('#overlay-div-content2-facebook').show(); 
+			            $('#overlay-div-content2-twitter').hide();
+			            $('#overlay-div-content3').hide();	
 				{% endif %}
 				{% endif %}
-		        {% endif %}
+  		                {% endif %}
 				
 			},
 			top: 200,
