@@ -367,13 +367,11 @@ $(document).ready(function() {
 
 	var requiredPerms = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
 	$('#facebook-login').click(function(){
-                alert("hello facebook login");
 		facebook_login_click();
 	});
 
 
 	$('.logoutnow').click(function() {
-                alert("hello");
 		var options = { path: '/', expires: -1 };
 		$.cookie("uid", null, options);
 		$.cookie("session_key", null, options);
