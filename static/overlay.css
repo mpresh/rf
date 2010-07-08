@@ -99,7 +99,7 @@
 //	margin-botom: 5px;
 //}
 
-#overlay-textarea {
+#overlay-textarea-twitter, #overlay-textarea-facebook {
 	font-family: Arial, Helvetica,sans-serif;
     color: #444;
     text-align: left;
