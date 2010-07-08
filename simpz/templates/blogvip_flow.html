@@ -279,7 +279,7 @@ $(document).ready(function() {
 		
 		{% endif %}
 
-		FB.init({appId: '374592118121', status: true, cookie: true, xfbml: true});
+		FB.init({appId: '{{fbappid}}', status: true, cookie: true, xfbml: true});
 
 		$("#feed").click(function(){
 			$.ajax({
@@ -367,6 +367,7 @@ $(document).ready(function() {
 
 	var requiredPerms = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
 	$('#facebook-login').click(function(){
+	//alert("hello there");
         FB.getLoginStatus(function(response) {
         if (response.session) {
            // logged in and connected user, someone you know
