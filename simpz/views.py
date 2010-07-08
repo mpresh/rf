@@ -138,7 +138,7 @@ def index(req):
     print req
     domain = req.META['HTTP_HOST'].split(".")[0]
     print "DOMAIN IS", domain
-    if domain == "johnchow":
+    if domain != "wwww":
         return HttpResponseRedirect("/simpz/blogvip_flow?event=1")
 
     print "COOKIES", req.COOKIES
