@@ -211,6 +211,7 @@ Facebook Elements
 	    margin-top: 10px;
 	    width: 128px;
 	    height: 128px;
+	    cursor: pointer;
 }
 
 #facebook-profile-image {

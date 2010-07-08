@@ -77,6 +77,7 @@ function del_cookie(name) {
 function facebook_login_click() {
   var requiredPerms = ['email','user_about_me', 'publish_stream'];
   FB.login(function(response) {
+	
     if (response.session) {
       var a = response.session;
       var options = { path: '/', expires: 10 };
@@ -88,9 +89,12 @@ function facebook_login_click() {
       $.cookie("access_token", a.access_token, options);
       $.cookie("sig", a.sig, options);
   
+
       var url = "/simpz/facebook_callback?redirectArgs=overlayEQUALStrue";
       window.location.href = url;
   } else {
   }
-  }, {perms: requiredPerms.join(',')});
+      }, {perms: requiredPerms.join(',')}
+      );
+
 }
