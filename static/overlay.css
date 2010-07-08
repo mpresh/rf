@@ -83,7 +83,7 @@
 		     margin-top: 2px;
 		     text-align: center;
 		     font-size: 10px;
-                     padding-top: 6px;
+             padding-top: 4px;
 }
 
 
@@ -134,24 +134,28 @@
 	margin: 10px 0px 0px 15px;
 	width: 70px;
 	height: 27px;
+	cursor:pointer;
 	}
 #next{
 	float:left;
 	margin: 10px 0px 0px 25px;
 	width: 45px;
 	height: 27px;
+	cursor:pointer;
 	}
 #share{
 	float:left;
 	margin: 10px 0px 0px 25px;
 	width: 45px;
 	height: 27px;
+	cursor:pointer;
 	}
 #okay{
 	float:left;
 	margin: 10px 0px 0px 25px;
 	width: 45px;
-	height: 27px;	
+	height: 27px;
+	cursor:pointer;	
 	}
 #code{
 	width: 421px;
