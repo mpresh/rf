@@ -33,8 +33,9 @@ def event_facebook_update(req, event_id=""):
                   )
     share.save()
     share.setHash()
-    print "URL IS", share.url()
-    print "URL IS", share.referUrl()
+    url = share.url(req)
+    print "URL IS", url
+    print "REFER URL IS", share.referUrl(req)
 
     dict = {}
     dict["status"] = "ok!"

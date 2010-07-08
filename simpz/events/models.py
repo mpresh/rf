@@ -3,6 +3,7 @@ from pylib import oauth
 import re, httplib, simplejson
 from simpz.tauth.models import User
 from simpz.fauth.models import FBUser
+import re
 
 class Event(models.Model):
     name = models.CharField(max_length=200)
@@ -66,11 +67,34 @@ class Share(models.Model):
     def allOffspring(self):
         return None
 
-    def url(self):
+    def url(self, request):
+        """Returns the url for this share link."""
+        print dir(request)
+        print request.get_full_path()
+        print request.build_absolute_uri()
+        print request.get_host()
+
+        print request
+
+        print "SESSION"
+        for key in request.session.keys():
+            print "%s  %s" % (key, request.session[key])
+
+        path = re.sub("hash=[a-zA-Z0-9_-]+", "path=" + self.getHash(), request.session["redirect"] + "&path=12334355335")
+        return request.get_host() + path
+
+    def referUrl(self, request):
         return None
 
-    def referUrl(self):
-        return None
+    def getHash(self):
+        if self.hash:
+            return self.hash
+
+        else:
+            setHash()
+
+        return self.getHash()
 
     def setHash(self):
-        return None
+        self.hash = 
+        self.save()
