@@ -340,11 +340,12 @@ $(document).ready(function() {
 		$('#overlay-div-content2-twitter').hide();
 		$('#overlay-div-content3').show();
 		$.ajax({
-			url: '/simpz/ajax/facebook_update_feed/', 
+			url: '/simpz/ajax/event_facebook_update/{{event.id}}', 
 			dataType: "json",
-			data: {message: $("#overlay-textarea-facebook").val()},
+			data: {message: $("#overlay-textarea-facebook").val(),
+                               hash: {{hash}}},
 			success: function(data){
-
+                           alert("msg sent");
 			},
 			beforeSend: function() {
 				//alert("sending feed request");

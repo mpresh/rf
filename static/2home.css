@@ -146,6 +146,7 @@ border:1px solid #ccc;
 	width: 466px;
 	left: -1px;
 	top: 476px;
+	overflow: auto;
 }
 #header #attendees #msg
 {

@@ -365,6 +365,9 @@ def blogvip_flow(req):
     if "overlay" in req.GET:
         dict["overlay"] = True
 
+    if "hash" in req.GET:
+        dict["hash"] = req.GET["hash"]
+
     # twitter user
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])	
