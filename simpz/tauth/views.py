@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from pylib import oauth
 from utils import *
 from models import User
+from events.models import Event
 from decorators import wants_user, needs_user
 import simplejson as json
 import urllib
@@ -186,25 +187,34 @@ def friend_list(req):
 	user = User.objects.get(username=req.user.username)	
 	return HttpResponse(json.dumps(user.get_friend_list()))
 
-def attendees(req):
+def attendees(req, event_id=""):
 	"""
 	Return a list of users attending the event.
 	If logged in, friends returned first.
 	GET Parameter: event_id
 	
 	"""
-	
-	if "user_id" in req.session:
-		user = User.objects.get(id=req.session["user_id"])	
-		friends = user.get_friend_list()
+	if event_id:
+		event = Event.objects.get(id=event_id)
+		att_list = []	
+		attendees = event.attendees.all()
+		for att in attendees:
+			att_list.append([att.profile_pic, att.name, att.username])
+		return HttpResponse(json.dumps(att_list))
+	else:
+		return HttpResponse(json.dumps([]))
 
-		friends_dict = {}
-		for friend in friends:
-			url = "http://api.twitter.com/1/users/show/" + str(friend) + ".json"
-			friend_obj = json.loads(urllib.urlopen(url).read())
-			friends_dict[friend] = [friend_obj["name"], 
-						friend_obj["profile_image_url"], 
-						friend_obj["screen_name"]]
-
-		return HttpResponse(json.dumps(friends_dict))
+	#if "user_id" in req.session:
+	#	user = User.objects.get(id=req.session["user_id"])	
+	#	friends = user.get_friend_list()
+	#
+	#	friends_dict = {}
+	#	for friend in friends:
+	#		url = "http://api.twitter.com/1/users/show/" + str(friend) + ".json"
+	#		friend_obj = json.loads(urllib.urlopen(url).read())
+	#		friends_dict[friend] = [friend_obj["name"], 
+	#					friend_obj["profile_image_url"], 
+	#					friend_obj["screen_name"]]
+	#
+	#	return HttpResponse(json.dumps(friends_dict))
 	

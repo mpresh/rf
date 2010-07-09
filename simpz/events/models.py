@@ -96,5 +96,5 @@ class Share(models.Model):
         return self.getHash()
 
     def setHash(self):
-        self.hash = 
+        self.hash = 0
         self.save()

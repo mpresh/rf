@@ -24,7 +24,7 @@ urlpatterns = patterns('',
                        url(r'ajax/follow_list.json/?$', 'tauth.views.follow_list', name='follow_list'),
                        url(r'ajax/follower_list.json/?$', 'tauth.views.follower_list', name='follower_list'),
                        url(r'ajax/friend_list.json/?$', 'tauth.views.friend_list', name='friend_list'),
-                       url(r'ajax/attendees.json/?$', 'tauth.views.attendees', name='attendees_list'),
+                       url(r'ajax/attendees.json/(?P<event_id>\d+)/?$', 'tauth.views.attendees', name='attendees_list'),
 
                        url(r'ajax/event_add_user/?$', 'ajax.event_add_user', name='event_add_user'),
                        url(r'ajax/event_attendees/(?P<event_id>\d+)/?$', 'ajax.event_attendees', name='event_attendees'),
