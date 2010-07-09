@@ -294,7 +294,7 @@ $(document).ready(function() {
 				}
 			});
 		});
-
+console.log("hi");
 		$("#message").click(function(){
 			$.ajax({
 				url: '/simpz/ajax/facebook_message/', 
@@ -343,7 +343,7 @@ $(document).ready(function() {
 			url: '/simpz/ajax/event_facebook_update/{{event.id}}', 
 			dataType: "json",
 			data: {message: $("#overlay-textarea-facebook").val(),
-                               hash: {{hash}}},
+                               hash: 20},
 			success: function(data){
                            alert("msg sent");
 			},
