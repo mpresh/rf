@@ -294,7 +294,6 @@ $(document).ready(function() {
 				}
 			});
 		});
-console.log("hi");
 		$("#message").click(function(){
 			$.ajax({
 				url: '/simpz/ajax/facebook_message/', 
@@ -325,7 +324,7 @@ console.log("hi");
 			}, 
 			success: function(data){
 				$.get('/simpz/ajax/event_going/{{event.id}}', function(data) {
-					//location.reload();
+                                     refreshAttendee();
 				});
 			},
 			beforeSend: function() {
@@ -482,7 +481,10 @@ $('#invite_dm_button').click(function() {
   
 });
 
-
+function refreshAttendee()
+{
+     alert("refresh this");
+}
 
 
 
