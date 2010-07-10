@@ -15,32 +15,46 @@ import shutil
 import socket
 import datetime
 import util
+from pylib import bitly
 
 def event_facebook_update(req, event_id=""):
     """ Send feed update to facebook from user share. """
     fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
-    #fbuser.feed(message=req.GET["message"])
-    print "hello world2", event_id
-    
+
     msg=req.GET["message"]
     if len(msg) > 125:
         msg = msg[:125]
 
+    if "shash" in req.GET:
+        parent_shash = req.GET["shash"]
+    else:
+        parent_shash = None
+
     share = Share(message=msg,
                   event=Event.objects.get(id=event_id),
                   from_user_facebook=fbuser,
-                  from_account_type="F"
+                  from_user_twitter=None,
+                  from_account_type="F",
+                  parent_shash=parent_shash
                   )
-    share.save()
-    share.setHash()
-    url = share.url(req)
-    print "URL IS", url
-    print "REFER URL IS", share.referUrl(req)
 
+    share.setHash()
+
+    url = share.url(req)
+    short_url = bitly.shorten(url)
+
+    share.url_short = short_url
+    msg = msg + " " + short_url
+
+    share.save()
+
+    fbuser.feed(message=msg)
+    
     dict = {}
     dict["status"] = "ok!"
+    dict["url"] = short_url
+    dict["msg"] = msg
     return HttpResponse(json.dumps(dict))
-
 
 def update_feed(req):
     fbuser = FBUser.objects.get(facebook_id=req.session["uid"])

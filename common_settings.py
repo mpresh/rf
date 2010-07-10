@@ -5,6 +5,8 @@ ROOT_PATH = os.path.dirname(__file__)
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+BITLY_API="R_ea72b3fc1102ce7c8285e11b6bd2b11c"
+
 AUTHENTICATION_BACKENDS = (
     'backends.twitteroauth.TwitterBackend',
     'django.contrib.auth.backends.ModelBackend',

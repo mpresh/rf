@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
-from events.models import Event, Invite
+from events.models import Event, Invite, Share
 from tauth.models import User
 from django.conf import settings
 import simplejson as json
@@ -12,6 +12,8 @@ import base64
 import shutil
 import socket
 import datetime
+from pylib import bitly
+
 
 AFETCH_PORT = 5002
 AFETCH_HOST = "localhost"
@@ -163,37 +165,41 @@ def event_tweet_invite(req, event_id=""):
         ret_obj["message"] = "User Must be Logged in."
         return HttpResponse(json.dumps(ret_obj))
 
-    event = Event.objects.get(id=event_id)
     user = User.objects.get(id=req.session["user_id"])	
 
-    url = req.GET['invite_url']
-    if 'data' in req.GET and req.GET['data'].strip() != "":
-        msg = req.GET['data']
+    msg=req.GET["message"]
+    if len(msg) > 125:
+        msg = msg[:125]
+
+    if "shash" in req.GET:
+        parent_shash = req.GET["shash"]
     else:
-        msg = " : Dicounted Invite to " + event.name
+        parent_shash = None
 
-    if len(msg) > 115:
-        msg = msg[:140]
+    share = Share(message=msg,
+                  event=Event.objects.get(id=event_id),
+                  from_user_facebook=None,
+                  from_user_twitter=user,
+                  from_account_type="F",
+                  parent_shash=parent_shash
+                  )
 
-    (u, c) = User.objects.get_or_create(username="DEFAULT")
+    share.setHash()
 
-    (invite, created) = Invite.objects.get_or_create(from_user=user,
-                                                         event=event)
-    invite.to_users.add(u)
+    url = share.url(req)
+    short_url = bitly.shorten(url)
 
-    if "invite_id" in req.GET:
-        from_invite = Invite.objects.get(id=req.GET['invite_id'])    
-        invite.from_invite = from_invite
+    share.url_short = short_url
+    msg = msg + " " + short_url
 
-    url = url + str(invite.id)
-    #msg = url + " " + msg
-
-    invite.message = msg
-    invite.save()
-
+    share.save()
     user.tweet(msg)
-    ret_obj["msg"] = "Tweeted: " +  msg
-    return HttpResponse(json.dumps(ret_obj))
+
+    dict = {}
+    dict["status"] = "ok!"
+    dict["url"] = short_url
+    dict["msg"] = msg
+    return HttpResponse(json.dumps(dict))
 
 def event_tweet_invite_dm(req, event_id=""):
     """ Send invite to one person."""
