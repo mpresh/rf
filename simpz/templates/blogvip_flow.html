@@ -483,11 +483,18 @@ $('#invite_dm_button').click(function() {
 
 function refreshAttendee()
 {
-     alert("refresh this");
+     var attendee_list = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+     $.getJSON('/simpz/ajax/attendees.json/{{event.id}}', function(data){
+       		$.each(data, function(index, attendee) {
+       			attendee_list += '<img src= "'+attendee[0]+'">&nbsp&nbsp&nbsp';
+       			if (index % 8==0 && index != 0)
+       			{
+       				attendee_list +='<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+       			}
+     		});
+     		$('#attendees_thumbs').html(attendee_list);
+});
 }
-
-
-
 </script>
 <!-- Content ends here -->
 {% endblock %}
