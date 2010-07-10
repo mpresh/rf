@@ -59,6 +59,7 @@ TEMPLATE_DIRS = (
     os.path.join(ROOT_PATH, 'simpz/templates'),
     os.path.join(ROOT_PATH, 'simpz/tauth/templates'),
     os.path.join(ROOT_PATH, 'frontpage/templates'),
+    os.path.join(ROOT_PATH, 'analytics/templates'),
 )
 
 INSTALLED_APPS = (
