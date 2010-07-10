@@ -85,7 +85,11 @@ def facebook_logout_callback(req):
         del req.COOKIES['sig']
         del req.COOKIES['uid']
 
-    redirect = req.session['redirect']
+    if "redirect" in req.session:
+        redirect = req.session['redirect']
+    else:
+        redirect = req.build_absolute_uri()
+
     if "redirectArgs" in req.GET:
         redirectargs_list = req.GET["redirectArgs"].split("AND")
         redirect_string = ""
