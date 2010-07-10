@@ -30,6 +30,7 @@ def event_facebook_update(req, event_id=""):
     else:
         parent_shash = None
 
+    print "HELLO"
     share = Share(message=msg,
                   event=Event.objects.get(id=event_id),
                   from_user_facebook=fbuser,
@@ -37,19 +38,20 @@ def event_facebook_update(req, event_id=""):
                   from_account_type="F",
                   parent_shash=parent_shash
                   )
-
+    print "bue"
     share.setHash()
 
     url = share.url(req)
+    print "sjs"
     short_url = bitly.shorten(url)
-
+    print "jaja"
     share.url_short = short_url
     msg = msg + " " + short_url
 
     share.save()
-
+    print "a"
     fbuser.feed(message=msg)
-    
+    print "lalal"
     dict = {}
     dict["status"] = "ok!"
     dict["url"] = short_url

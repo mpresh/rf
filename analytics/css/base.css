@@ -1,0 +1,22 @@
+
+#wrapper
+{
+	background-image: url(../images/body-bg.png);
+	background-repeat: repeat-x;
+}
+#header
+{
+	background: url(../images/bar.png) center top no-repeat;
+	height: 28px;
+	padding-top: 10px;
+	margin-bottom: 20px;
+}
+#content
+{
+	background: #fff;
+}
+img
+{
+	border: 0;
+	text-decoration: none;
+}
