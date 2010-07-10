@@ -293,7 +293,6 @@ $(document).ready(function() {
 				}
 			});
 		});
-
 		$("#message").click(function(){
 			$.ajax({
 				url: '/simpz/ajax/facebook_message/', 
@@ -323,7 +322,7 @@ $(document).ready(function() {
 			}, 
 			success: function(data){
 				$.get('/simpz/ajax/event_going/{{event.id}}', function(data) {
-					//location.reload();
+                                     refreshAttendee();
 				});
 			},
 			beforeSend: function() {
@@ -342,6 +341,7 @@ $(document).ready(function() {
 			url: '/simpz/ajax/event_facebook_update/{{event.id}}', 
 			dataType: "json",
 			data: {message: $("#overlay-textarea-facebook").val(), shash: "{{shash}}" },
+
 			success: function(data){
                            alert("msg sent");
 			},
@@ -481,10 +481,20 @@ $('#invite_dm_button').click(function() {
   
 });
 
-
-
-
-
+function refreshAttendee()
+{
+     var attendee_list = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+     $.getJSON('/simpz/ajax/attendees.json/{{event.id}}', function(data){
+       		$.each(data, function(index, attendee) {
+       			attendee_list += '<img src= "'+attendee[0]+'">&nbsp&nbsp&nbsp';
+       			if (index % 8==0 && index != 0)
+       			{
+       				attendee_list +='<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+       			}
+     		});
+     		$('#attendees_thumbs').html(attendee_list);
+});
+}
 </script>
 <!-- Content ends here -->
 {% endblock %}
