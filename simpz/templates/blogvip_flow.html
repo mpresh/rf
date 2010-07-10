@@ -343,7 +343,7 @@ $(document).ready(function() {
 			data: {message: $("#overlay-textarea-facebook").val(), shash: "{{shash}}" },
 
 			success: function(data){
-                           alert("msg sent");
+                           //alert("msg sent");
 			},
 			beforeSend: function() {
 			   //alert("sending feed request");
@@ -367,11 +367,16 @@ $(document).ready(function() {
 
 	var requiredPerms = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
 	$('#facebook-login').click(function(){
-	//alert("hello there");
+	var fbcheck = "{{fbuser}}";
         FB.getLoginStatus(function(response) {
         if (response.session) {
            // logged in and connected user, someone you know
            //alert("LOGGED IN");
+	   if (fbcheck == "") {
+	        FB.logout(function(response) { 
+                        //window.location.href = "/simpz/facebook_logout_callback/?redirectArgs=overlayEQUALStrue";
+		});
+            }
         } else {
            // no user session available, someone you dont know
           //alert("LOGGED OUT");
