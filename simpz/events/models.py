@@ -98,11 +98,11 @@ class Share(models.Model):
 
     def getHash(self):
         """Gets hash for this event. If it's not set, compute it and then return it."""
-        if self.hash:
-            return self.hash
+        if self.shash:
+            return self.shash
         else:
-            setHash()
-        return self.hash
+            self.setHash()
+        return self.shash
 
     def setHash(self):
         """Computes and sets hash for current event."""
@@ -117,7 +117,8 @@ class Share(models.Model):
             from_facebook = str(self.from_user_facebook.id)
 
         share_string = str(self.event.id) + str(self.from_account_type) + str(self.created_at) + from_twitter + from_facebook
-        hash = hashlib.sha1()
-        hash.update(share_string)
-        self.hash = hash.hexdigest()
+        shash = hashlib.sha1()
+        shash.update(share_string)
+
+        self.shash = shash.hexdigest()
         self.save()
