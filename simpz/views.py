@@ -135,7 +135,7 @@ def event_thanks(req, invite_id=""):
     return render_to_response('thanks.html', dict)
 
 def index(req):
-    print req
+    #print req
     domain = req.META['HTTP_HOST'].split(".")[0]
     print "DOMAIN IS", domain
     if domain == "johnchow":
@@ -390,6 +390,7 @@ def blogvip_flow(req):
         dict['fbuser'] = fbuser
     else:
         fbuser = None
+        dict["fbuser"] = ""
 
     if not event:
         return render_to_response('404.html', dict)
@@ -421,7 +422,8 @@ def blogvip_flow(req):
     #            going = True
     #
     #    dict['going'] = going
-        
+
+    print "BLOGVIP FLOW dict", dict
     return render_to_response('blogvip_flow.html', dict)
 
 
