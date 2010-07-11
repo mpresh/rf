@@ -5,4 +5,5 @@ from analytics.views import *
 
 urlpatterns = patterns('',
                        url(r'^$', 'analytics.views.analytics', name='analytics'),
+                       url(r'ajax/analytics_data$', 'analytics.ajax.analytics_data', name='analytics_data'),
 )
