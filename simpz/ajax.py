@@ -181,7 +181,8 @@ def event_tweet_invite(req, event_id=""):
                   from_user_facebook=None,
                   from_user_twitter=user,
                   from_account_type="F",
-                  parent_shash=parent_shash
+                  parent_shash=parent_shash,
+                  reach=user.get_num_follower_list()
                   )
 
     share.setHash()

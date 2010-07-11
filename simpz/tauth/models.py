@@ -73,6 +73,12 @@ class User(models.Model):
 			'http://api.twitter.com/1/followers/ids.json',
 			self.token())
 
+	def get_num_follower_list(self):
+		result =  api(
+			'http://api.twitter.com/1/followers/ids.json',
+			self.token())
+		return len(result)
+
 	def get_friend_list(self):
 		follow = self.get_follow_list()
 		followers = self.get_follower_list()

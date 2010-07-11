@@ -32,6 +32,14 @@ class FBUser(models.Model):
 		#data_dict = json.loads(data)
 		return data
 
+	def num_friends(self):
+		data = urllib.urlopen("https://graph.facebook.com/" + 
+				      str(self.facebook_id) + "/friends" 
+				      "?access_token=" + self.access_token).read()
+		data_dict = json.loads(data)
+		print "NUM FRIENDS DATA", type(data_dict), data_dict
+		return len(data_dict['data'])
+
 	def feed(self, to="me", message="Testing."):
 		self.access_token = self.access_token.replace("%7C", "|")
 		params = urllib.urlencode({'access_token' : self.access_token,

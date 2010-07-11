@@ -36,7 +36,8 @@ def event_facebook_update(req, event_id=""):
                   from_user_facebook=fbuser,
                   from_user_twitter=None,
                   from_account_type="F",
-                  parent_shash=parent_shash
+                  parent_shash=parent_shash,
+                  reach=fbuser.num_friends()
                   )
     print "bue"
     share.setHash()
