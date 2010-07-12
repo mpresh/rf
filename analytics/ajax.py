@@ -44,7 +44,7 @@ def analytics_date_range(req):
         dict["error"] = "range_type not specfied."
         dict["status"] = 500
         return HttpResponse(json.dumps(dict))
-
+    
     if "range_duration" in req.GET:
         range_duration = req.GET["range_duration"]
     elif "range_duration" in req.POST:
@@ -53,7 +53,6 @@ def analytics_date_range(req):
         dict["error"] = "range_duration not specfied."
         dict["status"] = 500
         return HttpResponse(json.dumps(dict))
-    range_duration = range_duration + 1
 
     try:
         range_duration = int(range_duration)
@@ -61,7 +60,8 @@ def analytics_date_range(req):
         dict["error"] = "range_duration must be an integer value."
         dict["status"] = 500
         return HttpResponse(json.dumps(dict))
-
+    range_duration = range_duration + 1
+    
     data = {}
     column_list = []
     range_type_label = ""
@@ -89,28 +89,41 @@ def analytics_date_range(req):
         return HttpResponse(json.dumps(dict))
 
     column_list.append({"id" : "twitter", "label" : "Twitter", "type" : "number"})
-    column_list.append({"id" : "facebook", "label" : "Facebook!", "type" : "number"})
+    column_list.append({"id" : "facebook", "label" : "Facebook", "type" : "number"})
     column_list.append({"id" : "total", "label" : "Total", "type" : "number"})
     data["cols"] = column_list
     
-    buckets_dict = {}
+    bucket_dict = {}
     now = datetime.now()
     for val in range(0, range_duration):
         dt = now - timedelta(days=range_duration - val)
-        bucket_dict[str(dt.year) + str(dt.month) str(dt.day)] = {"twitter" : 0, "facebook" : 0, "datetime": dt}
+        m = "0" + str(dt.month)
+        d = "0" + str(dt.day)
+        key = str(dt.year) + m[-2:] + d[-2:]
+        print "KEY", key
+        bucket_dict[key] = {"twitter" : 0, "facebook" : 0, "datetime": dt}
 
     for share in shares:
         dt = share.created_at
-        
+        m = "0" + str(dt.month)
+        d = "0" + str(dt.day)
+        key = str(dt.year) + m[-2:] + d[-2:]
+        print "key", key
+        if key in bucket_dict:
+            print "in bucket"
+            if share.from_account_type == "F":
+                bucket_dict[key]["facebook"] =  bucket_dict[key]["facebook"] + 1
+            elif share.from_account_type == "T":
+                bucket_dict[key]["twitter"] =  bucket_dict[key]["twitter"] + 1
 
+    print "bucket list", bucket_dict
     rows_list = []
-    for date_val in range(0, range_duration):
-        twitter_val = date_val
-        facebook_val = date_val
-        rows_list.append({"c" : [{"v" : str(date_val)},
-                                 {"v" : twitter_val},
-                                 {"v" : facebook_val},
-                                 {"v" : twitter_val + facebook_val}]})
+    for key in sorted(bucket_dict.keys()):
+        print "KEY", key
+        rows_list.append({"c" : [{"v" : str(key)[4:]},
+                                 {"v" : bucket_dict[key]["twitter"]},
+                                 {"v" : bucket_dict[key]["facebook"]},
+                                 {"v" : bucket_dict[key]["twitter"] + bucket_dict[key]["facebook"]}]})
     data["rows"] = rows_list
 
     dict["status"] = 200
@@ -160,7 +173,6 @@ def analytics_sources_pie(req):
                 network_dict["facebook"] = 1
             else:
                 network_dict["facebook"] = network_dict["facebook"] + 1
-    print "hello world"
 
     for key in network_dict.keys():
         rows_list.append({"c" : [{"v" : key},
@@ -211,9 +223,7 @@ def analytics_data(req):
             name = fbuser.name or fbuser.facebook_id
             network = "Facebook"
         elif share.from_account_type == "T":
-            print "helloTT", share.from_user_twitter
             user = User.objects.get(id=share.from_user_twitter.id)
-            print "USERttt", user.name
             name = user.name 
             network = "Twitter"
 

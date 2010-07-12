@@ -195,7 +195,7 @@
   		// Create and draw the visualization.
   		var data_table = new google.visualization.ColumnChart(document.getElementById('date_column_chart'));
 		$.ajax({
-			url: '/analytics/ajax/analytics_date_range?range_type=weeks&range_duration=30&event={{event.id}}', 
+			url: '/analytics/ajax/analytics_date_range?range_type=weeks&range_duration=10&event={{event.id}}', 
 			dataType: "json",
 			data: {},
 			success: function(data) {
