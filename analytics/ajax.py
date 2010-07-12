@@ -96,7 +96,7 @@ def analytics_date_range(req):
     bucket_dict = {}
     now = datetime.now()
     for val in range(0, range_duration):
-        dt = now - timedelta(days=range_duration - val)
+        dt = now - timedelta(days=range_duration - val - 1)
         m = "0" + str(dt.month)
         d = "0" + str(dt.day)
         key = str(dt.year) + m[-2:] + d[-2:]

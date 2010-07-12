@@ -153,79 +153,129 @@
 <!-- End wrapper-->
 </div>	
 
-<script> 
-      google.load("visualization", "1", {packages:["table", "piechart", "corechart"]});
-      google.setOnLoadCallback(drawGraphs);
-
-      function drawTable() {
-        var data_table = new google.visualization.Table(document.getElementById('table_analytics_data'));
-		$.ajax({
-			url: '/analytics/ajax/analytics_data?event={{event.id}}', 
-			dataType: "json",
-			data: {},
-			success: function(data) {
-				var json_data = new google.visualization.DataTable(data.data, 0.5);
-		        data_table.draw(json_data, {showRowNumber: true});
-			},
-			beforeSend: function() {
-			
-			}
-		}); 
-
-      }
-
-	function drawPie() {
-		var data_table = new google.visualization.PieChart(document.getElementById('pie_sources'));
-		$.ajax({
-			url: '/analytics/ajax/analytics_sources_pie?event={{event.id}}', 
-			dataType: "json",
-			data: {},
-			success: function(data) {
-				var json_data = new google.visualization.DataTable(data.data, 0.5);
-		        data_table.draw(json_data, {title: "Network DataSource Breakdown", is3D: true});
-			},
-			beforeSend: function() {
-			
-			}
-		});		
-	}
-
-	function drawDateColumn(){
-		
-  		// Create and draw the visualization.
-  		var data_table = new google.visualization.ColumnChart(document.getElementById('date_column_chart'));
-		$.ajax({
-			url: '/analytics/ajax/analytics_date_range?range_type=weeks&range_duration=10&event={{event.id}}', 
-			dataType: "json",
-			data: {},
-			success: function(data) {
-				var json_data = new google.visualization.DataTable(data.data, 0.5);
-				data_table.draw(json_data,
-		           	{title : "Share Date Distribution", 
-		            	width:1400, height:600,
-		            	hAxis: {title: data.range_type_label, titleColor: "red"}}
-		      		);
-			},
-			beforeSend: function() {
-			
-			}
-		});
-	}
-
-	function drawGraphs() {
-		drawTable();
-		drawPie();
-		drawDateColumn();
-	}
-    </script> 
      <br/><br/>
 	 <H1>Date Distribution</H1>
+		&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;
+	 <select id="chart-date-type">
+	  <option selected="yes" value="days">Days</option>
+	 </select>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<select id="chart-date-distribution">
+	  <option value="1">1</option>
+	  <option value="2">2</option>
+	  <option value="3">3</option>
+	  <option value="4">4</option>
+	  <option value="5">5</option>
+	  <option value="6">6</option>
+ 	  <option value="7">7</option>
+	  <option value="8">8</option>
+	  <option value="9">9</option>
+	  <option selected="yes" value="10">10</option>
+	  <option value="11">11</option>
+	  <option value="12">12</option>
+	  <option value="13">13</option>
+	  <option value="14">14</option>
+	  <option value="15">15</option>
+	  <option value="16">16</option>
+	  <option value="17">17</option>
+	  <option value="18">18</option>
+	  <option value="19">19</option>
+	  <option value="20">20</option>
+	  <option value="21">21</option>
+	  <option value="22">22</option>
+	  <option value="23">23</option>
+	  <option value="24">24</option>
+	  <option value="25">25</option>
+	  <option value="26">26</option>
+	  <option value="27">27</option>
+	  <option value="28">28</option>
+	  <option value="29">19</option>
+	  <option value="30">30</option>
+	  <option value="31">31</option>
+	  <option value="32">32</option>
+	  <option value="33">33</option>
+	  <option value="34">34</option>
+	  <option value="35">35</option>
+	 </select>
+	&nbsp;&nbsp;&nbsp;&nbsp;
+	<button id="reload-bar-chart">Reload Date Distribution</button>
+
+	
 	 <div id="date_column_chart"></div>
 	 <H1>Breakdown of Sources</H1>
 	 <div id="pie_sources" style='height:300px;'></div>
      <H1>User Shares</H1> 
     <div id="table_analytics_data"></div> 
     <br/>
-	<br/>
+	<script> 
+	      google.load("visualization", "1", {packages:["table", "piechart", "corechart"]});
+	      google.setOnLoadCallback(drawGraphs);
+
+	      function drawTable() {
+	        var data_table = new google.visualization.Table(document.getElementById('table_analytics_data'));
+			$.ajax({
+				url: '/analytics/ajax/analytics_data?event={{event.id}}', 
+				dataType: "json",
+				data: {},
+				success: function(data) {
+					var json_data = new google.visualization.DataTable(data.data, 0.5);
+			        data_table.draw(json_data, {showRowNumber: true});
+				},
+				beforeSend: function() {
+
+				}
+			}); 
+
+	      }
+
+		function drawPie() {
+			var data_table = new google.visualization.PieChart(document.getElementById('pie_sources'));
+			$.ajax({
+				url: '/analytics/ajax/analytics_sources_pie?event={{event.id}}', 
+				dataType: "json",
+				data: {},
+				success: function(data) {
+					var json_data = new google.visualization.DataTable(data.data, 0.5);
+			        data_table.draw(json_data, {title: "Network DataSource Breakdown", is3D: true});
+				},
+				beforeSend: function() {
+
+				}
+			});		
+		}
+
+		function drawDateColumn(range_type, range_duration){
+
+	  		// Create and draw the visualization.
+	  		var data_table = new google.visualization.ColumnChart(document.getElementById('date_column_chart'));
+			$.ajax({
+				url: '/analytics/ajax/analytics_date_range?range_type=' + range_type + '&range_duration=' + range_duration + '&event={{event.id}}', 
+				dataType: "json",
+				data: {},
+				success: function(data) {
+					var json_data = new google.visualization.DataTable(data.data, 0.5);
+					data_table.draw(json_data,
+			           	{title : "Share Date Distribution", 
+			            	width:1400, height:600,
+			            	hAxis: {title: data.range_type_label, titleColor: "red"}}
+			      		);
+				},
+				beforeSend: function() {
+
+				}
+			});
+		}
+
+		function drawGraphs() {
+			drawTable();
+			drawPie();
+			drawDateColumn($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
+		}
+
+		$('#reload-bar-chart').click(function(){	
+			drawDateColumn($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
+				
+		});
+	    </script>
 </body>
 </html>
