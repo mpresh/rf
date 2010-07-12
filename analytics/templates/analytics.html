@@ -154,7 +154,7 @@
 </div>	
 
 <script> 
-      google.load("visualization", "1", {packages:["table", "piechart"]});
+      google.load("visualization", "1", {packages:["table", "piechart", "corechart"]});
       google.setOnLoadCallback(drawGraphs);
 
       function drawTable() {
@@ -190,12 +190,37 @@
 		});		
 	}
 
+	function drawDateColumn(){
+		
+  		// Create and draw the visualization.
+  		var data_table = new google.visualization.ColumnChart(document.getElementById('date_column_chart'));
+		$.ajax({
+			url: '/analytics/ajax/analytics_date_range?range_type=weeks&range_duration=30&event={{event.id}}', 
+			dataType: "json",
+			data: {},
+			success: function(data) {
+				var json_data = new google.visualization.DataTable(data.data, 0.5);
+				data_table.draw(json_data,
+		           	{title : "Share Date Distribution", 
+		            	width:1400, height:600,
+		            	hAxis: {title: data.range_type_label, titleColor: "red"}}
+		      		);
+			},
+			beforeSend: function() {
+			
+			}
+		});
+	}
+
 	function drawGraphs() {
 		drawTable();
 		drawPie();
+		drawDateColumn();
 	}
     </script> 
      <br/><br/>
+	 <H1>Date Distribution</H1>
+	 <div id="date_column_chart"></div>
 	 <H1>Breakdown of Sources</H1>
 	 <div id="pie_sources" style='height:300px;'></div>
      <H1>User Shares</H1> 

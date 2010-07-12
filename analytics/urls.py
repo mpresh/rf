@@ -6,5 +6,7 @@ from analytics.views import *
 urlpatterns = patterns('',
                        url(r'^$', 'analytics.views.analytics', name='analytics'),
                        url(r'ajax/analytics_data$', 'analytics.ajax.analytics_data', name='analytics_data'),
-                       url(r'ajax/analytics_sources_pie$', 'analytics.ajax.analytics_sources_pie', name='analytics_sources_pie')
+                       url(r'ajax/analytics_sources_pie$', 'analytics.ajax.analytics_sources_pie', name='analytics_sources_pie'),
+                       url(r'ajax/analytics_date_range$', 'analytics.ajax.analytics_date_range', name='analytics_date_range')
 )
+
