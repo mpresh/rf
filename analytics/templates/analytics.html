@@ -154,8 +154,8 @@
 </div>	
 
 <script> 
-      google.load("visualization", "1", {packages:["table"]});
-      google.setOnLoadCallback(drawTable);
+      google.load("visualization", "1", {packages:["table", "piechart"]});
+      google.setOnLoadCallback(drawGraphs);
 
       function drawTable() {
         var data_table = new google.visualization.Table(document.getElementById('table_analytics_data'));
@@ -172,13 +172,35 @@
 			}
 		}); 
 
+      }
 
-              }
+	function drawPie() {
+		var data_table = new google.visualization.PieChart(document.getElementById('pie_sources'));
+		$.ajax({
+			url: '/analytics/ajax/analytics_sources_pie?event={{event.id}}', 
+			dataType: "json",
+			data: {},
+			success: function(data) {
+				var json_data = new google.visualization.DataTable(data.data, 0.5);
+		        data_table.draw(json_data, {title: "Network DataSource Breakdown", is3D: true});
+			},
+			beforeSend: function() {
+			
+			}
+		});		
+	}
+
+	function drawGraphs() {
+		drawTable();
+		drawPie();
+	}
     </script> 
-
-     <br/><br/><br/>
-     <H1>Analytics Data</H1> 
+     <br/><br/>
+	 <H1>Breakdown of Sources</H1>
+	 <div id="pie_sources" style='height:300px;'></div>
+     <H1>User Shares</H1> 
     <div id="table_analytics_data"></div> 
-
+    <br/>
+	<br/>
 </body>
 </html>

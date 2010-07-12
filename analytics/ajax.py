@@ -7,11 +7,60 @@ from events.models import *
 from fauth.models import *
 from tauth.models import *
 
+def analytics_sources_pie(req):
+    """Return json for DataTable pie Format."""
+
+    dict = {}
+
+    if "event" in req.GET:
+        try:
+            event = Event.objects.get(id=req.GET["event"])
+            shares = Share.objects.filter(event=event.id)
+        except Exception as e:
+            dict["error"] = "Valid Event id not provided."
+            dict["status"] = 500
+            return HttpResponse(json.dumps(dict))
+
+    data = {}
+    column_list = []
+    column_list.append({"id" : "network_type", "label" : "Network", "type" : "string"})
+    column_list.append({"id" : "number_shares", "label" : "Number Shares", "type" : "number"})
+    data["cols"] = column_list
+
+    rows_list = []
+    network_dict = {}
+    for share in shares:
+        print "Going through shares", share
+        if share.from_account_type == "T":
+            print "twitter"
+            if "twitter" not in network_dict:
+                network_dict["twitter"] = 1
+            else:
+                network_dict["twitter"] = network_dict["twitter"] + 1
+
+        if share.from_account_type == "F":
+            print "facebook"
+            if "facebook" not in network_dict:
+                network_dict["facebook"] = 1
+            else:
+                network_dict["facebook"] = network_dict["facebook"] + 1
+    print "hello world"
+
+    for key in network_dict.keys():
+        rows_list.append({"c" : [{"v" : key},
+                                 {"v" : network_dict[key]}]})
+    
+    data["rows"] = rows_list
+
+    dict["status"] = 200
+    dict["data"] = data
+    print "Returning DICT", dict
+    return HttpResponse(json.dumps(dict))
+
+
 def analytics_data(req):
     """Return json data for DataTable format"""
     dict = {}
-    req.session["redirect"] = req.get_full_path()
-    
 
     if "event" in req.GET:
         try:
