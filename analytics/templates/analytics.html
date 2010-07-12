@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css" href="/simpz/site_media/analytics/header.css">
 <link rel="stylesheet" type="text/css" href="/simpz/site_media/analytics/content.css">
 
+<script type="text/javascript" src="/simpz/site_media/jquery-1.4.2.min.js" ></script>	
 <script src="http://www.google.com/jsapi" type="text/javascript"></script> 
 </head>
 <body>
@@ -159,18 +160,15 @@
       function drawTable() {
         var data_table = new google.visualization.Table(document.getElementById('table_analytics_data'));
 		$.ajax({
-			
 			url: '/analytics/ajax/analytics_data?event={{event.id}}', 
 			dataType: "json",
 			data: {},
-			success: function(data){
-				var json_data = new google.visualization.DataTable(JSON.parse(data["data"]), 
-																		0.5);
+			success: function(data) {
+				var json_data = new google.visualization.DataTable(data.data, 0.5);
 		        data_table.draw(json_data, {showRowNumber: true});
-				
 			},
 			beforeSend: function() {
-				//alert("sending feed request");
+			
 			}
 		}); 
 

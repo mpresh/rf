@@ -82,4 +82,6 @@ class FBUser(models.Model):
 		data_dict = json.loads(data)
 		print data_dict
 		self.name = data_dict["name"]
-		
+		if "email" in data_dict:
+			self.email = data_dict["email"]
+		self.save()

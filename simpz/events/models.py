@@ -75,6 +75,14 @@ class Share(models.Model):
         for obj in self.children():
             list_objs.expand(obj.allOffspring())
         return list_objs
+    
+    def totalReach(self):
+        """ Returns all of the shares that originated here."""
+        total = 0
+        total = total + self.reach
+        for obj in self.children():
+            total = total + obj.totalReach()
+        return total
 
     def url(self, request):
         """Returns the url for this share link."""

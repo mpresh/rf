@@ -397,19 +397,24 @@ $(document).ready(function() {
 		$.cookie("access_token", null, options);
 		$.cookie("sig", null, options);
 
-                //alert("loging out of facebook");
-		FB.logout(function(response) { 
+        FB.getLoginStatus(function(response) {
+        	if (response.session) {	
+				FB.logout(function(response) { 
                        //alert("facebook logout refresh");
-			//$.get('/simpz/facebook_logout_callback/', function(data) {
-			//	$("#overlay-div-facebook-login").html("<a href='#'><img id='facebook-login' src='/simpz/site_media/images/Facebook-Button.png'/></a>");
-			//	$("#overlay-div-facebook-login").click(function(){
-			//		facebook_login_click(requirePerms);
-			//	});
+					//$.get('/simpz/facebook_logout_callback/', function(data) {
+						//	$("#overlay-div-facebook-login").html("<a href='#'><img id='facebook-login' src='/simpz/site_media/images/Facebook-Button.png'/></a>");
+						//	$("#overlay-div-facebook-login").click(function(){
+						//		facebook_login_click(requirePerms);
+						//	});
                         
-                        window.location.href = "/simpz/facebook_logout_callback/?redirectArgs=overlayEQUALStrue";
-			//});
-		});
-                //window.location.href = "/simpz/facebook_logout_callback/?redirectArgs=overlayEQUALStrue";
+             			window.location.href = "/simpz/facebook_logout_callback/?redirectArgs=overlayEQUALStrue";
+						//});
+					});
+				}
+			else{	
+                window.location.href = "/simpz/facebook_logout_callback/?redirectArgs=overlayEQUALStrue";
+            }
+        });
 	});
 
 	$("#invite_popup_close").bind('click', function() {
