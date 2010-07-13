@@ -11,7 +11,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-                       (r'^$', index),
+                       url(r'^$', index, name='index'),
 
                        # twitter authentication auth module
                        url(r'info/?$', 'tauth.views.info', name='tauth_info'),

@@ -18,15 +18,15 @@ import util
 from fauth import fauth_utils
 
 def test(req):
-    req.session["redirect"] = "/simpz/test"        
+    req.session["redirect"] = req.get_full_path()  
     return render_to_response('test.html', {})
 
 def about(req):
-    req.session["redirect"] = "/simpz/about"        
+    req.session["redirect"] = req.get_full_path()
     return render_to_response('about.html', {})
 
 def event_list(req):
-    req.session["redirect"] = "/simpz/list"        
+    req.session["redirect"] = req.get_full_path()  
     all_events = Event.objects.all()
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])
@@ -38,10 +38,10 @@ def event_list(req):
 def event_create(req):
     cur_dir = os.path.join(os.path.dirname(__file__), "..")
     invite_url = util.get_invite_url(req)
+    req.session["redirect"] = req.get_full_path()        
 
     if "user_id" not in req.session:
-        req.session["redirect"] = "/simpz/create"        
-        return HttpResponseRedirect("/simpz/login")
+        return HttpResponseRedirect(reverse('tauth_login'))
 
     user = User.objects.get(id=req.session["user_id"])
 
@@ -101,7 +101,7 @@ def event_create(req):
                                                          event=e)
         invite.to_users.add(u)
         
-        return HttpResponseRedirect("/simpz/thanks/" + str(invite.id))
+        return HttpResponseRedirect(reverse('event_thanks', kwargs={'invite_id' : invite.id}))
 	
     dict = {}
     dict["user"] = user
@@ -111,9 +111,9 @@ def event_create(req):
     return render_to_response('create.html', dict)
 
 def event_thanks(req, invite_id=""):
-    req.session["redirect"] = "/simpz/thanks/" + invite_id        
+    req.session["redirect"] = req.get_full_path()
     if "user_id" not in req.session:
-        return HttpResponseRedirect("/simpz/login")
+        return HttpResponseRedirect(reverse('tauth_login'))
 
     dict = {}
     user = User.objects.get(id=req.session["user_id"])	
@@ -127,21 +127,20 @@ def event_thanks(req, invite_id=""):
         dict["event"] = Event.objects.get(id=invite.event_id)
 
     if dict["from_user"].id != user.id:
-        return HttpResponseRedirect("/simpz/")
+        return HttpResponseRedirect(reverse('index'))
     if dict["event"].organizer_id != user.id:
-        return HttpResponseRedirect("/simpz/")
+        return HttpResponseRedirect(reverse('index'))
 
     dict["invite_url"] = util.get_invite_url(req) + str(invite.id)
     return render_to_response('thanks.html', dict)
 
 def index(req):
-    #print req
     domain = req.META['HTTP_HOST'].split(".")[0]
     print "DOMAIN IS", domain
     if domain == "johnchow":
-        return HttpResponseRedirect("/simpz/blogvip_flow?event=1")
+        return HttpResponseRedirect(reverse('blogvip_flow') + "?event=1")
     if domain == "demo":
-        return HttpResponseRedirect("/simpz/blogvip_flow?event=2")
+        return HttpResponseRedirect(reverse('blogvip_flow') + "?event=2")
 
     print "COOKIES", req.COOKIES
     print "KEYS....."
@@ -152,17 +151,16 @@ def index(req):
     if "uid" in req.session:
         dict["facebook"] = req.session['uid']
 
-    req.session["redirect"] = "/simpz/"        
+    req.session["redirect"] = req.get_full_path()        
     if "user_id" not in req.session:
         print "returning ", dict
         return render_to_response('index.html', dict)
 
     
     user = User.objects.get(id=req.session["user_id"])	
-    req.session["redirect"] = "/simpz/"
+    req.session["redirect"] = req.get_full_path()
     dict["user"] = user
 
-    print dict
     return render_to_response('index.html', dict)
 
 def event_details(req, event_id=""):
@@ -172,7 +170,7 @@ def event_details(req, event_id=""):
         user = User.objects.get(id=req.session["user_id"])
         dict['user'] = user
 
-    req.session["redirect"] = "/simpz/event_details/" + event_id
+    req.session["redirect"] = req.get_full_path()
     if event_id:
         e = Event.objects.get(id=event_id)
         dict['event'] = e
@@ -192,7 +190,7 @@ def map(request):
                                            "zoom": 14})
 
 def user_details(req, user_id=""):
-    req.session["redirect"] = "/simpz/user_details/" + user_id
+    req.session["redirect"] = req.get_full_path()
 
     dict = {}
     if user_id:
@@ -211,7 +209,7 @@ def user_details(req, user_id=""):
     return render_to_response('user.html', dict)    
 
 def invite(req, invite_id):
-    req.session["redirect"] = "/simpz/invite/" + invite_id
+    req.session["redirect"] = req.get_full_path()
     invite = None
     if invite_id:
         try:
@@ -248,7 +246,7 @@ def invite(req, invite_id):
 
         print to_user_ids, to_user_usernames
         if user.id not in to_user_ids and "DEFAULT" not in to_user_usernames: 
-            return HttpResponseRedirect("/simpz/event_home/" + str(dict["event"].id) + "/")
+            return HttpResponseRedirect(reverse("event_home", kwargs={"event_id":dict["event"].id}))
 
         going = False
         for event in user.events_going.all():
@@ -269,7 +267,7 @@ def blogvip(req, invite_id):
     for key in req.COOKIES.keys():
         print "KEY COOKIE", key, req.COOKIES[key]
 
-    req.session["redirect"] = "/simpz/blogvip/" + invite_id
+    req.session["redirect"] = req.get_full_path()
     invite = None
     if invite_id:
         try:
@@ -322,7 +320,7 @@ def blogvip(req, invite_id):
 
         print to_user_ids, to_user_usernames
         if user.id not in to_user_ids and "DEFAULT" not in to_user_usernames: 
-            return HttpResponseRedirect("/simpz/event_home/" + str(dict["event"].id) + "/")
+            return HttpResponseRedirect(reverse('event_home', kwargs={"event_id":dict["event"].id}))
 
         going = False
         for event in user.events_going.all():
@@ -342,7 +340,7 @@ def blogvip_flow(req):
     if "invite" in req.GET:
         invite_id = req.GET["invite"]
 
-        req.session["redirect"] = "/simpz/blogvip_flow/?invite=" + invite_id
+        req.session["redirect"] = req.get_full_path()
 
         try:
             invite = Invite.objects.get(id=invite_id)
@@ -352,7 +350,7 @@ def blogvip_flow(req):
 
     elif not invite and "event" in req.GET:
         event_id = req.GET["event"]
-        req.session["redirect"] = "/simpz/blogvip_flow/?event=" + event_id
+        req.session["redirect"] = req.get_full_path()
 
         try:
             event = Event.objects.get(id=event_id)
@@ -428,7 +426,7 @@ def blogvip_flow(req):
 
 
 def event_home(req, event_id=""):
-    req.session["redirect"] = "/simpz/event_home/" + event_id
+    req.session["redirect"] = req.get_full_path()
     if event_id:
         e = Event.objects.get(id=event_id)
     else:
@@ -449,7 +447,7 @@ def event_home(req, event_id=""):
     invites = e.invitations.all()
     invite = invites[0]
     # redirect to invite
-    return HttpResponseRedirect("/simpz/invite/" + str(invite.id) + "/")
+    return HttpResponseRedirect(reverse('event_invite', kwargs={"invite_id":invite.id}))
 
     dict = {}
     dict['event'] = e

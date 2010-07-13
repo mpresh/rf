@@ -9,7 +9,7 @@ from decorators import wants_user, needs_user
 import simplejson as json
 import urllib
 
-@needs_user('/simpz/tauth_login')
+@needs_user(reverse('tauth_login'))
 def info(req):
 	if 'POST' == req.method:
 		req.user.email = req.POST['email']
@@ -22,7 +22,7 @@ def info(req):
 
 	return render_to_response('info.html', {'user': req.user})
 
-@needs_user('/simpz/tauth_login')
+@needs_user(reverse('tauth_login'))
 def tauth_info(req):
 	if 'POST' == req.method:
 		req.user.email = req.POST['email']
@@ -40,7 +40,7 @@ def tauth_info(req):
 @wants_user
 def login(req):
 	if 'redirect' not in req.session:
-		req.session['redirect'] = "/simpz/"
+		req.session['redirect'] = reverse('index')
 
 	if "redirectArgs" in req.GET:
 		redirectargs_list = req.GET["redirectArgs"].split("AND")
@@ -140,7 +140,7 @@ def logout(req):
 		redirect = req.session["redirect"]
 		del req.session["redirect"]
 	else:
-		redirect = "/simpz/"
+		redirect = reverse('index')
 
 	if "redirectArgs" in req.GET:
 		redirectargs_list = req.GET["redirectArgs"].split("AND")
@@ -172,17 +172,17 @@ def logout(req):
 """
 Below are json ajax functions that return information about friends.
 """
-@needs_user('/simpz/tauth_login')
+@needs_user(reverse('tauth_login'))
 def follow_list(req):
 	user = User.objects.get(username=req.user.username)	
 	return HttpResponse(json.dumps(user.get_follow_list()))
 
-@needs_user('/simpz/tauth_login')
+@needs_user(reverse('tauth_login'))
 def follower_list(req):
 	user = User.objects.get(username=req.user.username)	
 	return HttpResponse(json.dumps(user.get_follower_list()))
 
-@needs_user('/simpz/tauth_login')
+@needs_user(reverse('tauth_login'))
 def friend_list(req):
 	user = User.objects.get(username=req.user.username)	
 	return HttpResponse(json.dumps(user.get_friend_list()))
