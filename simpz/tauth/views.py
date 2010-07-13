@@ -1,16 +1,20 @@
-from django.shortcuts import render_to_response
-from django.http import HttpResponseRedirect, HttpResponseServerError, HttpResponse
-from django.core.urlresolvers import reverse
+#from django.shortcuts import render_to_response
+#from django.http import HttpResponseRedirect, HttpResponseServerError, HttpResponse
+#from django.core.urlresolvers import reverse
 from pylib import oauth
-from utils import *
-from models import User
-from events.models import Event
+from pylib.lazy import reverse
+#from utils import *
+#from models import User
+#from events.models import Event
 from decorators import wants_user, needs_user
-import simplejson as json
-import urllib
+#import simplejson as json
+#import urllib
+from django.utils.functional import lazy
+reverse_lazy = lazy(reverse, unicode)
 
 @needs_user(reverse('tauth_login'))
 def info(req):
+	pass
 	if 'POST' == req.method:
 		req.user.email = req.POST['email']
 		errors = []
@@ -37,8 +41,11 @@ def tauth_info(req):
 	user = User.objects.get(username=req.user.username)
 	return render_to_response('info.html', {'user': req.user})
 
+
+
 @wants_user
 def login(req):
+	pass
 	if 'redirect' not in req.session:
 		req.session['redirect'] = reverse('index')
 
@@ -204,17 +211,17 @@ def attendees(req, event_id=""):
 	else:
 		return HttpResponse(json.dumps([]))
 
-	#if "user_id" in req.session:
-	#	user = User.objects.get(id=req.session["user_id"])	
-	#	friends = user.get_friend_list()
-	#
-	#	friends_dict = {}
-	#	for friend in friends:
-	#		url = "http://api.twitter.com/1/users/show/" + str(friend) + ".json"
-	#		friend_obj = json.loads(urllib.urlopen(url).read())
-	#		friends_dict[friend] = [friend_obj["name"], 
-	#					friend_obj["profile_image_url"], 
-	#					friend_obj["screen_name"]]
-	#
-	#	return HttpResponse(json.dumps(friends_dict))
+	if "user_id" in req.session:
+		user = User.objects.get(id=req.session["user_id"])	
+		friends = user.get_friend_list()
+	
+		friends_dict = {}
+		for friend in friends:
+			url = "http://api.twitter.com/1/users/show/" + str(friend) + ".json"
+			friend_obj = json.loads(urllib.urlopen(url).read())
+			friends_dict[friend] = [friend_obj["name"], 
+						friend_obj["profile_image_url"], 
+						friend_obj["screen_name"]]
+	
+		return HttpResponse(json.dumps(friends_dict))
 	

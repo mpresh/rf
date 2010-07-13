@@ -18,6 +18,7 @@ import util
 from fauth import fauth_utils
 
 def test(req):
+    print "HELLO", reverse('test')
     req.session["redirect"] = req.get_full_path()  
     return render_to_response('test.html', {})
 
@@ -439,6 +440,7 @@ def event_home(req, event_id=""):
     #    refer_user = None
 
     # logged in
+    print "here I am ", e, dir(e)
     e.num_attendees = len(e.attendees.all())
     e.spots_left = e.capacity - e.num_attendees
     e.discount_price = e.price / 2
@@ -447,6 +449,8 @@ def event_home(req, event_id=""):
     invites = e.invitations.all()
     invite = invites[0]
     # redirect to invite
+    print "BBBB" 
+    print reverse("index")
     return HttpResponseRedirect(reverse('event_invite', kwargs={"invite_id":invite.id}))
 
     dict = {}
