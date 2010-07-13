@@ -1,17 +1,17 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 
-from views import *
-from fauth.facebook_auth import *
-from tauth.views import *
-from fauth.views import *
+#from views import *
+#from fauth.facebook_auth import *
+#from tauth.views import *
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-                       url(r'^$', index, name='index'),
+                       (r'^$', index),
+                       #url(r'^$', 'index', name='index'),
 
                        # twitter authentication auth module
                        url(r'info/?$', 'tauth.views.info', name='tauth_info'),

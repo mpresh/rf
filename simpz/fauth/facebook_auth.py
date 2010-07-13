@@ -45,7 +45,7 @@ def facebook_callback(req):
         print "KEY", key, req.COOKIES[key]
 
     if "redirect" not in req.session:
-        redirect = "/simpz/"
+        redirect = reverse('index')
     else:
         redirect = req.session['redirect']
 
@@ -122,7 +122,7 @@ def facebook_server_callback(req):
     if "code" in req.GET:
         code = req.GET['code']
         client_id = settings.FACEBOOK_API
-        redirect_uri = "http://localhost:8000/simpz/facebook_callback"
+        redirect_uri = req.get_full_path() 
         client_secret = settings.FACEBOOK_SECRET
         
         url = "https://graph.facebook.com/oauth/access_token?" + \

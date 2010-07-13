@@ -333,10 +333,10 @@ def blogvip(req, invite_id):
 
 def blogvip_flow(req):
     """ Request handler for blogger discount page."""
+    print "hello world"
     req.session["refer_domain"] = req.META['HTTP_HOST'].split(".")[0]
     invite = None
     event = None
-
     if "invite" in req.GET:
         invite_id = req.GET["invite"]
 

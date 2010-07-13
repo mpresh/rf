@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="/simpz/site_media/overlay.css" type="text/css" >
 {% endblock %}
 
+
 {% block title  %}
 {{event.name}}
 {% endblock %}
@@ -17,7 +18,7 @@
 
 
 <div id="greeting">
-	Hello!
+	Hello! {%url event_home event.id%}
 	<div id="status"></div>
 </div>
 
