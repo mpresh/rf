@@ -5,16 +5,16 @@
     <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
     <meta http-equiv="Content-Language" content="en-us" />
 
-    <script type="text/javascript" src="/simpz/site_media/jquery-1.4.2.min.js" ></script>
-	<script type="text/javascript" src="/simpz/site_media/myjscript.js" ></script>
-    <script type="text/javascript" src="/simpz/site_media/jquery.tools.min.js" ></script>
-    <script type="text/javascript" src="/simpz/site_media/ajaxfileupload.js" ></script>
+    <script type="text/javascript" src="{% url static 'jquery-1.4.2.min.js' %}" ></script>
+	<script type="text/javascript" src="{% url static 'myjscript.js' %}" ></script>
+    <script type="text/javascript" src="{% url static 'jquery.tools.min.js' %}" ></script>
+    <script type="text/javascript" src="{% url static 'ajaxfileupload.js' %}" ></script>
 
-    <link type="text/css" href="/simpz/site_media/ajaxfileupload.css" rel="Stylesheet" />
-	<link type="text/css" href="/simpz/site_media/jquery-ui-1.8.1.custom.css" rel="Stylesheet" />	
-	<script type="text/javascript" src="/simpz/site_media/jquery-ui-1.8.1.custom.js"> 
+    <link type="text/css" href="{% url static 'ajaxfileupload.css' %}" rel="Stylesheet" />
+	<link type="text/css" href="{% url static 'jquery-ui-1.8.1.custom.css' %}" rel="Stylesheet" />	
+	<script type="text/javascript" src="{% url static 'jquery-ui-1.8.1.custom.js' %}"> 
  </script>
-<script type="text/javascript" src="/simpz/site_media/jquery.timePicker.js"></script>
+<script type="text/javascript" src="{% url static 'jquery.timePicker.js' %}"></script>
 <style type="text/css">
 div.time-picker {
   position: absolute;
@@ -84,10 +84,10 @@ function ajaxFileUpload(file_name)
         $("div.image_preview")
            .ajaxStart(function(){
 				alert("ajaxStart");
-                $(this).html("<img src='/simpz/site_media/images/ajax-loader.gif' />");
+                $(this).html("<img src='{% url static 'images/ajax-loader.gif' %}' />");
         })
            .ajaxComplete(function(){ 
-	            $(this).html("<img src='/simpz/site_media/images/muse.png' />");
+	            $(this).html("<img src='{% url static 'images/muse.png' %}' />");
 		        alert("done with upload");
         });
 
@@ -136,7 +136,7 @@ function ajaxFileUpload(file_name)
 $(document).ready(function() {
 
 	$('#time').datepicker({ buttonImageOnly: false,
-		 					buttonImage: '/simpz/site_media/images/calendar.png',
+		 					buttonImage: "{% url static 'images/calendar.png' %}",
 							showOn: 'button'});		
 	$("#time1").timePicker({
 				show24Hours: false,
