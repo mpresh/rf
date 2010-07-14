@@ -33,7 +33,7 @@ urlpatterns = patterns('',
                        url(r'ajax/event_going/(?P<event_id>\d+)/?$', 'ajax.event_going', name='event_going'),
                        url(r'ajax/event_tweet_invite/(?P<event_id>\d+)/?$', 'ajax.event_tweet_invite', name='event_tweet_invite'),
                        url(r'ajax/event_tweet_invite_dm/(?P<event_id>\d+)/?$', 'ajax.event_tweet_invite_dm', name='event_tweet_invite_dm'),
-                       url(r'upload_image/?$', 'ajax.upload_image', name='upload-image'),
+                       url(r'upload_image/?$', 'ajax.upload_image', name='upload_image'),
                        ##
                        ### miscellaneous
                        url(r'map/?$', 'views.map', name='map'),
