@@ -19,4 +19,12 @@ from fauth import fauth_utils
 
 def frontpage(req):
     req.session["redirect"] = req.get_full_path()  
+
+    domain = req.META['HTTP_HOST'].split(".")[0]
+    print "DOMAIN IS", domain
+    if domain == "johnchow":
+        return HttpResponseRedirect(reverse('event_blogvip_flow') + "?event=1")
+    if domain == "demo":
+        return HttpResponseRedirect(reverse('event_blogvip_flow') + "?event=2")
+
     return render_to_response('frontpage.html', {})
