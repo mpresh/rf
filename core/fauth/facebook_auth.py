@@ -59,7 +59,8 @@ def facebook_callback(req):
             redirect_string = redirect_string[:-1]
     
         if redirect.find("?") != -1:
-            redirect = redirect + "&" + redirect_string
+            if redirect.find(redirect_string) == -1:
+                redirect = redirect + "&" + redirect_string
         else:
             redirect = redirect + "?" + redirect_string
 
@@ -100,7 +101,8 @@ def facebook_logout_callback(req):
             redirect_string = redirect_string[:-1]
 
         if redirect.find("?") != -1:
-            redirect = redirect + "&" + redirect_string
+            if redirect.find(redirect_string) == -1:
+                redirect = redirect + "&" + redirect_string
         else:
             redirect = redirect + "?" + redirect_string
 

@@ -59,7 +59,8 @@ def login(req):
 			redirect_string = redirect_string[:-1]
 
 		if req.session["redirect"].find("?") != -1:
-			req.session["redirect"] = req.session["redirect"] + "&" + redirect_string
+			if req.session["redirect"].find(redirect_string) == -1:
+				req.session["redirect"] = req.session["redirect"] + "&" + redirect_string
 		else:
 			req.session["redirect"] = req.session["redirect"] + "?" + redirect_string
 
@@ -158,7 +159,8 @@ def logout(req):
 		if redirect_string:
 			redirect_string = redirect_string[:-1]
 		if redirect.find("?") != -1:
-			redirect = redirect + "&" + redirect_string
+			if redirect(redirect_string) == -1:
+				redirect = redirect + "&" + redirect_string
 		else:
 			redirect = redirect + "?" + redirect_string
 
