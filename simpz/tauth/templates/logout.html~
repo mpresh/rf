@@ -4,5 +4,5 @@
 <h1>You&rsquo;re logged out</h1>
 <p>Come back real soon, now.</p>
 
-<a href="/login/"> LOGIN</a>
+<a href="/simpz/login/"> LOGIN</a>
 {% endblock %}

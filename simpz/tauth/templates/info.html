@@ -13,6 +13,6 @@
 <input id="email" name="email" type="text" value="{{ user.email }}" class="text" /></p>
 <p><input type="submit" value="Save" class="button" /></p>
 
-<a href="/simpz/login/">LOGIN</a>
-<a href="/simpz/logout/">LOGOUT</a>
+<a href="{% url tauth_login %}">LOGIN</a>
+<a href="{% url tauth_logout %}">LOGOUT</a>
 {% endblock %}
