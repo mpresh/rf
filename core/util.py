@@ -15,5 +15,5 @@ def get_invite_url(req):
     if path[-1] == "/":
         path = path[:-1]
 
-    invite_url = invite_url[:len(path) * -1] + reverse('event_invite', kwargs={'event_id'=''})
+    invite_url = invite_url[:len(path) * -1] + reverse('event_invite', kwargs={'event_id':''})
     return invite_url
