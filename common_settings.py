@@ -47,10 +47,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'demo.middleware.domains.SubdomainMiddleware',
+    'middleware.domains.SubdomainMiddleware',
 )
 
-ROOT_URLCONF = 'demo.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -68,10 +68,10 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'demo.core.events',
-    'demo.core.fauth',       
-    'demo.core.tauth',
-    'demo.frontpage', 
+    'core.events',
+    'core.fauth',       
+    'core.tauth',
+    'frontpage', 
     #'django_extensions',
 )
 

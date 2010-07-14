@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib import admin
 
 admin.autodiscover()
+print "hello world AAAAAAAAAA"
 
 urlpatterns = patterns('',
                        url(r'^simpz/',  include('core.urls')),
