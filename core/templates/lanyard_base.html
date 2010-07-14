@@ -5,22 +5,22 @@
     <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
     <meta http-equiv="Content-Language" content="en-us" />
 
-    <script type="text/javascript" src="/simpz/site_media/jquery-1.4.2.min.js" ></script>
-    <script type="text/javascript" src="/simpz/site_media/myjscript.js" ></script>
-    <script type="text/javascript" src="/simpz/site_media/jquery.tools.min.js" ></script>
-    <script type="text/javascript" src="/simpz/site_media/jquery.validate.js" ></script>
+    <script type="text/javascript" src="{% url static 'jquery-1.4.2.min.js' %}" ></script>
+    <script type="text/javascript" src="{% url static 'myjscript.js' %}" ></script>
+    <script type="text/javascript" src="{% url static 'jquery.tools.min.js' %}" ></script>
+    <script type="text/javascript" src="{% url static 'jquery.validate.js' %}" ></script>
 
 	
         <!-- BluePrint CSS -->
- 	<!--<link rel="stylesheet" href="/simpz/site_media/blueprint/reset.css" type="text/css">-->
-	<link rel="stylesheet" href="/simpz/site_media/blueprint/grid.css" type="text/css" media="screen, projection">
-	<link rel="stylesheet" href="/simpz/site_media/blueprint/grid.css" type="text/css" media="screen, projection">
-        <link rel="stylesheet" href="/simpz/site_media/2stylez.css" type="text/css" >
+ 	<!--<link rel="stylesheet" href="{% url static 'blueprint/reset.css' %}" type="text/css">-->
+	<link rel="stylesheet" href="{% url static 'blueprint/grid.css' %}" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="{% url static 'blueprint/grid.css' %}" type="text/css" media="screen, projection">
+        <link rel="stylesheet" href="{% url static '2stylez.css' %}" type="text/css" >
 
-	<!--[if lt IE 8]><link rel="stylesheet" href="/simpz/site_media/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<!--[if lt IE 8]><link rel="stylesheet" href="{% url static 'blueprint/ie.css' %}" type="text/css" media="screen, projection"><![endif]-->
 	<!-- End BluePrint CSS -->
 
-	<link rel="stylesheet" href="/simpz/site_media/base.css" type="text/css">
+	<link rel="stylesheet" href="{% url static 'base.css' %}" type="text/css">
 
 	{% block  js_css_include %}{% endblock %}
 
