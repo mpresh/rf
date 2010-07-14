@@ -11,5 +11,5 @@ urlpatterns = patterns('',
                        url(r'^analytics/', include('analytics.urls')),
                        url(r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
                            {'document_root': settings.MEDIA_ROOT}, name="static"),
-                       url(r'^simpz/',  include('core.urls')),
+                       url(r'^simpz/',  include('core.simpz_urls')),
 )
