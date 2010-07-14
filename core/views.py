@@ -413,7 +413,7 @@ def blogvip_flow(req):
     #
     #    print to_user_ids, to_user_usernames
     #    if user.id not in to_user_ids and "DEFAULT" not in to_user_usernames: 
-    #        return HttpResponseRedirect("/simpz/event_home/" + str(dict["event"].id) + "/")
+    #        return HttpResponseRedirect(reverse('event_home', kwargs={'event_id'=str(dict["event"].id}))
     #
     #    going = False
     #    for event in user.events_going.all():

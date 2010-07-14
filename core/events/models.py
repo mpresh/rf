@@ -1,8 +1,8 @@
 from django.db import models
 from pylib import oauth
 import re, httplib, simplejson
-from simpz.tauth.models import User
-from simpz.fauth.models import FBUser
+from core.tauth.models import User
+from core.fauth.models import FBUser
 import re
 import hashlib
 

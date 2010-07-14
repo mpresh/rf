@@ -31,7 +31,7 @@ MEDIA_ROOT = os.path.join(ROOT_PATH, 'static')
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/simpz/media/'
+ADMIN_MEDIA_PREFIX = ''
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'nw(a_i9yd!r(czkk-x7!_i74k&d@yq6+7gt4y_iia--om-t#pi'
@@ -56,8 +56,8 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(ROOT_PATH, 'simpz/templates'),
-    os.path.join(ROOT_PATH, 'simpz/tauth/templates'),
+    os.path.join(ROOT_PATH, 'core/templates'),
+    os.path.join(ROOT_PATH, 'core/tauth/templates'),
     os.path.join(ROOT_PATH, 'frontpage/templates'),
     os.path.join(ROOT_PATH, 'analytics/templates'),
 )
@@ -68,9 +68,9 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.sessions',
     'django.contrib.sites',
-    'demo.simpz.events',
-    'demo.simpz.fauth',       
-    'demo.simpz.tauth',
+    'demo.core.events',
+    'demo.core.fauth',       
+    'demo.core.tauth',
     'demo.frontpage', 
     #'django_extensions',
 )
