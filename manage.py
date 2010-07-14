@@ -8,4 +8,7 @@ except ImportError:
     sys.exit(1)
 
 if __name__ == "__main__":
+    print dir(settings)
+    print settings.ROOT_URLCONF
+    import urls
     execute_manager(settings)

@@ -71,7 +71,8 @@ INSTALLED_APPS = (
     'core.events',
     'core.fauth',       
     'core.tauth',
-    'frontpage', 
+    'frontpage',
+    'analytics',
     #'django_extensions',
 )
 
