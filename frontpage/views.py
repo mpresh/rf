@@ -18,4 +18,5 @@ import util
 from fauth import fauth_utils
 
 def frontpage(req):
+    req.session["redirect"] = req.get_full_path()  
     return render_to_response('frontpage.html', {})
