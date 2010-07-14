@@ -16,7 +16,7 @@ def analytics_date_range(req):
         try:
             event = Event.objects.get(id=req.GET["event"])
             shares = Share.objects.filter(event=event.id)
-        except Exception as e:
+        except Exception:
             dict["error"] = "Valid Event id not provided."
             dict["status"] = 500
             return HttpResponse(json.dumps(dict))
@@ -56,7 +56,7 @@ def analytics_date_range(req):
 
     try:
         range_duration = int(range_duration)
-    except Exception as e:
+    except Exception:
         dict["error"] = "range_duration must be an integer value."
         dict["status"] = 500
         return HttpResponse(json.dumps(dict))
@@ -141,7 +141,7 @@ def analytics_sources_pie(req):
         try:
             event = Event.objects.get(id=req.GET["event"])
             shares = Share.objects.filter(event=event.id)
-        except Exception as e:
+        except Exception:
             dict["error"] = "Valid Event id not provided."
             dict["status"] = 500
             return HttpResponse(json.dumps(dict))
@@ -194,7 +194,7 @@ def analytics_data(req):
         try:
             event = Event.objects.get(id=req.GET["event"])
             shares = Share.objects.filter(event=event.id)
-        except Exception as e:
+        except Exception:
             dict["error"] = "Valid Event id not provided."
             dict["status"] = 500
             return HttpResponse(json.dumps(dict))
