@@ -10,6 +10,31 @@ def analytics(req):
     dict = {}
     req.session["redirect"] = req.get_full_path()
 
+    shares = Share.objects.all()
+    dict["total_shares"] = len(shares)
+    total_facebook_shares = 0
+    total_twitter_shares = 0
+    total_twitter_reach = 0
+    total_facebook_reach = 0
+    for share in shares:
+        if share.from_account_type == "F":
+            total_facebook_shares = total_facebook_shares + 1
+            if not share.parent_shash:
+                total_facebook_reach = total_facebook_reach + share.totalReach()
+                
+        elif share.from_account_type == "T":
+            total_twitter_shares = total_twitter_shares + 1
+            if not share.parent_shash:
+                total_twitter_reach = total_twitter_reach + share.totalReach()
+                
+
+    dict["total_facebook_shares"] = total_facebook_shares
+    dict["total_twitter_shares"] = total_twitter_shares
+    dict["total_facebook_reach"] = total_facebook_reach
+    dict["total_twitter_reach"] = total_twitter_reach
+    dict["total_reach"] = total_twitter_reach + total_facebook_reach
+
+
     if "event" in req.GET:
         try:
             event = Event.objects.get(id=req.GET["event"])
