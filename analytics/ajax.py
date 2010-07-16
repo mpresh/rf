@@ -324,8 +324,12 @@ def analytics_data(req):
     data = {}
     column_list = []
     column_list.append({"id" : "name", "label" : "Name", "type" : "string"})
+    column_list.append({"id" : "pic", "label" : "Pic", "type" : "string"})
+    column_list.append({"id" : "page", "label" : "Link", "type" : "string"})
     column_list.append({"id" : "network", "label" : "Network", "type" : "string"})
     column_list.append({"id" : "num_shares", "label" : "#Shares", "type" : "number"})
+    column_list.append({"id" : "child_num_retweets", "label" : "Child Retweets", "type" : "number"})
+    column_list.append({"id" : "total_num_retweets", "label" : "Total Retweets", "type" : "number"})
     column_list.append({"id" : "followers", "label" : "Followers", "type" : "number"})
     column_list.append({"id" : "reach", "label" : "Reach", "type" : "number"})
     data["cols"] = column_list
@@ -343,21 +347,34 @@ def analytics_data(req):
                 fbuser = FBUser.objects.get(id=share.from_user_facebook.id)
             name = fbuser.name or fbuser.facebook_id
             network = "Facebook"
+            page = "http://www.facebook.com/" + fbuser.username
+            picture = "<a href='" + page + "'> <fb:profile-pic id='facebook-profile-image' height='45px' width='45px' uid='" + fbuser.facebook_id + "' linked='false' ></fb:profile-pic> </a>" 
+
+
         elif share.from_account_type == "T":
             user = User.objects.get(id=share.from_user_twitter.id)
             name = user.name 
             network = "Twitter"
+            page = "http://twitter.com/" + user.username 
+            picture = "<a href='" + page + "'> <img src='" + user.profile_pic + "' /> </a>"
+
 
         name_id = str(name) + network
         if name_id  not in user_dict.keys():
             user_dict[name_id] = {"name":name, 
                                   "network":network, 
                                   "num":1, 
+                                  "child_num_retweet":len(share.children()),
+                                  "total_num_retweet":len(share.allOffspring()),
                                   "reach":share.getReach(), 
-                                  "totalReach":share.totalReach()}
+                                  "totalReach":share.totalReach(),
+                                  "pic" : picture,
+                                  "page" : page}
         else:
             print "yes in"
             user_dict[name_id]["num"] = user_dict[name_id]["num"] + 1
+            user_dict[name_id]["child_num_retweet"] = user_dict[name_id]["child_num_retweet"] + len(share.children())
+            user_dict[name_id]["total_num_retweet"] = user_dict[name_id]["total_num_retweet"] + len(share.allOffspring())
             user_dict[name_id]["reach"] = user_dict[name_id]["reach"] + share.getReach()
             user_dict[name_id]["totalReach"] = user_dict[name_id]["totalReach"] + share.totalReach()
 
@@ -366,9 +383,14 @@ def analytics_data(req):
             div_num = 1.0
         else:
             div_num = float(user_dict[name_id]["num"])
+        name = "<a href='http://www.cnn.com'>" + user_dict[name_id]["name"] + "</a>"
         rows_list.append({"c" : [{"v" : user_dict[name_id]["name"]}, 
+                                 {"v" : user_dict[name_id]["pic"]},
+                                 {"v" : user_dict[name_id]["page"]},
                                  {"v" : user_dict[name_id]["network"]},
                                  {"v" : user_dict[name_id]["num"]},
+                                 {"v" : user_dict[name_id]["child_num_retweet"]},
+                                 {"v" : user_dict[name_id]["total_num_retweet"]},
                                  {"v" : int(float(user_dict[name_id]["reach"]) / div_num)},
                                  {"v" : int(float(user_dict[name_id]["totalReach"]) / div_num)}]})
 

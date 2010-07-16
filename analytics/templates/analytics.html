@@ -12,6 +12,7 @@
 <link rel="stylesheet" type="text/css" href="{% url static 'css/analytics/header.css' %}">
 <link rel="stylesheet" type="text/css" href="{% url static 'css/analytics/content.css' %}">
 
+<script src="http://connect.facebook.net/en_US/all.js"></script>
 <script type="text/javascript" src="{% url static 'javascript/jquery-1.4.2.min.js' %}" ></script>	
 <script src="http://www.google.com/jsapi" type="text/javascript"></script> 
 </head>
@@ -123,8 +124,15 @@
 				dataType: "json",
 				data: {},
 				success: function(data) {
+
 					var json_data = new google.visualization.DataTable(data.data, 0.5);
-			        data_table.draw(json_data, {showRowNumber: true});
+                                        //var formatter = new google.visualization.PatternFormat('<a href="mailto:{1}">{0}</a>');
+                                        //formatter.format(json_data, [0, 1]);
+	                        //view = google.vizualization.DataView(json_data);
+	                        //view.setColumns(0, 5);
+	                        //view.hideColumns([2]);
+	                        json_data.removeColumn(2);
+			        data_table.draw(json_data, {allowHtml:true, showRowNumber: true});
 				},
 				beforeSend: function() {
 
@@ -180,9 +188,11 @@
 				dataType: "json",
 				data: {},
 				success: function(data) {
-					var json_data = new google.visualization.DataTable(data.data, 0.5);
+				        var json_data = new google.visualization.DataTable(data.data, 0.5);
+
 					data_table.draw(json_data,
-			           	{title : "Share Date Distribution", 
+	                                {allowHtml : true,
+	                                 title : "Share Date Distribution", 
 			            	width:960, height:200,
 			            	hAxis: {title: data.range_type_label, titleColor: "red"}}
 			      		);

@@ -71,7 +71,7 @@ class Share(models.Model):
 
     def allOffspring(self):
         """ Returns all of the shares that originated here."""
-        list_objs = [self]
+        list_objs = []
         for obj in self.children():
             list_objs.expand(obj.allOffspring())
         return list_objs
