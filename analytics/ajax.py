@@ -348,8 +348,8 @@ def analytics_data(req):
             name = fbuser.name or fbuser.facebook_id
             network = "Facebook"
             page = "http://www.facebook.com/" + fbuser.username
-            picture = "<a href='" + page + "'> <fb:profile-pic id='facebook-profile-image' height='45px' width='45px' uid='" + fbuser.facebook_id + "' linked='false' ></fb:profile-pic> </a>" 
-            picture = "<fb:profile-pic id='facebook-profile-image' height='45px' width='45px' uid=" + fbuser.facebook_id + " linked='false' ></fb:profile-pic> "
+            picture = "<a href='" + page + "'> <img src='http://graph.facebook.com/" + fbuser.facebook_id + "/picture' /> </a>" 
+
 
 
         elif share.from_account_type == "T":
