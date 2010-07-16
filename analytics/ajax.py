@@ -120,7 +120,7 @@ def analytics_date_range(req):
     rows_list = []
     for key in sorted(bucket_dict.keys()):
         print "KEY", key
-        rows_list.append({"c" : [{"v" : str(key)[4:]},
+        rows_list.append({"c" : [{"v" : str(key)[4:6] + "/" + str(key)[6:]},
                                  {"v" : bucket_dict[key]["twitter"]},
                                  {"v" : bucket_dict[key]["facebook"]},
                                  {"v" : bucket_dict[key]["twitter"] + bucket_dict[key]["facebook"]}]})
