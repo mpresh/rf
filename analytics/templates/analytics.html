@@ -35,127 +35,14 @@
 					<span>Campaign: </span><span id="selectCampaign">BlogWorld</span>
 				</div>
 				<div id="dateDiv" class="span-5 last">
-					<span>Date: </span><span id="selectDate">06/07 - 06/07</span>
+	
 				</div>
 			<!-- Nav bar end-->
 			</div>
-			<!-- Impressions pic -->
-			<div id="topPic" class="span-24 last">
-				<div id="topTitle">Total Impressions 1234567</div>
-				<img src="{% url static 'images/analytics/chart.png' %}">
-			</div>			
-			<div id="botPic" class="span-24 last">
-				<div id="botTitle">Breakdown of Sources</div>
-				<div id="botLeftPic" class="span-18">
-					<img src="{% url static 'images/analytics/chart2.png' %}">
-				</div>
-				<div id="botRightPic" class="span-6 last">
-					<img src="{% url static 'images/analytics/chart3.png' %}">
-				</div>
-			</div>
-		</div>
-		<!-- Mid Pic -->
-		<div id="mid" class="span-24 last">
-			<div class="span-12" id="influencers">
-				<div id="influenceTitle">
-					Top Influencers
-				</div>
-				<span class="userRow">
-					<span class="profilePic">
-						<img src="http://a1.twimg.com/profile_images/647375070/profile_mike_normal.png">
-					</span>
-					<span class="name">
-						Mike Preshman
-					</span>
-					<span class="dReach">
-						<span>632</span><BR>
-						Direct Reach
-					</span>
-					<span class="influence">
-						<span>17</span><BR>
-						Influence
-					</span>
-					<span class="follow">
-						<img src="{% url static 'images/analytics/follow.png' %}">
-					</span>
-				</span>
-				<BR><BR><BR><BR>
-				<span class="userRow">
-					<span class="profilePic">
-						<img src="http://a3.twimg.com/profile_images/844712887/37CuteGirlOnWebcam_normal.jpg">
-					</span>
-					<span class="name">
-						Mike Preshman
-					</span>
-					<span class="dReach">
-						<span>632</span><BR>
-						Direct Reach
-					</span>
-					<span class="influence">
-						<span>17</span><BR>
-						Influence
-					</span>
-					<span class="follow">
-						<img src="{% url static 'images/analytics/follow.png' %}">
-					</span>
-				</span>
-				
-				<BR><BR><BR><BR>
-				<span class="userRow">
-					<span class="profilePic">
-						<img src="http://a1.twimg.com/profile_images/647375070/profile_mike_normal.png">
-					</span>
-					<span class="name">
-						Mike Preshman
-					</span>
-					<span class="dReach">
-						<span>632</span><BR>
-						Direct Reach
-					</span>
-					<span class="influence">
-						<span>17</span><BR>
-						Influence
-					</span>
-					<span class="follow">
-						<img src="{% url static 'images/analytics/follow.png' %}">
-					</span>
-				</span>
+			
+			     <br/><br/>
+	 <H1>Distribution by Date</H1>
 
-				<BR><BR><BR><BR>
-				<span class="userRow">
-					<span class="profilePic">
-						<img src="http://a3.twimg.com/profile_images/844712887/37CuteGirlOnWebcam_normal.jpg">
-					</span>
-					<span class="name">
-						Mike Preshman
-					</span>
-					<span class="dReach">
-						<span>632</span><BR>
-						Direct Reach
-					</span>
-					<span class="influence">
-						<span>17</span><BR>
-						Influence
-					</span>
-					<span class="follow">
-						<img src="{% url static 'images/analytics/follow.png' %}">
-					</span>
-				</span>
-				
-			</div>
-			<div class="span-12 last"></div>
-		</div>
-		<!-- Bot Pic-->
-		<div id="bot" class="span-24 last">
-		</div>
-	<!-- End container-->
-	</div>
-<!-- End wrapper-->
-</div>	
-
-     <br/><br/>
-	 <H1>Date Distribution</H1>
-		&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;	&nbsp;&nbsp;&nbsp;&nbsp;
 	 <select id="chart-date-type">
 	  <option selected="yes" value="days">Days</option>
 	 </select>
@@ -203,9 +90,20 @@
 	
 	 <div id="date_column_chart"></div>
 	 <H1>Breakdown of Sources</H1>
-	 <div id="pie_sources" style='height:300px;'></div>
+	 <div id="pie_sources" style='height:300px; width: 900px;'></div>
      <H1>User Shares</H1> 
     <div id="table_analytics_data"></div> 
+    
+    
+			<!-- Impressions pic -->		
+		</div>
+
+	<!-- End container-->
+	</div>
+<!-- End wrapper-->
+</div>	
+
+
     <br/>
 	<script> 
 	      google.load("visualization", "1", {packages:["table", "piechart", "corechart"]});
@@ -256,7 +154,7 @@
 					var json_data = new google.visualization.DataTable(data.data, 0.5);
 					data_table.draw(json_data,
 			           	{title : "Share Date Distribution", 
-			            	width:1400, height:600,
+			            	width:960, height:200,
 			            	hAxis: {title: data.range_type_label, titleColor: "red"}}
 			      		);
 				},
