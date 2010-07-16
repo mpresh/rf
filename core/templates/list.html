@@ -10,7 +10,7 @@
     {% for event in events %}
     <hr />
         <li>
-	  <a href=/simpz/event_home/{{event.id}}>{{ event.name }}</a> <br />
+	  <a href={% url event_home event_id=event.id %}>{{ event.name }}</a> <br />
 	    Event Id: {{ event.id }} <br />
 	    Description: {{event.description}} <br />
 	    Start Time: {{event.event_date_time_start}} <br />
@@ -21,7 +21,7 @@
 	    Price: {{event.price}} <br />
  	    URL: {{event.url}} <br />
             Organizer: {{event.organizer_id}}
-	  <a href=/simpz/event_details/{{event.id}}>details</a> <br />
+	  <a href={%url event_details event_id=event.id %}>details</a> <br />
 	</li>
     {% endfor %}
     </ul>
@@ -33,7 +33,7 @@ var create_note = function() {
   var slug = $("#slug").val()
   if (title != "" && slug != "") {
     var data = { title:title, slug:slug };
-    var args = { type:"POST", url:"/simpz/create/", data:data, complete:done };
+    var args = { type:"POST", url:"{% url event_create %}", data:data, complete:done };
     $.ajax(args);
   }
   else {

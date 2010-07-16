@@ -7,7 +7,7 @@
 }
 #main, #header
 {
-	background-image: url(/simpz/site_media/images/look/body-bg.png);
+	background-image: url(../images/look/body-bg.png);
 }
 #header
 , #header #f
@@ -17,7 +17,7 @@
 }
 #header #f
 {
-	background: url(/simpz/site_media/images/look/centerboard.png) center top no-repeat;
+	background: url(../images/look/centerboard.png) center top no-repeat;
 	width: 980px;
 }
 #header h1
@@ -66,7 +66,7 @@
 }
 #header #dets
 {
-	background-image: url(/simpz/site_media/images/look/ptop.png);
+	background-image: url(../images/look/ptop.png);
 	background-repeat: no-repeat;
 	height: 467px;
 	width: 475px;
@@ -74,12 +74,12 @@
 	top: 149px;
 }
 #detsbg {
-    background-image: url(/simpz/site_media/images/look/pmid.png);
+    background-image: url(../images/look/pmid.png);
     background-repeat: repeat-y;
     margin-top:7px;
 }
 #detsfooter {
-	background-image: url(/simpz/site_media/images/look/pbot.png);
+	background-image: url(../images/look/pbot.png);
 	background-repeat: no-repeat;
 	height: 46px;
 }
@@ -128,7 +128,7 @@ border:1px solid #ccc;
 }
 #eventinfo
 {
-	background-image: url(/simpz/site_media/images/info-bg.png);
+	background-image: url(../images/info-bg.png);
 	background-repeat: no-repeat;
 	height: 62px;
 	width: 410px;
@@ -141,7 +141,7 @@ border:1px solid #ccc;
 }
 #header #attendees
 {
-	background-image: url(/simpz/site_media/images/look/attendees.png);
+	background-image: url(../images/look/attendees.png);
 	height: 234px;
 	width: 466px;
 	left: -1px;

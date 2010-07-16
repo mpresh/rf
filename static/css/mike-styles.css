@@ -51,7 +51,7 @@ p {
 }
 
 #body_header{
-	background: url('images/background_top.gif') #c4b8a1 repeat-x;
+	background: url('../images/background_top.gif') #c4b8a1 repeat-x;
         height: 80px;
 
 }

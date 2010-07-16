@@ -44,7 +44,7 @@
 	<div id="header_msg" class="quiet"><font size = 4.5em>There are {{event.num_attendees}} attending this event.</font></div>
 	<BR>
 	  
-	<input id="login_button" type="submit" class="button" value="Login: See if your friends are going." onClick="location.href='/simpz/login/'"> &nbsp; &nbsp;
+	<input id="login_button" type="submit" class="button" value="Login: See if your friends are going." onClick="location.href='{% url tauth_login %}'"> &nbsp; &nbsp;
       </div>
 {% endif%}
 
@@ -78,9 +78,9 @@ You have been Invited by {{from_user.name}} &nbsp;&nbsp;<img src="{{from_user.pr
         <div class="twitterfriends">
           <div id="tweet_title"><input type="text" id="tweet_text" maxlength="140" size="45"></input><button id="tweet_invite_button">Tweet Invite</button></div>
           <div id="tweet_msg"></div>
-	  <a href="#" class="select_all_arrow"><img class="select_all_arrow" src="/simpz/site_media/images/arrow-down.gif"></img></a>
+	  <a href="#" class="select_all_arrow"><img class="select_all_arrow" src="{% url static 'images/arrow-down.gif' %}"></img></a>
 	  <hr  class="horizontal_line "/>
-          <div id="twitlist"><img src="/simpz/site_media/images/ajax-loader.gif" /></div>
+          <div id="twitlist"><img src="{% url static 'images/ajax-loader.gif' %}" /></div>
         </div>
         
         <BR />
@@ -140,7 +140,7 @@ You have been Invited by {{from_user.name}} &nbsp;&nbsp;<img src="{{from_user.pr
 <div class="span-11 last">
 	      
   <div id="visual_img" style="width: 400px; height: 500px;">
-    <img class="center" style="width: 400px; height: 500px;" src="/simpz/site_media/images/events/{{event.id}}" />
+    <img class="center" style="width: 400px; height: 500px;" src="{% url static 'images/events/{{event.id}}' %}" />
   </div>
 
   <div id="visual_map" style="width: 400px; height: 500px;" > </div>						
@@ -171,20 +171,20 @@ $(document).ready(function() {
 
 
 	$("#not_going_button").click(function(){
-		$.get('/simpz/ajax/event_not_going/{{event.id}}', function(data) {
+		$.get('{% url event_not_going event_id=event.id %}', function(data) {
 			location.reload();
 		    });
 	    });
 			
 	$("#going_button").click(function(){
-		$.get('/simpz/ajax/event_going/{{event.id}}', function(data) {
+		$.get('{% url event_going event_id=event.id %}', function(data) {
 			location.reload();
 		    });
 	    });
 
        $("#tweet_invite_button").click(function(){
 		$.ajax({
-                    url: '/simpz/ajax/event_tweet_invite/{{event.id}}', 
+                    url: '{% url event_tweet_invite event_id=event.id %}', 
                     dataType: "json",
                     data: {data: $("#tweet_text").val(), 
                     invite_url: '{{invite_url}}',
@@ -196,7 +196,7 @@ $(document).ready(function() {
 	        	     },
                     beforeSend: function() {
                         //$("#tweet_invite_button").attr("disabled","disabled");                               
-                        $("#tweet_msg").html("<img width='20' height='20' src='/simpz/site_media/images/ajax-loader.gif' />Sending Tweet<img width='20' height='20' src='/simpz/site_media/images/ajax-loader.gif' />");
+                        $("#tweet_msg").html("<img width='20' height='20' src='{% url static 'images/ajax-loader.gif' %}' />Sending Tweet<img width='20' height='20' src='{% url static 'images/ajax-loader.gif' %}' />");
                     }
                    });
 	    });
@@ -227,7 +227,7 @@ $(document).ready(function() {
             });
            
             $.ajax({
-                    url: '/simpz/ajax/event_tweet_invite_dm/{{event.id}}', 
+                    url: '{% url event_tweet_invite_dm event_id=event.id %}', 
                     dataType: "json",
                     data: {data: $("#tweet_text").val(), 
                     invite_url: '{{invite_url}}',
@@ -241,7 +241,7 @@ $(document).ready(function() {
 	        	     },
                     beforeSend: function() {
                         $("#invite_dm_button").attr("disabled","disabled");                      
-                        $("#tweet_msg").html("<img width='20' height='20' src='/simpz/site_media/images/ajax-loader.gif' />Sending Direct Msg Tweets<img width='20' height='20' src='/simpz/site_media/images/ajax-loader.gif' />");
+                        $("#tweet_msg").html("<img width='20' height='20' src='{% url static 'images/ajax-loader.gif' %}' />Sending Direct Msg Tweets<img width='20' height='20' src='{% url static 'images/ajax-loader.gif' %}' />");
                     }
                    });
         });
@@ -295,27 +295,27 @@ function setup_select_all_button() {
        $(".friend_list_item").each(function(index) {
                 $(this).css("background-color", "#FF9933");    
                 $(this).find("input[name='invitee']").attr("checked", "yes");
-                $(this).find("img.checkbox_invite").attr("src", "/simpz/site_media/images/checkbox_checked.png");
+                $(this).find("img.checkbox_invite").attr("src", "{% url 'images/checkbox_checked.png' %}");
             });
     }, 
     function() {
         $(".friend_list_item").each(function(index) {
                 $(this).css("background-color", "#FBF5EF");    
                 $(this).find("input[name='invitee']").removeAttr("checked");
-                $(this).find("img.checkbox_invite").attr("src", "/simpz/site_media/images/checkbox_unchecked.png");
+                $(this).find("img.checkbox_invite").attr("src", "{% url 'images/checkbox_unchecked.png' %}");
         });
     });
 
 }
 
 function ajax_loader_image() {
-    $('#twitlist').html("<img style='margin-left:275px; margin-top:40px;' width='130' height='130' src='/simpz/site_media/images/ajax-loader.gif' />");
+    $('#twitlist').html("<img style='margin-left:275px; margin-top:40px;' width='130' height='130' src='{% url static 'images/ajax-loader.gif' %}' />");
 }
 
 
 function display_friends_invite_twitter() {
             $.ajax({
-                    url: '/simpz/ajax/event_friend_not_attendees/{{event.id}}', 
+                    url: '{% url event_friend_not_attendees event_id=event.id %}', 
                     dataType: "json",
                     success: function(data){
                                $('#twitlist').html(make_friend_list(data));
@@ -330,7 +330,7 @@ function display_friends_invite_twitter() {
                                          $(this).css("background-color", "#FF9933");
                                    });
                                    $(this).find("input[name='invitee']").attr("checked", "yes");
-                                   $(this).find("img.checkbox_invite").attr("src", "/simpz/site_media/images/checkbox_checked.png");
+                                   $(this).find("img.checkbox_invite").attr("src", "{% url static 'images/checkbox_checked.png' %}");
                                }, function() {
                                    $(this).css("background-color", "#fd9");
                                    $(this).hover(function(){
@@ -341,7 +341,7 @@ function display_friends_invite_twitter() {
                                    });
 
                                    $(this).find("input[name='invitee']").removeAttr("checked");
-                                   $(this).find("img.checkbox_invite").attr("src", "/simpz/site_media/images/checkbox_unchecked.png");
+                                   $(this).find("img.checkbox_invite").attr("src", "{% url static 'images/checkbox_unchecked.png' %}");
                                });
                                setup_select_all_button(); 
 	                       
@@ -356,7 +356,7 @@ function display_friends_invite_twitter() {
 
 function display_friends_invite_facebook() {
             $.ajax({
-                    url: '/simpz/ajax/facebook_friends', 
+                    url: '{% url facebook_friends %}', 
                     dataType: "json",
 
                     success: function(data){

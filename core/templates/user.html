@@ -29,10 +29,10 @@ URL: {{user_info.url}}
 {% for invite in made_invites %}
 
 <tr>
-<td><a href="/simpz/invite/{{invite.id}}/">{{invite.id}}</a></td>
-<td><a href="/simpz/invite/{{invite.id}}/">{{invite.from_invite.id}}</a></td>
-<td><a href="/simpz/user_details/{{invite.from_user_id}}/">{{invite.from_user_id}}</a>&nbsp;{{invite.from_user.username}}</td>
-<td><a href="/simpz/user_details/{{invite.to_user_id}}/">{{invite.to_user_id}}</a></td>
+<td><a href="{% url event_invite invite_id=invite.id %}/">{{invite.id}}</a></td>
+<td><a href="{% url event_invite invite_id=invite.id %}/">{{invite.from_invite.id}}</a></td>
+<td><a href="{% url user_details user_id=invite.from_user_id %}/">{{invite.from_user_id}}</a>&nbsp;{{invite.from_user.username}}</td>
+<td><a href="{% url user_details user_id=invite.to_user_id %}/">{{invite.to_user_id}}</a></td>
 <td>{{invite.message}}</td>
 <td>{{invite.created_at}}</td>
 </tr>
@@ -54,10 +54,10 @@ URL: {{user_info.url}}
 {% for invite in received_invites %}
 
 <tr>
-<td><a href="/simpz/invite/{{invite.id}}/">{{invite.id}}</a></td>
-<td><a href="/simpz/invite/{{invite.id}}/">{{invite.from_invite.id}}</a></td>
-<td><a href="/simpz/user_details/{{invite.from_user_id}}/">{{invite.from_user_id}}</a>&nbsp;{{invite.from_user.username}}</td>
-<td><a href="/simpz/user_details/{{invite.to_user_id}}/">{{invite.to_user_id}}</a></td>
+<td><a href="{% url event_invite invite_id=invite.id %}/">{{invite.id}}</a></td>
+<td><a href="{% url event_invite invite_id=invite.id %}/">{{invite.from_invite.id}}</a></td>
+<td><a href="{% url user_details user_id=invite.from_user_id %}/">{{invite.from_user_id}}</a>&nbsp;{{invite.from_user.username}}</td>
+<td><a href="{% url user_details user_id=invite.to_user_id %}">{{invite.to_user_id}}</a></td>
 <td>{{invite.message}}</td>
 <td>{{invite.created_at}}</td>
 </tr>
@@ -77,9 +77,9 @@ URL: {{user_info.url}}
 {% for event in events_going %}
 
 <tr>
-<td><a href="/simpz/event_details/{{event.id}}/">{{event.id}}</a></td>
+<td><a href="{% url event_details event_id=event.id %}">{{event.id}}</a></td>
 <td>{{event.title}}</td>
-<td><a href="/simpz/event_home/{{event.id}}/">{{event.id}}</a>&nbsp</td>
+<td><a href="{% url event_home event_id=event.id %}">{{event.id}}</a>&nbsp</td>
 </tr>
 {% endfor %}
 <table>
@@ -96,9 +96,9 @@ URL: {{user_info.url}}
 {% for event in events_organized %}
 
 <tr>
-<td><a href="/simpz/event_details/{{event.id}}/">{{event.id}}</a></td>
+<td><a href="{% url event_details event_id=event.id %}/">{{event.id}}</a></td>
 <td>{{event.title}}</td>
-<td><a href="/simpz/event_home/{{event.id}}/">{{event.id}}</a>&nbsp</td>
+<td><a href="{% url event_home event_id=event.id %}/">{{event.id}}</a>&nbsp</td>
 </tr>
 {% endfor %}
 <table>
@@ -116,9 +116,9 @@ URL: {{user_info.url}}
 {% for event in events_maybe %}
 
 <tr>
-<td><a href="/simpz/event_details/{{event.id}}/">{{event.id}}</a></td>
+<td><a href="{% url event_details event_id=event.id %}/">{{event.id}}</a></td>
 <td>{{event.title}}</td>
-<td><a href="/simpz/event_home/{{event.id}}/">{{event.id}}</a>&nbsp</td>
+<td><a href="{% url event_home event_id=event.id %}/">{{event.id}}</a>&nbsp</td>
 </tr>
 {% endfor %}
 <table>

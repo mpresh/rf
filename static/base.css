@@ -1,12 +1,12 @@
 
 #wrapper
 {
-	background-image: url(/simpz/site_media/images/look/body-bg.png);
+	background-image: url(./images/look/body-bg.png);
 	background-repeat: repeat-x;
 }
 #backgroundIMG
 {
-	background: url(/simpz/site_media/images/look/centerboard.png) center top no-repeat;
+	background: url(./images/look/centerboard.png) center top no-repeat;
 	border-width:1px;
 	width: 980px;
 	margin: 0 auto;
@@ -49,17 +49,17 @@
 #lTopHeader
 {
 	height: 70px;
-	background-image: url(/simpz/site_media/images/look/ptop.png);
+	background-image: url(./images/look/ptop.png);
 	background-repeat: no-repeat;
 }
 #lTopBody
 {
-	background-image: url(/simpz/site_media/images/look/pmid.png);
+	background-image: url(./images/look/pmid.png);
 	background-repeat: repeat-y;
 }
 #lTopFooter
 {
-	background-image: url(/simpz/site_media/images/look/pbot.png);
+	background-image: url(./images/look/pbot.png);
 	background-repeat: no-repeat;
 	height: 46px;
 }
@@ -91,7 +91,7 @@ a:hover {
 
 #attendees
 {
-	background-image: url(/simpz/site_media/images/look/attendees.png);
+	background-image: url(./images/look/attendees.png);
 	height: 234px;
 	width: 466px;
 	left: -1px;
@@ -121,7 +121,7 @@ position: absolute;
 
 #dets
 {
-	background-image: url(/simpz/site_media/images/look/deets.png);
+	background-image: url(./images/look/deets.png);
 	height: 467px;
 	width: 475px;
 	left: 487px;

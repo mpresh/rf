@@ -31,7 +31,7 @@ MEDIA_ROOT = os.path.join(ROOT_PATH, 'static')
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
 # Examples: "http://foo.com/media/", "/media/".
-ADMIN_MEDIA_PREFIX = '/simpz/media/'
+ADMIN_MEDIA_PREFIX = 'BLA'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'nw(a_i9yd!r(czkk-x7!_i74k&d@yq6+7gt4y_iia--om-t#pi'
@@ -60,6 +60,7 @@ TEMPLATE_DIRS = (
     os.path.join(ROOT_PATH, 'core/tauth/templates'),
     os.path.join(ROOT_PATH, 'frontpage/templates'),
     os.path.join(ROOT_PATH, 'analytics/templates'),
+    os.path.join(ROOT_PATH, 'core/entities/templates'),
 )
 
 INSTALLED_APPS = (
@@ -69,6 +70,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'core.events',
+    'core.entities',
     'core.fauth',       
     'core.tauth',
     'frontpage',
