@@ -91,7 +91,7 @@ body
 }
 #main, #main>*
 {
-	background: #fff url(./images/look/body-bg2.jpg) repeat-x;
+	background: #fff url(../images/look/body-bg2.jpg) repeat-x;
 }
 #content-main, #content-right
 {
@@ -118,7 +118,7 @@ body
 }
 #header h1 a
 {
-	background-image: url(./images/look/logo.png);
+	background-image: url(../images/look/logo.png);
 	border: none;
 	height: 68px;
 	line-height: 68px;

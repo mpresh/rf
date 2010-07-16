@@ -60,6 +60,7 @@ TEMPLATE_DIRS = (
     os.path.join(ROOT_PATH, 'core/tauth/templates'),
     os.path.join(ROOT_PATH, 'frontpage/templates'),
     os.path.join(ROOT_PATH, 'analytics/templates'),
+    os.path.join(ROOT_PATH, 'core/entities/templates'),
 )
 
 INSTALLED_APPS = (
@@ -69,6 +70,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'core.events',
+    'core.entities',
     'core.fauth',       
     'core.tauth',
     'frontpage',

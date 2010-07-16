@@ -23,7 +23,7 @@ h1#header_invite {
 
 .button  {
 -moz-border-radius:5px 5px 5px 5px;
-background:url("images/button_bg1.png") repeat-x scroll center top #9cb926;
+background:url("../images/button_bg1.png") repeat-x scroll center top #9cb926;
 border-color:#DDDDDD #CCCCCC #CCCCCC #DDDDDD;
 border-right:0 solid #CCCCCC;
 border-style:solid;
@@ -40,7 +40,7 @@ text-shadow:2px 2px #719E03;
 }
 .button2  {
 -moz-border-radius:5px 5px 5px 5px;
-background:url("images/button_bg2.png") repeat-x scroll center top #ff8a00;
+background:url("../images/button_bg2.png") repeat-x scroll center top #ff8a00;
 border-color:#DDDDDD #CCCCCC #CCCCCC #DDDDDD;
 border-right:0 solid #CCCCCC;
 border-style:solid;
