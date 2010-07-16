@@ -1,4 +1,8 @@
-/* Name of site */
+#chartArea{
+	width: 300px;
+}
+
+	/* Name of site */
 #title{
 	color:#581E92;
 	font-size:24px;
@@ -33,6 +37,17 @@
 #topPic > img{
 	margin: 0px 10px 10px 10px;
 }
+
+#date_column_chart{
+/*	padding-right: 65px;
+	margin: 15px 10px 10px 10px;
+	border: solid 1px #ccc;*/
+	height: 210px;
+	width: 900px;
+/*	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;*/
+}
+
 /* title for impressions chart, breakdown chart */
 #topTitle, #botTitle, #influenceTitle {
 	padding: 5px 5px 5px 5px;
@@ -50,44 +65,17 @@
 	margin: 0px 10px 10px 10px;
 }
 
-// Formatting
-// For the
-// Influencers Chart
-.userRow{
-	height: 50px;
-	padding-left: 5px;
-}
-.profilePic{
-	float: left;	
-}
-.name{
-	float: left;
-	padding: 14px 0px 0px 12px;
-	font-size: 14px;
-	text-align: center;
-	font-weight: bold;
-	color: #888B7C;
-}
-.dReach{
-	float: left;
-	padding: 2px 0px 0px 70px;
-	color: #888B7C;
-}
-.influence{
-	float: left;
-	padding: 2px 0px 0px 24px;
-	color: #888B7C;
-}
-.follow{
-	float: left;
-	padding: 10px 0px 0px 22px;
+#chartArea{
+/*	padding-right: 65px;
+	margin: 15px 10px 10px 10px;
+	border: solid 1px #ccc;*/
+	height: 210px;
+	width: 900px;
+/*	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;*/
 	}
-.dReach span, .influence span{
-	font-size: 16px;
-	color: #888B7C;
-	font-weight: bold;
-}
 
-#influencers{
-	padding-left: 8px;
-}
+/* Influencer Table */
+#table_analytics_data{
+	width: 100%;
+	}
