@@ -224,7 +224,6 @@ def analytics_date_range_shares(req):
         m = "0" + str(dt.month)
         d = "0" + str(dt.day)
         key = str(dt.year) + m[-2:] + d[-2:]
-        print "KEY", key
         bucket_dict[key] = {"twitter" : 0, "facebook" : 0, "datetime": dt}
 
     for share in shares:
@@ -232,18 +231,14 @@ def analytics_date_range_shares(req):
         m = "0" + str(dt.month)
         d = "0" + str(dt.day)
         key = str(dt.year) + m[-2:] + d[-2:]
-        print "key", key
         if key in bucket_dict:
-            print "in bucket"
             if share.from_account_type == "F":
                 bucket_dict[key]["facebook"] =  bucket_dict[key]["facebook"] + 1
             elif share.from_account_type == "T":
                 bucket_dict[key]["twitter"] =  bucket_dict[key]["twitter"] + 1
 
-    print "bucket list", bucket_dict
     rows_list = []
     for key in sorted(bucket_dict.keys()):
-        print "KEY", key
         rows_list.append({"c" : [{"v" : str(key)[4:6] + "/" + str(key)[6:]},
                                  {"v" : bucket_dict[key]["twitter"]},
                                  {"v" : bucket_dict[key]["facebook"]},
@@ -284,16 +279,13 @@ def analytics_sources_pie(req):
     rows_list = []
     network_dict = {}
     for share in shares:
-        print "Going through shares", share
         if share.from_account_type == "T":
-            print "twitter"
             if "twitter" not in network_dict:
                 network_dict["twitter"] = 1
             else:
                 network_dict["twitter"] = network_dict["twitter"] + 1
 
         if share.from_account_type == "F":
-            print "facebook"
             if "facebook" not in network_dict:
                 network_dict["facebook"] = 1
             else:
@@ -343,8 +335,12 @@ def analytics_data(req):
     for share in shares:
         name = ""
         network = ""
-        if share.from_account_type == "F" and share.from_user_facebook:
-            fbuser = FBUser.objects.get(id=share.from_user_facebook.id)
+
+        if share.from_account_type == "F":
+            if not share.from_user_facebook:
+                fbuser = FBUser.objects.get(id=1)
+            else:
+                fbuser = FBUser.objects.get(id=share.from_user_facebook.id)
             name = fbuser.name or fbuser.facebook_id
             network = "Facebook"
         elif share.from_account_type == "T":
@@ -357,12 +353,12 @@ def analytics_data(req):
             user_dict[name_id] = {"name":name, 
                                   "network":network, 
                                   "num":1, 
-                                  "reach":share.reach, 
+                                  "reach":share.getReach(), 
                                   "totalReach":share.totalReach()}
         else:
-            print "orhere"
+            print "yes in"
             user_dict[name_id]["num"] = user_dict[name_id]["num"] + 1
-            user_dict[name_id]["reach"] = user_dict[name_id]["reach"] + share.reach
+            user_dict[name_id]["reach"] = user_dict[name_id]["reach"] + share.getReach()
             user_dict[name_id]["totalReach"] = user_dict[name_id]["totalReach"] + share.totalReach()
 
     for name_id in user_dict.keys():
@@ -375,6 +371,7 @@ def analytics_data(req):
                                  {"v" : user_dict[name_id]["num"]},
                                  {"v" : int(float(user_dict[name_id]["reach"]) / div_num)},
                                  {"v" : int(float(user_dict[name_id]["totalReach"]) / div_num)}]})
+
 
     data["rows"] = rows_list
 
