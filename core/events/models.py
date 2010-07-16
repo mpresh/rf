@@ -75,11 +75,19 @@ class Share(models.Model):
         for obj in self.children():
             list_objs.expand(obj.allOffspring())
         return list_objs
+
+    def getReach(self):
+        """Return reach"""
+        if self.reach:
+            return self.reach
+
+        else:
+            return 1
     
     def totalReach(self):
         """ Returns all of the shares that originated here."""
         total = 0
-        total = total + self.reach
+        total = total + self.getReach()
         for obj in self.children():
             total = total + obj.totalReach()
         return total
