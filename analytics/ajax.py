@@ -112,9 +112,9 @@ def analytics_date_range_reach(req):
         if key in bucket_dict:
             print "in bucket"
             if share.from_account_type == "F":
-                bucket_dict[key]["facebook"] =  bucket_dict[key]["facebook"] + share.reach()
+                bucket_dict[key]["facebook"] =  bucket_dict[key]["facebook"] + share.getReach()
             elif share.from_account_type == "T":
-                bucket_dict[key]["twitter"] =  bucket_dict[key]["twitter"] + share.reach()
+                bucket_dict[key]["twitter"] =  bucket_dict[key]["twitter"] + share.getReach()
 
     print "bucket list", bucket_dict
     rows_list = []

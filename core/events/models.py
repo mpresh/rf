@@ -82,7 +82,7 @@ class Share(models.Model):
             return self.reach
 
         else:
-            return 1
+            return 0
     
     def totalReach(self):
         """ Returns all of the shares that originated here."""
