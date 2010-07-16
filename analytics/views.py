@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import *
+from django.conf import settings
 
 from core.events.models import *
 from core.fauth.models import *
@@ -8,6 +9,7 @@ from core.tauth.models import *
 
 def analytics(req):
     dict = {}
+    dict["fbappid"] = settings.FACEBOOK_APP_ID
     req.session["redirect"] = req.get_full_path()
 
     shares = Share.objects.all()

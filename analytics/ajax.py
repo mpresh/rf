@@ -349,6 +349,7 @@ def analytics_data(req):
             network = "Facebook"
             page = "http://www.facebook.com/" + fbuser.username
             picture = "<a href='" + page + "'> <fb:profile-pic id='facebook-profile-image' height='45px' width='45px' uid='" + fbuser.facebook_id + "' linked='false' ></fb:profile-pic> </a>" 
+            picture = "<fb:profile-pic id='facebook-profile-image' height='45px' width='45px' uid=" + fbuser.facebook_id + " linked='false' ></fb:profile-pic> "
 
 
         elif share.from_account_type == "T":
