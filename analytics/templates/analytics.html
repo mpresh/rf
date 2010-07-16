@@ -160,7 +160,7 @@
 				success: function(data) {
 					var json_data = new google.visualization.DataTable(data.data, 0.5);
 					data_table.draw(json_data,
-			           	{title : "Impressions Date Distribution", 
+			           	{title : "Share Date Distribution", 
 			            	width:960, height:200,
 			            	hAxis: {title: data.range_type_label, titleColor: "red"}}
 			      		);
@@ -182,7 +182,7 @@
 				success: function(data) {
 					var json_data = new google.visualization.DataTable(data.data, 0.5);
 					data_table.draw(json_data,
-			           	{title : "Share Date Distribution", 
+			           	{title : "Reach Date Distribution", 
 			            	width:960, height:200,
 			            	hAxis: {title: data.range_type_label, titleColor: "red"}}
 			      		);
