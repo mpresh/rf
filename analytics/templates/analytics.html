@@ -94,7 +94,7 @@
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	<button id="reload-bar-chart">Reload Date Distribution</button>
 
-	
+	<div id="date_line_chart"></div>
 	 <div id="date_column_chart"></div>
 	 <H1>Breakdown of Sources</H1>
 	 <div id="pie_sources" style='height:300px; width: 900px;'></div>
@@ -119,7 +119,7 @@
 	      function drawTable() {
 	        var data_table = new google.visualization.Table(document.getElementById('table_analytics_data'));
 			$.ajax({
-				url: '/analytics/ajax/analytics_data?event={{event.id}}', 
+				url: '{% url analytics_data %}?event={{event.id}}', 
 				dataType: "json",
 				data: {},
 				success: function(data) {
@@ -136,7 +136,7 @@
 		function drawPie() {
 			var data_table = new google.visualization.PieChart(document.getElementById('pie_sources'));
 			$.ajax({
-				url: '/analytics/ajax/analytics_sources_pie?event={{event.id}}', 
+				url: '{% url analytics_sources_pie %}?event={{event.id}}', 
 				dataType: "json",
 				data: {},
 				success: function(data) {
@@ -149,12 +149,12 @@
 			});		
 		}
 
-		function drawDateColumn(range_type, range_duration){
+		function drawDateColumnShare(range_type, range_duration){
 
 	  		// Create and draw the visualization.
 	  		var data_table = new google.visualization.ColumnChart(document.getElementById('date_column_chart'));
 			$.ajax({
-				url: '/analytics/ajax/analytics_date_range?range_type=' + range_type + '&range_duration=' + range_duration + '&event={{event.id}}', 
+				url: '{% url analytics_date_range_shares %}?range_type=' + range_type + '&range_duration=' + range_duration + '&event={{event.id}}', 
 				dataType: "json",
 				data: {},
 				success: function(data) {
@@ -171,10 +171,34 @@
 			});
 		}
 
+		function drawDateLineReach(range_type, range_duration){
+
+	  		// Create and draw the visualization.
+	  		var data_table = new google.visualization.LineChart(document.getElementById('date_line_chart'));
+			$.ajax({
+				url: '{% url analytics_date_range_shares %}?range_type=' + range_type + '&range_duration=' + range_duration + '&event={{event.id}}', 
+				dataType: "json",
+				data: {},
+				success: function(data) {
+					var json_data = new google.visualization.DataTable(data.data, 0.5);
+					data_table.draw(json_data,
+			           	{title : "Share Date Distribution", 
+			            	width:960, height:200,
+			            	hAxis: {title: data.range_type_label, titleColor: "red"}}
+			      		);
+				},
+				beforeSend: function() {
+
+				}
+			});
+		}
+
+
 		function drawGraphs() {
 			drawTable();
 			drawPie();
-			drawDateColumn($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
+			drawDateColumnShare($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
+			drawDateLineReach($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
 		}
 
 		$('#reload-bar-chart').click(function(){	
