@@ -146,10 +146,10 @@
 
 	      }
 
-		function drawPie() {
+		function drawPie(range_type, range_duration) {
 			var data_table = new google.visualization.PieChart(document.getElementById('pie_sources'));
 			$.ajax({
-				url: '{% url analytics_sources_pie %}?event={{event.id}}', 
+				url: '{% url analytics_sources_pie %}?range_type=' + range_type + '&range_duration=' + range_duration + '&event={{event.id}}', 
 				dataType: "json",
 				data: {},
 				success: function(data) {
@@ -211,14 +211,16 @@
 
 		function drawGraphs() {
 			drawTable();
-			drawPie();
+			drawPie($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
 			drawDateColumnShare($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
 			drawDateLineReach($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
 		}
 
 		$('#reload-bar-chart').click(function(){	
-			drawDateColumn($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
-				
+	                drawTable();
+			drawPie($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
+			drawDateColumnShare($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
+			drawDateLineReach($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
 		});
 	    </script>
 </body>
