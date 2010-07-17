@@ -121,7 +121,6 @@
 	      FB.init({appId: '{{fbappid}}', status: true, cookie: true, xfbml: true});
 	      google.load("visualization", "1", {packages:["table", "piechart", "corechart"]});
 	      google.setOnLoadCallback(drawGraphs);
-
 	      function drawTable() {
 	        var data_table = new google.visualization.Table(document.getElementById('table_analytics_data'));
 			$.ajax({
@@ -130,12 +129,7 @@
 				data: {},
 				success: function(data) {
 
-					var json_data = new google.visualization.DataTable(data.data, 0.5);
-                                        //var formatter = new google.visualization.PatternFormat('<a href="mailto:{1}">{0}</a>');
-                                        //formatter.format(json_data, [0, 1]);
-	                        //view = google.vizualization.DataView(json_data);
-	                        //view.setColumns(0, 5);
-	                        //view.hideColumns([2]);
+				var json_data = new google.visualization.DataTable(data.data, 0.5);
 	                        json_data.removeColumn(2);
 			        data_table.draw(json_data, {allowHtml:true, showRowNumber: true});
 				},
