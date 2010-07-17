@@ -270,6 +270,86 @@ def analytics_sources_pie(req):
         dict["status"] = 500
         return HttpResponse(json.dumps(dict))
 
+    range_type_list = ["minutes", "hours", "days", "weeks", "months", "years"]
+    if "range_type" in req.GET:
+        if req.GET["range_type"] not in range_type_list:
+            dict["error"] = "Valid range not provided."
+            dict["status"] = 500
+            return HttpResponse(json.dumps(dict))
+        else:
+            range_type = req.GET["range_type"]
+    elif "range_type" in req.POST:
+        if req.POST["range_type"] not in range_type_list:
+            dict["error"] = "Valid range not provided."
+            dict["status"] = 500
+            return HttpResponse(json.dumps(dict))
+        else:
+            range_type = req.POST["range_type"]
+    else:
+        dict["error"] = "range_type not specfied."
+        dict["status"] = 500
+        return HttpResponse(json.dumps(dict))
+    
+    if "range_duration" in req.GET:
+        range_duration = req.GET["range_duration"]
+    elif "range_duration" in req.POST:
+        range_duration = req.POST["range_duration"]
+    else:
+        dict["error"] = "range_duration not specfied."
+        dict["status"] = 500
+        return HttpResponse(json.dumps(dict))
+
+    try:
+        range_duration = int(range_duration)
+    except Exception:
+        dict["error"] = "range_duration must be an integer value."
+        dict["status"] = 500
+        return HttpResponse(json.dumps(dict))
+    range_duration = range_duration + 1
+
+    bucket_dict = {}
+    now = datetime.now()
+    for val in range(0, range_duration):
+        dt = now - timedelta(days=range_duration - val - 1)
+        m = "0" + str(dt.month)
+        d = "0" + str(dt.day)
+        key = str(dt.year) + m[-2:] + d[-2:]
+        bucket_dict[key] = {"twitter" : 0, "facebook" : 0, "datetime": dt}
+
+    
+    network_dict = {}
+    #for share in shares:
+    #    if share.from_account_type == "T":
+    #        if "twitter" not in network_dict:
+    #            network_dict["twitter"] = 1
+    #        else:
+    #            network_dict["twitter"] = network_dict["twitter"] + 1
+    #
+    #    if share.from_account_type == "F":
+    #        if "facebook" not in network_dict:
+    #            network_dict["facebook"] = 1
+    #        else:
+    #            network_dict["facebook"] = network_dict["facebook"] + 1
+    #
+    #
+    #total_facebook = 0
+    #total_twitter = 0
+    network_dict["facebook"] = 0
+    network_dict["twitter"] = 0
+    for share in shares:
+        dt = share.created_at
+        m = "0" + str(dt.month)
+        d = "0" + str(dt.day)
+        key = str(dt.year) + m[-2:] + d[-2:]
+        if key in bucket_dict:
+            if share.from_account_type == "F":
+                network_dict["facebook"] = network_dict["facebook"] + 1
+                bucket_dict[key]["facebook"] =  bucket_dict[key]["facebook"] + 1
+            elif share.from_account_type == "T":
+                network_dict["twitter"] = network_dict["twitter"] + 1
+                bucket_dict[key]["twitter"] =  bucket_dict[key]["twitter"] + 1
+
+
     data = {}
     column_list = []
     column_list.append({"id" : "network_type", "label" : "Network", "type" : "string"})
@@ -277,20 +357,6 @@ def analytics_sources_pie(req):
     data["cols"] = column_list
 
     rows_list = []
-    network_dict = {}
-    for share in shares:
-        if share.from_account_type == "T":
-            if "twitter" not in network_dict:
-                network_dict["twitter"] = 1
-            else:
-                network_dict["twitter"] = network_dict["twitter"] + 1
-
-        if share.from_account_type == "F":
-            if "facebook" not in network_dict:
-                network_dict["facebook"] = 1
-            else:
-                network_dict["facebook"] = network_dict["facebook"] + 1
-
     for key in network_dict.keys():
         rows_list.append({"c" : [{"v" : key},
                                  {"v" : network_dict[key]}]})
