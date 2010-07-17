@@ -38,22 +38,7 @@
 					<span>Campaign: </span><span id="selectCampaign">BlogWorld</span>
 				</div>
 				<div id="dateDiv" class="span-5 last">
-	
-				</div>
-			<!-- Nav bar end-->
-			</div>
-			
-			     <br/><br/>
-	 <p>Total Facebook Shares: &nbsp; {{total_facebook_shares}}</p>
-   	 <p>Total Twitter Shares: &nbsp; {{total_twitter_shares}}</p>
-	 <p>Total Shares: &nbsp; {{total_shares}}</p>
-	 <p>Total Facebook Reach: &nbsp; {{total_facebook_reach}}</p>
-	 <p>Total Twitter Reach: &nbsp; {{total_twitter_reach}}</p>
-	 <p>Total Reach: &nbsp; {{total_reach}}</p>
-
-	 <H1>Distribution by Date</H1>
-
-	 <select id="chart-date-type">
+				     <select id="chart-date-type">
 	  <option selected="yes" value="days">Days</option>
 	 </select>
 	&nbsp;&nbsp;&nbsp;&nbsp;
@@ -97,26 +82,61 @@
 	&nbsp;&nbsp;&nbsp;&nbsp;
 	<button id="reload-bar-chart">Reload Date Distribution</button>
 
-	<div id="date_line_chart"></div>
-	 <div id="date_column_chart"></div>
-	 <H1>Breakdown of Sources</H1>
-	 <div id="pie_sources" style='height:300px; width: 900px;'></div>
-     <H1>User Shares</H1> 
-<script src="http://connect.facebook.net/en_US/all.js"></script>
-<div id="fb-root"></div>
-    <div id="table_analytics_data"></div> 
-    
-    
-			<!-- Impressions pic -->		
+	
+				</div>
+			<!-- Nav bar end-->
+			</div>
+
+			<!-- Reach pic -->
+			<div id="topPic" class="span-24 last">
+			     <div id="topTitle">Reached {{total_reach}} people from {{total_shares}} shares</div>
+			     <div id="date_line_chart"></div>
+			</div>
+			<!-- End Reach-->
+
+			<div id="botPic" class="span-24 last">
+			     <div id="botTitle">Breakdown of Sources</div>
+			    
+			     <!-- Column Pic -->
+			     <div id="botLeftPic" class="span-17">
+			          <div id="date_column_chart"></div>  
+			     </div>
+			     <!-- End Column -->
+			    
+			     <!-- Pie Pic -->
+			     <div id="botRightPic" class="span-7 last">
+			          <div id="pie_sources"></div>      
+			     </div>
+			     <!-- End Pie -->
+			</div>
+		<!--end top pic -->		
 		</div>
+
+		<!-- Influencers -->
+		<div id="mid" class="span-24 last">
+		     <div id="influenceTitle">Top Influencers</div>
+		     <script src="http://connect.facebook.net/en_US/all.js"></script>
+		     <div id="fb-root"></div>
+		     <div id="table_analytics_data"></div> 
+		<!-- end influencers -->
+		</div>
+
+
+			     <br/><br/>
+	 <p>Total Facebook Shares: &nbsp; {{total_facebook_shares}}</p>
+   	 <p>Total Twitter Shares: &nbsp; {{total_twitter_shares}}</p>
+
+	 <p>Total Facebook Reach: &nbsp; {{total_facebook_reach}}</p>
+	 <p>Total Twitter Reach: &nbsp; {{total_twitter_reach}}</p>
+
+    
+
 
 	<!-- End container-->
 	</div>
 <!-- End wrapper-->
 </div>	
 
-
-    <br/>
 	<script> 
 	      FB.init({appId: '{{fbappid}}', status: true, cookie: true, xfbml: true});
 	      google.load("visualization", "1", {packages:["table", "piechart", "corechart"]});
@@ -154,7 +174,10 @@
 				data: {},
 				success: function(data) {
 					var json_data = new google.visualization.DataTable(data.data, 0.5);
-			        data_table.draw(json_data, {title: "Network DataSource Breakdown", is3D: true});
+					data_table.draw(json_data, 
+					     {title: "Network DataSource Breakdown", 
+					     width:250, height:200,
+					     is3D: true});
 				},
 				beforeSend: function() {
 
@@ -173,9 +196,9 @@
 				success: function(data) {
 					var json_data = new google.visualization.DataTable(data.data, 0.5);
 					data_table.draw(json_data,
-			           	{title : "Share Date Distribution", 
-			            	width:960, height:200,
-			            	hAxis: {title: data.range_type_label, titleColor: "red"}}
+			           	     {title : "Share Date Distribution", 
+			            	      width:710, height:200,
+			            	      hAxis: {title: data.range_type_label, titleColor: "red"}}
 			      		);
 				},
 				beforeSend: function() {
@@ -198,7 +221,7 @@
 					data_table.draw(json_data,
 	                                {allowHtml : true,
 			           	title : "Reach Date Distribution", 
-			            	width:960, height:200,
+			            	width:950, height:200,
 			            	hAxis: {title: data.range_type_label, titleColor: "red"}}
 			      		);
 				},
@@ -217,8 +240,9 @@
 		}
 
 		$('#reload-bar-chart').click(function(){	
-			drawDateColumn($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
-				
+			//drawDateColumnShare($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
+			drawDateColumnShare($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
+			drawDateLineReach($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
 		});
 	    </script>
 </body>
