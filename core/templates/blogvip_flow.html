@@ -18,17 +18,17 @@
 
 
 <div id="greeting">
-	Hello! 	  
+	John's offer to you and your friends:
 	<div id="status"></div>
 </div>
 
 
 <div id="invite-button">
-	<a href="" id="invite_button" rel="#overlay-blogger-login"><img src="{% url static 'images/look/button.png' %}"></a>
+	<a href="" id="invite_button" rel="#overlay-blogger-login">Share this to get your discount</a>
 </div>
 
 
-<div id="invitemsg">Share coupon with friends & get <b><font color="#8929e9">20% off</font></b></div>
+<div id="invitemsg">20% OFF ADMISSION TO BLOG WORLD</div>
 
 <div id="overlay-blogger-login" class="overlay-blogger">
 
@@ -36,16 +36,19 @@
 		<div class="overlay-top">
 			<img src="{% url static 'images/sharetxt.png' %}">
 		</div>
+		
+		<div id="pick-msg">To get your discount share John's offer with your friends on Facebook or Twitter, choose one:</div>
 		<div class="overlay-bot">
 			<div id="previous-grey"><img src="{% url static 'images/previous-grey.png' %}"></div>
-			<div id="invite-progress"><ul><li class="active">Select Network</li> <li>Message</li> <li>Discount</li></div>
+			<div id="invite-progress"><img src="{% url static 'images/step1.png' %}"></div>
+			<div id="next-grey"><img src="{% url static 'images/next-grey.png' %}"></div>
 		</div>
 		<BR /><BR />
 
 		<div id="overlay-div-facebook-login">
 			<script src="http://connect.facebook.net/en_US/all.js"></script>
+			
 			<div id="fb-root"></div>
-
 			<!--<button id="status_button">STATUS</button>-->
 			{% if fbuser %}
 			<br/>Facebook<br/>
@@ -78,7 +81,7 @@
 		</div>
 		<div class="overlay-bot">
 			<div id="previous" class="previous"><img src="{% url static 'images/previous.png' %}"></div>
-			<div id="invite-progress"><ul><li>Select Network</li> <li class="active">Message</li> <li>Discount</li></div>
+			<div id="invite-progress"><img src="{% url static 'images/step2.png' %}"></div>
 			{%if fbuser %}
 			<!--<img id="facebook-feed-update" src="{%url static 'images/facebook-sinvite.png' %}">-->
 			<!--FB Back Button-->
@@ -98,7 +101,7 @@
 		</div>
 		<div class="overlay-bot">
 			<div id="previous" class="previous"><img src="{% url static 'images/previous.png' %}"></div>
-			<div id="invite-progress"><ul><li>Select Network</li> <li class="active">Message</li> <li>Discount</li></div>
+			<div id="invite-progress"><img src="{% url static 'images/step2.png' %}"></div>
 			<div id="twitter-div-feed-update"><img src="{% url static 'images/share.png' %}" id="twitter-feed-update"></div>
 		</div>
 		<div id="twitter-top-msg">
@@ -115,7 +118,7 @@
 			<div id="previous" class="previous">
 				<img src="{% url static 'images/previous.png' %}">
 			</div>
-			<div id="invite-progress"><ul><li>Select Network</li> <li>Message</li> <li class="active">Discount</li></div>
+			<div id="invite-progress"><ul><img src="{% url static 'images/step3.png' %}"></div>
 			<div id="okay"><img src="{% url static 'images/done.png' %}"></div>
 		</div>
 		
