@@ -465,7 +465,7 @@ $(document).ready(function() {
      });
 
 
-$('#invite_dm_button').click(function() {
+     $('#invite_dm_button').click(function() {
 	var selected_users = [];
 
 	$("input[name='invitee']").each(function(index) {
@@ -480,8 +480,8 @@ $('#invite_dm_button').click(function() {
 		data: {data: $("#tweet_text").val(), 
 		invite_url: '{{invite_url}}',
 		invite_id: '{{invite_id}}',
-		invited_friends: s`elected_users.toString(),
-	}, 
+		invited_friends: selected_users.toString(),
+	        }, 
 	success: function(data){
 		$("#tweet_msg").html("Tweets Sent Succesfully");
 		$("#tweet_text").val(data["msg"]);
@@ -492,7 +492,7 @@ $('#invite_dm_button').click(function() {
 		$("#tweet_msg").html("<img width='20' height='20' src='{%url static 'images/ajax-loader.gif' %}/>Sending Direct Msg Tweets<img width='20' height='20' src='{% url static 'images/ajax-loader.gif' %}' />");
 	}
       });
-});
+    });
   
 });
 
@@ -508,8 +508,9 @@ function refreshAttendee()
        			}
      		});
      		$('#attendees_thumbs').html(attendee_list);
-});
+   });
 }
+
 
 //default usage
 $("#overlay-textarea-twitter").charCount();
@@ -522,6 +523,7 @@ $("#overlay-textarea-facebook").charCount();
 			allowed: 80,		
 			warning: 20,
 		});
+
 </script>
 <!-- Content ends here -->
 {% endblock %}
