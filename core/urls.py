@@ -48,7 +48,7 @@ urlpatterns = patterns('',
                        url(r'create/$', 'views.event_create', name='event_create'),
                        url(r'invite/(?P<invite_id>\d+)/$', 'views.invite', name='event_invite'),
                        url(r'blogvip/(?P<invite_id>\d+)/$', 'views.blogvip', name='event_blogvip'),
-                       url(r'blogvip_flow[/]?$', 'views.blogvip_flow', name='event_blogvip_flow'),
+                       url(r'be/?$', 'views.blogvip_flow', name='event_blogvip_flow'),
                        #
                        url(r'^',  include('fauth.urls')),
                        (r'site_media/(?P<path>.*)$', 'django.views.static.serve',
