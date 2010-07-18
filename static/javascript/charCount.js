@@ -19,7 +19,7 @@
 	  
 		// default configuration properties
 		var defaults = {	
-			allowed: 140,		
+			allowed: 120,		
 			warning: 25,
 			css: 'chrcounter',
 			counterElement: 'span',
