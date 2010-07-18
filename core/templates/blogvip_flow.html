@@ -480,7 +480,7 @@ $('#invite_dm_button').click(function() {
 		data: {data: $("#tweet_text").val(), 
 		invite_url: '{{invite_url}}',
 		invite_id: '{{invite_id}}',
-		invited_friends: selected_users.toString(),
+		invited_friends: s`elected_users.toString(),
 	}, 
 	success: function(data){
 		$("#tweet_msg").html("Tweets Sent Succesfully");
