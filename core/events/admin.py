@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Event, Invite
+from models import Event, Share
 
 class EventAdmin(admin.ModelAdmin):
     prepopulated_fields = {"Conf2010": ("name", )
@@ -10,4 +10,4 @@ class EventAdmin(admin.ModelAdmin):
 
 #admin.site.register(Event, EventAdmin)
 admin.site.register(Event)
-admin.site.register(Invite)
+admin.site.register(Share)

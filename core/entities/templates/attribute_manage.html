@@ -1,0 +1,20 @@
+{% extends "manage_base.html" %}
+
+{% block  js_css_include %}
+    
+{% endblock %}
+
+{% block content %}
+<h1>Attribute Management Console</h1>
+<div>
+  <ul>
+    <li><a href="{% url manage_index %}">Home<a/></li>
+    <li><a href="{% url manage_entities %}">Entity<a/></li>
+    <li><a href="{% url manage_entity_types %}">Entity Type<a/></li>
+    <li><a href="{% url manage_attributes %}">Attribute<a/></li>
+    <li><a href="{% url manage_attribute_types %}">Attribute Type<a/></li>
+  <ul>
+</div>
+
+
+{% endblock %}

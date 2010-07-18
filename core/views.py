@@ -61,6 +61,8 @@ def event_create(req):
         image = req.POST["event_image"]
         elat = req.POST["event_lat"]
         elng = req.POST["event_lng"]
+        code = req.POST["code"]
+        percent = req.POST["percent"]
 
         pemail = req.POST["person_email"]
         
@@ -84,7 +86,9 @@ def event_create(req):
                   url=eurl,
                   price=eprice,
                   lat=elat,
-                  lng=elng)
+                  lng=elng,
+                  percent=percent,
+                  code=code)
         e.save()
 
         if not os.path.exists(os.path.join(cur_dir, 'static/images/events/')):

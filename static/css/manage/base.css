@@ -1,0 +1,30 @@
+li {
+margin: 20px;
+display: inline;
+}
+
+
+div.manage-add {
+    border-width: 1px; 
+    border-style: solid; 
+    border-color: #900; 
+
+    text-align: center;
+    margin: 10px 20px 10px 20px; 
+    width: 80%;
+    height: 60px;
+    background-color: #CCFFFF;
+    overflow: auto;
+}
+
+div.manage-list {
+    border-width: 1px; 
+    border-style: solid; 
+    border-color: #900; 
+
+    margin: 10px 20px 10px 20px; 
+    width: 80%;
+    height: 200px;
+    background-color: #CCFFFF;
+    overflow: auto;
+}

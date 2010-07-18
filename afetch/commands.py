@@ -20,7 +20,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = "settings"
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
-from core.events.models import Event, Invite
+from core.events.models import Event
 from core.tauth.models import User
 from django.conf import settings
 
