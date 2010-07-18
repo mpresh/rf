@@ -3,6 +3,7 @@
 {% block  js_css_include %}
 <!--<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key={{map_key}}" type="text/javascript" > </script> -->
 <script type="text/javascript" src="{% url static 'javascript/jquery.cookie.js' %}" ></script>
+<script type="text/javascript" src="{% url static 'javascript/charCount.js' %}" ></script>
 <link rel="stylesheet" href="{% url static 'css/overlay.css' %}" type="text/css" >
 {% endblock %}
 
@@ -509,6 +510,14 @@ function refreshAttendee()
      		$('#attendees_thumbs').html(attendee_list);
 });
 }
+
+//default usage
+$("#overlay-textarea-twitter").charCount();
+		({
+			allowed: 80,		
+			warning: 20,
+		});
+
 </script>
 <!-- Content ends here -->
 {% endblock %}
