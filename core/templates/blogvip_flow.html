@@ -291,10 +291,8 @@ $(document).ready(function() {
 				dataType: "json",
 				data: {},
 				success: function(data){
-					//alert("REQUEST DONE", data);
 				},
 				beforeSend: function() {
-					//alert("sending feed request");
 				}
 			});
 		});
@@ -323,7 +321,7 @@ $(document).ready(function() {
 				url: '{% url event_tweet_invite event_id=event.id %}', 
 				dataType: "json",
 				data: {message: $("#overlay-textarea-twitter").val(), 
-				shash: "{{hash}}",
+				shash: "{{shash}}",
 			}, 
 			success: function(data){
 				$.get('{% url event_going event_id=event.id %}', function(data) {

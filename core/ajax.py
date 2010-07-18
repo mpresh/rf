@@ -173,6 +173,8 @@ def event_tweet_invite(req, event_id=""):
 
     if "shash" in req.GET:
         parent_shash = req.GET["shash"]
+    elif "shash" in req.POST:
+        parent_shash = req.POST["shash"]
     else:
         parent_shash = None
 
@@ -184,6 +186,7 @@ def event_tweet_invite(req, event_id=""):
                   parent_shash=parent_shash,
                   reach=user.get_num_follower_list()
                   )
+    share.save()
 
     share.setHash()
 
