@@ -26,17 +26,17 @@ class Event(models.Model):
     def __unicode__(self):
         return "<Event: %s %s>" % (self.id, self.name)
    
-class Invite(models.Model):
-    message = models.CharField(max_length=140, default="")
-    from_user = models.ForeignKey(User, related_name="made_invites")
-    to_users = models.ManyToManyField(User, related_name="received_invites", null=True)
-    event = models.ForeignKey(Event, related_name="invitations")
-    from_invite = models.ForeignKey('self', related_name="invite_children", default=None, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    
-    def __unicode__(self):
-        return "<Invite: %s>" % (self.id)
-
+#class Invite(models.Model):
+#    message = models.CharField(max_length=140, default="")
+#    from_user = models.ForeignKey(User, related_name="made_invites")
+#    to_users = models.ManyToManyField(User, related_name="received_invites", null=True)
+#    event = models.ForeignKey(Event, related_name="invitations")
+#    from_invite = models.ForeignKey('self', related_name="invite_children", default=None, null=True)
+#    created_at = models.DateTimeField(auto_now_add=True)
+#    
+#    def __unicode__(self):
+#        return "<Invite: %s>" % (self.id)
+#
 class Share(models.Model):
     ACCOUNT_CHOICES = (
         ('F', 'Facebook'),
