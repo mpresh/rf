@@ -66,8 +66,18 @@ def get_authorized_token(token, signature_method=signature_method):
 		consumer(), token=token,
 		http_url='https://twitter.com/oauth/access_token'
 	)
+	print "func: tauth.get_authorized_token"
 	req.sign_request(signature_method, consumer(), token)
-	return oauth.OAuthToken.from_string(oauth_response(req))
+	print "func: tauth.get_authorized_token after req.sign", req
+	resp = oauth_response(req)
+	print "func: tauth.get_authorized_token after RESPONSE", resp
+	
+	try:
+		ret = oauth.OAuthToken.from_string(resp)
+		print "func: tauth.get_authorized_token after RETURN", ret
+		return ret 
+	except:
+		return None
 
 def api(url, token, http_method='GET', **kwargs):
 	try:

@@ -96,8 +96,11 @@ def callback(req):
 		return render_to_response('callback.html', {
 			'mismatch': True
 		})
-	print "get authorized oken"
+	print "get authorized token!", token
 	token = get_authorized_token(token)
+
+	if token is None:
+		return HttpResponseRedirect(reverse('tauth_login'))
 
 	print "TOKEN MATCHES", token
 	# Actually login
@@ -145,21 +148,23 @@ def callback(req):
 @wants_user
 def logout(req):
 	if "redirect" in req.session:
-		redirect = req.session["redirect"]
+		redirect = str(req.session["redirect"])
 		del req.session["redirect"]
 	else:
-		redirect = reverse('index')
+		redirect = str(reverse('index'))
 
+	print "REDIRECTS", redirect
 	if "redirectArgs" in req.GET:
 		redirectargs_list = req.GET["redirectArgs"].split("AND")
 		redirect_string = ""
 		for param in redirectargs_list:
 			(key, value) = param.split("EQUALS")
-			redirect_string += key + "=" + value + "&" 
+			redirect_string += key + "=" + value + "&"
+		print "REDIRECT STRING", redirect_string
 		if redirect_string:
 			redirect_string = redirect_string[:-1]
 		if redirect.find("?") != -1:
-			if redirect(redirect_string) == -1:
+			if redirect.find(redirect_string) == -1:
 				redirect = redirect + "&" + redirect_string
 		else:
 			redirect = redirect + "?" + redirect_string

@@ -46,7 +46,7 @@
 			<img src="{% url static 'images/step1-msg.png' %}">
 		</div>
 		
-		<div id="pick-msg">To get your discount share John's offer with your friends on Facebook or Twitter, choose one:</div>
+		<div id="pick-msg">{% block custom-message %} To get your discount, share {{event.from_name}}'s offer with your friends on Facebook or Twitter, choose one:{% endblock %}</div>
 		<div class="overlay-bot">
 			<div id="previous-grey"><img src="{% url static 'images/previous-grey.png' %}"></div>
 			<div id="invite-progress"><img src="{% url static 'images/step1.png' %}"></div>
@@ -64,7 +64,7 @@
 			<!--<button class="logoutnow">LOGOUT</button>-->
 			<fb:profile-pic id="facebook-profile-image" height="45px" width="45px" uid={{fbuser.facebook_id}} linked="false" ></fb:profile-pic> 
 			<br/>
-			<div class="logoutnow" href="">logout from facebook</div>
+			<a class="logoutnow" href="" style="text-decoration:underline;">logout</a>
 			{% else %}
 			<img id="facebook-login" src="{% url static 'images/facebook-button.png' %}"/>
 			{% endif %}
@@ -76,7 +76,7 @@
 			<br/>Twitter<br />
 			<img id="twitter-profile-image" src="{{user.profile_pic}}" />
 			<br/>
-			<a href="{% url tauth_logout %}?redirectArgs=overlayEQUALStrue">logout from twitter</a>
+			<a href="{% url tauth_logout %}?redirectArgs=overlayEQUALStrue" style="text-decoration:underline;">logout</a>
 			{% else %}
 			<a href="{% url tauth_login %}?redirectArgs=overlayEQUALStrue"><img id="twitter-login" src="{% url static 'images/twitter-button.png' %}" /></a><br/><br/>
 			{% endif %}
