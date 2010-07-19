@@ -112,7 +112,7 @@
 #invite-progress{
 	font-size: 12px;
 	float: left;
-	margin: 18px 0px 0px 17px; 
+	margin: 8px 0px 0px 48px; 
 	}
 #invite-progress li{
 	display: inline;
@@ -138,21 +138,27 @@
 	}
 #next{
 	float:left;
-	margin: 10px 0px 0px 25px;
+	margin: 10px 0px 0px 62px;
 	width: 45px;
 	height: 27px;
 	cursor:pointer;
 	}
+#next-grey{
+	float:left;
+	margin: 10px 0px 0px 62px;
+	width: 45px;
+	height: 27px;
+	}
 #share{
 	float:left;
-	margin: 10px 0px 0px 25px;
+	margin: 10px 0px 0px 62px;
 	width: 45px;
 	height: 27px;
 	cursor:pointer;
 	}
 #okay{
 	float:left;
-	margin: 10px 0px 0px 25px;
+	margin: 10px 0px 0px 62px;
 	width: 45px;
 	height: 27px;
 	cursor:pointer;	
@@ -182,7 +188,7 @@ Facebook Elements
 #overlay-div-facebook-login {
 	text-align: center;
 	//background-color: #DEDEDE;
-	padding: 15px 0px 0px 70px;
+	padding: 0px 0px 0px 70px;
 	width: 128px;
 	float: left;
 	height: 128px;
@@ -197,7 +203,7 @@ Facebook Elements
 	//margin-top: 5px;
 	//margin-right: 10px;
 	float:left;
-	margin: 10px 0px 0px 25px;
+	margin: 10px 0px 0px 62px;
 	height: 27px;
 	width: 45px;
 	//float: right;
@@ -208,7 +214,7 @@ Facebook Elements
 	width: 45px;	
 }
 #facebook-login {
-	    margin-top: 10px;
+	    margin-top: 0px;
 	    width: 128px;
 	    height: 128px;
 	    cursor: pointer;
@@ -224,7 +230,7 @@ Twitter Elements
 #overlay-div-twitter-login {
 	text-align: center;
 	//background-color: #DEDEDE;
-	padding: 15px 70px 0px 0px;
+	padding: 0px 70px 0px 0px;
 	float: right;
 	width: 128px;
 	height: 128px;
@@ -237,7 +243,7 @@ Twitter Elements
 }
 #twitter-div-feed-update {
 	//margin: 5px 5px 0px 0px;
-	margin: 10px 0px 0px 25px;
+	margin: 10px 0px 0px 62px;
 	height: 27px;
 	width: 45px;
 	float: left;
@@ -249,7 +255,7 @@ Twitter Elements
 	width: 45px;
 }
 #twitter-login {
-	    margin-top: 10px;
+	    margin-top: 0px;
 		width: 128px;
 		height: 128px;
 }

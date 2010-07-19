@@ -37,16 +37,19 @@
 }
 #header #invite-button
 {
-	left: 277px;
-	top: 238px;
+	top: 330px;
+	width: 460px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
 }
 #header #greeting
 {
-	font-size: 26px;
+	font-size: 16px;
 	color: #444;
 	width: 422px;
-	left: 22px;
-	top: 178px;
+	left: 23px;
+	top: 173px;
 }
 #header #greeting #status
 {
@@ -58,12 +61,19 @@
 }
 #header #invitemsg
 {
-	font-size: 16px;
-	color: #444;
-	width: 160px;
-	left: 24px;
-	top: 244px;
+	font-size: 36px;
+	color: #fff;
+	width: 458px;
+	padding: 0px 8px 0px 8px;
+	top: 224px;
+	font-weight: bold;
+	text-align: center;
 }
+#pick-msg{
+	font-size: 14px;
+	text-align: center;
+	padding: 15px 10px 0px 10px;
+	}
 #header #dets
 {
 	background-image: url(../images/look/ptop.png);
@@ -120,12 +130,6 @@
 border:1px solid #ccc;
 }
 
-#header #invite-button>div:first-child
-{
-	background-position: left top;
-	height: auto;
-	padding: 20px 0 6px;
-}
 #eventinfo
 {
 	background-image: url(../images/info-bg.png);

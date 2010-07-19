@@ -1,21 +1,18 @@
-#chartArea{
-	width: 300px;
-}
 
 	/* Name of site */
 #title{
 	color:#581E92;
 	font-size:24px;
 	font-weight:normal;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 /* div that contains the impression, breakdown, and pie charts */
 #top {
-	
+	margin: 0 10px 0 10px;
 }
 /* Panel to select Campaign and Date */
 #panelNav {
-	padding: 0px 10px 0px 10px;
+	padding-top: 10px;
 }
 /* div to select Campaign, div to select date */
 #selectDiv, #dateDiv{
@@ -46,6 +43,9 @@
 }
 
 /* title for impressions chart, breakdown chart */
+/* reset google's default */
+table.google-visualization-table-table * {padding: 0px;}
+/*************************/
 #topTitle, #botTitle, #influenceTitle {
 	padding: 5px 5px 5px 5px;
 	margin-bottom: 10px;
@@ -58,21 +58,100 @@
 	font-size: 16px;
 	font-weight:normal;
 }
-#botPic img{
-	margin: 0px 10px 10px 10px;
-}
-
-#chartArea{
-/*	padding-right: 65px;
-	margin: 15px 10px 10px 10px;
-	border: solid 1px #ccc;*/
-	height: 210px;
-	width: 900px;
-/*	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;*/
-	}
 
 /* Influencer Table */
-#table_analytics_data{
-	width: 100%;
-	}
+#mid {
+	margin: 10px;
+	padding: 0px;
+	background-color: #f2f0f0;
+	border: solid 1px #ccc;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+#midLeft, #midRight {
+	margin: 10px;
+}
+#tableHeader {
+	font-size: 14px;
+	padding-left: 45px;	
+}
+/*
+tr.headerRow {}
+tr.headerRow > td.headerCell:first-child{}
+tr.headerRow > td.headerCell:last-child{}
+*/
+td.headerCell {
+	font-size: 11px;
+	background-color: #f2f0f0;
+	color: blue;
+	text-decoration: underline;
+	vertical-align: bottom;
+}
+
+tr.tableRow {}
+tr.oddTableRow {}
+
+#table_analytics_data td {
+	border-bottom: 5px solid #F2F0F0;
+}
+#table_analytics_data .userName{
+        font-family:Lucida Sans,Lucida Grande,Lucida Sans Unicode,sans-serif;
+        line-height: 11px;
+        font-size: 12px;
+        padding: 5px 0px 5px 10px;
+        color: #333;
+        font-weight: bold;
+	border-right: 5px solid #F2F0F0;
+}
+.lightLink {
+	padding-left: 20px;
+	font-size: 9px;
+	color: #3090C7;
+	text-decoration: underline;
+}
+.light {
+	font-size: 9px;
+	color: #656;
+}
+#table_analytics_data td.tableCell{
+	background-color: #d9dccc;
+	border-right: 5px solid #F2F0F0;
+	text-align: center;
+}
+#table_analytics_data tr.selectedTableRow td{background-color: #FCDFFF; }
+#table_analytics_data tr.hoverTableRow {
+	background-color:#F9F9DF;
+}
+#table_analytics_data tr.hoverTableRow td.tableCell{
+	background-color:#F9F9DF;
+}
+.rowNumCell{}
+.userPic img{
+	width: 40px;
+	height: 40px;
+}
+#table_analytics_data td.userPic {
+	width: 40px;
+	padding:0px;
+	border-left: 5px solid #F2F0F0;
+}
+/* Influencer Profile */
+#midRight{
+	background-color: #fff;
+	border: 1px solid #ccc;
+	padding: 10px;
+	margin: 20px 20px 20px 0px;
+	height: 500px;
+}
+.tFollowers{
+	height: 30px;
+	padding-left: 40px;
+	padding-top:10px;
+	margin-left: 60px;
+	position: relative;
+	top: -30px;
+	background-image: url("../../images/analytics/twittericon.png");
+	background-repeat: no-repeat;
+	font-size: 14px;
+	letter-spacing: .3em;
+}

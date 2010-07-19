@@ -88,8 +88,8 @@ def analytics_date_range_reach(req):
         dict["status"] = 500
         return HttpResponse(json.dumps(dict))
 
-    column_list.append({"id" : "twitter", "label" : "Twitter", "type" : "number"})
-    column_list.append({"id" : "facebook", "label" : "Facebook", "type" : "number"})
+    #column_list.append({"id" : "twitter", "label" : "Twitter", "type" : "number"})
+    #column_list.append({"id" : "facebook", "label" : "Facebook", "type" : "number"})
     column_list.append({"id" : "total", "label" : "Total", "type" : "number"})
     data["cols"] = column_list
     
@@ -121,8 +121,8 @@ def analytics_date_range_reach(req):
     for key in sorted(bucket_dict.keys()):
         print "KEY", key
         rows_list.append({"c" : [{"v" : str(key)[4:6] + "/" + str(key)[6:]},
-                                 {"v" : bucket_dict[key]["twitter"]},
-                                 {"v" : bucket_dict[key]["facebook"]},
+                                # {"v" : bucket_dict[key]["twitter"]},
+                                # {"v" : bucket_dict[key]["facebook"]}]})
                                  {"v" : bucket_dict[key]["twitter"] + bucket_dict[key]["facebook"]}]})
     data["rows"] = rows_list
 
@@ -214,7 +214,7 @@ def analytics_date_range_shares(req):
 
     column_list.append({"id" : "twitter", "label" : "Twitter", "type" : "number"})
     column_list.append({"id" : "facebook", "label" : "Facebook", "type" : "number"})
-    column_list.append({"id" : "total", "label" : "Total", "type" : "number"})
+    #column_list.append({"id" : "total", "label" : "Total", "type" : "number"})
     data["cols"] = column_list
     
     bucket_dict = {}
@@ -242,7 +242,8 @@ def analytics_date_range_shares(req):
         rows_list.append({"c" : [{"v" : str(key)[4:6] + "/" + str(key)[6:]},
                                  {"v" : bucket_dict[key]["twitter"]},
                                  {"v" : bucket_dict[key]["facebook"]},
-                                 {"v" : bucket_dict[key]["twitter"] + bucket_dict[key]["facebook"]}]})
+                         #        {"v" : bucket_dict[key]["twitter"] + bucket_dict[key]["facebook"]}
+                         ]})
     data["rows"] = rows_list
 
     dict["status"] = 200
@@ -270,6 +271,86 @@ def analytics_sources_pie(req):
         dict["status"] = 500
         return HttpResponse(json.dumps(dict))
 
+    range_type_list = ["minutes", "hours", "days", "weeks", "months", "years"]
+    if "range_type" in req.GET:
+        if req.GET["range_type"] not in range_type_list:
+            dict["error"] = "Valid range not provided."
+            dict["status"] = 500
+            return HttpResponse(json.dumps(dict))
+        else:
+            range_type = req.GET["range_type"]
+    elif "range_type" in req.POST:
+        if req.POST["range_type"] not in range_type_list:
+            dict["error"] = "Valid range not provided."
+            dict["status"] = 500
+            return HttpResponse(json.dumps(dict))
+        else:
+            range_type = req.POST["range_type"]
+    else:
+        dict["error"] = "range_type not specfied."
+        dict["status"] = 500
+        return HttpResponse(json.dumps(dict))
+    
+    if "range_duration" in req.GET:
+        range_duration = req.GET["range_duration"]
+    elif "range_duration" in req.POST:
+        range_duration = req.POST["range_duration"]
+    else:
+        dict["error"] = "range_duration not specfied."
+        dict["status"] = 500
+        return HttpResponse(json.dumps(dict))
+
+    try:
+        range_duration = int(range_duration)
+    except Exception:
+        dict["error"] = "range_duration must be an integer value."
+        dict["status"] = 500
+        return HttpResponse(json.dumps(dict))
+    range_duration = range_duration + 1
+
+    bucket_dict = {}
+    now = datetime.now()
+    for val in range(0, range_duration):
+        dt = now - timedelta(days=range_duration - val - 1)
+        m = "0" + str(dt.month)
+        d = "0" + str(dt.day)
+        key = str(dt.year) + m[-2:] + d[-2:]
+        bucket_dict[key] = {"twitter" : 0, "facebook" : 0, "datetime": dt}
+
+    
+    network_dict = {}
+    #for share in shares:
+    #    if share.from_account_type == "T":
+    #        if "twitter" not in network_dict:
+    #            network_dict["twitter"] = 1
+    #        else:
+    #            network_dict["twitter"] = network_dict["twitter"] + 1
+    #
+    #    if share.from_account_type == "F":
+    #        if "facebook" not in network_dict:
+    #            network_dict["facebook"] = 1
+    #        else:
+    #            network_dict["facebook"] = network_dict["facebook"] + 1
+    #
+    #
+    #total_facebook = 0
+    #total_twitter = 0
+    network_dict["facebook"] = 0
+    network_dict["twitter"] = 0
+    for share in shares:
+        dt = share.created_at
+        m = "0" + str(dt.month)
+        d = "0" + str(dt.day)
+        key = str(dt.year) + m[-2:] + d[-2:]
+        if key in bucket_dict:
+            if share.from_account_type == "F":
+                network_dict["facebook"] = network_dict["facebook"] + 1
+                bucket_dict[key]["facebook"] =  bucket_dict[key]["facebook"] + 1
+            elif share.from_account_type == "T":
+                network_dict["twitter"] = network_dict["twitter"] + 1
+                bucket_dict[key]["twitter"] =  bucket_dict[key]["twitter"] + 1
+
+
     data = {}
     column_list = []
     column_list.append({"id" : "network_type", "label" : "Network", "type" : "string"})
@@ -277,20 +358,6 @@ def analytics_sources_pie(req):
     data["cols"] = column_list
 
     rows_list = []
-    network_dict = {}
-    for share in shares:
-        if share.from_account_type == "T":
-            if "twitter" not in network_dict:
-                network_dict["twitter"] = 1
-            else:
-                network_dict["twitter"] = network_dict["twitter"] + 1
-
-        if share.from_account_type == "F":
-            if "facebook" not in network_dict:
-                network_dict["facebook"] = 1
-            else:
-                network_dict["facebook"] = network_dict["facebook"] + 1
-
     for key in network_dict.keys():
         rows_list.append({"c" : [{"v" : key},
                                  {"v" : network_dict[key]}]})
@@ -323,15 +390,16 @@ def analytics_data(req):
 
     data = {}
     column_list = []
+    column_list.append({"id" : "pic", "label" : "", "type" : "string"})
     column_list.append({"id" : "name", "label" : "Name", "type" : "string"})
-    column_list.append({"id" : "pic", "label" : "Pic", "type" : "string"})
     column_list.append({"id" : "page", "label" : "Link", "type" : "string"})
-    column_list.append({"id" : "network", "label" : "Network", "type" : "string"})
-    column_list.append({"id" : "num_shares", "label" : "#Shares", "type" : "number"})
-    column_list.append({"id" : "child_num_retweets", "label" : "Child Retweets", "type" : "number"})
-    column_list.append({"id" : "total_num_retweets", "label" : "Total Retweets", "type" : "number"})
     column_list.append({"id" : "followers", "label" : "Followers", "type" : "number"})
     column_list.append({"id" : "reach", "label" : "Reach", "type" : "number"})
+    column_list.append({"id" : "num_shares", "label" : "Shares", "type" : "number"})
+    column_list.append({"id" : "child_num_retweets", "label" : "ReShare", "type" : "number"})
+    column_list.append({"id" : "total_num_retweets", "label" : "Total Shares", "type" : "number"})
+    column_list.append({"id" : "network", "label" : "Network", "type" : "string"})
+
     data["cols"] = column_list
 
     rows_list = []
@@ -348,7 +416,7 @@ def analytics_data(req):
             name = fbuser.name or fbuser.facebook_id
             network = "Facebook"
             page = "http://www.facebook.com/" + fbuser.username
-            picture = "<a href='" + page + "'> <img src='http://graph.facebook.com/" + fbuser.facebook_id + "/picture' /> </a>" 
+            picture = "<img src='http://graph.facebook.com/" + fbuser.facebook_id + "/picture' />" 
 
 
 
@@ -357,7 +425,7 @@ def analytics_data(req):
             name = user.name 
             network = "Twitter"
             page = "http://twitter.com/" + user.username 
-            picture = "<a href='" + page + "'> <img src='" + user.profile_pic + "' /> </a>"
+            picture = "<img src='" + user.profile_pic + "' />"
 
 
         name_id = str(name) + network
@@ -385,16 +453,17 @@ def analytics_data(req):
         else:
             div_num = float(user_dict[name_id]["num"])
         name = "<a href='http://www.cnn.com'>" + user_dict[name_id]["name"] + "</a>"
-        rows_list.append({"c" : [{"v" : user_dict[name_id]["name"]}, 
-                                 {"v" : user_dict[name_id]["pic"]},
+        rows_list.append({"c" : [{"v" : user_dict[name_id]["pic"], "p": {'className': 'userPic'}},
+                                 {"v" : user_dict[name_id]["name"], "p": {'className': 'userName'}}, 
                                  {"v" : user_dict[name_id]["page"]},
-                                 {"v" : user_dict[name_id]["network"]},
+                                 {"v" : int(float(user_dict[name_id]["reach"]) / div_num)},
+                                 {"v" : int(float(user_dict[name_id]["totalReach"]) / div_num), "p": {'style': 'width: 90px;'}},
                                  {"v" : user_dict[name_id]["num"]},
                                  {"v" : user_dict[name_id]["child_num_retweet"]},
-                                 {"v" : user_dict[name_id]["total_num_retweet"]},
-                                 {"v" : int(float(user_dict[name_id]["reach"]) / div_num)},
-                                 {"v" : int(float(user_dict[name_id]["totalReach"]) / div_num)}]})
-
+                                 {"v" : user_dict[name_id]["total_num_retweet"], "p": {'style': 'width: 90px;'}},
+                                 {"v" : user_dict[name_id]["network"]},
+        ]});
+ 
 
     data["rows"] = rows_list
 
