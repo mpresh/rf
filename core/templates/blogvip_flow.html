@@ -5,8 +5,8 @@
 <script type="text/javascript" src="{% url static 'javascript/jquery.cookie.js' %}" ></script>
 <script type="text/javascript" src="{% url static 'javascript/charCount.js' %}" ></script>
 <link rel="stylesheet" href="{% url static 'css/overlay.css' %}" type="text/css" >
-
 {% endblock %}
+
 
 {% block title  %}
 {{event.name}}
@@ -20,13 +20,8 @@
 <div id="user-logo"><img src="{% url static 'images/jclink.png' %}"></div>	
 
 <div id="greeting">
-  {% if event.from_name %}
-	{{event.from_name}}'s offer to you and your friends:
-  {% else %}
-        Offer to you and your friends:
-  {% endif %}
+	John's offer to you and your friends:
 	<div id="status"></div>
-
 </div>
 
 
@@ -35,13 +30,7 @@
 </div>
 
 
-<div id="invitemsg">
-  {% if event.percent %}
-       {{event.percent}}% OFF ADMISSION TO  {{ event.name|upper }}
-  {% else %}
-       DISCOUNT ADMISSION TO {{ event.name|upper }}
-  {% endif %}
-</div>
+<div id="invitemsg">20% OFF ADMISSION TO BLOG WORLD</div>
 
 <div id="overlay-blogger-login" class="overlay-blogger">
 
@@ -50,7 +39,7 @@
 			<img src="{% url static 'images/step1-msg.png' %}">
 		</div>
 		
-		<div id="pick-msg">To get your discount share {{event.from_name}}'s offer with your friends on Facebook or Twitter, choose one:</div>
+		<div id="pick-msg">To get your discount share John's offer with your friends on Facebook or Twitter, choose one:</div>
 		<div class="overlay-bot">
 			<div id="previous-grey"><img src="{% url static 'images/previous-grey.png' %}"></div>
 			<div id="invite-progress"><img src="{% url static 'images/step1.png' %}"></div>
@@ -120,7 +109,7 @@
 		<div id="twitter-top-msg">
 			<img src="{% url static 'images/twitter-share-msg.png' %}">
 		</div>
-		<textarea id="overlay-textarea-twitter" >Join me at {{event.name}} in {{event.address}}, Oct 14-16. Use my {{event.percent}}% off coupon.</textarea>
+		<textarea id="overlay-textarea-twitter" >Join me at BlogWorld in Las Vegas, Oct 14-16. Use my 20% off coupon.</textarea>
 	</div>
 	<div id="overlay-div-content3" >
 
@@ -140,7 +129,7 @@
 			Here’s your discount code:
 			</div>      	
 			
-			<div id="code"><p>{{event.code}}</p></div>
+			<div id="code"><p>JOHNCHOW1</p></div>
 
 	</div>
 
@@ -162,9 +151,9 @@
 		</p>
 		<div id="blogworld"><img src="{% url static 'images/blogworld.png' %}"></div>
 	</div>
-	<div id="detsfooter"></div>
+	<div id="detsfooter"><img src="{% url static 'images/look/pbot.png' %}"></div>
 </div> 
-<div id="eventinfo"><b>Exhibits:</b> Oct 15-16 | <b>Conference:</b> Oct 14-16<br>{{event.venue}} | {{event.venue_address}}</div>
+<div id="eventinfo"><b>Exhibits:</b> Oct 15-16 | <b>Conference:</b> Oct 14-16<br>Mandalay Bay Convention Center | Las Vegas, Nevada</div>
 <div id="attendees">
 	<div id="msg">Interested Guests</div>
 
