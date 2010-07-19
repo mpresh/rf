@@ -64,6 +64,7 @@ def event_create(req):
         code = req.POST["code"]
         percent = req.POST["percent"]
         from_name = req.POST["from_name"]
+        subdomain = req.POST["subdomain"]
 
         pemail = req.POST["person_email"]
         
@@ -90,7 +91,8 @@ def event_create(req):
                   lng=elng,
                   percent=percent,
                   code=code,
-                  from_name=from_name)
+                  from_name=from_name,
+                  subdomain=subdomain)
         e.save()
 
         if not os.path.exists(os.path.join(cur_dir, 'static/images/events/')):
@@ -142,34 +144,40 @@ def event_thanks(req, invite_id=""):
     return render_to_response('thanks.html', dict)
 
 def index(req):
-    print "HERE I AM"
-    domain = req.META['HTTP_HOST'].split(".")[0]
-    print "DOMAIN IS", domain
-    if domain == "johnchow":
-        return HttpResponseRedirect(reverse('blogvip_flow') + "?event=1")
-    if domain == "demo":
-        return HttpResponseRedirect(reverse('blogvip_flow') + "?event=2")
-
-    print "COOKIES", req.COOKIES
-    print "KEYS....."
-    for key in req.session.keys():
-        print "KEY", key, req.session[key]
-
-    dict = {}
-    if "uid" in req.session:
-        dict["facebook"] = req.session['uid']
-
-    req.session["redirect"] = req.get_full_path()        
-    if "user_id" not in req.session:
-        print "returning ", dict
-        return render_to_response('index.html', dict)
-
-    
-    user = User.objects.get(id=req.session["user_id"])	
-    req.session["redirect"] = req.get_full_path()
-    dict["user"] = user
-
-    return render_to_response('index.html', dict)
+#    print "HERE I AMMMM"
+#    domain = req.META['HTTP_HOST'].split(".")[0]
+#    print "DOMAIN ISSSS", domain
+#    if domain != "www":
+#        print "HAHAHHA"
+#        events = Events.objects.filter(subdomain=domain)
+#        print "EVENTS", events
+#        event = events[-1]
+#        return HttpResponseRedirect(reverse('blogvip_flow') + "?event=" + str(event.id))
+#    #if domain == "johnchow":
+#    #    return HttpResponseRedirect(reverse('blogvip_flow') + "?event=1")
+#    #if domain == "demo":
+#    #    return HttpResponseRedirect(reverse('blogvip_flow') + "?event=2")
+#
+#    print "COOKIES", req.COOKIES
+#    print "KEYS....."
+#    for key in req.session.keys():
+#        print "KEY", key, req.session[key]
+#
+#    dict = {}
+#    if "uid" in req.session:
+#        dict["facebook"] = req.session['uid']
+#
+#    req.session["redirect"] = req.get_full_path()        
+#    if "user_id" not in req.session:
+#        print "returning ", dict
+#        return render_to_response('index.html', dict)
+#
+#    
+#    user = User.objects.get(id=req.session["user_id"])	
+#    req.session["redirect"] = req.get_full_path()
+#    dict["user"] = user
+#
+    return render_to_response('index.html', {})
 
 def event_details(req, event_id=""):
 

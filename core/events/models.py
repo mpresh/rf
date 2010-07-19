@@ -25,6 +25,7 @@ class Event(models.Model):
     percent = models.IntegerField(blank=True)
     code = models.CharField(max_length=100)
     from_name = models.CharField(max_length=100)
+    subdomain = models.CharField(max_length=50)
 
     def __unicode__(self):
         return "<Event: %s %s>" % (self.id, self.name)
