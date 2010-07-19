@@ -1,1 +1,4 @@
-bla
+should be default behavior. {% extends "blogvip_flow.html" %}
+
+
+Extends whatever is in event_base.thml
