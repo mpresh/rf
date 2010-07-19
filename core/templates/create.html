@@ -91,7 +91,7 @@
 		<input type="text" value="http://www.capitalfactory.com" name="event_url" class="url" />
 	</li>
 	<li>
-		<label for="image">Event Image: </label> 
+		<label for="image">Event Label Image: </label> 
 		<input name="image" id="image" type="file" onChange="ajaxFileUpload(this.value);"> </input>
 		<div class="image_preview"><br/><br/><br/><br/>Image Preview</div></p>
 	</li>
@@ -148,12 +148,12 @@ function ajaxFileUpload(file_name)
         //starting setting some animation when the ajax starts and completes
         $("div.image_preview")
            .ajaxStart(function(){
-                $(this).html("<img src="{% url static 'images/ajax-loader.gif' %}" />");
+                $(this).html("<img src='{% url static 'images/ajax-loader.gif' %}' />");
         })
            .ajaxComplete(function(){ 
                     var imgPath = 'images/tmp/{{user.id}}_' + file_name;
                     var imgUrl = "{% url static  '' %}";
-	            $(this).html("<img src='" + imgUrl + imgPath "' />");
+	            $(this).html("<img src='" + imgUrl + imgPath + "' />");
 				$('#event_image').val(file_name);
         });
 

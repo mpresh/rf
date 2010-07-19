@@ -37,7 +37,6 @@ def event_list(req):
     return render_to_response('list.html', {"events":all_events})
     
 def event_create(req):
-    cur_dir = os.path.join(os.path.dirname(__file__), "..")
     invite_url = util.get_invite_url(req)
     req.session["redirect"] = req.get_full_path()        
 
@@ -95,15 +94,15 @@ def event_create(req):
                   subdomain=subdomain)
         e.save()
 
-        if not os.path.exists(os.path.join(cur_dir, 'static/images/events/')):
-            os.mkdir(os.path.join(cur_dir, 'static/images/events'))
+        if not os.path.exists(os.path.join(settings.ROOT_PATH, 'static/images/events/')):
+            os.mkdir(os.path.join(settings.ROOT_PATH, 'static/images/events'))
 			
         if image:
-            os.rename(os.path.join(cur_dir, 'static/images/tmp/' + str(user.id) + '_' + image),
-                  	os.path.join(cur_dir, 'static/images/events/' + str(e.id)))
+            os.rename(os.path.join(settings.ROOT_PATH, 'static/images/tmp/' + str(user.id) + '_' + image),
+                  	os.path.join(settings.ROOT_PATH, 'static/images/event_logos/' + str(e.id)))
         else:
-          	shutil.copy(os.path.join(cur_dir, 'static/images/muse.png'),
-                       os.path.join(cur_dir, 'static/images/events/' + str(e.id)))
+          	shutil.copy(os.path.join(settings.ROOT_PATH, 'static/images/muse.png'),
+                       os.path.join(settings.ROOT_PATH, 'static/images/events/' + str(e.id)))
 
         (u, c) = User.objects.get_or_create(username="DEFAULT")
         (invite, created) = Invite.objects.get_or_create(from_user=user,
@@ -115,7 +114,7 @@ def event_create(req):
     dict = {}
     dict["user"] = user
     dict["key"] = settings.GOOGLE_MAP_API
-    dict["zoom"] = 14
+    dict["zoom"] = 2
     dict["invite_url"] = invite_url
     return render_to_response('create.html', dict)
 
@@ -403,7 +402,7 @@ def blogvip_flow(req):
     dict["map_key"]  = settings.GOOGLE_MAP_API    
     
 
-    for image_type in ['.png', '.gif', 'jpg', '.jpeg']:
+    for image_type in ['.png', '.gif', 'jpg', '.jpeg', ""]:
         if os.path.exists(os.path.join(settings.ROOT_PATH, 'static/images/event_logos/' + str(event.id) + image_type)):
             dict["logo"] = str(event.id) + image_type
 

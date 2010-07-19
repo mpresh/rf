@@ -23,13 +23,12 @@ def upload_image(req):
     """Upload an image from the creation page onto server."""
 
     user = User.objects.get(id=req.session["user_id"])
-    cur_dir = os.path.join(os.path.dirname(__file__), "..")
 
-    if not os.path.exists(os.path.join(cur_dir, 'static/images/tmp')):
-        os.mkdir(os.path.join(cur_dir, 'static/images/tmp'))
+    if not os.path.exists(os.path.join(settings.ROOT_PATH, 'static/images/tmp')):
+        os.mkdir(os.path.join(settings.ROOT_PATH, 'static/images/tmp'))
 	
     f = req.FILES['image']
-    destination = open(os.path.join(cur_dir, 
+    destination = open(os.path.join(settings.ROOT_PATH, 
                                     'static/images/tmp/' + str(user.id) + "_" + f.name), 'wb+')
     for chunk in f.chunks():     
         destination.write(chunk)
