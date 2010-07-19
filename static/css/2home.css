@@ -89,7 +89,7 @@
     margin-top:7px;
 }
 #detsfooter {
-	background-image: url(../images/look/pbot.png);
+	/* background-image: url(../images/look/pbot.png); */
 	background-repeat: no-repeat;
 	height: 46px;
 }
