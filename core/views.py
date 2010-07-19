@@ -405,6 +405,10 @@ def blogvip_flow(req):
     for image_type in ['.png', '.gif', 'jpg', '.jpeg', ""]:
         if os.path.exists(os.path.join(settings.ROOT_PATH, 'static/images/event_logos/' + str(event.id) + image_type)):
             dict["logo"] = str(event.id) + image_type
+            
+    if os.path.exists(os.path.join(settings.ROOT_PATH, 'static/css/event_css/' + str(event.id) + ".css")):
+        dict["css"] = str(event.id) + ".css"
+
 
     print "BLOGVIP FLOW dict", dict
     template_path = os.path.join(os.path.dirname(__file__), 'templates/event_templates/' + str(event.id) + ".html")

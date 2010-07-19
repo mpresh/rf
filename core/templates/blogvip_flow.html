@@ -6,6 +6,10 @@
 <script type="text/javascript" src="{% url static 'javascript/charCount.js' %}" ></script>
 <link rel="stylesheet" href="{% url static 'css/overlay.css' %}" type="text/css" >
 
+{% if css %}
+     <link rel="stylesheet" href="{% url static 'css/event_css/' %}{{css}}" type="text/css" >
+{% endif %}
+
 {% endblock %}
 
 {% block title  %}
