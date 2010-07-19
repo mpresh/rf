@@ -16,8 +16,9 @@
 {% block content %}
 <!-- Content starts here -->
 
-
-<div id="user-logo"><img src="{% url static 'images/jclink.png' %}"></div>	
+{% if logo %}
+<div id="user-logo"><img src="{% url static 'images/event_logos/' %}{{logo}}"></div>	
+{% endif %}
 
 <div id="greeting">
   {% if event.from_name %}

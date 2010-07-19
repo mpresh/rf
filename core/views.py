@@ -394,6 +394,11 @@ def blogvip_flow(req):
     dict["attendees"] = event.attendees.all()
     dict["map_key"]  = settings.GOOGLE_MAP_API    
     
+
+    for image_type in ['.png', '.gif', 'jpg', '.jpeg']:
+        if os.path.exists(os.path.join(settings.ROOT_PATH, 'static/images/event_logos/' + str(event.id) + image_type)):
+            dict["logo"] = str(event.id) + image_type
+
     print "BLOGVIP FLOW dict", dict
     return render_to_response('blogvip_flow.html', dict)
 
