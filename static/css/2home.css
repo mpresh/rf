@@ -1,7 +1,7 @@
 /*******************************/
 /**** absolute positioning  ****/
 /*******************************/
-#header #invite-button, #header #greeting, #header #dets, #header #attendees, #header #invitemsg, #header #attendees #msg, #header #links, #jclink
+#header #invite-button, #header #greeting, #header #dets, #header #attendees, #header #invitemsg, #header #attendees #msg, #header #links, #user-logo
 {
 	position: absolute;
 }
@@ -177,7 +177,7 @@ img
 	border: 0;
 	text-decoration: none;
 }
-#jclink{
+#user-logo{
 	top: 62px;
 	left: 0px;
 	}
