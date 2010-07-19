@@ -16,8 +16,9 @@
 {% block content %}
 <!-- Content starts here -->
 
-
-<div id="user-logo"><img src="{% url static 'images/jclink.png' %}"></div>	
+{% if logo %}
+<div id="user-logo"><img src="{% url static 'images/event_logos/' %}{{logo}}"></div>	
+{% endif %}
 
 <div id="greeting">
 	John's offer to you and your friends:
@@ -138,6 +139,7 @@
 
 
 <div id="dets"> 
+{% block details %}
 	<div id="event-title">BlogWorld 2010 Panel Spotlight</div>
 	<div id="detsbg">
 		<div id="info">Blogging Super Panel Live Feedback</div> 
@@ -152,8 +154,16 @@
 		<div id="blogworld"><img src="{% url static 'images/blogworld.png' %}"></div>
 	</div>
 	<div id="detsfooter"><img src="{% url static 'images/look/pbot.png' %}"></div>
+{% endblock %}
+
 </div> 
+<<<<<<< HEAD:core/templates/blogvip_flow.html
 <div id="eventinfo"><b>Exhibits:</b> Oct 15-16 | <b>Conference:</b> Oct 14-16<br>Mandalay Bay Convention Center | Las Vegas, Nevada</div>
+=======
+
+
+<div id="eventinfo"><b>Exhibits:</b> Oct 15-16 | <b>Conference:</b> Oct 14-16<br>{{event.venue}} | {{event.venue_address}}</div>
+>>>>>>> 77b0efb150c1db05e67315a19fd315f0e0837f44:core/templates/blogvip_flow.html
 <div id="attendees">
 	<div id="msg">Interested Guests</div>
 

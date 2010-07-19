@@ -57,6 +57,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(ROOT_PATH, 'core/templates'),
+    os.path.join(ROOT_PATH, 'core/templates/event_templates'),
     os.path.join(ROOT_PATH, 'core/tauth/templates'),
     os.path.join(ROOT_PATH, 'frontpage/templates'),
     os.path.join(ROOT_PATH, 'analytics/templates'),
