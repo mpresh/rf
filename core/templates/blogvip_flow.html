@@ -5,6 +5,12 @@
 <script type="text/javascript" src="{% url static 'javascript/jquery.cookie.js' %}" ></script>
 <script type="text/javascript" src="{% url static 'javascript/charCount.js' %}" ></script>
 <link rel="stylesheet" href="{% url static 'css/overlay.css' %}" type="text/css" >
+
+{% if css %}
+     <link rel="stylesheet" href="{% url static 'css/event_css/' %}{{css}}" type="text/css" >
+{% endif %}
+
+
 {% endblock %}
 
 
@@ -157,13 +163,9 @@
 {% endblock %}
 
 </div> 
-<<<<<<< HEAD:core/templates/blogvip_flow.html
-<div id="eventinfo"><b>Exhibits:</b> Oct 15-16 | <b>Conference:</b> Oct 14-16<br>Mandalay Bay Convention Center | Las Vegas, Nevada</div>
-=======
-
 
 <div id="eventinfo"><b>Exhibits:</b> Oct 15-16 | <b>Conference:</b> Oct 14-16<br>{{event.venue}} | {{event.venue_address}}</div>
->>>>>>> 77b0efb150c1db05e67315a19fd315f0e0837f44:core/templates/blogvip_flow.html
+
 <div id="attendees">
 	<div id="msg">Interested Guests</div>
 

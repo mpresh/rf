@@ -3,5 +3,7 @@ settings.py
 *~
 static/images/events/*
 static/images/tmp/*
+static/images/event_logos/*
+static/css/event_css/*
 afetch/twistd.pid
 afetch/twistd.log*
