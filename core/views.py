@@ -348,7 +348,6 @@ def blogvip(req, invite_id):
 
 def blogvip_flow(req):
     """ Request handler for blogger discount page."""
-    print "hello world"
     req.session["refer_domain"] = req.META['HTTP_HOST'].split(".")[0]
     invite = None
     event = None
@@ -400,7 +399,21 @@ def blogvip_flow(req):
     dict['invite_url'] = util.get_invite_url(req)    
     dict["attendees"] = event.attendees.all()
     dict["map_key"]  = settings.GOOGLE_MAP_API    
-    
+
+    event_start = event.event_date_time_start
+    event_end = event.event_date_time_end
+    months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    start_month = months[event_start.month]
+    end_month = months[event_end.month]
+    if start_month == end_month:
+        if str(event_start.day) == str(event_end.day):
+            dict["date_label"] = "%s %s" % (start_month, str(event_start.day))
+        else:
+            dict["date_label"] = "%s %s - %s " % (start_month, str(event_start.day), str(event_end.day))
+    else:
+        dict["date_label"] = "%s %s - %s %s " % (start_month + str(event_start.day), end_month, str(event_end.day))
+
+    dict["time_label"] = event_start.strftime("%I:%M %p %Z").strip("0")
 
     for image_type in ['.png', '.gif', 'jpg', '.jpeg', ""]:
         if os.path.exists(os.path.join(settings.ROOT_PATH, 'static/images/event_logos/' + str(event.id) + image_type)):
