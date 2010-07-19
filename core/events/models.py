@@ -23,7 +23,8 @@ class Event(models.Model):
     attendees = models.ManyToManyField(User, related_name="events_going")
     attendees_maybe = models.ManyToManyField(User, related_name="events_maybe")
     percent = models.IntegerField(blank=True)
-    code = models.CharField(max_length=200)
+    code = models.CharField(max_length=100)
+    from_name = models.CharField(max_length=100)
 
     def __unicode__(self):
         return "<Event: %s %s>" % (self.id, self.name)

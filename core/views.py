@@ -63,6 +63,7 @@ def event_create(req):
         elng = req.POST["event_lng"]
         code = req.POST["code"]
         percent = req.POST["percent"]
+        from_name = req.POST["from_name"]
 
         pemail = req.POST["person_email"]
         
@@ -88,7 +89,8 @@ def event_create(req):
                   lat=elat,
                   lng=elng,
                   percent=percent,
-                  code=code)
+                  code=code,
+                  from_name=from_name)
         e.save()
 
         if not os.path.exists(os.path.join(cur_dir, 'static/images/events/')):
@@ -343,18 +345,8 @@ def blogvip_flow(req):
     req.session["refer_domain"] = req.META['HTTP_HOST'].split(".")[0]
     invite = None
     event = None
-    if "invite" in req.GET:
-        invite_id = req.GET["invite"]
-
-        req.session["redirect"] = req.get_full_path()
-
-        try:
-            invite = Invite.objects.get(id=invite_id)
-            event = Event.objects.get(id=invite.event_id)
-        except ObjectDoesNotExist:
-            invite = None
-
-    elif not invite and "event" in req.GET:
+    
+    if "event" in req.GET:
         event_id = req.GET["event"]
         req.session["redirect"] = req.get_full_path()
 
@@ -387,9 +379,7 @@ def blogvip_flow(req):
         fbuser = FBUser.objects.get(facebook_id=req.session["uid"])	
         dict['fbuser'] = fbuser
     elif "uid" in req.COOKIES:
-        print "calling sync from blogvip"
         fauth_utils.sync_session_cookies(req)
-        print "FBUSER ID", req.COOKIES["uid"]
         fbuser = FBUser.objects.get(facebook_id=req.COOKIES["uid"])	
         dict['fbuser'] = fbuser
     else:
@@ -401,32 +391,9 @@ def blogvip_flow(req):
     
     dict["event"] = event
     dict['invite_url'] = util.get_invite_url(req)    
-    #dict["from_user"] = User.objects.get(id=invite.from_user_id)
-    #dict["to_user"] = User.objects.get(id=invite.to_users.all()[0].id)
     dict["attendees"] = event.attendees.all()
     dict["map_key"]  = settings.GOOGLE_MAP_API    
-    #dict["created_at"]  = invite.created_at
-    #dict["msg"]  = invite.message
-    #dict['invite_id'] = invite_id
-
-    #if user:
-    #    # if this invite is not for you, don't show page
-    #    to_users = invite.to_users.all()
-    #    print "TO USERS", to_users
-    #    to_user_ids = [u.id for u in to_users]
-    #    to_user_usernames = [u.username for u in to_users]
-    #
-    #    print to_user_ids, to_user_usernames
-    #    if user.id not in to_user_ids and "DEFAULT" not in to_user_usernames: 
-    #        return HttpResponseRedirect(reverse('event_home', kwargs={'event_id'=str(dict["event"].id}))
-    #
-    #    going = False
-    #    for event in user.events_going.all():
-    #        if event.id == dict["event"].id:
-    #            going = True
-    #
-    #    dict['going'] = going
-
+    
     print "BLOGVIP FLOW dict", dict
     return render_to_response('blogvip_flow.html', dict)
 
@@ -438,12 +405,6 @@ def event_home(req, event_id=""):
     else:
         e = None
     
-    #if 'refer' in req.GET:
-    #    refer_username = base64.b64decode(req.GET['refer'])
-    #    refer_user = User.objects.get(username=refer_username)	
-    #else:
-    #    refer_user = None
-
     # logged in
     print "here I am ", e, dir(e)
     e.num_attendees = len(e.attendees.all())
