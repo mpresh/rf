@@ -150,6 +150,7 @@
 
 
 <div id="dets"> 
+{% block details %}
 	<div id="event-title">BlogWorld 2010 Panel Spotlight</div>
 	<div id="detsbg">
 		<div id="info">Blogging Super Panel Live Feedback</div> 
@@ -164,7 +165,10 @@
 		<div id="blogworld"><img src="{% url static 'images/blogworld.png' %}"></div>
 	</div>
 	<div id="detsfooter"></div>
+{% endblock %}
 </div> 
+
+
 <div id="eventinfo"><b>Exhibits:</b> Oct 15-16 | <b>Conference:</b> Oct 14-16<br>{{event.venue}} | {{event.venue_address}}</div>
 <div id="attendees">
 	<div id="msg">Interested Guests</div>

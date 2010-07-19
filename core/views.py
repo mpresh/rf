@@ -408,8 +408,12 @@ def blogvip_flow(req):
             dict["logo"] = str(event.id) + image_type
 
     print "BLOGVIP FLOW dict", dict
-    return render_to_response('blogvip_flow.html', dict)
-
+    template_path = os.path.join(os.path.dirname(__file__), 'templates/event_templates/' + str(event.id) + ".html")
+    if os.path.exists(template_path):
+        print "using template:", template_path
+        return render_to_response(str(event.id) + '.html', dict)
+    else:
+        return render_to_response("blogvip_flow.html", dict)
 
 def event_home(req, event_id=""):
     req.session["redirect"] = req.get_full_path()
