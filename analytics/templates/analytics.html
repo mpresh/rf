@@ -147,7 +147,6 @@
 	      FB.init({appId: '{{fbappid}}', status: true, cookie: true, xfbml: true});
 	      google.load("visualization", "1", {packages:["table", "piechart", "corechart"]});
 	      google.setOnLoadCallback(drawGraphs);
-
 	      function drawTable() {
 	           var cssClassNames = {
 		        'headerRow': 'headerRow',
@@ -165,8 +164,7 @@
 			     dataType: "json",
 			     data: {},
 			     success: function(data) {
-
-			          var json_data = new google.visualization.DataTable(data.data,0.5);
+			          var json_data = new google.visualization.DataTable(data.data, 0.5);
 				  json_data.sort({column: 3, desc: true})
                                   var formatter = new google.visualization.PatternFormat('{0} <span class=\"lightLink\">(more)</span>');
                                   formatter.format(json_data, [1]);
@@ -282,7 +280,7 @@
 			drawPie($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
 			drawDateColumnShare($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
 			drawDateLineReach($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
-		});
+xs		});
 
 		function showUserData(pic, name, link, followers, reach, shares, reshares, totalShares, network) {
 		        var html_str = "";

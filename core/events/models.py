@@ -22,6 +22,10 @@ class Event(models.Model):
     organizer = models.ForeignKey(User, related_name="events_organized")
     attendees = models.ManyToManyField(User, related_name="events_going")
     attendees_maybe = models.ManyToManyField(User, related_name="events_maybe")
+    percent = models.IntegerField(blank=True)
+    code = models.CharField(max_length=100)
+    from_name = models.CharField(max_length=100)
+    subdomain = models.CharField(max_length=50)
 
     def __unicode__(self):
         return "<Event: %s %s>" % (self.id, self.name)
@@ -70,10 +74,16 @@ class Share(models.Model):
         return Share.objects.filter(parent_shash=self.shash)
 
     def allOffspring(self):
-        """ Returns all of the shares that originated here."""
         list_objs = []
         for obj in self.children():
-            list_objs.expand(obj.allOffspring())
+            list_objs.extend(obj.allOffspringHelper())
+        return list_objs
+
+    def allOffspringHelper(self):
+        """ Returns all of the shares that originated here."""
+        list_objs = [self]
+        for obj in self.children():
+            list_objs.extend(obj.allOffspringHelper())
         return list_objs
 
     def getReach(self):
@@ -88,6 +98,7 @@ class Share(models.Model):
         """ Returns all of the shares that originated here."""
         total = 0
         total = total + self.getReach()
+
         for obj in self.children():
             total = total + obj.totalReach()
         return total
@@ -95,7 +106,7 @@ class Share(models.Model):
     def url(self, request):
         """Returns the url for this share link."""
 
-        if request.session["redirect"].find("shah=") != -1:
+        if request.session["redirect"].find("shash=") != -1:
             path = re.sub("shash=[a-zA-Z0-9_-]+", "shash=" + self.getHash(), request.session["redirect"])
         else:
             path = re.sub("shash=[a-zA-Z0-9_-]+", "shash=" + self.getHash(), request.session["redirect"] + "&shash=12345")

@@ -37,7 +37,6 @@ def event_list(req):
     return render_to_response('list.html', {"events":all_events})
     
 def event_create(req):
-    cur_dir = os.path.join(os.path.dirname(__file__), "..")
     invite_url = util.get_invite_url(req)
     req.session["redirect"] = req.get_full_path()        
 
@@ -61,6 +60,10 @@ def event_create(req):
         image = req.POST["event_image"]
         elat = req.POST["event_lat"]
         elng = req.POST["event_lng"]
+        code = req.POST["code"]
+        percent = req.POST["percent"]
+        from_name = req.POST["from_name"]
+        subdomain = req.POST["subdomain"]
 
         pemail = req.POST["person_email"]
         
@@ -84,18 +87,22 @@ def event_create(req):
                   url=eurl,
                   price=eprice,
                   lat=elat,
-                  lng=elng)
+                  lng=elng,
+                  percent=percent,
+                  code=code,
+                  from_name=from_name,
+                  subdomain=subdomain)
         e.save()
 
-        if not os.path.exists(os.path.join(cur_dir, 'static/images/events/')):
-            os.mkdir(os.path.join(cur_dir, 'static/images/events'))
+        if not os.path.exists(os.path.join(settings.ROOT_PATH, 'static/images/events/')):
+            os.mkdir(os.path.join(settings.ROOT_PATH, 'static/images/events'))
 			
         if image:
-            os.rename(os.path.join(cur_dir, 'static/images/tmp/' + str(user.id) + '_' + image),
-                  	os.path.join(cur_dir, 'static/images/events/' + str(e.id)))
+            os.rename(os.path.join(settings.ROOT_PATH, 'static/images/tmp/' + str(user.id) + '_' + image),
+                  	os.path.join(settings.ROOT_PATH, 'static/images/event_logos/' + str(e.id)))
         else:
-          	shutil.copy(os.path.join(cur_dir, 'static/images/muse.png'),
-                       os.path.join(cur_dir, 'static/images/events/' + str(e.id)))
+          	shutil.copy(os.path.join(settings.ROOT_PATH, 'static/images/muse.png'),
+                       os.path.join(settings.ROOT_PATH, 'static/images/events/' + str(e.id)))
 
         (u, c) = User.objects.get_or_create(username="DEFAULT")
         (invite, created) = Invite.objects.get_or_create(from_user=user,
@@ -107,7 +114,7 @@ def event_create(req):
     dict = {}
     dict["user"] = user
     dict["key"] = settings.GOOGLE_MAP_API
-    dict["zoom"] = 14
+    dict["zoom"] = 2
     dict["invite_url"] = invite_url
     return render_to_response('create.html', dict)
 
@@ -136,34 +143,40 @@ def event_thanks(req, invite_id=""):
     return render_to_response('thanks.html', dict)
 
 def index(req):
-    print "HERE I AM"
-    domain = req.META['HTTP_HOST'].split(".")[0]
-    print "DOMAIN IS", domain
-    if domain == "johnchow":
-        return HttpResponseRedirect(reverse('blogvip_flow') + "?event=1")
-    if domain == "demo":
-        return HttpResponseRedirect(reverse('blogvip_flow') + "?event=2")
-
-    print "COOKIES", req.COOKIES
-    print "KEYS....."
-    for key in req.session.keys():
-        print "KEY", key, req.session[key]
-
-    dict = {}
-    if "uid" in req.session:
-        dict["facebook"] = req.session['uid']
-
-    req.session["redirect"] = req.get_full_path()        
-    if "user_id" not in req.session:
-        print "returning ", dict
-        return render_to_response('index.html', dict)
-
-    
-    user = User.objects.get(id=req.session["user_id"])	
-    req.session["redirect"] = req.get_full_path()
-    dict["user"] = user
-
-    return render_to_response('index.html', dict)
+#    print "HERE I AMMMM"
+#    domain = req.META['HTTP_HOST'].split(".")[0]
+#    print "DOMAIN ISSSS", domain
+#    if domain != "www":
+#        print "HAHAHHA"
+#        events = Events.objects.filter(subdomain=domain)
+#        print "EVENTS", events
+#        event = events[-1]
+#        return HttpResponseRedirect(reverse('blogvip_flow') + "?event=" + str(event.id))
+#    #if domain == "johnchow":
+#    #    return HttpResponseRedirect(reverse('blogvip_flow') + "?event=1")
+#    #if domain == "demo":
+#    #    return HttpResponseRedirect(reverse('blogvip_flow') + "?event=2")
+#
+#    print "COOKIES", req.COOKIES
+#    print "KEYS....."
+#    for key in req.session.keys():
+#        print "KEY", key, req.session[key]
+#
+#    dict = {}
+#    if "uid" in req.session:
+#        dict["facebook"] = req.session['uid']
+#
+#    req.session["redirect"] = req.get_full_path()        
+#    if "user_id" not in req.session:
+#        print "returning ", dict
+#        return render_to_response('index.html', dict)
+#
+#    
+#    user = User.objects.get(id=req.session["user_id"])	
+#    req.session["redirect"] = req.get_full_path()
+#    dict["user"] = user
+#
+    return render_to_response('index.html', {})
 
 def event_details(req, event_id=""):
 
@@ -335,22 +348,11 @@ def blogvip(req, invite_id):
 
 def blogvip_flow(req):
     """ Request handler for blogger discount page."""
-    print "hello world"
     req.session["refer_domain"] = req.META['HTTP_HOST'].split(".")[0]
     invite = None
     event = None
-    if "invite" in req.GET:
-        invite_id = req.GET["invite"]
-
-        req.session["redirect"] = req.get_full_path()
-
-        try:
-            invite = Invite.objects.get(id=invite_id)
-            event = Event.objects.get(id=invite.event_id)
-        except ObjectDoesNotExist:
-            invite = None
-
-    elif not invite and "event" in req.GET:
+    
+    if "event" in req.GET:
         event_id = req.GET["event"]
         req.session["redirect"] = req.get_full_path()
 
@@ -383,9 +385,7 @@ def blogvip_flow(req):
         fbuser = FBUser.objects.get(facebook_id=req.session["uid"])	
         dict['fbuser'] = fbuser
     elif "uid" in req.COOKIES:
-        print "calling sync from blogvip"
         fauth_utils.sync_session_cookies(req)
-        print "FBUSER ID", req.COOKIES["uid"]
         fbuser = FBUser.objects.get(facebook_id=req.COOKIES["uid"])	
         dict['fbuser'] = fbuser
     else:
@@ -397,35 +397,39 @@ def blogvip_flow(req):
     
     dict["event"] = event
     dict['invite_url'] = util.get_invite_url(req)    
-    #dict["from_user"] = User.objects.get(id=invite.from_user_id)
-    #dict["to_user"] = User.objects.get(id=invite.to_users.all()[0].id)
     dict["attendees"] = event.attendees.all()
     dict["map_key"]  = settings.GOOGLE_MAP_API    
-    #dict["created_at"]  = invite.created_at
-    #dict["msg"]  = invite.message
-    #dict['invite_id'] = invite_id
 
-    #if user:
-    #    # if this invite is not for you, don't show page
-    #    to_users = invite.to_users.all()
-    #    print "TO USERS", to_users
-    #    to_user_ids = [u.id for u in to_users]
-    #    to_user_usernames = [u.username for u in to_users]
-    #
-    #    print to_user_ids, to_user_usernames
-    #    if user.id not in to_user_ids and "DEFAULT" not in to_user_usernames: 
-    #        return HttpResponseRedirect(reverse('event_home', kwargs={'event_id'=str(dict["event"].id}))
-    #
-    #    going = False
-    #    for event in user.events_going.all():
-    #        if event.id == dict["event"].id:
-    #            going = True
-    #
-    #    dict['going'] = going
+    event_start = event.event_date_time_start
+    event_end = event.event_date_time_end
+    months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    start_month = months[event_start.month]
+    end_month = months[event_end.month]
+    if start_month == end_month:
+        if str(event_start.day) == str(event_end.day):
+            dict["date_label"] = "%s %s" % (start_month, str(event_start.day))
+        else:
+            dict["date_label"] = "%s %s - %s " % (start_month, str(event_start.day), str(event_end.day))
+    else:
+        dict["date_label"] = "%s %s - %s %s " % (start_month + str(event_start.day), end_month, str(event_end.day))
+
+    dict["time_label"] = event_start.strftime("%I:%M %p %Z").strip("0")
+
+    for image_type in ['.png', '.gif', 'jpg', '.jpeg', ""]:
+        if os.path.exists(os.path.join(settings.ROOT_PATH, 'static/images/event_logos/' + str(event.id) + image_type)):
+            dict["logo"] = str(event.id) + image_type
+            
+    if os.path.exists(os.path.join(settings.ROOT_PATH, 'static/css/event_css/' + str(event.id) + ".css")):
+        dict["css"] = str(event.id) + ".css"
+
 
     print "BLOGVIP FLOW dict", dict
-    return render_to_response('blogvip_flow.html', dict)
-
+    template_path = os.path.join(os.path.dirname(__file__), 'templates/event_templates/' + str(event.id) + ".html")
+    if os.path.exists(template_path):
+        print "using template:", template_path
+        return render_to_response(str(event.id) + '.html', dict)
+    else:
+        return render_to_response("blogvip_flow.html", dict)
 
 def event_home(req, event_id=""):
     req.session["redirect"] = req.get_full_path()
@@ -434,12 +438,6 @@ def event_home(req, event_id=""):
     else:
         e = None
     
-    #if 'refer' in req.GET:
-    #    refer_username = base64.b64decode(req.GET['refer'])
-    #    refer_user = User.objects.get(username=refer_username)	
-    #else:
-    #    refer_user = None
-
     # logged in
     print "here I am ", e, dir(e)
     e.num_attendees = len(e.attendees.all())

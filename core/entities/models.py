@@ -10,6 +10,7 @@ import hashlib
 class AttributeType(models.Model):
     name = models.CharField(max_length=100, default="STRING")
     allowed_values = models.CharField(max_length=100, null=True)
+    description = models.CharField(max_length=300, null=True)
 
     def __unicode__(self):
         return "<AttributeType: %s %s %s>" % (self.id, self.name)

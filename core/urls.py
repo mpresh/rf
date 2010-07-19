@@ -48,17 +48,9 @@ urlpatterns = patterns('',
                        url(r'create/$', 'views.event_create', name='event_create'),
                        url(r'invite/(?P<invite_id>\d+)/$', 'views.invite', name='event_invite'),
                        url(r'blogvip/(?P<invite_id>\d+)/$', 'views.blogvip', name='event_blogvip'),
-                       url(r'blogvip_flow[/]?$', 'views.blogvip_flow', name='event_blogvip_flow'),
+                       url(r'be/?$', 'views.blogvip_flow', name='event_blogvip_flow'),
                        #
-                       #
-                       #url(r'facebook_callback/$', 'facebook_auth.facebook_server_callback', name='facebook_callback'),
-                       url(r'facebook_callback/$', 'fauth.facebook_auth.facebook_callback', name='facebook_callback'),
-                       url(r'facebook_logout_callback/$', 'fauth.facebook_auth.facebook_logout_callback', name='facebook_logout_callback'),
-                       url(r'ajax/facebook_update_feed/$', 'fauth.ajax.update_feed', name='facebook_update_feed'),
-                       url(r'ajax/event_facebook_update/(?P<event_id>\d+)/?$', 'fauth.ajax.event_facebook_update', name='event_facebook_update'),
-                       url(r'ajax/facebook_message/$', 'fauth.ajax.message', name='facebook_message'),
-                       url(r'ajax/facebook_friends/$', 'fauth.ajax.friends', name='facebook_friends'),
-                       #
+                       url(r'^',  include('fauth.urls')),
                        (r'site_media/(?P<path>.*)$', 'django.views.static.serve',
                               {'document_root': settings.MEDIA_ROOT}),
                        

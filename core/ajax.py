@@ -23,13 +23,12 @@ def upload_image(req):
     """Upload an image from the creation page onto server."""
 
     user = User.objects.get(id=req.session["user_id"])
-    cur_dir = os.path.join(os.path.dirname(__file__), "..")
 
-    if not os.path.exists(os.path.join(cur_dir, 'static/images/tmp')):
-        os.mkdir(os.path.join(cur_dir, 'static/images/tmp'))
+    if not os.path.exists(os.path.join(settings.ROOT_PATH, 'static/images/tmp')):
+        os.mkdir(os.path.join(settings.ROOT_PATH, 'static/images/tmp'))
 	
     f = req.FILES['image']
-    destination = open(os.path.join(cur_dir, 
+    destination = open(os.path.join(settings.ROOT_PATH, 
                                     'static/images/tmp/' + str(user.id) + "_" + f.name), 'wb+')
     for chunk in f.chunks():     
         destination.write(chunk)
@@ -173,6 +172,8 @@ def event_tweet_invite(req, event_id=""):
 
     if "shash" in req.GET:
         parent_shash = req.GET["shash"]
+    elif "shash" in req.POST:
+        parent_shash = req.POST["shash"]
     else:
         parent_shash = None
 
@@ -184,6 +185,7 @@ def event_tweet_invite(req, event_id=""):
                   parent_shash=parent_shash,
                   reach=user.get_num_follower_list()
                   )
+    share.save()
 
     share.setHash()
 

@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
-from events.models import Event, Invite
+from events.models import Event
 from tauth.models import User
 from fauth.models import FBUser
 from django.conf import settings
@@ -22,9 +22,10 @@ def frontpage(req):
 
     domain = req.META['HTTP_HOST'].split(".")[0]
     print "DOMAIN IS", domain
-    if domain == "johnchow":
-        return HttpResponseRedirect(reverse('event_blogvip_flow') + "?event=1")
-    if domain == "demo":
-        return HttpResponseRedirect(reverse('event_blogvip_flow') + "?event=2")
+
+    if domain != "www":
+        events = Event.objects.filter(subdomain=domain)
+        event = list(events)[-1]
+        return HttpResponseRedirect(reverse('event_blogvip_flow') + "?event=" + str(event.id))
 
     return render_to_response('frontpage.html', {})

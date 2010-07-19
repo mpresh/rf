@@ -1,7 +1,7 @@
 /*******************************/
 /**** absolute positioning  ****/
 /*******************************/
-#header #invite-button, #header #greeting, #header #dets, #header #attendees, #header #invitemsg, #header #attendees #msg, #header #links, #jclink
+#header #invite-button, #header #greeting, #header #dets, #header #attendees, #header #invitemsg, #header #attendees #msg, #header #links, #user-logo
 {
 	position: absolute;
 }
@@ -89,7 +89,7 @@
     margin-top:7px;
 }
 #detsfooter {
-	background-image: url(../images/look/pbot.png);
+	/* background-image: url(../images/look/pbot.png); */
 	background-repeat: no-repeat;
 	height: 46px;
 }
@@ -177,7 +177,7 @@ img
 	border: 0;
 	text-decoration: none;
 }
-#jclink{
+#user-logo{
 	top: 62px;
 	left: 0px;
 	}

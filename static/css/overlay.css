@@ -45,7 +45,7 @@
 
 .overlay-blogger .overlay-top img{
 	padding-left: 15px;
-	padding-top: 10px;
+	padding-top: 12px;
 	}
 
 
@@ -99,16 +99,6 @@
 //	margin-botom: 5px;
 //}
 
-#overlay-textarea-twitter, #overlay-textarea-facebook {
-	font-family: Arial, Helvetica,sans-serif;
-    color: #444;
-    text-align: left;
-	font-size: 15px;
-	border: 1px solid #ccc;
-	width: 433px;
-	height: 118px;
-	margin-left: 12px;
-}
 #invite-progress{
 	font-size: 12px;
 	float: left;
@@ -265,3 +255,33 @@ Twitter Elements
 		       cursor: pointer;
 }
 
+/* TextAreas */
+/* Character Count styles */	
+
+#overlay-textarea-twitter, #overlay-textarea-facebook {
+	font-family: Arial, Helvetica,sans-serif;
+    color: #444;
+    text-align: left;
+	font-size: 15px;
+	border: 1px solid #ccc;
+	width: 433px;
+	margin-top:18px;
+	height: 100px;
+	margin-left: 12px;
+}
+
+label{
+	display:block;
+	font-size:14px;
+	}
+form div{position:relative;margin:1em 0;}
+.chrcounter{
+	position:absolute;
+	right:14px;
+	top:92px;
+	font-size:20px;
+	font-weight:bold;
+	color:#ccc;
+	}
+.chrwarning{color:#600;}	
+.chrexceeded{color:#e00;}	

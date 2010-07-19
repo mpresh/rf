@@ -100,7 +100,6 @@ def analytics_date_range_reach(req):
         m = "0" + str(dt.month)
         d = "0" + str(dt.day)
         key = str(dt.year) + m[-2:] + d[-2:]
-        print "KEY", key
         bucket_dict[key] = {"twitter" : 0, "facebook" : 0, "datetime": dt}
 
     for share in shares:
@@ -108,18 +107,14 @@ def analytics_date_range_reach(req):
         m = "0" + str(dt.month)
         d = "0" + str(dt.day)
         key = str(dt.year) + m[-2:] + d[-2:]
-        print "key", key
         if key in bucket_dict:
-            print "in bucket"
             if share.from_account_type == "F":
                 bucket_dict[key]["facebook"] =  bucket_dict[key]["facebook"] + share.getReach()
             elif share.from_account_type == "T":
                 bucket_dict[key]["twitter"] =  bucket_dict[key]["twitter"] + share.getReach()
 
-    print "bucket list", bucket_dict
     rows_list = []
     for key in sorted(bucket_dict.keys()):
-        print "KEY", key
         rows_list.append({"c" : [{"v" : str(key)[4:6] + "/" + str(key)[6:]},
                                 # {"v" : bucket_dict[key]["twitter"]},
                                 # {"v" : bucket_dict[key]["facebook"]}]})
@@ -427,7 +422,6 @@ def analytics_data(req):
             page = "http://twitter.com/" + user.username 
             picture = "<img src='" + user.profile_pic + "' />"
 
-
         name_id = str(name) + network
         if name_id  not in user_dict.keys():
             user_dict[name_id] = {"name":name, 
@@ -440,7 +434,6 @@ def analytics_data(req):
                                   "pic" : picture,
                                   "page" : page}
         else:
-            print "yes in"
             user_dict[name_id]["num"] = user_dict[name_id]["num"] + 1
             user_dict[name_id]["child_num_retweet"] = user_dict[name_id]["child_num_retweet"] + len(share.children())
             user_dict[name_id]["total_num_retweet"] = user_dict[name_id]["total_num_retweet"] + len(share.allOffspring())
