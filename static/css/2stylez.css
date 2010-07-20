@@ -1,7 +1,7 @@
 /***** Sticky Footer *********/
 #wrap {min-height: 100%;}
 
-#main {overflow: auto;
+#main {
 	padding-bottom: 300px;}  /* must be same height as the footer */
 
 #footer {position: relative;
