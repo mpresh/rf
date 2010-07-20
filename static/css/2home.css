@@ -1,7 +1,7 @@
 /*******************************/
 /**** absolute positioning  ****/
 /*******************************/
-#header #invite-button, #header #greeting, #header #dets, #header #attendees, #header #invitemsg, #header #attendees #msg, #header #links, #user-logo
+#header #invite-button, #header #greeting, #header #dets, #header #invitemsg, #header #links, #user-logo
 {
 	position: absolute;
 }
@@ -145,19 +145,18 @@ border:1px solid #ccc;
 #header #attendees
 {
 	background-image: url(../images/look/attendees.png);
+	background-repeat: no-repeat;
 	height: 234px;
 	width: 466px;
-	left: -1px;
-	top: 476px;
 	overflow: auto;
+	margin-top: 465px;
 }
 #header #attendees #msg
 {
 	font-weight: bold;
 	color: #444;
 	font-size: 15px;
-	left: 24px;
-	top: 20px;
+	margin: 20px 0 0 22px;
 	overflow: auto;
 }
 #content
