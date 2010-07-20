@@ -17,14 +17,16 @@
 <link rel="stylesheet" href="{% url static 'css/jquery.ptTimeSelect.css' %}" type="text/css" >	
 <link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="Stylesheet" />
 
-
+ 	<link rel="stylesheet" href="{% url static 'css/create.css' %}" type="text/css" >
+	
 {% endblock %} 
 
 {% block title %}Create{% endblock %}
 
 {% block content %}
 <BR><BR><BR><BR>
-<h1><font size=18px>Create Event</font></h1>
+<div id="create-event">
+<h1>Create Event</h1>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
@@ -125,7 +127,7 @@
   <br />
 <input type="submit" value="Create Event" />
 </form>
-
+</div>
 
 <script>
 function initialize() {

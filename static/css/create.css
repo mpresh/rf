@@ -1,0 +1,38 @@
+div#create-thanks {
+
+		  position: relative;
+		  top: 170px;
+		  left: 30px;
+}
+
+div#create-thanks p{
+
+		  font-size: 30px;
+		  margin: 65px 0px 140px 40px;
+		  color: white;
+
+}
+
+div#create-event {
+		  position: relative;
+		  top: 185px;
+		  left: 70px;
+}
+
+div#create-event h1 {
+
+		  font-size: 45px;
+		  margin: 0px 0px 40px 0px;
+		  color: white;
+
+}
+
+
+div#create-event li {
+		 margin: 30px;
+}
+
+div#create-event label {
+		 font-size: 18px;
+		 font-weight: bold;
+}
