@@ -174,27 +174,29 @@
                                   formatter.format(json_data, [7]);
 				  var view = new google.visualization.DataView(json_data);
 				  view.hideColumns([2,3,8,6,5]);
-
+				  
 				  // Render Table
-				  var options = [];
+				  var options = {};
 				  options['page'] = 'enable';
 				  options['pageSize'] = 10;
 				  options['allowHtml'] = true;
 				  options['cssClassNames'] = cssClassNames;
+                                  
 				  data_table.draw(view, options);
-					
+				  data_table.draw(view, options);
+	                          	
 				  // Setup Listener
 				  google.visualization.events.addListener(data_table, 'select', function() {
 				       var row = data_table.getSelection()[0].row;
 				       showUserData(json_data.getValue(row, 0),
 				                    json_data.getValue(row, 1),
-						    json_data.getValue(row, 2),
-						    json_data.getValue(row, 3),
-						    json_data.getValue(row, 4),
-						    json_data.getValue(row, 5),
-						    json_data.getValue(row, 6),
-						    json_data.getValue(row, 7),
-						    json_data.getValue(row, 8)
+				  		    json_data.getValue(row, 2),
+				  		    json_data.getValue(row, 3),
+				  		    json_data.getValue(row, 4),
+				  		    json_data.getValue(row, 5),
+				  		    json_data.getValue(row, 6),
+				  		    json_data.getValue(row, 7),
+				  		    json_data.getValue(row, 8)
 				       );
 			          });
 
