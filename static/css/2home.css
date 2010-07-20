@@ -9,10 +9,9 @@
 {
 	background-image: url(../images/look/body-bg.png);
 }
-#header
-, #header #f
+#header, #header #f
 {
-	height: 616px;
+/*	height: 616px; */
 	position: relative;
 }
 #header #f
