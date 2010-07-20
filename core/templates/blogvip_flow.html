@@ -239,7 +239,7 @@ $(document).ready(function() {
 				{% else %} 	
 
                                 // if fbuser logged in
-                                {% if fbuser and overlayTrue %}
+                                {% if fbuser %}
                                     contentView = 2;
 				    $('#overlay-div-content1').hide(); 
 			            $('#overlay-div-content2-facebook').show(); 
@@ -248,7 +248,7 @@ $(document).ready(function() {
                                 {% else %} 	
 
                                 // if fbuser logged in
-                                {% if user and overlayTrue %}
+                                {% if user  %}
                                     contentView = 2;
 				    $('#overlay-div-content1').hide(); 
 			            $('#overlay-div-content2-facebook').hide(); 
@@ -312,7 +312,7 @@ $(document).ready(function() {
                                     }
                 });
 
-		{% if overlay %}
+		{% if overlay or overlayTrue or overlayFacebook or overlayTwitter%}
 		$("#invite_button").overlay().load();
 		{% endif %}
 
@@ -426,7 +426,6 @@ $(document).ready(function() {
 
 
 	$('.logoutnow').click(function() {
-alert("loggin out face");
 		var options = { path: '/', expires: -1 };
 		$.cookie("uid", null, options);
 		$.cookie("session_key", null, options);
@@ -439,7 +438,6 @@ alert("loggin out face");
         FB.getLoginStatus(function(response) {
         	if (response.session) {	
 				FB.logout(function(response) { 
-                       alert("facebook logout refresh");
 					//$.get('{% url facebook_logout_callback %}', function(data) {
 						//	$("#overlay-div-facebook-login").html("<a href='#'><img id='facebook-login' src='{%url static 'images/Facebook-Button.png' %}/></a>");
 						//	$("#overlay-div-facebook-login").click(function(){
@@ -451,7 +449,6 @@ alert("loggin out face");
 					});
 				}
 			else{
-			alert("logged out");
 			window.location.href = "{% url facebook_logout_callback %}?redirectArgs=overlayEQUALStrue";
             }
         });

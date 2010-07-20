@@ -53,7 +53,7 @@ def login(req):
 
 	if "redirectArgs" in req.GET:
 		print "calling handle_redirect_string", type(req.session["redirect"])
-		redirect = handle_redirect_string(req.session["redirect"], req.GET["redirectArgs"])
+		req.session["redirect"] = handle_redirect_string(req.session["redirect"], req.GET["redirectArgs"])
 
 	if req.user: 
 		print "login redirect:", req.session['redirect']
@@ -61,7 +61,11 @@ def login(req):
 		del req.session["redirect"]
 		return HttpResponseRedirect(redirect)
 
-	token = get_unauthorized_token()
+	print "ABOUT TO: get_unauthorized_roken"
+	try:
+		token = get_unauthorized_token()
+	except:
+		HttpResponseRedirect(reverse("tauth_login"))
 	print "unauthorized token", token
 	req.session['token'] = token.to_string()
 	url_auth = get_authorization_url(token)
@@ -147,7 +151,7 @@ def logout(req):
 
 	print "REDIRECTS", redirect
 	if "redirectArgs" in req.GET:
-		redirect = handle_redirect_string(req.session["redirect"], req.GET["redirectArgs"])
+		redirect = handle_redirect_string(redirect, req.GET["redirectArgs"])
 
 	if req.user is not None:
 		req.user.oauth_token = ''
