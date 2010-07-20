@@ -64,7 +64,7 @@
 			<!--<button class="logoutnow">LOGOUT</button>-->
 			<fb:profile-pic id="facebook-profile-image" height="45px" width="45px" uid={{fbuser.facebook_id}} linked="false" ></fb:profile-pic> 
 			<br/>
-			<a class="logoutnow" href="" style="text-decoration:underline;">logout</a>
+			<div class="logoutnow" href="" style="text-decoration:underline;">logout</div>
 			{% else %}
 			<img id="facebook-login" src="{% url static 'images/facebook-button.png' %}"/>
 			{% endif %}
@@ -78,7 +78,7 @@
 			<br/>
 			<a href="{% url tauth_logout %}?redirectArgs=overlayEQUALStrue" style="text-decoration:underline;">logout</a>
 			{% else %}
-			<a href="{% url tauth_login %}?redirectArgs=overlayEQUALStrue"><img id="twitter-login" src="{% url static 'images/twitter-button.png' %}" /></a><br/><br/>
+			<a href="{% url tauth_login %}?redirectArgs=overlayEQUALStwitter"><img id="twitter-login" src="{% url static 'images/twitter-button.png' %}" /></a><br/><br/>
 			{% endif %}
 		</div>
 
@@ -210,17 +210,9 @@ $(document).ready(function() {
 				opacity: 0.8
 			},
 			onLoad: function(event) {
-				// show first view with facebook and twitter login buttons
-				{% if not user and not fbuser %}
-                                    contentView = 1;
-				    $('#overlay-div-content1').show(); 
-				    $('#overlay-div-content2-facebook').hide(); 
-				    $('#overlay-div-content2-twitter').hide();
-				    $('#overlay-div-content3').hide();
-				{% else %} 	
-                                
+                    
                                 // if twitter user logged in, show twitter page
-                                {% if user %}
+                                {% if user and overlayTwitter %}
                                     contentView = 2;
 				    $('#overlay-div-content1').hide(); 
 			            $('#overlay-div-content2-facebook').hide(); 
@@ -229,12 +221,42 @@ $(document).ready(function() {
 				{% else %} 	
 
                                 // if fbuser logged in
-                                {% if fbuser %}
+                                {% if fbuser and overlayFacebook %}
                                     contentView = 2;
 				    $('#overlay-div-content1').hide(); 
 			            $('#overlay-div-content2-facebook').show(); 
 			            $('#overlay-div-content2-twitter').hide();
 			            $('#overlay-div-content3').hide();	
+                                {% else %} 
+	
+                                // show first view with facebook and twitter login buttons
+				{% if not user and not fbuser %}
+                                    contentView = 1;
+				    $('#overlay-div-content1').show(); 
+				    $('#overlay-div-content2-facebook').hide(); 
+				    $('#overlay-div-content2-twitter').hide();
+				    $('#overlay-div-content3').hide();
+				{% else %} 	
+
+                                // if fbuser logged in
+                                {% if fbuser and overlayTrue %}
+                                    contentView = 2;
+				    $('#overlay-div-content1').hide(); 
+			            $('#overlay-div-content2-facebook').show(); 
+			            $('#overlay-div-content2-twitter').hide();
+			            $('#overlay-div-content3').hide();	
+                                {% else %} 	
+
+                                // if fbuser logged in
+                                {% if user and overlayTrue %}
+                                    contentView = 2;
+				    $('#overlay-div-content1').hide(); 
+			            $('#overlay-div-content2-facebook').hide(); 
+				    $('#overlay-div-content2-twitter').show();
+			            $('#overlay-div-content3').hide();
+				    
+                                {% endif %}
+				{% endif %}
 				{% endif %}
 				{% endif %}
   		                {% endif %}
@@ -291,9 +313,7 @@ $(document).ready(function() {
                 });
 
 		{% if overlay %}
-	
 		$("#invite_button").overlay().load();
-		
 		{% endif %}
 
 		FB.init({appId: '{{fbappid}}', status: true, cookie: true, xfbml: true});
@@ -406,6 +426,7 @@ $(document).ready(function() {
 
 
 	$('.logoutnow').click(function() {
+alert("loggin out face");
 		var options = { path: '/', expires: -1 };
 		$.cookie("uid", null, options);
 		$.cookie("session_key", null, options);
@@ -418,7 +439,7 @@ $(document).ready(function() {
         FB.getLoginStatus(function(response) {
         	if (response.session) {	
 				FB.logout(function(response) { 
-                       //alert("facebook logout refresh");
+                       alert("facebook logout refresh");
 					//$.get('{% url facebook_logout_callback %}', function(data) {
 						//	$("#overlay-div-facebook-login").html("<a href='#'><img id='facebook-login' src='{%url static 'images/Facebook-Button.png' %}/></a>");
 						//	$("#overlay-div-facebook-login").click(function(){
@@ -429,8 +450,9 @@ $(document).ready(function() {
 						//});
 					});
 				}
-			else{	
-                window.location.href = "{% url facebook_logout_callback %}?redirectArgs=overlayEQUALStrue";
+			else{
+			alert("logged out");
+			window.location.href = "{% url facebook_logout_callback %}?redirectArgs=overlayEQUALStrue";
             }
         });
 	});

@@ -10,6 +10,8 @@ from decorators import wants_user, needs_user
 import simplejson as json
 import urllib
 from django.utils.functional import lazy
+from pylib.util import handle_redirect_string
+
 reverse_lazy = lazy(reverse, unicode)
 
 @needs_user(reverse('tauth_login'))
@@ -45,30 +47,20 @@ def tauth_info(req):
 
 @wants_user
 def login(req):
-	pass
+	print "ENTERING LOGIN"
 	if 'redirect' not in req.session:
-		req.session['redirect'] = reverse('index')
+		req.session['redirect'] = str(reverse('index'))
 
 	if "redirectArgs" in req.GET:
-		redirectargs_list = req.GET["redirectArgs"].split("AND")
-		redirect_string = ""
-		for param in redirectargs_list:
-			(key, value) = param.split("EQUALS")
-			redirect_string += key + "=" + value + "&" 
-		if redirect_string:
-			redirect_string = redirect_string[:-1]
-
-		if req.session["redirect"].find("?") != -1:
-			if req.session["redirect"].find(redirect_string) == -1:
-				req.session["redirect"] = req.session["redirect"] + "&" + redirect_string
-		else:
-			req.session["redirect"] = req.session["redirect"] + "?" + redirect_string
+		print "calling handle_redirect_string", type(req.session["redirect"])
+		redirect = handle_redirect_string(req.session["redirect"], req.GET["redirectArgs"])
 
 	if req.user: 
 		print "login redirect:", req.session['redirect']
 		redirect = req.session['redirect']
 		del req.session["redirect"]
 		return HttpResponseRedirect(redirect)
+
 	token = get_unauthorized_token()
 	print "unauthorized token", token
 	req.session['token'] = token.to_string()
@@ -80,35 +72,35 @@ def login(req):
 	return HttpResponseRedirect(url_auth)
 
 def callback(req):
+	print "ENTERING CALLBACK"
 	token = req.session.get('token', None)
 	#token = req.GET["oauth_token"]
 	print "token is ", token
 	if not token:
-		print "am I here"
-		return render_to_response('callback.html', {
-			'token': True
-		})
+		print "TWITTER FAIL: NO TOKEN FOUND IN SESSION DURING CALLBACK"
+		return HttpResponseRedirect(reverse('tauth_login'))
 
 	token = oauth.OAuthToken.from_string(token)
-	print "AM I HERE!!", token
+	print "Token is  after oauth.OAuthToken.from_string(token)", token
 
 	if token.key != req.GET.get('oauth_token', 'no-token'):
-		return render_to_response('callback.html', {
-			'mismatch': True
-		})
+		print "TWITTER FAIL: token.key doesn't match oauth token. Login again."
+		return HttpResponseRedirect(reverse('tauth_login'))
+
 	print "get authorized token!", token
 	token = get_authorized_token(token)
+	print "RETURN FROM get_authorized_token", token
 
 	if token is None:
+		print "TWITTER FAIL: get_authorized_token(token) is None."
 		return HttpResponseRedirect(reverse('tauth_login'))
 
 	print "TOKEN MATCHES", token
 	# Actually login
 	obj = is_authorized(token)
 	if obj is None:
-		return render_to_response('callback.html', {
-			'username': True
-		})
+		print "TWITTER FAIL: is_authorized(token) is None."
+		return HttpResponseRedirect(reverse('tauth_login'))
 
 	try: 
 		user = User.objects.get(username=obj['screen_name'])
@@ -155,19 +147,7 @@ def logout(req):
 
 	print "REDIRECTS", redirect
 	if "redirectArgs" in req.GET:
-		redirectargs_list = req.GET["redirectArgs"].split("AND")
-		redirect_string = ""
-		for param in redirectargs_list:
-			(key, value) = param.split("EQUALS")
-			redirect_string += key + "=" + value + "&"
-		print "REDIRECT STRING", redirect_string
-		if redirect_string:
-			redirect_string = redirect_string[:-1]
-		if redirect.find("?") != -1:
-			if redirect.find(redirect_string) == -1:
-				redirect = redirect + "&" + redirect_string
-		else:
-			redirect = redirect + "?" + redirect_string
+		redirect = handle_redirect_string(req.session["redirect"], req.GET["redirectArgs"])
 
 	if req.user is not None:
 		req.user.oauth_token = ''

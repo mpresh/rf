@@ -90,7 +90,7 @@ function facebook_login_click() {
       $.cookie("sig", a.sig, options);
   
 
-      var url = "/facebook_callback?redirectArgs=overlayEQUALStrue";
+      var url = "/facebook_callback?redirectArgs=overlayEQUALSfacebook";
       window.location.href = url;
   } else {
   }

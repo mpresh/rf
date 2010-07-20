@@ -366,6 +366,13 @@ def blogvip_flow(req):
     
     if "overlay" in req.GET:
         dict["overlay"] = True
+        if req.GET["overlay"] == "facebook":
+            dict["overlayFacebook"] = True
+        elif req.GET["overlay"] == "twitter":
+            dict["overlayTwitter"] = True    
+        elif req.GET["overlay"] == "true":
+            dict["overlayTrue"] = True    
+
 
     if "shash" in req.GET:
         dict["shash"] = req.GET["shash"]

@@ -16,6 +16,7 @@ import socket
 import datetime
 import util
 import fauth_utils
+from pylib.util import handle_redirect_string
 
 def facebook_callback(req):
 
@@ -50,24 +51,11 @@ def facebook_callback(req):
         redirect = req.session['redirect']
 
     if "redirectArgs" in req.GET:
-        redirectargs_list = req.GET["redirectArgs"].split("AND")
-        redirect_string = ""
-        for param in redirectargs_list:
-            (key, value) = param.split("EQUALS")
-            redirect_string += key + "=" + value + "&" 
-        if redirect_string:
-            redirect_string = redirect_string[:-1]
-    
-        if redirect.find("?") != -1:
-            if redirect.find(redirect_string) == -1:
-                redirect = redirect + "&" + redirect_string
-        else:
-            redirect = redirect + "?" + redirect_string
+        redirect = handle_redirect_string(redirect, req.GET["redirectArgs"])
 
     return HttpResponseRedirect(redirect)
 
 def facebook_logout_callback(req):
-    print "LOGOUT"
     if "access_token" in req.session:
         del req.session['access_token']
         del req.session['base_domain']
@@ -92,20 +80,7 @@ def facebook_logout_callback(req):
         redirect = req.build_absolute_uri()
 
     if "redirectArgs" in req.GET:
-        redirectargs_list = req.GET["redirectArgs"].split("AND")
-        redirect_string = ""
-        for param in redirectargs_list:
-            (key, value) = param.split("EQUALS")
-            redirect_string += key + "=" + value + "&" 
-        if redirect_string:
-            redirect_string = redirect_string[:-1]
-
-        if redirect.find("?") != -1:
-            if redirect.find(redirect_string) == -1:
-                redirect = redirect + "&" + redirect_string
-        else:
-            redirect = redirect + "?" + redirect_string
-
+        redirect = handle_redirect_string(redirect, req.GET["redirectArgs"])
 
     print "SESSION KEYS"
     for key in req.session.keys():
