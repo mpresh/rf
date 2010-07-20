@@ -19,7 +19,7 @@ class Event(models.Model):
     lng = models.DecimalField(max_digits=10, decimal_places=4, blank=True)
     url = models.URLField(verify_exists=True, blank=True)
     image = models.URLField(blank=True)
-    organizer = models.ForeignKey(User, related_name="events_organized")
+    organizer = models.ForeignKey(User, related_name="events_organized", null=True)
     attendees = models.ManyToManyField(User, related_name="events_going")
     attendees_maybe = models.ManyToManyField(User, related_name="events_maybe")
     percent = models.IntegerField(blank=True)

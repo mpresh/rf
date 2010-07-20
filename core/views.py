@@ -37,14 +37,14 @@ def event_list(req):
     return render_to_response('list.html', {"events":all_events})
     
 def event_create(req):
+    dict = {}
     invite_url = util.get_invite_url(req)
     req.session["redirect"] = req.get_full_path()        
 
-    if "user_id" not in req.session:
-        return HttpResponseRedirect(reverse('tauth_login'))
+    #if "user_id" not in req.session:
+    #    return HttpResponseRedirect(reverse('tauth_login'))
 
-    user = User.objects.get(id=req.session["user_id"])
-
+    user = None
     if "event_name" in req.POST and req.POST['event_name'] != "":
         ename = req.POST["event_name"]
         start_date = req.POST["event_date_start"]
@@ -67,9 +67,12 @@ def event_create(req):
 
         pemail = req.POST["person_email"]
         
-        user = User.objects.get(id=req.session["user_id"])
-        user.email = pemail
-        user.save()
+        if "user_id" in req.session:
+            user = User.objects.get(id=req.session["user_id"])
+            dict["user"] = user
+            if pemail:
+                user.email = pemail
+                user.save()
 
         start_dt = datetime.datetime.strptime(start_date.strip() + " " + start_time.strip(), 
                                      "%m/%d/%Y %I:%M %p")
@@ -83,7 +86,6 @@ def event_create(req):
                   capacity=ecapacity,
                   venue=evenue,
                   venue_address=eaddress,
-                  organizer_id=user.id,
                   url=eurl,
                   price=eprice,
                   lat=elat,
@@ -92,7 +94,13 @@ def event_create(req):
                   code=code,
                   from_name=from_name,
                   subdomain=subdomain)
+        
+        if user:
+            print "AM I HERE"
+            e.organizer_id=user.id,
         e.save()
+
+        
 
         if not os.path.exists(os.path.join(settings.ROOT_PATH, 'static/images/events/')):
             os.mkdir(os.path.join(settings.ROOT_PATH, 'static/images/events'))
@@ -103,43 +111,28 @@ def event_create(req):
         else:
           	shutil.copy(os.path.join(settings.ROOT_PATH, 'static/images/muse.png'),
                        os.path.join(settings.ROOT_PATH, 'static/images/events/' + str(e.id)))
-
-        (u, c) = User.objects.get_or_create(username="DEFAULT")
-        (invite, created) = Invite.objects.get_or_create(from_user=user,
-                                                         event=e)
-        invite.to_users.add(u)
         
-        return HttpResponseRedirect(reverse('event_thanks', kwargs={'invite_id' : invite.id}))
+        return HttpResponseRedirect(reverse('event_thanks', kwargs={'event_id' : e.id}))
 	
-    dict = {}
-    dict["user"] = user
+    
     dict["key"] = settings.GOOGLE_MAP_API
     dict["zoom"] = 2
     dict["invite_url"] = invite_url
     return render_to_response('create.html', dict)
 
-def event_thanks(req, invite_id=""):
+def event_thanks(req, event_id=""):
     req.session["redirect"] = req.get_full_path()
-    if "user_id" not in req.session:
-        return HttpResponseRedirect(reverse('tauth_login'))
+    #if "user_id" not in req.session:
+    #    return HttpResponseRedirect(reverse('tauth_login'))
 
     dict = {}
-    user = User.objects.get(id=req.session["user_id"])	
-    dict["user"] = user
+    if "user_id" in req.session:
+        user = User.objects.get(id=req.session["user_id"])	
+        dict["user"] = user
 
-    if invite_id:
-        invite = Invite.objects.get(id=invite_id)
-        dict["invite"] = invite
-        dict["from_user"] = User.objects.get(id=invite.from_user_id)
-        dict["to_user"] = User.objects.get(id=invite.to_users.all()[0].id)
-        dict["event"] = Event.objects.get(id=invite.event_id)
+    if event_id:
+        dict["event"] = Event.objects.get(id=event_id)
 
-    if dict["from_user"].id != user.id:
-        return HttpResponseRedirect(reverse('index'))
-    if dict["event"].organizer_id != user.id:
-        return HttpResponseRedirect(reverse('index'))
-
-    dict["invite_url"] = util.get_invite_url(req) + str(invite.id)
     return render_to_response('thanks.html', dict)
 
 def index(req):

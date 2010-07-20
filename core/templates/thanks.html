@@ -1,8 +1,12 @@
 {% extends "event_base.html" %}
+	{% block  js_css_include %}
+ 	<link rel="stylesheet" href="{% url static 'css/create.css' %}" type="text/css" >
+	{% endblock %}
 
 {% block title %}Event Created, Thanks{% endblock %}
 
 {% block content %}
+<div id="create-thanks">
 <p>Event Created, Thanks..</p>
 
 {% if event %}
@@ -16,8 +20,8 @@ Venue: {{event.venue }} <br />
 Venue Address: {{event.venue_address}} <br />
 Organizer: {{event.organizer_id}} <br />
 
-URL: <a href="{{invite_url}}">{{invite_url}}</a>
+Admin Url: <a href='{% url analytics %}?event={{event.id}}'>Admin Analytics</a>
 
 {% endif %}
-
+</div>
 {% endblock %}

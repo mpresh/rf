@@ -1,5 +1,6 @@
 <div class="span-19">&nbsp;</div>
 
+
 {% block login%}
 {% if user %}
 <div class="logout"><a href="{% url tauth_logout %}">logout, {{user.username}} <img src="{{user.profile_pic}}" /></a></div>
@@ -7,6 +8,6 @@
 <div class="logout"><a href="{% url tauth_login %}"><img src="{% url static 'images/twitter_button_5_lo.gif' %}" /></a><br/><br/></div>
 {% endif %}
 {% endblock %}
-</div>
+
 
 
