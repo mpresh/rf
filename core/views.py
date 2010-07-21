@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
-from events.models import Event, Invite
+from events.models import Event
 from tauth.models import User
 from fauth.models import FBUser
 from django.conf import settings
@@ -186,9 +186,6 @@ def event_details(req, event_id=""):
         dict['attendees'] = e.attendees.all()
         dict['attendees_maybe'] = e.attendees_maybe.all()
             
-        invites = Invite.objects.filter(event=e.id)
-        dict['invites'] = invites
-
         return render_to_response('details.html', dict)
 	
     return render_to_response('details.html', dict)
@@ -216,15 +213,10 @@ def user_details(req, user_id=""):
 
     return render_to_response('user.html', dict)    
 
-def invite(req, invite_id):
+def invite(req):
     req.session["redirect"] = req.get_full_path()
     invite = None
-    if invite_id:
-        try:
-            invite = Invite.objects.get(id=invite_id)
-        except ObjectDoesNotExist:
-            invite = None
-
+    
     dict = {}
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])	
@@ -264,80 +256,6 @@ def invite(req, invite_id):
         dict['going'] = going
         
     return render_to_response('invite.html', dict)
-
-def blogvip(req, invite_id):
-    for key in req.GET.keys():
-        print "KEY GET", key, req.GET[key]
-
-    for key in req.session.keys():
-        print "KEY SESSION", key, req.session[key]
-
-    for key in req.COOKIES.keys():
-        print "KEY COOKIE", key, req.COOKIES[key]
-
-    req.session["redirect"] = req.get_full_path()
-    invite = None
-    if invite_id:
-        try:
-            invite = Invite.objects.get(id=invite_id)
-        except ObjectDoesNotExist:
-            invite = None
-
-    dict = {}
-    if "overlay" in req.GET:
-        dict["overlay"] = True
-
-    if "user_id" in req.session:
-        user = User.objects.get(id=req.session["user_id"])	
-        dict['user'] = user
-    else:
-        user = None
-
-    if "uid" in req.session:
-        print "FBUSER ID", req.session["uid"]
-        fbuser = FBUser.objects.get(facebook_id=req.session["uid"])	
-        dict['fbuser'] = fbuser
-    elif "uid" in req.COOKIES:
-        print "calling sync from blogvip"
-        fauth_utils.sync_session_cookies(req)
-        print "FBUSER ID", req.COOKIES["uid"]
-        fbuser = FBUser.objects.get(facebook_id=req.COOKIES["uid"])	
-        dict['fbuser'] = fbuser
-    else:
-        fbuser = None
-
-    if not invite:
-        return render_to_response('404.html', dict)
-    
-    dict["event"] = Event.objects.get(id=invite.event_id)
-    dict['invite_url'] = util.get_invite_url(req)    
-    dict["from_user"] = User.objects.get(id=invite.from_user_id)
-    dict["to_user"] = User.objects.get(id=invite.to_users.all()[0].id)
-    dict["attendees"] = invite.event.attendees.all()
-    dict["map_key"]  = settings.GOOGLE_MAP_API    
-    dict["created_at"]  = invite.created_at
-    dict["msg"]  = invite.message
-    dict['invite_id'] = invite_id
-
-    if user:
-        # if this invite is not for you, don't show page
-        to_users = invite.to_users.all()
-        print "TO USERS", to_users
-        to_user_ids = [u.id for u in to_users]
-        to_user_usernames = [u.username for u in to_users]
-
-        print to_user_ids, to_user_usernames
-        if user.id not in to_user_ids and "DEFAULT" not in to_user_usernames: 
-            return HttpResponseRedirect(reverse('event_home', kwargs={"event_id":dict["event"].id}))
-
-        going = False
-        for event in user.events_going.all():
-            if event.id == dict["event"].id:
-                going = True
-
-        dict['going'] = going
-        
-    return render_to_response('blogvip.html', dict)
 
 def blogvip_flow(req):
     """ Request handler for blogger discount page."""
@@ -476,7 +394,6 @@ def event_home(req, event_id=""):
             dict['going'] = going
             dict['attendees'] = e.attendees.all()
             dict['invite_url'] = invite_url
-            #dict['invite_id'] = Invite.objects.get(event_id=e.id, from_user_id=user.id)
             return render_to_response('invite.html', dict) 
                                       
         else:

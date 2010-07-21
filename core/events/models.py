@@ -3,6 +3,7 @@ from pylib import oauth
 import re, httplib, simplejson
 from core.tauth.models import User
 from core.fauth.models import FBUser
+from core.campaign.models import Campaign
 import re
 import hashlib
 
@@ -19,27 +20,33 @@ class Event(models.Model):
     lng = models.DecimalField(max_digits=10, decimal_places=4, blank=True)
     url = models.URLField(verify_exists=True, blank=True)
     image = models.URLField(blank=True)
-    organizer = models.ForeignKey(User, related_name="events_organized", null=True)
     attendees = models.ManyToManyField(User, related_name="events_going")
     attendees_maybe = models.ManyToManyField(User, related_name="events_maybe")
-    percent = models.IntegerField(blank=True)
-    code = models.CharField(max_length=100)
-    from_name = models.CharField(max_length=100)
-    subdomain = models.CharField(max_length=50)
+    campaign = models.ForeignKey(Campaign, related_name="events", null=True)
+    ehash = models.CharField(max_length=100, default="", null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    organizer = models.ForeignKey(User, related_name="events_organized", null=True)
 
     def __unicode__(self):
         return "<Event: %s %s>" % (self.id, self.name)
    
-class Invite(models.Model):
-    message = models.CharField(max_length=140, default="")
-    from_user = models.ForeignKey(User, related_name="made_invites")
-    to_users = models.ManyToManyField(User, related_name="received_invites", null=True)
-    event = models.ForeignKey(Event, related_name="invitations")
-    from_invite = models.ForeignKey('self', related_name="invite_children", default=None, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    
-    def __unicode__(self):
-        return "<Invite: %s>" % (self.id)
+    def getHash(self):
+        """Gets ehash for this event. If it's not set, compute it and then return it."""
+        if self.ehash:
+            return self.ehash
+        else:
+            self.setHash()
+        return self.ehash
+
+    def setHash(self):
+        """Computes and sets hash for current Event."""
+        ehash_string = str(self.name) + str("EVENT") + str(self.created_at)
+        ehash = eashlib.sha1()
+        ehash.update(chash_string)
+
+        self.ehash = chash.hexdigest()
+        self.save()
+
 
 class Share(models.Model):
     ACCOUNT_CHOICES = (

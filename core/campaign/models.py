@@ -2,7 +2,6 @@ from django.db import models
 
 from core.tauth.models import User
 from core.fauth.models import FBUser
-from core.events.models import Event
 
 class Campaign(models.Model):
     
@@ -18,7 +17,10 @@ class Campaign(models.Model):
     min_people = models.IntegerField(blank=True, default=0, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     message = models.CharField(max_length=300)
-
+    from_name = models.CharField(max_length=100)
+    subdomain = models.CharField(max_length=50)
+    campaign_type = models.CharField(max_length=50)
+    
     def __unicode__(self):
         return "<Campaign: %s %s>" % (self.id, self.name)
 

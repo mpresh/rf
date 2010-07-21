@@ -6,8 +6,10 @@
 	<script type="text/javascript" src="{% url static 'javascript/jquery.timePicker.js' %}"> </script>
 	<script type="text/javascript" src="{% url static 'javascript/ajaxfileupload.js' %}"> </script>
 	<script type="text/javascript" src="{% url static 'javascript/jquery.uploadify.js' %}"> </script>
+	<script type="text/javascript" src="{% url static 'javascript/jquery.validate.js' %}"> </script>
 	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key={{key}}"
         type="text/javascript"></script> 
+<script type="text/javascript" src="{% url static 'javascript/myjscript.js' %}"> </script>
 
 
 	<link rel="stylesheet" href="{% url static 'css/calendar-system.css' %}" type="text/css" >
@@ -25,7 +27,7 @@
 <BR><BR><BR><BR>
 
 <div id="choose-create-entity" class="create">
-<p>Create Campaign</p>
+<h1>Create Campaign</h1>	
 <select id="choose_campaign">
   <option value="">Select One</option>
   <option value="event">Event</option>
@@ -36,294 +38,541 @@
 </div>
 
 <div id="create-event" class="create">
-<h1>Create Event</h1>
+	<h1>Event Details</h1>
 
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
-<form id="createForm" action="{% url event_create %}" method="post">
-  <ul>
-    <li>
-		<label for="event_name">Event Name: </label> 
-		<input type="text" name="event_name" id="event_name" value="BLOG WORLD 2010" class="required" />
-	</li>
+	<form id="create-event-form" action="{% url event_create %}" method="post">
+  		<ul>
+    	 	<input type="hidden" value="event" name="campaign_type" ></input>
+    		<li>
+				<label for="event_name">Event Name: </label> 
+				<input type="text" name="event_name" id="event_name" value="BLOG WORLD 2010" class="required" />
+			</li>
 	
-    <li>
-      <label for="event_date_start">Event Start Date: </label> 
-      <input type="text" name="event_date_start" size="12" id="event_date_start" value="06/16/2010" class="required" />
-      
-      <label for="event_time_start">Time: </label> 
-      <input type="text" name="event_time_start" size="8" id="event_time_start" value="12:30 AM" class="required"/>
-    </li>
+    		<li>
+      			<label for="event_date_start">Event Start Date: </label> 
+      			<input type="text" name="event_date_start" size="12" id="event_date_start" value="06/16/2010" class="required" />
+      			&nbsp;&nbsp;&nbsp;&nbsp;
+      			<label for="event_time_start">Time: </label> 
+      			<input type="text" name="event_time_start" size="8" id="event_time_start" value="12:30 AM" class="required"/>
+    		</li>
 
-    <li>
-      <label for="event_date_end">Event End Date: </label> 
-      <input type="text" name="event_date_end" size="12" id="event_date_end" value="06/16/2010" class="required" />
-          
-      <label for="event_time_end">Time: </label> 
-      <input type="text" size="8" name="event_time_end" id="event_time_end" value="12:30 PM" class="required"/>
-    </li>
+    		<li>
+      			<label for="event_date_end">Event End Date: </label> 
+      			<input type="text" name="event_date_end" size="12" id="event_date_end" value="06/16/2010" class="required" />
+      			&nbsp;&nbsp;&nbsp;&nbsp;          
+      			<label for="event_time_end">Time: </label> 
+      			<input type="text" size="8" name="event_time_end" id="event_time_end" value="12:30 PM" class="required"/>
+    		</li>
 
-    <li>
-		<label for="event_capacity">Target # of Invites: </label> 
-		<input type="text" class="digits" value="100" name="event_capacity" />
-	</li>
+    		<li>
+				<label for="event_capacity">Target # of Invites: </label> 
+				<input type="text" class="digits" value="100" name="event_capacity" />
+			</li>
 	
-<div id="stuff_container">
-    <div id="address_container">
-    <li>
-		<label for="event_venue">Event Venue: 
-		</label> <input type="text" value="Mandalay Bay Convention Center" name="event_venue" />
-	</li>
+			<div id="stuff_container">
+    			<div id="address_container">
+    				<li>
+						<label for="event_venue">Event Venue: 
+						</label> <input type="text" value="Mandalay Bay Convention Center" name="event_venue" />
+					</li>
 	
-    <li>
-		<label for="event_address">Venue Address: </label>
-		<input type="hidden" value="30.267153" name="event_lat" id="event_lat"></input>
-		<input type="hidden" value="-97.7430608" name="event_lng" id="event_lng"></input>                
+    				<li>
+						<label for="event_address">Venue Address: </label>
+						<input type="hidden" value="30.267153" name="event_lat" id="event_lat"></input>
+						<input type="hidden" value="-97.7430608" name="event_lng" id="event_lng"></input>                
 
+						<textarea rows="2" cols="30" name="event_address" id="event_address">Las Vegas, Nevada</textarea>	
+					</li>
 
-		<textarea rows="2" cols="30" name="event_address" id="event_address">Las Vegas, Nevada</textarea>
-
-	</li>
-
-
-
-	<br />
-    <li>
-		<label for="event_description">Event Description: </label> 
-		<textarea rows="6" cols="40"  name="event_description">There will be open bar!</textarea>
-	</li>
+					<br />
+    				<li>
+						<label for="event_description">Event Description: </label> 
+						<textarea rows="6" cols="40"  name="event_description">There will be open bar!</textarea>
+					</li>
 	
-    <li>
-		<label for="event_price">Event Price: </label> 
-		<input type="text" class="number" value="100" name="event_price" />
-	</li>
-<li>
-		<label for="event_discount">Early Bird Discounted Price: </label> 
-		<input type="text" class="number" value="50" name="event_discount" />
-	</li>
+    				<li>
+						<label for="event_price">Event Price: </label> 
+						<input type="text" class="number" value="100" name="event_price" />
+					</li>
+					<li>
+						<label for="event_discount">Early Bird Discounted Price: </label> 
+						<input type="text" class="number" value="50" name="event_discount" />
+					</li>
 	
-    <li>
-		<label for="event_url">Event URL: </label> 
-		<input type="text" value="http://www.capitalfactory.com" name="event_url" class="url" />
-	</li>
-    </div>
+    				<li>
+						<label for="event_url">Event URL: </label> 
+						<input type="text" value="http://www.capitalfactory.com" name="event_url" class="url" />
+					</li>
+    			</div>
 
-		<div id="map_container">
-		<div id="address_map"></div>
-		</div>
+				<div id="map_container">
+					<div id="address_map"></div>
+				</div>
+			</div>
+
+
+			<li>
+				<label for="image">Event Label Image: </label> 
+				<input name="image" id="image" type="file" onChange="ajaxFileUpload(this.value);"> </input>
+				<div class="image_preview"><br/><br/><br/><br/>Image Preview</div></p>
+			</li>
+    		<input type="hidden" value="" name="event_image" id="event_image"></input>
+
+    		<li>
+				<label for="from_name">From Name: 
+				</label> <input type="text" value="John" name="from_name" />
+			</li>
+    		<li>
+				<label for="code">Discount Code: 
+				</label> <input type="text" value="JOHNCHOW1" name="code" />
+			</li>
+    		<li>
+				<label for="percent">Percent Discount: 
+				</label> <input type="text" value="50" name="percent" />
+			</li>
+    		<li>
+				<label for="subdomain">Subdomain: 
+				</label> <input type="text" value="www" name="subdomain" />
+			</li>
+
+
+			<li>
+				<label for="person_email">Organizer Contact Email: </label> <input type="text" name="person_email" value="{{user.email}}" />
+			</li>
+
+		</ul>
+
+		<br />
+	</form>
 </div>
 
+<div id="create-product" class="create">
+	<h1>Product Details</h1>
 
-	<li>
-		<label for="image">Event Label Image: </label> 
-		<input name="image" id="image" type="file" onChange="ajaxFileUpload(this.value);"> </input>
-		<div class="image_preview"><br/><br/><br/><br/>Image Preview</div></p>
-	</li>
-    <input type="hidden" value="" name="event_image" id="event_image"></input>
+	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+	<form id="create-product-form" action="{% url event_create %}" method="post">
+  		<ul>
+	    	 	<input type="hidden" value="product" name="campaign_type" ></input>	
+    		<li>
+				<label for="product_name">Product Name: </label> 
+				<input type="text" name="product_name" id="product_name" value="Toaster" class="required" />
+			</li>
+	
+			<li>
+				<label for="product_description">Product Description: </label> 
+				<textarea rows="6" cols="40"  name="product_description">Best Toaster Ever!</textarea>
+			</li>
+    						
+			<li>
+				<label for="product_price">Product Price: </label> 
+				<input type="text" class="number" value="100" name="product_price" />
+			</li>
+			<li>
+				<label for  = "product_discount">Discounted Price: </label> 
+				<input type = "text" class="number" value="50" name="product_discount" />
+			</li>
+
+			<li>
+				<label for  = "product_url">Product URL: </label> 
+				<input type = "text" value="http://www.capitalfactory.com" name="product_url" class="url" />
+			</li>
 
 
-    <li>
-		<label for="from_name">From Name: 
-		</label> <input type="text" value="John" name="from_name" />
-	</li>
-    <li>
-		<label for="code">Discount Code: 
-		</label> <input type="text" value="JOHNCHOW1" name="code" />
-	</li>
-    <li>
-		<label for="percent">Percent Discount: 
-		</label> <input type="text" value="50" name="percent" />
-	</li>
-    <li>
-		<label for="subdomain">Subdomain: 
-		</label> <input type="text" value="www" name="subdomain" />
-	</li>
+			<li>
+				<label for="image">Product Label Image: </label> 
+				<input name="image" id="image" type="file" onChange="ajaxFileUpload(this.value);"> </input>
+				<div class="image_preview"><br/><br/><br/><br/>Image Preview</div></p>
+			</li>
+    		<input type="hidden" value="" name="product_image" id="product_image"></input>
 
-    
-	<li>
-		<label for="person_email">Organizer Contact Email: </label> <input type="text" name="person_email" value="{{user.email}}" />
-	</li>
+		</ul>
 
-  </ul>
-
-  <br />
-<input type="submit" value="Create Event" />
-</form>
+		<br />
+	</form>
 </div>
 
-<div id="create-product">
-PRODUCT
+<div id="create-small-business" class="create">
+	<h1>Business Campaign Details</h1>
+
+	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+	<form id="create-business-form" action="{% url event_create %}" method="post">
+  		<ul>
+	<input type="hidden" value="business" name="campaign_type" ></input>
+    		<li>
+				<label for="business_name">Business Name: </label> 
+				<input type="text" name="business_name" id="business_name" value="GNC" class="required" />
+			</li>
+	
+			<li>
+				<label for="product_description">Business Promotion Description: </label> 
+				<textarea rows="6" cols="40"  name="business_description">Best Supplements Ever!</textarea>
+			</li>
+    						
+			<li>
+				<label for="product_price">Offer Price: </label> 
+				<input type="text" class="number" value="100" name="offer_price" />
+			</li>
+			<li>
+				<label for  = "offer_discount">Discounted Price: </label> 
+				<input type = "text" class="number" value="50" name="offer_discount" />
+			</li>
+
+			<li>
+				<label for  = "business_url">Business URL: </label> 
+				<input type = "text" value="http://www.capitalfactory.com" name="business_url" class="url" />
+			</li>
+
+			<li>
+				<label for="image">Business Label Image: </label> 
+				<input name="image" id="image" type="file" onChange="ajaxFileUpload(this.value);"> </input>
+				<div class="image_preview"><br/><br/><br/><br/>Image Preview</div></p>
+			</li>
+    		<input type="hidden" value="" name="product_image" id="business_image"></input>
+
+		</ul>
+
+		<br />
+	</form>
 </div>
 
-<div id="create-small-business">
-SMALLB
+<div id="create-hotel" class="create">
+	<h1>Hotel Promotion Details</h1>
+
+	{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+	<form id="create-hotel-form" action="{% url event_create %}" method="post">
+  		<ul>
+	<input type="hidden" value="hotel" name="campaign_type" ></input>
+    		<li>
+				<label for="hotel_name">Hotel Name: </label> 
+				<input type="text" name="hotel_name" id="hotel_name" value="Marriot" class="required" />
+			</li>
+	
+			<li>
+				<label for="Hotel_description">Hotel Description: </label> 
+				<textarea rows="6" cols="40"  name="hotel_description">Best Hotel Ever!</textarea>
+			</li>
+    						
+			<li>
+				<label for="room_price">Regular Room Price: </label> 
+				<input type="text" class="number" value="100" name="room_price" />
+			</li>
+			<li>
+				<label for  = "room_discount">Discounted Room Price: </label> 
+				<input type = "text" class="number" value="50" name="room_discount" />
+			</li>
+
+			<li>
+				<label for  = "product_url">Hotel URL: </label> 
+				<input type = "text" value="http://www.marriot.com" name="hotel_url" class="url" />
+			</li>
+
+			<li>
+				<label for="image">Product Label Image: </label> 
+				<input name="image" id="image" type="file" onChange="ajaxFileUpload(this.value);"> </input>
+				<div class="image_preview"><br/><br/><br/><br/>Image Preview</div></p>
+			</li>
+    		<input type="hidden" value="" name="product_image" id="product_image"></input>
+
+		</ul>
+
+		<br />
+	</form>
 </div>
 
-<div id="create-hotel">
-HOTEL
-</div>
+<div id="create-campaign" class="create">
+	<h1>Campaign Info</h1>
 
-<div id="create-campaign-details" class="create">
-<h1>Campaign Details</h1>
-<ul>
-<li>Start Date:</li>
-<li>End Date:</li>
-<li></li>
-</ul>
+	<form id="create-campaign-form" action="{% url event_create %}" method="post">	
+
+		<ul>		
+			<li>
+				<label for="from_name">From Name: 
+				</label> <input type="text" value="John" name="from_name" />
+			</li>
+			<li>
+				<label for="code">Discount Code: 
+				</label> <input type="text" value="JOHNCHOW1" name="code" />
+			</li>
+    		<li>
+				<label for="percent">Percent Discount: 
+				</label> <input type="text" value="50" name="percent" />
+			</li>
+			<li>
+				<label for="promotion_date_start">Promotion Start Date: </label> 
+				<input type="text" name="promotion_date_start" size="12" id="promotion_date_start" value="06/16/2010" class="required" />
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<label for="promotion_time_start">Time: </label> 
+				<input type="text" name="promotion_time_start" size="8" id="promotion_time_start" value="12:30 AM" class="required"/>
+			</li>
+
+			<li>
+				<label for="promotion_date_end">Promotion End Date: </label> 
+				<input type="text" name="promotion_date_end" size="12" id="promotion_date_end" value="06/16/2010" class="required" />
+				&nbsp;&nbsp;&nbsp;&nbsp;          
+				<label for="promotion_time_end">Time: </label> 
+				<input type="text" size="8" name="promotion_time_end" id="event_time_end" value="12:30 PM" class="required"/>
+			</li>
+
+			<li>
+				<label for="min_people">Minimum People: 
+				</label> <input type="text" value="0" name="min_people" />
+			</li>
+
+			<li>
+				<label for="max_people">Maximum People: 
+				</label> <input type="text" value="0" name="max_people" />
+			</li>
+
+			<li>
+				<label for="subdomain">Subdomain: 
+				</label> <input type="text" value="www" name="subdomain" />
+			</li>
+
+			<li>
+				<label for="campaign_message">Message Displayed: </label> 
+				<textarea rows="6" cols="40"  name="campaign_message">Best Offer Ever, Sign Up Now!</textarea>
+			</li>
+
+			<li>
+				<label for="url_redeem">redeem promotion URL: </label> 
+				<textarea rows="6" cols="40"  name="url_redeem">www.product.com/redeem_discount</textarea>
+			</li>
+
+			<li>
+				<label for="person_email">Organizer Contact Email: </label> 
+				<input type="text" name="person_email" value="{{user.email}}" />
+			</li>
+		</ul>
+		<br />
+
+	    
+
+	</form>
+<button id="create-campaign-button">CREATE</button>	
 </div>
 
 <script>
-function initialize() {
-      if (GBrowserIsCompatible()) {
-        var map = new GMap2(document.getElementById("address_map"));
-        map.setCenter(new GLatLng(30.267153,  -97.7430608), {{zoom}});
-        map.setUIToDefault();
-      }
-    }
 
-function init() {
-	document.getElementById('file_upload_form').onsubmit=function() {
-		document.getElementById('file_upload_form').target = 'upload_target'; //'upload_target' is the name of the iframe
+
+function initialize() {
+	if (GBrowserIsCompatible()) {
+		var map = new GMap2(document.getElementById("address_map"));
+		map.setCenter(new GLatLng(30.267153,  -97.7430608), {{zoom}});
+		map.setUIToDefault();
 	}
 }
-window.onload=init;
+
+
+function init() {
+	document.getElementById('file_upload_form').onsubmit = function() {
+		document.getElementById('file_upload_form').target  = 'upload_target'; //'upload_target' is the name of the iframe
+	}
+}
+window.onload = init;
 
 function ajaxFileUpload(file_name)
 {
-        //starting setting some animation when the ajax starts and completes
-        $("div.image_preview")
-           .ajaxStart(function(){
-                $(this).html("<img src='{% url static 'images/ajax-loader.gif' %}' />");
-        })
-           .ajaxComplete(function(){ 
-                    var imgPath = 'images/tmp/{{user.id}}_' + file_name;
-                    var imgUrl = "{% url static  '' %}";
-	            $(this).html("<img src='" + imgUrl + imgPath + "' />");
-				$('#event_image').val(file_name);
-        });
+	//starting setting some animation when the ajax starts and completes
+	$("div.image_preview")
+	.ajaxStart(function(){
+		$(this).html("<img src = '{% url static 'images/ajax-loader.gif' %}' />");
+	})
+	.ajaxComplete(function(){ 
+		var imgPath            = 'images/tmp/{{user.id}}_' + file_name;
+		var imgUrl             = "{% url static  '' %}";
+		$(this).html("<img src = '" + imgUrl + imgPath + "' />");
+		$('#event_image').val(file_name);
+	});
 
-        /*
-                prepareing ajax file upload
-                url: the url of script file handling the uploaded files
-                fileElementId: the file type of input element id and it will be the index of  $_FILES Array()
-                dataType: it support json, xml
-                secureuri:use secure protocol
-                success: call back function when the ajax complete
-                error: callback function when the ajax failed
+	/*
+	prepareing ajax file upload
+	url: the url of script file handling the uploaded files
+	fileElementId: the file type of input element id and it will be the index of  $_FILES Array()
+	dataType: it support json, xml
+	secureuri:use secure protocol
+	success: call back function when the ajax complete
+	error: callback function when the ajax failed
 
-        */
-        $.ajaxFileUpload
-        (
-                {
-                        url:'{% url upload_image %}',
-                        secureuri:false,
-                        fileElementId:'image',
-                        dataType: 'json',
-                        success: function (data, status)
-                        {
-                                if(typeof(data.error) != 'undefined')
-                                {
-                                        if(data.error != '')
-                                        {
-                                                alert(" error1 " + data.error);
-                                        }else
-                                        {
-                                                alert("no error " + data.msg);
-                                        }
-                                }
-                        },
-                        error: function (data, status, e)
-                        {
-                                alert("error2 " + e + data + status);
-                        }
-                }
-        )
+*/
+$.ajaxFileUpload
+(
+	{
+		url:'{% url upload_image %}',
+		secureuri:false,
+		fileElementId:'image',
+		dataType: 'json',
+		success: function (data, status)
+		{
+			if(typeof(data.error) != 'undefined')
+			{
+				if(data.error != '')
+				{
+					alert(" error1 " + data.error);
+					}else
+					{
+						alert("no error " + data.msg);
+					}
+				}
+			},
+			error: function (data, status, e)
+			{
+				alert("error2 " + e + data + status);
+			}
+		}
+	)
 
-        return false;
+	return false;
 
 }
 
 
+
 $(document).ready(function() {
-     function hideAll() {
-             $("#create-event").hide();
-             $("#create-product").hide();
-             $("#create-small-business").hide();
-             $("#create-hotel").hide();
-     } 
+	function hideAll() {
+		$("#create-event").hide();
+		$("#create-product").hide();
+		$("#create-small-business").hide();
+		$("#create-hotel").hide();
+		$("#create-campaign").hide();
+	} 
 
-      // handle campaign stuff
-      $("#choose_campaign").change(function(){
-          hideAll();
-          if ($('#choose_campaign :selected').val() == 'event') {
-             $("#create-event").show();
-           }
-           if ($('#choose_campaign :selected').val() == 'product') {
-             $("#create-product").show('slow');
-           }
-           if ($('#choose_campaign :selected').val() == 'small_business') {
-             $("#create-small-business").show('slow');
-           }
-           if ($('#choose_campaign :selected').val() == 'hotel') {
-             $("#create-hotel").show('slow');
-           }
-      });
-      //hideAll();
+    var product_type = "";	
+	// handle campaign stuff
+	$("#choose_campaign").change(function(){
+		hideAll();
+		if ($('#choose_campaign :selected').val() == 'event') {
+			$("#create-event").show();
+			product_type = "EVENT";
+		}
+		if ($('#choose_campaign :selected').val() == 'product') {
+			$("#create-product").show();
+			product_type = "PRODUCT";
+		}
+		if ($('#choose_campaign :selected').val() == 'small_business') {
+			$("#create-small-business").show();
+			product_type = "BUSINESS";
+		}
+		if ($('#choose_campaign :selected').val() == 'hotel') {
+			$("#create-hotel").show();
+			product_type = "HOTEL";
+		}
+		$("#create-campaign").show();
+	});
+	hideAll();
 
+	$('#create-campaign-button').click(function() {
+	    //e.preventDefault(); 
+		var $inputs = $('#create-campaign-form :input');
 
-                $("#event_address").keypress(function(){
-                    var map = new GMap2(document.getElementById("address_map"));
-                    var geocoder = new GClientGeocoder();
-
-                    geocoder.getLatLng(
-                        $(this).val(),
-                        function(point) {
-                            if (!point) {
-                                 //alert(" error, address not found");
-                            } else {
-                                 map.setCenter(point, 13);
-                                 var marker = new GMarker(point);
-                                 map.addOverlay(marker);
-                                 $("#event_lat").val(point.lat());
-                                 $("#event_lng").val(point.lng());
-                            }
-                        }
-                     );
-                });
-
-              initialize();
-                //$("#createForm").validate();
-                //$('#event_name').focus();
-                $("input[type=text]").focus(function() {
-                    $(this).val("");
-                    $(this).css("color", "black");
-                });
-                $("textarea").focus(function() {
-                    $(this).val("");
-                    $(this).css("color", "black");
-                });
-                $('#event_date_start').datepicker({ buttonImageOnly: false,
-                                                                buttonImage: "{% url static 'images/calendar.png' %}",
-                                                                showOn: 'both',
-                                                                onSelect:
-                                                                        function(dateText, inst) {
-                                                                                if ($.trim($('#event_date_end').val()) == ""){
-                                                                                        $('#event_date_end').val(dateText);
-                                                                                }}});
-                $('#event_date_end').datepicker({ buttonImageOnly: false,
-                                                            buttonImage: "{% url static 'images/calendar.png' %}",
-                                                            showOn: 'both'});
-                $("#event_time_start").timePicker({
-                                show24Hours: false,
-                                separator: ':',
-                                step: 15});
-                $("#event_time_end").timePicker({
-                                show24Hours: false,
-                                separator: ':',
-                                step: 15});
-
-                
+		// not sure if you wanted this, but I thought I'd add it.
+		// get an associative array of just the values.
+		var values = {};
+		$inputs.each(function() {
+		        values[this.name] = $(this).val();
+		});
+	
+	    if (product_type == "EVENT") {
+  		    var $inputs = $('#create-event-form :input');	
+		}
+		else if(product_type == "PRODUCT") {
+			var $inputs = $('#create-product-form :input');
+		}
+		else if(product_type == "BUSINESS") {
+			var $inputs = $('#create-business-form :input');
+		}	
+		else if(product_type == "hotel") {
+			var $inputs = $('#create-hotel-form :input');
+		}
+				
+		$inputs.each(function() {
+		        values[this.name] = $(this).val();
+		});
+		
+		$.ajax({
+			url: '{% url create_campaign %}', 
+			dataType: "json",
+			type: "POST",
+			data: values, 
+		success: function(data){
+			alert("data returned", data);
+					},
+		beforeSend: function() {
+			alert("sending data");
+		}
+	});
 });
+
+	
+
+	$("#event_address").keypress(function(){
+		var map       = new GMap2(document.getElementById("address_map"));
+		var geocoder  = new GClientGeocoder();
+
+		geocoder.getLatLng(
+			$(this).val(),
+			function(point) {
+				if (!point) {
+					//alert(" error, address not found");
+				} else {
+					map.setCenter(point, 13);
+					var marker = new GMarker(point);
+					map.addOverlay(marker);
+					$("#event_lat").val(point.lat());
+					$("#event_lng").val(point.lng());
+				}
+			}
+		);
+	});
+
+	initialize();
+	$("#createForm").validate();
+	//$('#event_name').focus();
+	$("input[type  = text]").focus(function() {
+
+		$(this).val("");
+		$(this).css("color", "black");
+	});
+
+	$("textarea").focus(function() {
+		$(this).val("");
+		$(this).css("color", "black");
+	});
+
+
+	$('#event_date_start').datepicker({ 
+		buttonImageOnly: false,
+		buttonImage: "{% url static 'images/calendar.png' %}",
+		showOn: 'both',
+		onSelect: function(dateText, inst) {
+			if ($.trim($('#event_date_end').val()) == ""){
+				$('#event_date_end').val(dateText);
+			}
+		}
+	});
+
+	$('#event_date_end').datepicker({ buttonImageOnly: false,
+		buttonImage: "{% url static 'images/calendar.png' %}",
+		showOn: 'both'
+	});
+
+	$("#event_time_start").timePicker({
+		show24Hours: false,
+		separator: ':',
+		step: 15
+	});
+
+	$("#event_time_end").timePicker({
+		show24Hours: false,
+		separator: ':',
+		step: 15});
+	});
+
+
 </script>
 
 {% endblock %}

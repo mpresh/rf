@@ -45,9 +45,12 @@ urlpatterns = patterns('',
                        url(r'user_details/(?P<user_id>\d+)/$', 'views.user_details', name='user_details'),
                        url(r'about/$', 'views.about', name='about'),
                        url(r'list/$', 'views.event_list', name='event_list'),
+
                        url(r'create/$', 'views.event_create', name='event_create'),
+                       url(r'create_campaign/$', 'ajax_create.create_campaign', name='create_campaign'),
+
                        url(r'invite/(?P<invite_id>\d+)/$', 'views.invite', name='event_invite'),
-                       url(r'blogvip/(?P<invite_id>\d+)/$', 'views.blogvip', name='event_blogvip'),
+                       #url(r'blogvip/(?P<invite_id>\d+)/$', 'views.blogvip', name='event_blogvip'),
                        url(r'be/?$', 'views.blogvip_flow', name='event_blogvip_flow'),
                        #
                        url(r'^',  include('fauth.urls')),

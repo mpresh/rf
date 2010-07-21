@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
-from events.models import Event, Invite
+from events.models import Event
 from tauth.models import User
 from models import FBUser
 from django.conf import settings

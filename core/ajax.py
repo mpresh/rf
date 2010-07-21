@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
-from events.models import Event, Invite, Share
+from events.models import Event, Share
 from tauth.models import User
 from django.conf import settings
 import simplejson as json
@@ -205,76 +205,76 @@ def event_tweet_invite(req, event_id=""):
     return HttpResponse(json.dumps(dict))
 
 def event_tweet_invite_dm(req, event_id=""):
-    """ Send invite to one person."""
-    ret_obj = {}
-
-    if "user_id" not in req.session:
-        ret_obj["error"] = "User Must be Logged in."
-        return HttpResponse(json.dumps(ret_obj))
-
-    event = Event.objects.get(id=event_id)
-    user = User.objects.get(id=req.session["user_id"])	
-    
-    url = req.GET['invite_url']
-    friends = req.GET['invited_friends'].split(",")
-    
-    if 'data' in req.GET and req.GET['data'].strip() != "":
-        msg = req.GET['data']
-    else:
-        msg = ": Dicounted Invite to " + event.name
-
-    # shorten message so that it fits into a tweet
-    if len(msg) > 115:
-        msg = msg[:115]
-
-    if "invite_id" in req.GET:
-        from_invite = Invite.objects.get(id=req.GET['invite_id'])    
-
-    # iterate over friends and create a friend User record for each if doesnt exist
-    # create invite record for each
-    new_friends = []
-    for friend in friends:
-        (u, created_user) = User.objects.get_or_create(username=friend)
-        (invite, created_invite) = Invite.objects.get_or_create(from_user=user,
-                                                                event=event)
-        invite.to_users.add(u)
-
-        if "invite_id" in req.GET:
-            invite.from_invite = from_invite
-
-        invite.message = msg
-        invite.save()
-
-        if created_invite:
-            tmp_msg = url + str(invite.id) + " " + msg
-            new_friends.append((friend, tmp_msg))
-
-    dict = {}
-    dict["cmd"] = "twitter_dm_users"
-    dict["username"] = user.username
-
-    data = {}
-    data["oauth_token"] = user.oauth_token
-    data["oauth_token_secret"] = user.oauth_token_secret
-    data["users"] = new_friends
-    dict["data"] = data
-    to_send = json.dumps(dict) + "\n\r\n"
-
-    afetch_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    afetch_socket.connect((AFETCH_HOST, AFETCH_PORT))
-    afetch_socket.send(to_send)
-
-    buffer = ""
-    while 1:
-        incoming = afetch_socket.recv(1000)
-        if not incoming:
-            break
-        buffer += incoming
-    afetch_socket.close()
-
-    ret_obj = {}
-    ret_obj["ret"] = buffer
-    ret_obj["msg"] = "Sent DM to " + " ".join(friends) +  " " + msg
-
-    ret_val = json.dumps(ret_obj)
-    return HttpResponse(ret_val)
+    #""" Send invite to one person."""
+    #ret_obj = {}
+    #
+    #if "user_id" not in req.session:
+    #    ret_obj["error"] = "User Must be Logged in."
+    #    return HttpResponse(json.dumps(ret_obj))
+    #
+    #event = Event.objects.get(id=event_id)
+    #user = User.objects.get(id=req.session["user_id"])	
+    #
+    #url = req.GET['invite_url']
+    #friends = req.GET['invited_friends'].split(",")
+    #
+    #if 'data' in req.GET and req.GET['data'].strip() != "":
+    #    msg = req.GET['data']
+    #else:
+    #    msg = ": Dicounted Invite to " + event.name
+    #
+    ## shorten message so that it fits into a tweet
+    #if len(msg) > 115:
+    #    msg = msg[:115]
+    #
+    ##if "invite_id" in req.GET:
+    ##    from_invite = Invite.objects.get(id=req.GET['invite_id'])    
+    #
+    ## iterate over friends and create a friend User record for each if doesnt exist
+    ## create invite record for each
+    #new_friends = []
+    #for friend in friends:
+    #    (u, created_user) = User.objects.get_or_create(username=friend)
+    #    (invite, created_invite) = Invite.objects.get_or_create(from_user=user,
+    #                                                            event=event)
+    #    invite.to_users.add(u)
+    #
+    #    if "invite_id" in req.GET:
+    #        invite.from_invite = from_invite
+    #
+    #    invite.message = msg
+    #    invite.save()
+    #
+    #    if created_invite:
+    #        tmp_msg = url + str(invite.id) + " " + msg
+    #        new_friends.append((friend, tmp_msg))
+    #
+    #dict = {}
+    #dict["cmd"] = "twitter_dm_users"
+    #dict["username"] = user.username
+    #
+    #data = {}
+    #data["oauth_token"] = user.oauth_token
+    #data["oauth_token_secret"] = user.oauth_token_secret
+    #data["users"] = new_friends
+    #dict["data"] = data
+    #to_send = json.dumps(dict) + "\n\r\n"
+    #
+    #afetch_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    #afetch_socket.connect((AFETCH_HOST, AFETCH_PORT))
+    #afetch_socket.send(to_send)
+    #
+    #buffer = ""
+    #while 1:
+    #    incoming = afetch_socket.recv(1000)
+    #    if not incoming:
+    #        break
+    #    buffer += incoming
+    #afetch_socket.close()
+    #
+    #ret_obj = {}
+    #ret_obj["ret"] = buffer
+    #ret_obj["msg"] = "Sent DM to " + " ".join(friends) +  " " + msg
+    #
+    #ret_val = json.dumps(ret_obj)
+    return HttpResponse()
