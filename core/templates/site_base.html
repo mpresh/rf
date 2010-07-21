@@ -33,20 +33,21 @@
 
 <body>
 
-<div class="wrap">
-  <div id="main">    						
+  <!-- Footer content -->
+  {% include "header.html" %}
 
-    <!-- Footer content -->
-    {% include "header.html" %}
 
-  </div>
-  <!-- END main -->
-</div>
 
-<div class="wrapper">
-  {% block site-content %}
-   <p>Your website content here.</p>
-  {% endblock %}			
+
+<div id="container">
+
+   <div id="content">
+
+     {% block site-content %}
+     <p>Your website content here.</p>
+     {% endblock %}			
+
+    </div>
 </div>
  
  	

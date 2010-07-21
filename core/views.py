@@ -116,7 +116,7 @@ def event_create(req):
 	
     
     dict["key"] = settings.GOOGLE_MAP_API
-    dict["zoom"] = 2
+    dict["zoom"] = 8
     dict["invite_url"] = invite_url
     return render_to_response('create.html', dict)
 

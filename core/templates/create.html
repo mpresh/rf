@@ -1,31 +1,41 @@
-{% extends "event_base.html" %}
+{% extends "site_base.html" %}
 
 {% block  js_css_include %}
-	<script type="text/javascript" src="{% url static 'javascript/jquery-ui-1.8.1.custom.js' %}"> 
- </script>
-<script type="text/javascript" src="{% url static 'javascript/jquery.ui.datepicker.js' %}"> </script>
-<script type="text/javascript" src="{% url static 'javascript/jquery.timePicker.js' %}"> </script>
-<script type="text/javascript" src="{% url static 'javascript/ajaxfileupload.js' %}"> </script>
-<script type="text/javascript" src="{% url static 'javascript/jquery.uploadify.js' %}"> </script>
-<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key={{key}}"
+	<script type="text/javascript" src="{% url static 'javascript/jquery-ui-1.8.1.custom.js' %}"></script>
+	<script type="text/javascript" src="{% url static 'javascript/jquery.ui.datepicker.js' %}"> </script>
+	<script type="text/javascript" src="{% url static 'javascript/jquery.timePicker.js' %}"> </script>
+	<script type="text/javascript" src="{% url static 'javascript/ajaxfileupload.js' %}"> </script>
+	<script type="text/javascript" src="{% url static 'javascript/jquery.uploadify.js' %}"> </script>
+	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key={{key}}"
         type="text/javascript"></script> 
 
 
 	<link rel="stylesheet" href="{% url static 'css/calendar-system.css' %}" type="text/css" >
 	<link rel="stylesheet" href="{% url static 'css/calendar-en.css' %}" type="text/css" >
 	<link rel="stylesheet" href="{% url static 'css/jquery.calendar.css' %}" type="text/css" >
-<link rel="stylesheet" href="{% url static 'css/jquery.ptTimeSelect.css' %}" type="text/css" >	
-<link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="Stylesheet" />
+	<link rel="stylesheet" href="{% url static 'css/jquery.ptTimeSelect.css' %}" type="text/css" >	
+	<link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="Stylesheet" />
 
  	<link rel="stylesheet" href="{% url static 'css/create.css' %}" type="text/css" >
-	
 {% endblock %} 
 
 {% block title %}Create{% endblock %}
 
-{% block content %}
+{% block site-content %}
 <BR><BR><BR><BR>
-<div id="create-event">
+
+<div id="choose-create-entity" class="create">
+<p>Create Campaign</p>
+<select id="choose_campaign">
+  <option value="">Select One</option>
+  <option value="event">Event</option>
+  <option value="product">Product</option>
+  <option value="small_business">Small Business</option>
+  <option value="hotel">Hotel</option>
+</select>
+</div>
+
+<div id="create-event" class="create">
 <h1>Create Event</h1>
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
@@ -58,6 +68,8 @@
 		<input type="text" class="digits" value="100" name="event_capacity" />
 	</li>
 	
+<div id="stuff_container">
+    <div id="address_container">
     <li>
 		<label for="event_venue">Event Venue: 
 		</label> <input type="text" value="Mandalay Bay Convention Center" name="event_venue" />
@@ -71,8 +83,16 @@
 
 		<textarea rows="2" cols="30" name="event_address" id="event_address">Las Vegas, Nevada</textarea>
 
-		<div id="address_map"></div>
 	</li>
+    </div>
+
+
+		<div id="map_container">
+		<div id="address_map"></div>
+		</div>
+
+</div>
+
 	<br />
     <li>
 		<label for="event_description">Event Description: </label> 
@@ -127,6 +147,27 @@
   <br />
 <input type="submit" value="Create Event" />
 </form>
+</div>
+
+<div id="create-product">
+PRODUCT
+</div>
+
+<div id="create-small-business">
+SMALLB
+</div>
+
+<div id="create-hotel">
+HOTEL
+</div>
+
+<div id="create-campaign-details" class="create">
+<h1>Campaign Details</h1>
+<ul>
+<li>Start Date:</li>
+<li>End Date:</li>
+<li></li>
+</ul>
 </div>
 
 <script>
@@ -202,6 +243,33 @@ function ajaxFileUpload(file_name)
 
 
 $(document).ready(function() {
+     function hideAll() {
+             $("#create-event").hide();
+             $("#create-product").hide();
+             $("#create-small-business").hide();
+             $("#create-hotel").hide();
+     } 
+
+      // handle campaign stuff
+      $("#choose_campaign").change(function(){
+          hideAll();
+          if ($('#choose_campaign :selected').val() == 'event') {
+             $("#create-event").show();
+           }
+           if ($('#choose_campaign :selected').val() == 'product') {
+             $("#create-product").show('slow');
+           }
+           if ($('#choose_campaign :selected').val() == 'small_business') {
+             $("#create-small-business").show('slow');
+           }
+           if ($('#choose_campaign :selected').val() == 'hotel') {
+             $("#create-hotel").show('slow');
+           }
+
+      });
+      hideAll();
+
+
                 $("#event_address").keypress(function(){
                     var map = new GMap2(document.getElementById("address_map"));
                     var geocoder = new GClientGeocoder();

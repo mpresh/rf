@@ -13,11 +13,11 @@ div#create-thanks p{
 
 }
 
-div#create-event {
-		  position: relative;
-		  top: 185px;
-		  left: 70px;
-}
+#div#create-event {
+#		  position: relative;
+#		  top: 185px;
+#		  left: 70px;
+#}
 
 div#create-event h1 {
 
@@ -35,4 +35,55 @@ div#create-event li {
 div#create-event label {
 		 font-size: 18px;
 		 font-weight: bold;
+}
+
+
+div.create {
+    padding: 20px;		  
+    text-align: center;
+    width: 80%;
+    background-color: #CCCCFF;
+    margin: auto;
+
+    -moz-border-radius-topleft: 20px;
+    -webkit-border-top-left-radius: 20px;
+    -moz-border-radius-topright: 20px;
+    -webkit-border-top-right-radius: 20px;
+
+    -moz-border-radius-bottomleft: 20px;
+    -webkit-border-bottom-left-radius: 20px;
+    -moz-border-radius-bottomright: 20px;
+    -webkit-border-bottom-right-radius: 20px;
+    margin-bottom: 100px;
+    margin-top: 100px;
+}
+
+div.create li {
+	   list-style: none;
+}
+
+div#address_map {
+		height: 400px;
+		width: 400px;
+}
+
+div#choose-create-entity {
+     height: 100px;
+}
+
+
+div#map_container {
+		  float:right;
+margin-right: 100px;	
+background-color: red;
+padding: 20px;
+}
+
+div#address_container {
+     float:left;	          
+     margin-left: 150px;
+}
+#stuff_container {
+		 margin-top: 100px;
+		 height: 600px;
 }
