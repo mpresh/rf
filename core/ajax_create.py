@@ -100,13 +100,10 @@ def _create_event(campaign, req):
               price=eprice,
               lat=elat,
               lng=elng,
-              percent=percent,
-              code=code,
-              from_name=from_name,
-              subdomain=subdomain,
               campaign=campaign)
-    e.save()
 
+    e.save()
+    
     if not os.path.exists(os.path.join(settings.ROOT_PATH, 'static/images/events/')):
         os.mzkdir(os.path.join(settings.ROOT_PATH, 'static/images/events'))
         
@@ -118,7 +115,7 @@ def _create_event(campaign, req):
                     os.path.join(settings.ROOT_PATH, 'static/images/events/' + str(e.id)))
         
     #return HttpResponseRedirect(reverse('event_thanks', kwargs={'event_id' : e.id}))
-    return HttpResponse(json.dumps({}))   
+    return HttpResponse(json.dumps({"campaign_hash": campaign.chash}))   
 
 def _create_product(campaign, req):
     return HttpResponse(json.dumps({}))    
@@ -129,7 +126,6 @@ def _create_hotel(campaign, req):
 def create_campaign(req):
     for key in req.POST:
         print "KEYS", key, req.POST[key]
-
 
     if "campaign_type" not in req.POST:
         return HttpResponse(json.dumps({"status": "error"}))

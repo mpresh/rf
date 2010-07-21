@@ -2,6 +2,7 @@ from django.db import models
 
 from core.tauth.models import User
 from core.fauth.models import FBUser
+import hashlib
 
 class Campaign(models.Model):
     
@@ -37,7 +38,7 @@ class Campaign(models.Model):
         chash_string = str(self.code) + str("CAMPAIGN") + str(self.created_at)
         chash = hashlib.sha1()
         chash.update(chash_string)
-
+        
         self.chash = chash.hexdigest()
         self.save()
 

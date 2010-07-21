@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from events.models import Event
 from tauth.models import User
 from fauth.models import FBUser
+from campaign.models import Campaign
 from django.conf import settings
 import simplejson as json
 import urllib
@@ -122,9 +123,7 @@ def event_create(req):
 
 def event_thanks(req, event_id=""):
     req.session["redirect"] = req.get_full_path()
-    #if "user_id" not in req.session:
-    #    return HttpResponseRedirect(reverse('tauth_login'))
-
+    
     dict = {}
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])	
@@ -134,6 +133,19 @@ def event_thanks(req, event_id=""):
         dict["event"] = Event.objects.get(id=event_id)
 
     return render_to_response('thanks.html', dict)
+
+def campaign_created(req):
+    req.session["redirect"] = req.get_full_path()
+    dict = {}
+    if "chash" in req.GET:
+        try:
+            c = Campaign.objects.get(chash=req.GET["chash"])
+            dict["campaign"] = c
+            return render_to_response('campaign_created.html', dict)
+        except:
+            pass
+
+    return render_to_response('404.html', {})
 
 def index(req):
 #    print "HERE I AMMMM"
