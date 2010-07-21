@@ -7,6 +7,10 @@ html, body {
     height: 100%;
 }
 
+body{
+	font-family: helvetica,arial,sans-serif;
+}
+
 #container {
     position:relative;
     min-height:100%;
@@ -28,22 +32,40 @@ html, body {
 {
 	background-image: url(../images/look/body-bg.png);
 }
-#header, #header #f
+#main{
+	padding-bottom: 300px;
+}
+#header
 {
 	position: relative;
+	height: 54px;
 }
-#header #f
+#header #logo
 {
-	background: url(../images/look/centerboard.png) center top no-repeat;
+	float: left;
+	padding-left: 120px;
+	position: relative;
+}
+#content
+{
+	top: 80px;
 	width: 980px;
+	margin: auto;
 }
 
 #header #links
 {
+	float: left;
 	color: #581e92;
-	left: 707px;
+	width: 300px;
+	text-align: right;
+	padding: 12px 0px 0px 500px;
 	top: 12px;
 	font-size:12px;
 	font-weight: bold;
 }
+#header #links a:link {text-decoration: none; color: #581e92;}
+#header #links a:visited {text-decoration: none; color: #581e92;}
+#header #links a:active {text-decoration: none; color: #581e92;}
+#header #links a:hover {text-decoration: none; color: #581e92;}
 
