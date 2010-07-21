@@ -132,45 +132,8 @@ div.myfooter {
 
 
 
-div.time-picker {
-  position: absolute;
-  height: 200px;
-  width:11em; /* needed for IE */
-  overflow: auto;
-  background: #fff;
-  border: 1px solid #000;
-  z-index: 99;
-}
-div.time-picker-12hours {
-  width:11em; /* needed for IE */
-}
 
-div.time-picker ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-div.time-picker li {
-  padding: 1px;
-  cursor: pointer;
-  font-size: 14px;
-  text-align: center;
-}
-div.time-picker li.selected {
-  background: #316AC5;
-  color: #fff;
-}
 
-div.image_preview {
-	width: 200px;
-	height: 200px;
-	border: 1px solid #000;
-	text-align: center;
-}
-div.image_preview  img{
-	width: 200px;
-	height: 200px;
-}
 
 div#twitlist {
     overflow: auto;
@@ -238,9 +201,6 @@ li:hover {
   background-color: #e5f2ff;
 }
 
-#createForm li:hover {
-  background-color: #e5f2ff;
-}
 
 img.checkbox_invite {
     float: right;

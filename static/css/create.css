@@ -75,7 +75,7 @@ div#choose-create-entity {
 div#map_container {
 		  float:right;
 margin-right: 100px;	
-background-color: red;
+background-color:gray;
 padding: 20px;
 }
 
@@ -86,4 +86,60 @@ div#address_container {
 #stuff_container {
 		 margin-top: 100px;
 		 height: 600px;
+}
+
+div.image_preview {
+	width: 200px;
+	height: 200px;
+	border: 1px solid #000;
+	text-align: center;
+}
+div.image_preview  img{
+	width: 200px;
+	height: 200px;
+}
+
+
+div.time-picker {
+  position: absolute;
+  height: 200px;
+  width:11em; /* needed for IE */
+  overflow: auto;
+  background: #fff;
+  border: 1px solid #000;
+  z-index: 99;
+}
+div.time-picker-12hours {
+  width:11em; /* needed for IE */
+}
+
+div.time-picker ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+div.time-picker li {
+  padding: 1px;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+}
+div.time-picker li.selected {
+  background: #316AC5;
+  color: #fff;
+}
+
+#createForm li:hover {
+  background-color: #e5f2ff;
+}
+
+input[type=text] {
+      text-align: center;
+      color: #E0E0E0; 
+      font-weight: bold;
+}
+
+textarea {
+     text-align: center;
+      color: #E0E0E0; 
 }

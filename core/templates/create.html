@@ -84,14 +84,8 @@
 		<textarea rows="2" cols="30" name="event_address" id="event_address">Las Vegas, Nevada</textarea>
 
 	</li>
-    </div>
 
 
-		<div id="map_container">
-		<div id="address_map"></div>
-		</div>
-
-</div>
 
 	<br />
     <li>
@@ -112,6 +106,14 @@
 		<label for="event_url">Event URL: </label> 
 		<input type="text" value="http://www.capitalfactory.com" name="event_url" class="url" />
 	</li>
+    </div>
+
+		<div id="map_container">
+		<div id="address_map"></div>
+		</div>
+</div>
+
+
 	<li>
 		<label for="image">Event Label Image: </label> 
 		<input name="image" id="image" type="file" onChange="ajaxFileUpload(this.value);"> </input>
@@ -265,9 +267,8 @@ $(document).ready(function() {
            if ($('#choose_campaign :selected').val() == 'hotel') {
              $("#create-hotel").show('slow');
            }
-
       });
-      hideAll();
+      //hideAll();
 
 
                 $("#event_address").keypress(function(){
@@ -290,10 +291,9 @@ $(document).ready(function() {
                      );
                 });
 
-
-                initialize();
-                $("#createForm").validate();
-                //$('#event_name').focus();	
+              initialize();
+                //$("#createForm").validate();
+                //$('#event_name').focus();
                 $("input[type=text]").focus(function() {
                     $(this).val("");
                     $(this).css("color", "black");
@@ -301,25 +301,25 @@ $(document).ready(function() {
                 $("textarea").focus(function() {
                     $(this).val("");
                     $(this).css("color", "black");
-                });                			
-		$('#event_date_start').datepicker({ buttonImageOnly: false,
-			 					buttonImage: "{% url static 'images/calendar.png' %}",
-								showOn: 'both',
-								onSelect: 
-									function(dateText, inst) { 
-										if ($.trim($('#event_date_end').val()) == ""){
-											$('#event_date_end').val(dateText);
-										}}});
-		$('#event_date_end').datepicker({ buttonImageOnly: false,
-							    buttonImage: "{% url static 'images/calendar.png' %}",
+                });
+                $('#event_date_start').datepicker({ buttonImageOnly: false,
+                                                                buttonImage: "{% url static 'images/calendar.png' %}",
+                                                                showOn: 'both',
+                                                                onSelect:
+                                                                        function(dateText, inst) {
+                                                                                if ($.trim($('#event_date_end').val()) == ""){
+                                                                                        $('#event_date_end').val(dateText);
+                                                                                }}});
+                $('#event_date_end').datepicker({ buttonImageOnly: false,
+                                                            buttonImage: "{% url static 'images/calendar.png' %}",
                                                             showOn: 'both'});
-		$("#event_time_start").timePicker({
-				show24Hours: false,
-				separator: ':',
-	    		        step: 15});
-		$("#event_time_end").timePicker({
-				show24Hours: false,
-				separator: ':',
+                $("#event_time_start").timePicker({
+                                show24Hours: false,
+                                separator: ':',
+                                step: 15});
+                $("#event_time_end").timePicker({
+                                show24Hours: false,
+                                separator: ':',
                                 step: 15});
 
                 
