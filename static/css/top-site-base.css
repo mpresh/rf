@@ -1,0 +1,55 @@
+
+* {
+  margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%; 
+    margin: 0 auto -4em;
+}
+
+
+.footer {
+    height: 20px;
+    text-align: center;	
+    font-size: 14px;	
+    margin: auto;
+    padding-top: 34px;
+    font-weight: bold;
+    background-color: gray;
+}
+
+#header #links
+{
+	position: absolute;
+}
+#main, #header
+{
+	background-image: url(../images/look/body-bg.png);
+}
+#header, #header #f
+{
+/*	height: 616px; */
+	position: relative;
+}
+#header #f
+{
+	background: url(../images/look/centerboard.png) center top no-repeat;
+	width: 980px;
+}
+
+#header #links
+{
+	color: #581e92;
+	left: 707px;
+	top: 12px;
+	font-size:12px;
+	font-weight: bold;
+}
+

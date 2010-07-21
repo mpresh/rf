@@ -7,18 +7,13 @@
 
     <script type="text/javascript" src="{% url static 'javascript/jquery-1.4.2.min.js' %}" ></script>
     <script type="text/javascript" src="{% url static 'javascript/myjscript.js' %}" ></script>
-    <script type="text/javascript" src="{% url static 'javascript/jquery.tools.min.js' %}" ></script>
-    <script type="text/javascript" src="{% url static 'javascript/jquery.validate.js' %}" ></script>
-	
-
-	<!--[if IE]>
-	<link rel="stylesheet" type="text/css" href="{% url static 'css/2ie.css' %}" />
-	<![endif]-->
+    <link rel="stylesheet" type="text/css" href="{% url static 'css/top-site-base.css' %}" />    
 
 	{% block  js_css_include %}
 	{% endblock %}
     
     <title>{% block title %} {% endblock %}</title>
+    
     <script type="text/javascript">
 
   var _gaq = _gaq || [];
@@ -32,35 +27,32 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 
-</script>
-</head>
+    </script>
+  </head>
+
+
 <body>
+
 <div class="wrap">
   <div id="main">    						
-		<div id="header">
 
-					<div id ="f">
+    <!-- Footer content -->
+    {% include "header.html" %}
 
-				<div id="links"><a href="#">Get CollectiveVIP</a> &nbsp;&nbsp; <a href="#">How it Works</a> &nbsp;&nbsp; <a href="#">Contact</a></div>
+  </div>
+  <!-- END main -->
+</div>
 
-<!-- Header Content -->
-    {% include "twitter_login.html" %}    
-
-
-    {% block content %}
-    {% endblock %}			
-    
-			</div>
-			<!-- End f -->
-		</div>
-		<!-- END header -->
-	</div>
-	<!-- END main -->
-
-</div> 	
+<div class="wrapper">
+  {% block site-content %}
+   <p>Your website content here.</p>
+  {% endblock %}			
+</div>
+ 
+ 	
  <!-- Footer content -->
- {% include "footer.html" %}							
-     
+ {% include "footer.html" %}
+							     
 </body>
 </html>
     

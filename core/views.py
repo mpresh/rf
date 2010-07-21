@@ -20,7 +20,7 @@ from fauth import fauth_utils
 def test(req):
     print "HELLO", reverse('test')
     req.session["redirect"] = req.get_full_path()  
-    return render_to_response('test.html', {})
+    return render_to_response('site_base.html', {})
 
 def about(req):
     req.session["redirect"] = req.get_full_path()

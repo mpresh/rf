@@ -62,6 +62,7 @@ TEMPLATE_DIRS = (
     os.path.join(ROOT_PATH, 'frontpage/templates'),
     os.path.join(ROOT_PATH, 'analytics/templates'),
     os.path.join(ROOT_PATH, 'core/entities/templates'),
+    os.path.join(ROOT_PATH, 'core/campaign/templates'),
 )
 
 INSTALLED_APPS = (
@@ -76,6 +77,7 @@ INSTALLED_APPS = (
     'core.tauth',
     'frontpage',
     'analytics',
+    'core.campaign',
     #'django_extensions',
 )
 
