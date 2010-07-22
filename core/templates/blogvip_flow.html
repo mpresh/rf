@@ -29,7 +29,7 @@
 {% endif %}
 
 <div id="greeting">
-	{{event.from_name}}'s offer to you and your friends:
+	{{campaign.from_name}}'s offer to you and your friends:
 	<div id="status"></div>
 </div>
 
@@ -39,7 +39,7 @@
 </div>
 
 
-<div id="invitemsg">{{event.percent}}% OFF ADMISSION TO {{event.name|upper}}</div>
+<div id="invitemsg">{{campaign.percent}}% OFF ADMISSION TO {{event.name|upper}}</div>
 
 <div id="overlay-blogger-login" class="overlay-blogger">
 
@@ -48,7 +48,7 @@
 			<img src="{% url static 'images/step1-msg.png' %}">
 		</div>
 		
-		<div id="pick-msg">{% block custom-message %} To get your discount, share {{event.from_name}}'s offer with your friends on Facebook or Twitter, choose one:{% endblock %}</div>
+		<div id="pick-msg">{% block custom-message %} To get your discount, share {{campaign.from_name}}'s offer with your friends on Facebook or Twitter, choose one:{% endblock %}</div>
 		<div class="overlay-bot">
 			<div id="previous-grey"><img src="{% url static 'images/previous-grey.png' %}"></div>
 			<div id="invite-progress"><img src="{% url static 'images/step1.png' %}"></div>
@@ -103,7 +103,7 @@
 		<div id="facebook-top-msg">
 			<img src="{% url static 'images/facebook-share-msg.png' %}">
 		</div>
-		<textarea id="overlay-textarea-facebook">Join me at BlogWorld in Las Vegas, Oct 14-16. Use my 20% off coupon.</textarea>
+		<textarea id="overlay-textarea-facebook">Join me at BlogWorld in Las Vegas, Oct 14-16. Use my {{campaign.percent}}% off coupon.</textarea>
 	</div>
 	
 	<div id="overlay-div-content2-twitter">
@@ -138,7 +138,7 @@
 			Here’s your discount code:
 			</div>      	
 			
-			<div id="code"><p>JOHNCHOW1</p></div>
+			<div id="code"><p>{{campaign.code}}</p></div>
 
 	</div>
 

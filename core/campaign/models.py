@@ -23,7 +23,7 @@ class Campaign(models.Model):
     campaign_type = models.CharField(max_length=50)
     
     def __unicode__(self):
-        return "<Campaign: %s %s>" % (self.id, self.name)
+        return "<Campaign: %s %s>" % (self.id, self.chash)
 
     def getHash(self):
         """Gets chash for this campaign. If it's not set, compute it and then return it."""

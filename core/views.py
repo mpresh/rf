@@ -168,39 +168,6 @@ def campaign_created(req):
     return render_to_response('404.html', {})
 
 def index(req):
-#    print "HERE I AMMMM"
-#    domain = req.META['HTTP_HOST'].split(".")[0]
-#    print "DOMAIN ISSSS", domain
-#    if domain != "www":
-#        print "HAHAHHA"
-#        events = Events.objects.filter(subdomain=domain)
-#        print "EVENTS", events
-#        event = events[-1]
-#        return HttpResponseRedirect(reverse('blogvip_flow') + "?event=" + str(event.id))
-#    #if domain == "johnchow":
-#    #    return HttpResponseRedirect(reverse('blogvip_flow') + "?event=1")
-#    #if domain == "demo":
-#    #    return HttpResponseRedirect(reverse('blogvip_flow') + "?event=2")
-#
-#    print "COOKIES", req.COOKIES
-#    print "KEYS....."
-#    for key in req.session.keys():
-#        print "KEY", key, req.session[key]
-#
-#    dict = {}
-#    if "uid" in req.session:
-#        dict["facebook"] = req.session['uid']
-#
-#    req.session["redirect"] = req.get_full_path()        
-#    if "user_id" not in req.session:
-#        print "returning ", dict
-#        return render_to_response('index.html', dict)
-#
-#    
-#    user = User.objects.get(id=req.session["user_id"])	
-#    req.session["redirect"] = req.get_full_path()
-#    dict["user"] = user
-#
     return render_to_response('index.html', {})
 
 def event_details(req, event_id=""):
@@ -301,6 +268,7 @@ def blogvip_flow(req):
 
         try:
             event = Event.objects.get(id=event_id)
+            campaign = event.campaign
         except ObjectDoesNotExist:
             event = None
     elif "ehash" in req.GET:
@@ -309,8 +277,10 @@ def blogvip_flow(req):
 
         try:
             event = Event.objects.get(ehash=ehash)
+            campaign = event.campaign
         except ObjectDoesNotExist:
             event = None
+
 
     dict = {}
     dict["fbappid"] = settings.FACEBOOK_APP_ID
@@ -354,6 +324,7 @@ def blogvip_flow(req):
         return render_to_response('404.html', dict)
     
     dict["event"] = event
+    dict["campaign"] = campaign 
     dict['invite_url'] = util.get_invite_url(req)    
     dict["attendees"] = event.attendees.all()
     dict["map_key"]  = settings.GOOGLE_MAP_API    
