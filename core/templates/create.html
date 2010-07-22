@@ -499,11 +499,9 @@ $(document).ready(function() {
 			type: "POST",
 			data: values, 
 		success: function(data){
-			alert("data returned " + data);
 			window.location.href = "{% url campaign_created %}?chash=" + data.campaign_hash; 
 					},
 		beforeSend: function() {
-			alert("sending data");
 		}
 	});
 });
