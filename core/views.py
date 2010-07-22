@@ -136,7 +136,10 @@ def event_thanks(req, event_id=""):
 
 def campaign_page(req, chash=""):
     req.session["redirect"] = req.get_full_path()
-    c = Campaign.objects.get(chash=chash)
+    try:
+        c = Campaign.objects.get(chash=chash)
+    except:
+        return render_to_response('404.html', {})
     dict = {}
     dict["campaign"] = c
     if c.campaign_type == "event":
@@ -147,7 +150,16 @@ def campaign_page(req, chash=""):
     return render_to_response('404.html', {})
 
 def campaign_admin(req, chash=""):
-    return render_to_response('404.html', {})
+    req.session["redirect"] = req.get_full_path()
+    try:
+        c = Campaign.objects.get(chash=chash)
+    except:
+        return render_to_response('404.html', {})
+
+    dict = {}
+    dict["host"] = "http://" + req.get_host()
+    dict["campaign"] = c
+    return render_to_response('campaign_admin.html', dict)
 
 def campaign_update(req, chash=""):
     return render_to_response('404.html', {})
@@ -155,6 +167,7 @@ def campaign_update(req, chash=""):
 def campaign_created(req):
     req.session["redirect"] = req.get_full_path()
     dict = {}
+    dict["host"] = "http://" + req.get_host()
     if "chash" in req.GET:
         try:
             c = Campaign.objects.get(chash=req.GET["chash"])

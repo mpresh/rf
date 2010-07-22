@@ -1,0 +1,32 @@
+{% extends "site_base.html" %}
+
+	{% block  js_css_include %}
+ 	<link rel="stylesheet" href="{% url static 'css/campaign_admin.css' %}" type="text/css" >
+	{% endblock %}
+
+{% block title %}Admin Console.{% endblock %}
+
+
+{% block site-content %}
+<h1>Admin Console</h1>
+
+<div id="admin_console">
+<p>Admin Console</p>
+
+<ul>
+<li>
+Campaign Page: <a href="{% url campaign_page chash=campaign.chash %}">{{host}}{% url campaign_page chash=campaign.chash %}</a><br/>
+</li>
+<li>
+Analytics Page: <a href="{% url campaign_analytics chash=campaign.chash %}">{{host}}{% url campaign_analytics chash=campaign.chash %}</a><br/>
+</li>
+<li>
+Admin Page: <a href="{% url campaign_admin chash=campaign.chash %}">{{host}}{% url campaign_admin chash=campaign.chash %}</a><br/>
+</li>
+<li>
+Update Page: <a href="{% url campaign_update chash=campaign.chash %}">{{host}}{% url campaign_update chash=campaign.chash %}</a><br/>
+</li>
+</ul>
+</div>
+
+{% endblock %}

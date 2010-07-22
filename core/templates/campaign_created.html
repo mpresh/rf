@@ -13,7 +13,10 @@
 <div id="create-thanks">
 <p>Campaign Created, Thanks..</p>
 
-<a href="{% url campaign_page chash=campaign.chash %}">Campaign Page</a>
+Campaign Page: <a href="{% url campaign_page chash=campaign.chash %}">{{host}}{% url campaign_page chash=campaign.chash %}</a><br/>
+Analytics Page: <a href="{% url campaign_analytics chash=campaign.chash %}">{{host}}{% url campaign_analytics chash=campaign.chash %}</a><br/>
+Admin Page: <a href="{% url campaign_admin chash=campaign.chash %}">{{host}}{% url campaign_admin chash=campaign.chash %}</a><br/>
+Update Page: <a href="{% url campaign_update chash=campaign.chash %}">{{host}}{% url campaign_update chash=campaign.chash %}</a><br/>
 
 <br /><br />
 
