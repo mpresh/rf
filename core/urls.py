@@ -49,7 +49,11 @@ urlpatterns = patterns('',
                        url(r'create/$', 'views.event_create', name='event_create'),
                        url(r'campaign_welcome/$', 'views.campaign_created', name='campaign_created'),
                        url(r'create_campaign/$', 'ajax_create.create_campaign', name='create_campaign'),
-                       
+
+                       url(r'camp/(?P<chash>\w{8}\w+)/$', 'views.campaign_page', name='campaign_page'),
+                       url(r'camp/(?P<chash>\w{8}\w+)/admin/$', 'views.campaign_admin', name='campaign_admin'),
+                       url(r'camp/(?P<chash>\w{8}\w+)/update/$', 'views.campaign_update', name='campaign_update'),
+                       url(r'camp/(?P<chash>\w{8}\w+)/analytics/$', 'analytics.views.analytics_chash', name='campaign_analytics'),
 
                        url(r'invite/(?P<invite_id>\d+)/$', 'views.invite', name='event_invite'),
                        #url(r'blogvip/(?P<invite_id>\d+)/$', 'views.blogvip', name='event_blogvip'),

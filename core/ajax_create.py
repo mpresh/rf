@@ -103,6 +103,7 @@ def _create_event(campaign, req):
               campaign=campaign)
 
     e.save()
+    e.setHash()
     
     if not os.path.exists(os.path.join(settings.ROOT_PATH, 'static/images/events/')):
         os.mzkdir(os.path.join(settings.ROOT_PATH, 'static/images/events'))

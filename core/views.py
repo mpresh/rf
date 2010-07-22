@@ -134,6 +134,24 @@ def event_thanks(req, event_id=""):
 
     return render_to_response('thanks.html', dict)
 
+def campaign_page(req, chash=""):
+    req.session["redirect"] = req.get_full_path()
+    c = Campaign.objects.get(chash=chash)
+    dict = {}
+    dict["campaign"] = c
+    if c.campaign_type == "event":
+        e = c.events.all()[0]
+        if not e.ehash:
+            e.setHash()
+        return HttpResponseRedirect(reverse("event_blogvip_flow") + "?ehash=" + e.ehash) 
+    return render_to_response('404.html', {})
+
+def campaign_admin(req, chash=""):
+    return render_to_response('404.html', {})
+
+def campaign_update(req, chash=""):
+    return render_to_response('404.html', {})
+
 def campaign_created(req):
     req.session["redirect"] = req.get_full_path()
     dict = {}
@@ -141,6 +159,8 @@ def campaign_created(req):
         try:
             c = Campaign.objects.get(chash=req.GET["chash"])
             dict["campaign"] = c
+            if c.campaign_type == "event":
+                dict["event"] = c.events.all()[0]
             return render_to_response('campaign_created.html', dict)
         except:
             pass
@@ -281,6 +301,14 @@ def blogvip_flow(req):
 
         try:
             event = Event.objects.get(id=event_id)
+        except ObjectDoesNotExist:
+            event = None
+    elif "ehash" in req.GET:
+        ehash = req.GET["ehash"]
+        req.session["redirect"] = req.get_full_path()
+
+        try:
+            event = Event.objects.get(ehash=ehash)
         except ObjectDoesNotExist:
             event = None
 

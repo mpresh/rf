@@ -59,3 +59,8 @@ def analytics(req):
             pass
         
     return render_to_response('analytics.html', dict)
+
+
+def analytics_chash(req, chash=""):
+    dict = {}
+    return render_to_response('analytics.html', dict)

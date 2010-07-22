@@ -41,10 +41,10 @@ class Event(models.Model):
     def setHash(self):
         """Computes and sets hash for current Event."""
         ehash_string = str(self.name) + str("EVENT") + str(self.created_at)
-        ehash = eashlib.sha1()
-        ehash.update(chash_string)
+        ehash = hashlib.sha1()
+        ehash.update(ehash_string)
 
-        self.ehash = chash.hexdigest()
+        self.ehash = ehash.hexdigest()
         self.save()
 
 
