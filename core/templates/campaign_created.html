@@ -10,8 +10,8 @@
 {% block site-content %}
 <h1>Campaign Created!</h1>
 
-<div id="create-thanks">
-<p>Campaign Created, Thanks..</p>
+<div id="create-thanks" class="create">
+<h1>Campaign Created, Thanks..</h1>
 
 Campaign Page: <a href="{% url campaign_page chash=campaign.chash %}">{{host}}{% url campaign_page chash=campaign.chash %}</a><br/>
 Analytics Page: <a href="{% url campaign_analytics chash=campaign.chash %}">{{host}}{% url campaign_analytics chash=campaign.chash %}</a><br/>
