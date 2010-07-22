@@ -24,8 +24,9 @@ def frontpage(req):
     print "DOMAIN IS", domain
 
     if domain != "www":
-        events = Event.objects.filter(subdomain=domain)
-        event = list(events)[-1]
+        campaigns = Campaign.objects.filter(subdomain=domain)
+        campaign = list(campaigns)[-1]
+        event = campaign.events.all()[0]
         return HttpResponseRedirect(reverse('event_blogvip_flow') + "?event=" + str(event.id))
 
     return render_to_response('frontpage.html', {})
