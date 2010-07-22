@@ -162,7 +162,16 @@ def campaign_admin(req, chash=""):
     return render_to_response('campaign_admin.html', dict)
 
 def campaign_update(req, chash=""):
-    return render_to_response('404.html', {})
+    req.session["redirect"] = req.get_full_path()
+    try:
+        c = Campaign.objects.get(chash=chash)
+    except:
+        return render_to_response('404.html', {})
+
+    dict = {}
+    dict["host"] = "http://" + req.get_host()
+    dict["campaign"] = c
+    return render_to_response('campaign_edit.html', dict)
 
 def campaign_created(req):
     req.session["redirect"] = req.get_full_path()

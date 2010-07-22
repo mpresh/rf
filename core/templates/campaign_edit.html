@@ -1,0 +1,24 @@
+{% extends "site_base.html" %}
+
+	{% block  js_css_include %}
+ 	<link rel="stylesheet" href="{% url static 'css/campaign_admin.css' %}" type="text/css" >
+	{% endblock %}
+
+{% block title %}Admin Console.{% endblock %}
+
+
+{% block site-content %}
+<h1>Edit Campaign</h1>
+
+<div id="admin_console">
+<p>We Appologise, this page is currently under construction.</p>
+
+
+
+<li>
+Back To Admin Page: <a href="{% url campaign_admin chash=campaign.chash %}">{{host}}{% url campaign_admin chash=campaign.chash %}</a><br/>
+</li>
+
+</div>
+
+{% endblock %}
