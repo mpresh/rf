@@ -114,7 +114,18 @@ def analytics_chash(req, chash=""):
             shares = Share.objects.filter(event=event.id)
             dict["shares"] = shares
         except Exception:
-            pass
+            return render_to_response('404.html', {})
+
+    try:
+        c = Campaign.objects.get(chash=chash)
+        event = c.events.all()[0]
+        dict["event"] = event
+        shares = Share.objects.filter(event=event.id)
+        dict["shares"] = shares
+    except:
+        print "here i am"
+        return render_to_response('404.html', {})
+
 
     if "user_id" in req.session:
         try:
