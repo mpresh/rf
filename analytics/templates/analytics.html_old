@@ -1,29 +1,31 @@
-{%extends 'site_base.html' %}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>	
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>CollectiveVIP</title>
+<link rel="stylesheet" href="{% url static 'css/blueprint/screen.css' %}" type="text/css" media="screen, projection">
+<link rel="stylesheet" href="{% url static 'css/blueprint/print.css' %}" type="text/css" media="print">	
+<!--[if lt IE 8]><link rel="stylesheet" href="{% url static 'css/blueprint/ie.css' %}" type="text/css" media="screen, projection"><![endif]-->
 
-{% block title %}
-Analytics
-{% endblock %}
-
-{% block  js_css_include %}
-<link rel="stylesheet" href="{% url static 'css/blueprint/screen.css' %}" type="text/css" />
-<link rel="stylesheet" href="{% url static 'css/blueprint/print.css' %}" type="text/css" />	
-<!--[if lt IE 8]><link rel="stylesheet" href="{% url static 'css/blueprint/ie.css' %}" type="text/css" /><![endif]-->
-<link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text/css" />	
-
-
-<!--<link rel="stylesheet" type="text/css" href="{% url static 'css/analytics/base.css' %}">-->
-<!--<link rel="stylesheet" type="text/css" href="{% url static 'css/analytics/header.css' %}">-->
+<link rel="stylesheet" type="text/css" href="{% url static 'css/analytics/base.css' %}">
+<link rel="stylesheet" type="text/css" href="{% url static 'css/analytics/header.css' %}">
 <link rel="stylesheet" type="text/css" href="{% url static 'css/analytics/content.css' %}">
+
+
 <script type="text/javascript" src="{% url static 'javascript/jquery-1.4.2.min.js' %}" ></script>	
 <script src="http://www.google.com/jsapi" type="text/javascript"></script> 
-<script type="text/javascript" src="{% url static 'javascript/jquery.showLoading.js' %}" ></script>	
-{% endblock %}
+</head>
+<body>
 
+<div id="wrapper">
 
-
-
-{%block site-content %}
-
+	<div class="container">
+		<div id="header" class="span-24 last">
+					<div id="links" class="span-7 prepend-15 last"><a href="#">Get CollectiveVIP</a> &nbsp;&nbsp; <a href="#">How it Works</a> &nbsp;&nbsp; <a href="#">Contact</a></div>
+		</div>
+			
+				
 		<!-- Top Pic -->
 		<div id="top" class="span-24 last">
 		        <!-- Title -->
@@ -63,7 +65,7 @@ Analytics
 	  <option value="18">18</option>
 	  <option value="19">19</option>
 	  <option value="20">20</option>
-          <option value="21">21</option>
+	  <option value="21">21</option>
 	  <option value="22">22</option>
 	  <option value="23">23</option>
 	  <option value="24">24</option>
@@ -136,15 +138,12 @@ Analytics
     
 		<div class="span-24 last"><br/><br/><br/></div>
 
+	<!-- End container-->
+	</div>
+<!-- End wrapper-->
+</div>	
 
 	<script> 
-
-	  
-	      $("#date_column_chart").showLoading({'afterShow': function(){ setTimeout( "jQuery('#date_column_chart').hideLoading()", 2000 );}});
-	      $("#midRight").showLoading({'afterShow': function(){ setTimeout( "jQuery('#midRight').hideLoading()", 2000 );}});         
-              //$("#date_line_chart").showLoading({'addClass': 'loading-indicator-bars',
-              //                                   'afterShow': function(){ setTimeout( "jQuery('#date_line_chart').hideLoading()", 2000 );}});
-
 	      FB.init({appId: '{{fbappid}}', status: true, cookie: true, xfbml: true});
 	      google.load("visualization", "1", {packages:["table", "piechart", "corechart"]});
 	      google.setOnLoadCallback(drawGraphs);
@@ -301,5 +300,5 @@ xs		});
 			$('#midRight').html(html_str);
 		}
 	    </script>
-
-{% endblock %}
+</body>
+</html>

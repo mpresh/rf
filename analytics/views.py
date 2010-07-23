@@ -52,9 +52,9 @@ def analytics(req):
         except Exception:
             return render_to_response('404.html', {})
 
-    if chash:
+    if "chash" in req.GET:
         try:
-            camp = Campain.objects.get(chash=chash)
+            camp = Campain.objects.get(chash=req.GET["chash"])
             event = camp.events.all()[0]
             dict["event"] = event
             shares = Share.objects.filter(event=event.id)

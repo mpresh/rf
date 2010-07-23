@@ -5,6 +5,9 @@
     <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
     <meta http-equiv="Content-Language" content="en-us" />
 
+o<link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text/css" media="print">	
+
+<script type="text/javascript" src="{% url static 'javascript/jquery.showLoading.js' %}" ></script>	
     <script type="text/javascript" src="{% url static 'javascript/jquery-1.4.2.min.js' %}" ></script>
 	<script type="text/javascript" src="{% url static 'javascript/myjscript.js' %}" ></script>
     <script type="text/javascript" src="{% url static 'javascript/jquery.tools.min.js' %}" ></script>
@@ -62,7 +65,8 @@ div.image_preview  img{
 </head>
   
 <body>
-   
+
+<a class="loading-default">Show default loading indicator</a>    
 	<p><input name="time" id="time" type="text" /> </p>
 	<p><input name="time1" id="time1" type="text" /></p> 
     <p><textarea rows="10" cols="20"> </textarea></p>
@@ -71,6 +75,84 @@ div.image_preview  img{
 	<div class="image_preview"><br/><br/><br/><br/>Image Preview</div></p>
 
 <script>
+  jQuery(document).ready(
+  function() {
+ 
+    //
+    // When a user clicks the 'loading-default' link,
+    // call showLoading on the activity pane
+    // with default options
+    //
+    jQuery('a.loading-default').click(
+ 
+  function() {
+  jQuery('#activity_pane').showLoading();
+  }
+ 
+    ); 
+ 
+ 
+    //
+    // When a user clicks the 'loading-ajax' link,
+    // call showLoading, sleep, then call hide loading
+    // with default options
+    //
+    jQuery('a.loading-ajax').click(
+ 
+  function() {
+  jQuery('#activity_pane').showLoading(
+   {
+      'afterShow': 
+  function() {
+  setTimeout( "jQuery('#activity_pane').hideLoading()", 1000 );
+  }
+ 
+  
+  
+   }
+  );
+  }
+ 
+    ); 
+ 
+ 
+    //
+    // When a user clicks the 'loading-bars' link,
+    // call showLoading with addClass specified
+    //
+    jQuery('a.loading-bars').click(
+ 
+  function() {
+  jQuery('#activity_pane').showLoading(
+   {
+      'addClass': 'loading-indicator-bars'
+  
+   }
+  );
+  }
+ 
+    ); 
+ 
+ 
+    //
+    // When a user clicks the 'loading-hide' link,
+    // call hideLoading on the activity pane
+    //
+    jQuery('a.loading-hide').click(
+ 
+  function() {
+  jQuery('#activity_pane').hideLoading();
+  }
+ 
+    ); 
+ 
+  }
+ 
+  );
+ 
+
+
+
 function previewImage(image_path) {
     alert(image_path);
     $('div.image_preview').html("<img src='" + image_path + "' />");
@@ -134,7 +216,6 @@ function ajaxFileUpload(file_name)
 
 
 $(document).ready(function() {
-
 	$('#time').datepicker({ buttonImageOnly: false,
 		 					buttonImage: "{% url static 'images/calendar.png' %}",
 							showOn: 'button'});		
@@ -146,5 +227,12 @@ $(document).ready(function() {
 
 
 </script>							
+
+<html>
+<body>
+
+<iframe src ="http://www.cnn.com" width="100%" height="300">
+  <p>Your browser does not support iframes.</p>
+</iframe>
 </body>
 </html>

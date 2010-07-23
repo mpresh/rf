@@ -18,10 +18,13 @@ import datetime
 import util
 from fauth import fauth_utils
 
+def test2(req):
+    return render_to_response('test2.html', {})
+
 def test(req):
     print "HELLO", reverse('test')
     req.session["redirect"] = req.get_full_path()  
-    return render_to_response('site_base.html', {})
+    return render_to_response('test.html', {})
 
 def about(req):
     req.session["redirect"] = req.get_full_path()

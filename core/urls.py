@@ -38,6 +38,7 @@ urlpatterns = patterns('',
                        ### miscellaneous
                        url(r'map/?$', 'views.map', name='map'),
                        url(r'test/?$', 'views.test', name='test'),
+                       url(r'test2/?$', 'views.test2', name='test2'),
                        ##
                        url(r'event_home/(?P<event_id>\d+)/?$', 'views.event_home', name='event_home'),                       
                        url(r'thanks/(?P<event_id>\d+)/$', 'views.event_thanks', name='event_thanks'),
@@ -53,7 +54,6 @@ urlpatterns = patterns('',
                        url(r'camp/(?P<chash>\w{8}\w+)/$', 'views.campaign_page', name='campaign_page'),
                        url(r'camp/(?P<chash>\w{8}\w+)/admin/$', 'views.campaign_admin', name='campaign_admin'),
                        url(r'camp/(?P<chash>\w{8}\w+)/update/$', 'views.campaign_update', name='campaign_update'),
-                       url(r'camp/(?P<chash>\w{8}\w+)/analytics/$', 'analytics.views.analytics_chash', name='campaign_analytics'),
 
                        url(r'invite/(?P<invite_id>\d+)/$', 'views.invite', name='event_invite'),
                        #url(r'blogvip/(?P<invite_id>\d+)/$', 'views.blogvip', name='event_blogvip'),
