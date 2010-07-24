@@ -12,7 +12,7 @@
 
  	<link rel="stylesheet" href="{% url static 'css/style.css' %}" type="text/css" >
 	<link rel="stylesheet" href="{% url static 'css/2stylez.css' %}" type="text/css" >
-	<link rel="stylesheet" href="{% url static 'css/2home.css' %}" type="text/css" >
+	<link rel="stylesheet" href="{% url static 'css/2home.css' %}" type="text/css" >  
 {% endblock %}
 
 
@@ -34,8 +34,8 @@
 </div>
 
 
-<div id="invite-button">
-	<a href="" id="invite_button" rel="#overlay-blogger-login" style="color: red;">Share this to get your discount</a>
+<div id="invite-button" onmouseover="$('#invite-button').stop().animate({shadow: '0 0 30px #44f'})" onmouseout="$('#invite-button').stop().animate({shadow: '0 0 10px #000'})">
+	<a href="" id="invite_button" rel="#overlay-blogger-login" style="font-size: 22px;color: red;">Share this to get your discount</a>
 </div>
 
 
@@ -559,6 +559,8 @@ $("#overlay-textarea-facebook").charCount();
 		});
 
 </script>
+
+<script type="text/javascript" src="{% url static 'javascript/jquery.animate-shadow.js' %}" ></script>
 <!-- Content ends here -->
 {% endblock %}
 

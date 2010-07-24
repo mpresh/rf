@@ -1,0 +1,84 @@
+/*
+
+Palet ""
+Bruin: #676054
+Donkergroen: #959A70
+Groen: #BCCD56
+Blauw: #446274
+Grijsblaauw: #7C959A
+
+*/
+
+body {
+     font-family: "Trebuchet MS", Arial, Helvetica, Sans-serif;
+     color: black;
+     background-color: white;
+     margin: 0;
+}
+
+h1 {
+   margin: 0;
+   padding: 0.2em 0.8em;
+   font-size: 50px;
+   color: #BCCD56;
+   background-color: #676054;
+   border-bottom: 4px solid #959A70;
+   font-style: italic;
+}
+
+h2, h3 {
+    color: #676054;
+}
+
+a {
+  color: #446274;
+  text-decoration: none;
+}
+
+a:visited {
+	  color: #7C959A;
+}
+
+a:hover, .highlight a {
+	 text-decoration: underline;
+}
+
+dt {
+   font-weight: bold;
+}
+
+dd {
+   margin: 0;
+   padding-left: 2em;
+}
+
+dd.highlight, dt.highlight {
+	      background-color: #D5D7C6;
+	      cursor: pointer;
+}
+
+div#body {
+	 margin: 2em;
+	 max-width: 50em;
+}
+
+address {
+	margin: 0;
+	padding: 0.2em 1.8em;
+	color:  #BCCD56;
+	background-color: #676054;
+	border-top: 2px solid #959A70;
+}
+
+address a, address a:visited {
+	color:  #BCCD56;
+}
+span.var {
+	 color: #959A70;
+}
+
+div.demo {
+	 border: 3px solid #ccc;
+	 background-color: #f8f8f8;
+	 padding: 20px;
+}

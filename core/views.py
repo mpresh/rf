@@ -18,8 +18,12 @@ import datetime
 import util
 from fauth import fauth_utils
 
+def test3(req):
+    return render_to_response('test3.html', {})
+
 def test2(req):
     return render_to_response('test2.html', {})
+
 
 def test(req):
     print "HELLO", reverse('test')
