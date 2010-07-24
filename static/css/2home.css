@@ -1,7 +1,7 @@
 /*******************************/
 /**** absolute positioning  ****/
 /*******************************/
-#header #invite-button, #header #greeting, #header #dets, #header #invitemsg, #header #links, #user-logo
+#header #invite-button-div, #header #greeting, #header #dets, #header #invitemsg, #header #links, #user-logo
 {
 	position: absolute;
 }
@@ -35,14 +35,14 @@
 	font-weight: bold;
 }
 
-#header #invite-button
+#header #invite-button-div
 {
        #-moz-border-radius: 10px;
        -webkit-border-radius: 0px 0px 5px 5px;
-       #border: 3px solid #a9a9a9;
+      #border: 1px solid #a9a9a9;
       box-shadow: 0 0 10px #000000;
       #-moz-box-shadow: 0 0 10px #000000;
-      -webkit-box-shadow: 0 0 10px #000000;
+      -webkit-box-shadow: 3px 3px 10px #000000;
 
       margin-left: 6px;
       height: 32px;
