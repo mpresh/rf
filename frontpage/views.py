@@ -24,7 +24,7 @@ def frontpage(req):
     domain = req.META['HTTP_HOST'].split(".")[0]
     print "DOMAIN IS", domain
 
-    if domain != "www":
+    if domain != "www" and domain != "ripplefunction":
         campaigns = Campaign.objects.filter(subdomain=domain)
         campaign = list(campaigns)[-1]
         event = campaign.events.all()[0]
