@@ -11,13 +11,6 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
                        url(r'^$', 'views.index', name='index'),
-                       
-                       # twitter authentication auth module
-                       url(r'info/?$', 'tauth.views.info', name='tauth_info'),
-                       url(r'login/?$', 'tauth.views.login', name='tauth_login'),
-                       url(r'login/callback/?$', 'tauth.views.callback', name='tauth_callback'),
-                       url(r'logout/?$', 'tauth.views.logout', name='tauth_logout'),
-                       url(r'tauth_info/?$', 'tauth.views.tauth_info', name='tauth_info'),
                        #
                        ## json / ajax calls
                        url(r'ajax/follow_list.json/?$', 'tauth.views.follow_list', name='follow_list'),
@@ -61,6 +54,8 @@ urlpatterns = patterns('',
                        url(r'be/?$', 'views.blogvip_flow', name='event_blogvip_flow'),
                        #
                        url(r'^',  include('fauth.urls')),
+                       url(r'^',  include('tauth.urls')),
+
                        (r'site_media/(?P<path>.*)$', 'django.views.static.serve',
                               {'document_root': settings.MEDIA_ROOT}),
                        
