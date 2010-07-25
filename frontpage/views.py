@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from events.models import Event
 from tauth.models import User
 from fauth.models import FBUser
+from campaign.models import Campaign
 from django.conf import settings
 import simplejson as json
 import urllib
