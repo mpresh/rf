@@ -5,7 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-                       url(r'^$', 'frontpage.views.frontpage', name='frontpage'),
+                       url(r'^',  include('frontpage.urls')),
                        url(r'^',  include('core.urls')),
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^analytics/', include('analytics.urls')),

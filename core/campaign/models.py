@@ -6,6 +6,7 @@ import hashlib
 
 class Campaign(models.Model):
     
+    title = models.CharField(max_length=300, default="Campaign Title", null=True)
     start_date_time = models.DateTimeField('date time of event start', blank=True, null=True)
     end_date_time = models.DateTimeField('date time of event start', blank=True, null=True)
     code = models.CharField(max_length=100, default="ABCD", null=True)
@@ -21,6 +22,9 @@ class Campaign(models.Model):
     from_name = models.CharField(max_length=100, default="Mike", null=True)
     subdomain = models.CharField(max_length=50, default="www", null=True)
     campaign_type = models.CharField(max_length=50, null=True)
+
+    interested_twitter = models.ManyToManyField(User, related_name="campaign_interested")
+    interested_facebook = models.ManyToManyField(FBUser, related_name="campaign_interested")
     
     def __unicode__(self):
         return "<Campaign: %s %s>" % (self.id, self.chash)

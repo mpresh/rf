@@ -130,7 +130,7 @@ def campaign_page(req, chash=""):
 
 def campaign_page_preview(req):
     if "url" in req.GET:
-        c = Campaign(url=req.GET["url"])
+        c = Campaign(url=req.GET["url"], id=0)
         dict={}
         dict["campaign"] = c
         return render_to_response('campaign_page.html', dict)    

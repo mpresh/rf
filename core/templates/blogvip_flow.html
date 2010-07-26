@@ -1,7 +1,6 @@
 {% extends "event_base.html" %}
 
 {% block  js_css_include %}
-<!--<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key={{map_key}}" type="text/javascript" > </script> -->
 <script type="text/javascript" src="{% url static 'javascript/jquery.cookie.js' %}" ></script>
 <script type="text/javascript" src="{% url static 'javascript/charCount.js' %}" ></script>
 <link rel="stylesheet" href="{% url static 'css/overlay.css' %}" type="text/css" >
@@ -13,6 +12,7 @@
  	<link rel="stylesheet" href="{% url static 'css/style.css' %}" type="text/css" >
 	<link rel="stylesheet" href="{% url static 'css/2stylez.css' %}" type="text/css" >
 	<link rel="stylesheet" href="{% url static 'css/2home.css' %}" type="text/css" >  
+
 {% endblock %}
 
 
@@ -32,7 +32,6 @@
 	{{campaign.from_name}}'s offer to you and your friends:
 	<div id="status"></div>
 </div>
-
 
 <div id="invite-button-div" onmouseover="$('#invite-button-div').stop().animate({shadow: '0 0 30px #44f'}, 'fast')" onmouseout="$('#invite-button-div').stop().animate({shadow: '3px 3px 10px #000'}, 'fast')" rel="#overlay-blogger-login">
 	<a href="" id="invite_button" rel="#overlay-blogger-login" style="font-size: 22px;color: red;">Share this to get your discount</a>
@@ -188,17 +187,6 @@
 
 </div>
 
-
-<!--	
-<div id="visual_map" style="width: 416px; height: 307px;" > </div>						
-
-<div id="dets">
-<div id="event-title">{{event.name}}</div>
-<div id="info"><img src="images/map-ico.png"> {{event.venue}}, {{event.venue_address}} <div id="right">{{event.time}} <img src="images/cal-ico.png"></div></div>
-<div id="goog"><img src="images/map.png"></div>
-</div>
-
--->
 
 <script>
 $(document).ready(function() {

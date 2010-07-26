@@ -31,3 +31,7 @@ def frontpage(req):
         return HttpResponseRedirect(reverse('event_blogvip_flow') + "?event=" + str(event.id))
 
     return render_to_response('frontpage.html', {})
+
+
+def googlehostedservice(req):
+    return render_to_response('googlehostedservice.html', {})
