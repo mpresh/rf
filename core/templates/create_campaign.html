@@ -78,7 +78,11 @@
      		
      });
   
-     $("#campaign_url").keyup(function(){
+     $("#campaign_url").keyup(handle_url_key);
+     $("#campaign_url").keydown(handle_url_key);
+     //$("#campaign_url").keypress(handle_url_key);
+
+function handle_url_key(){
                 var values = {};
                 values["url"] = $('#campaign_url').val();
                 var url_base = "{% url campaign_page_preview%}";
@@ -101,7 +105,7 @@
      		}
                 });
 
-     });
+     }
 
 });
 
