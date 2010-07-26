@@ -1,0 +1,111 @@
+{% extends "site_base.html" %}
+
+{% block  js_css_include %}
+	<script type="text/javascript" src="{% url static 'javascript/jquery-ui-1.8.1.custom.js' %}"></script>
+	<script type="text/javascript" src="{% url static 'javascript/jquery.ui.datepicker.js' %}"> </script>
+	<script type="text/javascript" src="{% url static 'javascript/jquery.timePicker.js' %}"> </script>
+	<script type="text/javascript" src="{% url static 'javascript/ajaxfileupload.js' %}"> </script>
+	<script type="text/javascript" src="{% url static 'javascript/jquery.uploadify.js' %}"> </script>
+	<script type="text/javascript" src="{% url static 'javascript/jquery.validate.js' %}"> </script>
+	<script type="text/javascript" src="{% url static 'javascript/myjscript.js' %}"> </script>
+
+
+	<link rel="stylesheet" href="{% url static 'css/calendar-system.css' %}" type="text/css" >
+	<link rel="stylesheet" href="{% url static 'css/calendar-en.css' %}" type="text/css" >
+	<link rel="stylesheet" href="{% url static 'css/jquery.calendar.css' %}" type="text/css" >
+	<link rel="stylesheet" href="{% url static 'css/jquery.ptTimeSelect.css' %}" type="text/css" >	
+	<link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="Stylesheet" />
+
+ 	<link rel="stylesheet" href="{% url static 'css/create.css' %}" type="text/css" >
+{% endblock %} 
+
+{% block title %}Create{% endblock %}
+
+{% block site-content %}
+<BR><BR><BR><BR>
+
+<div id="choose-create-entity" class="create">
+<h1>Create Campaign</h1>	
+    	 	<input type="text" value="http://www.capitalfactory.com" name="campaign_url" id="campaign_url"></input>
+		<button id="create-button">CREATE</button>
+</div>
+
+
+<div id="preview" style="display:none;">
+    <iframe id="iframe_preview" src ="{{campaign.url}}" width="100%" height="600">
+       <p>Your browser does not support iframes.</p>
+    </iframe>
+</div>
+<script>
+
+
+  $(document).ready(function() {
+  
+     $("#create-button").click(function(){
+     
+                var values = {};
+                values["url"] = $('#campaign_url').val();
+		$.ajax({
+     		url: '{% url create_campaign_ajax %}', 
+     			dataType: "json",
+     			type: "POST",
+     			data: values, 
+     		success: function(data){
+     			window.location.href = "{% url campaign_created %}?chash=" + data.campaign_hash; 
+     					},
+     		beforeSend: function() {
+     		}
+             });
+     });
+
+     $("input[type  = text]").click(function() {
+         
+                if (typeof($(this).attr("original")) == "undefined") {
+                     $(this).attr("original", $(this).val());       
+                }
+                if (trim($(this).val()) == $(this).attr("original")) { 
+                     $(this).val("");
+                }
+		$(this).css("color", "black");
+     });
+
+     $("input[type  = text]").focusout(function() {
+                if (trim($(this).val()) == "") {
+                      $(this).val($(this).attr("original"));
+                     $(this).css("color", "#E0E0E0");
+                }
+                //$(this).css("font-weight", "normal");
+     		
+     });
+  
+     $("#campaign_url").keyup(function(){
+                var values = {};
+                values["url"] = $('#campaign_url').val();
+                var url_base = "{% url campaign_page_preview%}";
+                var url_full = "";
+
+		$.ajax({
+     		url: '{% url create_campaign_url_check %}', 
+     			dataType: "json",
+     			type: "POST",
+     			data: values, 
+     		success: function(data){
+                            if (data.url != "") {
+                                 url_full = url_base + "?url=" + data.url;
+                                 //alert("bbb" + url_full);
+                                 $("#preview").show();
+                                 $("#iframe_preview").attr("src", url_full);
+                            }
+     					},
+     		beforeSend: function() {
+     		}
+                });
+
+     });
+
+});
+
+
+</script>
+
+{% endblock %}
