@@ -73,6 +73,7 @@ def analytics(req):
 
 
 def analytics_chash(req, chash=""):
+    print "here I am"
     dict = {}
     dict["fbappid"] = settings.FACEBOOK_APP_ID
     req.session["redirect"] = req.get_full_path()

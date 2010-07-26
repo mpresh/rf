@@ -1,7 +1,8 @@
 {% extends "site_base.html" %}
 
 	{% block  js_css_include %}
- 	<link rel="stylesheet" href="{% url static 'css/campaign_admin.css' %}" type="text/css" >
+ 	<link rel="stylesheet" href="{% url static 'css/campaign_admin.css' %}" type="text/css" />
+ 	<link rel="stylesheet" href="{% url static 'css/create.css' %}" type="text/css" />
 	{% endblock %}
 
 {% block title %}Admin Console.{% endblock %}
@@ -10,7 +11,7 @@
 {% block site-content %}
 <h1>Admin Console</h1>
 
-<div id="admin_console">
+<div id="admin_console" class="create">
 <p>Admin Console</p>
 
 <ul>

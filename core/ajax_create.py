@@ -17,7 +17,44 @@ import datetime
 from pylib import bitly
 
 
+def campaign_update_ajax(req):
+    print "here I am!!!!!!!!!!"
+    if ("chash" in req.GET):
+        c = Campaign.objects.get(chash=req.GET["chash"])
+    else:
+        return HttpResponse(json.dumps({"status":500} ))    
+    
+    from_name = req.POST["from_name"]
+    code = req.POST["code"]
+    max_people = req.POST["max_people"]        
+    min_people = req.POST["min_people"]    
+    percent = req.POST["percent"]
 
+    start_date = req.POST["promotion_date_start"]
+    start_time = req.POST["promotion_time_start"]
+    end_date = req.POST["promotion_date_end"]
+    end_time = req.POST["promotion_time_end"]
+
+    start_dt = datetime.datetime.strptime(start_date.strip() + " " + start_time.strip(), 
+                                          "%m/%d/%Y %I:%M %p")
+    end_dt = datetime.datetime.strptime(end_date.strip() + " " + end_time.strip(), 
+                                        "%m/%d/%Y %I:%M %p")   
+    
+    message = req.POST["campaign_message"]
+    subdomain = req.POST["subdomain"]
+    url = req.POST["url_redeem"]
+
+    c.from_name= from_name
+    c.code = code
+    c.max_people = max_people
+    c.min_people = min_people
+    c.percent = percent
+    c.message = message
+    c.subdomain = subdomain
+    c.url = url
+
+    c.save()
+    return HttpResponse(json.dumps({"status" : 200}))    
 
 def _create_business(campaign, req):
     return HttpResponse(json.dumps({}))    
