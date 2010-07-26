@@ -1,7 +1,25 @@
 {% extends "site_base.html" %}
 
 	{% block  js_css_include %}
- 	<link rel="stylesheet" href="{% url static 'css/campaign_admin.css' %}" type="text/css" >
+
+	<script type="text/javascript" src="{% url static 'javascript/jquery-ui-1.8.1.custom.js' %}"></script>
+	<script type="text/javascript" src="{% url static 'javascript/jquery.ui.datepicker.js' %}"> </script>
+	<script type="text/javascript" src="{% url static 'javascript/jquery.timePicker.js' %}"> </script>
+	<script type="text/javascript" src="{% url static 'javascript/ajaxfileupload.js' %}"> </script>
+	<script type="text/javascript" src="{% url static 'javascript/jquery.uploadify.js' %}"> </script>
+	<script type="text/javascript" src="{% url static 'javascript/jquery.validate.js' %}"> </script>
+	<script type="text/javascript" src="{% url static 'javascript/myjscript.js' %}"> </script>
+
+
+	<link rel="stylesheet" href="{% url static 'css/calendar-system.css' %}" type="text/css" >
+	<link rel="stylesheet" href="{% url static 'css/calendar-en.css' %}" type="text/css" >
+	<link rel="stylesheet" href="{% url static 'css/jquery.calendar.css' %}" type="text/css" >
+	<link rel="stylesheet" href="{% url static 'css/jquery.ptTimeSelect.css' %}" type="text/css" >	
+	<link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="Stylesheet" />
+
+
+ 	<link rel="stylesheet" href="{% url static 'css/campaign_admin.css' %}" type="text/css" />
+ 	<link rel="stylesheet" href="{% url static 'css/create.css' %}" type="text/css" />
 	{% endblock %}
 
 {% block title %}Admin Console.{% endblock %}
@@ -10,15 +28,113 @@
 {% block site-content %}
 <h1>Edit Campaign</h1>
 
-<div id="admin_console">
-<p>We Appologise, this page is currently under construction.</p>
 
 
+
+<div id="create-campaign" class="create">
+	<h1>Edit Campaign</h1>
+
+	<form id="update-campaign-form" action="{% url event_create %}" method="post">	
+
+		<ul>		
+			<li>
+				<label for="from_name">From Name: 
+				</label> <input type="text" value="{{campaign.from_name}}" name="from_name" />
+			</li>
+			<li>
+				<label for="code">Discount Code: 
+				</label> <input type="text" value="{{campaign.code}}" name="code" />
+			</li>
+    		<li>
+				<label for="percent">Percent Discount: 
+				</label> <input type="text" value="{{campaign.percent}}" name="percent" />
+			</li>
+			<li>
+				<label for="promotion_date_start">Promotion Start Date: </label> 
+				<input type="text" name="promotion_date_start" size="12" id="promotion_date_start" value="06/16/2010" class="required" />
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<label for="promotion_time_start">Time: </label> 
+				<input type="text" name="promotion_time_start" size="8" id="promotion_time_start" value="12:30 AM" class="required"/>
+			</li>
+
+			<li>
+				<label for="promotion_date_end">Promotion End Date: </label> 
+				<input type="text" name="promotion_date_end" size="12" id="promotion_date_end" value="06/16/2010" class="required" />
+				&nbsp;&nbsp;&nbsp;&nbsp;          
+				<label for="promotion_time_end">Time: </label> 
+				<input type="text" size="8" name="promotion_time_end" id="event_time_end" value="12:30 PM" class="required"/>
+			</li>
+
+			<li>
+				<label for="min_people">Minimum People: 
+				</label> <input type="text" value="{{campaign.min_people}}" name="min_people" />
+			</li>
+
+			<li>
+				<label for="max_people">Maximum People: 
+				</label> <input type="text" value="{{campaign.max_people}}" name="max_people" />
+			</li>
+
+			<li>
+				<label for="subdomain">Subdomain: 
+				</label> <input type="text" value="{{campaign.subdomain}}" name="subdomain" />
+			</li>
+
+			<li>
+				<label for="campaign_message">Message Displayed: </label> 
+				<textarea rows="6" cols="40"  name="campaign_message">{{campaign.message}}</textarea>
+			</li>
+
+			<li>
+				<label for="url_redeem">redeem promotion URL: </label> 
+				<textarea rows="6" cols="40"  name="url_redeem">{{campaign.url}}</textarea>
+			</li>
+                         <li>
+				Campaign Created At:  {{campaign.created_at}}
+			</li>
+
+		</ul>
+		<br />
+
+	    
+
+	</form>
+<button id="update-campaign-button">UPDATE</button>	
+</div>
+
+<div id="admin_console" class="create">
 
 <li>
 Back To Admin Page: <a href="{% url campaign_admin chash=campaign.chash %}">{{host}}{% url campaign_admin chash=campaign.chash %}</a><br/>
 </li>
 
 </div>
+<script>
+$(document).ready(function() {
+$('#update-campaign-button').click(function() {
+		var $inputs = $('#update-campaign-form :input');
+
+		// not sure if you wanted this, but I thought I'd add it.
+		// get an associative array of just the values.
+		var values = {};
+		$inputs.each(function() {
+		        values[this.name] = $(this).val();
+		});
+
+		$.ajax({
+			url: '{% url campaign_update_ajax %}?chash={{campaign.chash}}', 
+			dataType: "json",
+			type: "POST",
+			data: values, 
+		success: function(data){
+					},
+		beforeSend: function() {
+		}
+	});
+});
+
+});
+</script>
+
 
 {% endblock %}

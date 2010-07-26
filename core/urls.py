@@ -11,13 +11,6 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
                        url(r'^$', 'views.index', name='index'),
-                       
-                       # twitter authentication auth module
-                       url(r'info/?$', 'tauth.views.info', name='tauth_info'),
-                       url(r'login/?$', 'tauth.views.login', name='tauth_login'),
-                       url(r'login/callback/?$', 'tauth.views.callback', name='tauth_callback'),
-                       url(r'logout/?$', 'tauth.views.logout', name='tauth_logout'),
-                       url(r'tauth_info/?$', 'tauth.views.tauth_info', name='tauth_info'),
                        #
                        ## json / ajax calls
                        url(r'ajax/follow_list.json/?$', 'tauth.views.follow_list', name='follow_list'),
@@ -48,19 +41,25 @@ urlpatterns = patterns('',
                        url(r'about/$', 'views.about', name='about'),
                        url(r'list/$', 'views.event_list', name='event_list'),
 
+                       url(r'create_campaign/$', 'views.create_campaign', name='create_campaign'),
                        url(r'create/$', 'views.event_create', name='event_create'),
                        url(r'campaign_welcome/$', 'views.campaign_created', name='campaign_created'),
-                       url(r'create_campaign/$', 'ajax_create.create_campaign', name='create_campaign'),
+                       url(r'create_campaign_ajax/$', 'ajax_create.create_campaign', name='create_campaign_ajax'),
+                       url(r'create_campaign_url_check/$', 'ajax_create.create_campaign_url_check', name='create_campaign_url_check'),
 
+                       url(r'campaign_page_preview/$', 'views.campaign_page_preview', name='campaign_page_preview'),
                        url(r'camp/(?P<chash>\w{8}\w+)/$', 'views.campaign_page', name='campaign_page'),
                        url(r'camp/(?P<chash>\w{8}\w+)/admin/$', 'views.campaign_admin', name='campaign_admin'),
                        url(r'camp/(?P<chash>\w{8}\w+)/update/$', 'views.campaign_update', name='campaign_update'),
+                       url(r'campaign_update_ajax/$', 'ajax_create.campaign_update_ajax', name='campaign_update_ajax'),
 
                        url(r'invite/(?P<invite_id>\d+)/$', 'views.invite', name='event_invite'),
                        #url(r'blogvip/(?P<invite_id>\d+)/$', 'views.blogvip', name='event_blogvip'),
                        url(r'be/?$', 'views.blogvip_flow', name='event_blogvip_flow'),
                        #
                        url(r'^',  include('fauth.urls')),
+                       url(r'^',  include('tauth.urls')),
+
                        (r'site_media/(?P<path>.*)$', 'django.views.static.serve',
                               {'document_root': settings.MEDIA_ROOT}),
                        
