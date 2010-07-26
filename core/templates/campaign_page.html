@@ -18,13 +18,14 @@
 	<link rel="stylesheet" href="{% url static 'css/jquery.ptTimeSelect.css' %}" type="text/css" />	
 	<link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="Stylesheet" />
 
-        <link rel="stylesheet" href="{% url static 'css/overlay.css' %}" type="text/css" />
+   <link rel="stylesheet" href="{% url static 'css/overlay.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% url static 'css/campaign_page.css' %}" type="text/css" />
  	<link rel="stylesheet" href="{% url static 'css/style.css' %}" type="text/css" />
 	<link rel="stylesheet" href="{% url static 'css/2stylez.css' %}" type="text/css" />
 	<link rel="stylesheet" href="{% url static 'css/2home.css' %}" type="text/css" />  
 
 
- 	<link rel="stylesheet" href="{% url static 'css/campaign_page.css' %}" type="text/css" />
+ 
 {% endblock %} 
 
 {% block title %}{{campaign.title}}{% endblock %}
@@ -200,9 +201,6 @@
 
 
 
-
-
-
 <iframe src ="{{campaign.url}}" width="100%" height="600" scrolling="auto">
   <p>Your browser does not support iframes.</p>
 </iframe>
@@ -342,12 +340,14 @@ $("#twitter-feed-update").click(function() {
 	$('#overlay-div-content2-twitter').hide(); 
 	$('#overlay-div-content3').show();
 
-	$.ajax({ url: '{% url event_tweet_invite event_id = campaign.id %}', 
-	dataType: "json", data: {message: $("#overlay-textarea-twitter").val(), shash: "{{hash}}", }, 
-	success: function(data){ $.get('{% url event_going event_id = campaign.id %}', 
-	function(data) { refreshAttendee(); }); }, 
+	$.ajax({ url: '{% url event_tweet_invite event_id=campaign.id %}', 
+	dataType: "json", 
+	data: {message: $("#overlay-textarea-twitter").val(), 
+		   shash: "{{hash}}", }, 
+	success: function (data) { $.get('{% url event_going event_id=campaign.id %}', 
+	                                  function(data) { refreshAttendee(); }); }, 
 	beforeSend: function() { } 
-}); 
+    }); 
 });
 
 
@@ -361,7 +361,7 @@ $("#facebook-feed-update").click(function(){
 	$('#overlay-div-content3').show();
 
 	$.ajax({
-		url: '{% url event_facebook_update event_id          = campaign.id %}', 
+		url: '{% url event_facebook_update event_id=campaign.id %}', 
 		dataType: "json",
 		data: {message: $("#overlay-textarea-facebook").val(), shash: "{{shash}}" },
 
@@ -449,33 +449,12 @@ $("#okay").click(function(){
 	$("#invite_button").overlay().close();
 });
 
-$("#tweet_invite_button").click(function(){
-	$.ajax({
-		url: '{% url event_tweet_invite event_id           = campaign.id %}', 
-		dataType: "json",
-		data: {data: $("#tweet_text").val(), 
-		invite_url: '{{invite_url}}'
-		//invite_id: {{invite_id}}
-	}, 
-	success: function(data){
-		$("#tweet_msg").html("Tweet Sent Succesfully");
-		$("#tweet_text").val(data["msg"]);
-	},
-	beforeSend: function() {
-		//$("#tweet_invite_button").attr("disabled","disabled");                               
-		$("#tweet_msg").html("<img width                   = '20' height='20' src='{% url static 'images/ajax-loader.gif' %} />Sending Tweet<img width='20' height='20' src='{% url static 'images/ajax-loader.gif' %}' />");
-	}
-});
 
-});
-
-
-});
 
 function refreshAttendee()
 {
 	var attendee_list = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-	$.getJSON('{% url attendees_list event_id = campaign.id %}', function(data){
+	$.getJSON('{% url attendees_list event_id=campaign.id %}', function(data){
 		$.each(data, function(index, attendee) {
 			attendee_list += '<img src= "'+attendee[0]+'">&nbsp&nbsp&nbsp';
 			if (index % 8==0 && index != 0)
