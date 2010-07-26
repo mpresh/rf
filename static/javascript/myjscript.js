@@ -1,3 +1,7 @@
+function trim(stringToTrim) {
+    return stringToTrim.replace(/^\s+|\s+$/g,"");
+}
+
 function inspect(obj, maxLevels, level)
 {
   var str = '', type, msg;

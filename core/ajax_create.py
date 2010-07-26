@@ -18,48 +18,10 @@ from pylib import bitly
 
 
 
-#KEYS product_price 100
-#KEYS product_description Best Toaster Ever!
-#KEYS product_name Toaster
-#KEYS product_url http://www.capitalfactory.com
-#KEYS image 
-#KEYS product_discount 50
-#KEYS product_image 
 
 def _create_business(campaign, req):
     return HttpResponse(json.dumps({}))    
 
-
-#KEYS event_time_start 12:30 AM
-#KEYS code JOHNCHOW1
-#KEYS image 
-#KEYS min_people 0
-#KEYS promotion_time_end 12:30 PM
-#KEYS event_url http://www.capitalfactory.com
-#KEYS event_image 
-#KEYS event_venue Mandalay Bay Convention Center
-#KEYS event_description There will be open bar!
-#KEYS promotion_date_end 06/16/2010
-#KEYS percent 50
-#KEYS event_lat 30.267153
-#KEYS event_discount 50
-#KEYS subdomain www
-#KEYS event_time_end 12:30 PM
-#KEYS max_people 0
-#KEYS from_name John
-#KEYS event_name BLOG WORLD 2010
-#KEYS event_date_end 06/16/2010
-#KEYS person_email 
-#KEYS url_redeem www.product.com/redeem_discount
-#KEYS event_price 100
-#KEYS product_type event
-#KEYS event_lng -97.7430608
-#KEYS event_address Las Vegas, Nevada
-#KEYS campaign_message Best Offer Ever, Sign Up Now!
-#KEYS promotion_time_start 12:30 AM
-#KEYS event_capacity 100
-#KEYS promotion_date_start 06/16/2010
-#KEYS event_date_start 06/16/2010
 
 def _create_event(campaign, req):
     print "CREATING EVENT"
@@ -124,7 +86,51 @@ def _create_product(campaign, req):
 def _create_hotel(campaign, req):
     return HttpResponse(json.dumps({}))    
 
+def create_campaign_url_check(req):
+    for key in req.POST:
+        print "KEYS", key, req.POST[key]
+    campaign_url = req.POST["url"]
+
+    try:
+        obj = urllib.urlopen(campaign_url)
+    except:
+        return HttpResponse(json.dumps({"url": ""}))   
+
+    try:
+        status = obj.getcode()
+        status_str = str(status)
+        print "status_str", status_str
+    
+        if status_str[0] == "2" or status_str[0] == 3:
+            return HttpResponse(json.dumps({"url": campaign_url}))   
+        else:
+            
+            return HttpResponse(json.dumps({"url": ""}))   
+    except Exception:
+        print "here I am "
+        return HttpResponse(json.dumps({"url": campaign_url}))   
+
 def create_campaign(req):
+    for key in req.POST:
+        print "KEYS", key, req.POST[key]
+    campaign_url = req.POST["url"]
+    
+    start_dt = datetime.datetime.now()
+    end_dt = datetime.datetime.now()
+
+    print "here i am"
+    c = Campaign(
+        #start_date_time=start_dt,
+        #end_date_time=end_dt,
+        url=campaign_url
+        )
+
+    c.save()
+    c.setHash()
+    print "hello world"
+    return HttpResponse(json.dumps({"campaign_hash": c.chash}))
+
+def create_campaign_original(req):
     for key in req.POST:
         print "KEYS", key, req.POST[key]
 
