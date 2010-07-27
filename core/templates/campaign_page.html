@@ -357,7 +357,7 @@ $("#facebook-feed-update").click(function(){
 	$('#overlay-div-content3').show();
 
 	$.ajax({
-		url: '{% url event_facebook_update event_id=campaign.id %}', 
+		url: '{% url campaign_facebook_update campaign_id=campaign.id %}', 
 		dataType: "json",
 		data: {message: $("#overlay-textarea-facebook").val(), shash: "{{shash}}" },
 
@@ -376,10 +376,10 @@ $("#status_button").click(function(){
 		//alert("HAHA" + response + inspect(response));
 		if (response.session) {
 			// logged in and connected user, someone you know
-			alert("logged in ");
+			//alert("logged in ");
 		} else {
 			// no user session available, someone you dont know
-			alert("logged out");
+			//alert("logged out");
 		}
 	});
 });
@@ -390,14 +390,12 @@ $("#status_button").click(function(){
 
 var requiredPerms  = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
 $('#facebook-login').click(function(){
-alert("hello world");
 	var fbcheck  = "{{fbuser}}";
 
-alert("hello world2");
 	FB.getLoginStatus(function(response) {
 		if (response.session) {
 			// logged in and connected user, someone you know
-			alert("LOGGED IN");
+			//alert("LOGGED IN");
 			if (fbcheck == "") {
 				FB.logout(function(response) { 
 					//window.location.href                            = "{% url facebook_logout_callback %}?redirectArgs=overlayEQUALStrue";
@@ -405,7 +403,7 @@ alert("hello world2");
 			}
 		} else {
 			// no user session available, someone you dont know
-			alert("LOGGED OUT");
+			//alert("LOGGED OUT");
 			facebook_login_click();
 		}
 

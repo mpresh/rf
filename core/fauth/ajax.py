@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from events.models import Event, Share
 from tauth.models import User
 from models import FBUser
+from campaign.models import Campaign
 from django.conf import settings
 import simplejson as json
 import urllib
@@ -17,7 +18,7 @@ import datetime
 import util
 from pylib import bitly
 
-def event_facebook_update(req, event_id=""):
+def campaign_facebook_update(req, campaign_id=""):
     """ Send feed update to facebook from user share. """
     fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
 
@@ -30,34 +31,29 @@ def event_facebook_update(req, event_id=""):
     else:
         parent_shash = None
 
-    print "HELLO"
     share = Share(message=msg,
-                  event=Event.objects.get(id=event_id),
+                  campaign=Campaign.objects.get(id=campaign_id),
                   from_user_facebook=fbuser,
                   from_user_twitter=None,
                   from_account_type="F",
                   parent_shash=parent_shash,
                   reach=fbuser.num_friends()
                   )
-    print "bue"
     share.setHash()
 
     url = share.url(req)
-    print "sjs"
     short_url = bitly.shorten(url)
-    print "jaja"
     share.url_short = short_url
     msg = msg + " " + short_url
 
     share.save()
-    print "a"
     fbuser.feed(message=msg)
-    print "lalal"
     dict = {}
     dict["status"] = "ok!"
     dict["url"] = short_url
     dict["msg"] = msg
     return HttpResponse(json.dumps(dict))
+
 
 def update_feed(req):
     fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
