@@ -36,6 +36,10 @@
 	<form id="update-campaign-form" action="" method="post">	
 
 		<ul>		
+		         <li>
+				<label for="title">Campaign Title: 
+				</label> <input type="text" value="{{campaign.title}}" name="title" class="required" />
+			</li>
 			<li>
 				<label for="from_name">From Name: 
 				</label> <input type="text" value="{{campaign.from_name}}" name="from_name" class="required" />
@@ -99,7 +103,7 @@
 	    
 
 	</form>
-<button id="update-campaign-button">UPDATE</button>	
+<button id="update-campaign-button" style="width:200px; height: 40px; font-size: 20px;">UPDATE</button>	
 </div>
 
 <div id="admin_console" class="create">

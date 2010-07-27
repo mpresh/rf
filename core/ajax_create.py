@@ -23,7 +23,8 @@ def campaign_update_ajax(req):
         c = Campaign.objects.get(chash=req.GET["chash"])
     else:
         return HttpResponse(json.dumps({"status":500} ))    
-    
+
+    title = req.POST["title"]
     from_name = req.POST["from_name"]
     code = req.POST["code"]
     max_people = req.POST["max_people"]        
@@ -44,6 +45,7 @@ def campaign_update_ajax(req):
     subdomain = req.POST["subdomain"]
     url = req.POST["url_redeem"]
 
+    c.title = title
     c.from_name= from_name
     c.code = code
     c.max_people = max_people

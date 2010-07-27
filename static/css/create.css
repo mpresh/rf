@@ -25,7 +25,7 @@ div#create-event label {
 div.create {
     padding: 20px;		  
     text-align: left;
-    width: 80%;
+    width: 90%;
     background-color: white;
     #background-color: #eee;
     margin: auto;
@@ -45,6 +45,20 @@ div.create {
    
    -moz-box-shadow: 10px 10px 10px #999;
    -webkit-box-shadow: 10px 10px 10px #999;		
+}
+
+div#update-campaign input[type=text] {
+      text-align: center;
+      color: black; 
+      font-weight: bold;
+      font-size: 18px;
+}
+
+div#update-campaign textarea {
+      text-align: center;
+      color: black; 
+      font-weight: bold;
+      font-size: 18px;
 }
 
 #campaign_url {

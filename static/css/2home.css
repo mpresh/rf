@@ -55,7 +55,9 @@
 	font-size:12px;
 	font-weight: bold;
 }
-
+h1 {
+   font-size: 40px;
+}
 #invite-button-div
 {
 	#-moz-border-radius: 10px;
