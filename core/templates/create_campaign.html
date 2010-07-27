@@ -77,12 +77,12 @@
      });
   
      //$("#campaign_url").keyup(handle_url_key);
-     $("#campaign_url").keydown(handle_url_key);
-     $("#campaign_url").keypress(handle_url_key);
+     //$("#campaign_url").keydown(handle_url_key);
+     $("#campaign_url").keyup(function() {handle_url_key($(this).val())});
 
-function handle_url_key(){
+function handle_url_key(url){
                 var values = {};
-                values["url"] = $('#campaign_url').val();
+                values["url"] = url;
                 var url_base = "{% url campaign_page_preview%}";
                 var url_full = "";
 
