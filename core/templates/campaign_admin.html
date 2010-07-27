@@ -9,23 +9,20 @@
 
 
 {% block site-content %}
-<h1>Admin Console</h1>
+<br/><br/><br/>
 
 <div id="admin_console" class="create">
-<p>Admin Console</p>
+<h1>Admin Console</h1>
 
 <ul>
 <li>
 Campaign Page: <a href="{% url campaign_page chash=campaign.chash %}">{{host}}{% url campaign_page chash=campaign.chash %}</a><br/>
 </li>
 <li>
-Analytics Page: <a href="{% url campaign_analytics chash=campaign.chash %}">{{host}}{% url campaign_analytics chash=campaign.chash %}</a><br/>
+Analytics: <a href="{% url campaign_analytics chash=campaign.chash %}">{{host}}{% url campaign_analytics chash=campaign.chash %}</a><br/>
 </li>
 <li>
-Admin Page: <a href="{% url campaign_admin chash=campaign.chash %}">{{host}}{% url campaign_admin chash=campaign.chash %}</a><br/>
-</li>
-<li>
-Update Page: <a href="{% url campaign_update chash=campaign.chash %}">{{host}}{% url campaign_update chash=campaign.chash %}</a><br/>
+Edit Campaign: <a href="{% url campaign_update chash=campaign.chash %}">{{host}}{% url campaign_update chash=campaign.chash %}</a><br/>
 </li>
 </ul>
 </div>

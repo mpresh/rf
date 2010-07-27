@@ -9,8 +9,9 @@
 	<script type="text/javascript" src="{% url static 'javascript/jquery.uploadify.js' %}"> </script>
 	<script type="text/javascript" src="{% url static 'javascript/jquery.validate.js' %}"> </script>
 	<script type="text/javascript" src="{% url static 'javascript/myjscript.js' %}"> </script>
+<script type="text/javascript" src="{% url static 'javascript/jquery.showLoading.js' %}" ></script>	
 
-
+<link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text/css" />	
 	<link rel="stylesheet" href="{% url static 'css/calendar-system.css' %}" type="text/css" >
 	<link rel="stylesheet" href="{% url static 'css/calendar-en.css' %}" type="text/css" >
 	<link rel="stylesheet" href="{% url static 'css/jquery.calendar.css' %}" type="text/css" >
@@ -26,28 +27,26 @@
 
 
 {% block site-content %}
-<h1>Edit Campaign</h1>
 
+<br/><br/><br/>
 
-
-
-<div id="create-campaign" class="create">
+<div id="update-campaign" class="create">
 	<h1>Edit Campaign</h1>
 
-	<form id="update-campaign-form" action="{% url event_create %}" method="post">	
+	<form id="update-campaign-form" action="" method="post">	
 
 		<ul>		
 			<li>
 				<label for="from_name">From Name: 
-				</label> <input type="text" value="{{campaign.from_name}}" name="from_name" />
+				</label> <input type="text" value="{{campaign.from_name}}" name="from_name" class="required" />
 			</li>
 			<li>
 				<label for="code">Discount Code: 
-				</label> <input type="text" value="{{campaign.code}}" name="code" />
+				</label> <input type="text" value="{{campaign.code}}" name="code" class="required" />
 			</li>
     		<li>
 				<label for="percent">Percent Discount: 
-				</label> <input type="text" value="{{campaign.percent}}" name="percent" />
+				</label> <input type="text" value="{{campaign.percent}}" name="percent" class="required digits"/>
 			</li>
 			<li>
 				<label for="promotion_date_start">Promotion Start Date: </label> 
@@ -62,17 +61,18 @@
 				<input type="text" name="promotion_date_end" size="12" id="promotion_date_end" value="06/16/2010" class="required" />
 				&nbsp;&nbsp;&nbsp;&nbsp;          
 				<label for="promotion_time_end">Time: </label> 
-				<input type="text" size="8" name="promotion_time_end" id="event_time_end" value="12:30 PM" class="required"/>
+                                <input type="text" name="promotion_time_end" size="8" id="promotion_time_end" value="12:30 AM" class="required"/>
+
 			</li>
 
 			<li>
 				<label for="min_people">Minimum People: 
-				</label> <input type="text" value="{{campaign.min_people}}" name="min_people" />
+				</label> <input type="text" value="{{campaign.min_people}}" name="min_people" class="required digits"/>
 			</li>
 
 			<li>
 				<label for="max_people">Maximum People: 
-				</label> <input type="text" value="{{campaign.max_people}}" name="max_people" />
+				</label> <input type="text" value="{{campaign.max_people}}" name="max_people" class="required digits" />
 			</li>
 
 			<li>
@@ -87,7 +87,7 @@
 
 			<li>
 				<label for="url_redeem">redeem promotion URL: </label> 
-				<textarea rows="6" cols="40"  name="url_redeem">{{campaign.url}}</textarea>
+				<textarea rows="6" cols="40"  name="url_redeem" class="url">{{campaign.url}}</textarea>
 			</li>
                          <li>
 				Campaign Created At:  {{campaign.created_at}}
@@ -110,8 +110,11 @@ Back To Admin Page: <a href="{% url campaign_admin chash=campaign.chash %}">{{ho
 
 </div>
 <script>
+
+  $("#update-campaign-form").validate();
 $(document).ready(function() {
-$('#update-campaign-button').click(function() {
+
+     $('#update-campaign-button').click(function() {
 		var $inputs = $('#update-campaign-form :input');
 
 		// not sure if you wanted this, but I thought I'd add it.
@@ -127,13 +130,46 @@ $('#update-campaign-button').click(function() {
 			type: "POST",
 			data: values, 
 		success: function(data){
+                        $("#update-campaign").showLoading(1000);
+                         window.location.href = "{% url campaign_admin chash=campaign.chash %}";
 					},
 		beforeSend: function() {
+                    $("#update-campaign").showLoading();
 		}
 	});
-});
+    });
 
 });
+
+	$('#promotion_date_start').datepicker({ 
+		buttonImageOnly: false,
+		buttonImage: "{% url static 'images/calendar.png' %}",
+		showOn: 'both',
+		onSelect: function(dateText, inst) {
+			if ($.trim($('#promotion_date_end').val()) == ""){
+				$('#promotion_date_end').val(dateText);
+			}
+		}
+	});
+
+	$('#promotion_date_end').datepicker({ buttonImageOnly: false,
+		buttonImage: "{% url static 'images/calendar.png' %}",
+		showOn: 'both'
+	});
+	
+        $("#promotion_time_end").timePicker({
+		show24Hours: false,
+		separator: ':',
+		step: 15
+	});
+	$("#promotion_time_start").timePicker({
+		show24Hours: false,
+		separator: ':',
+		step: 15
+	});
+
+
+
 </script>
 
 
