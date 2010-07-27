@@ -17,7 +17,6 @@
 #container
 {
 	margin: auto;
-	width: 980px;
 }
 /* Content Stuff (below header, above iframe) */
 
@@ -195,6 +194,10 @@ border:1px solid #ccc;
 	font-size: 15px;
 	margin: 20px 0 0 22px;
 	overflow: auto;
+}
+#ifra {height: 0px}
+iframe {
+	height: 100%;
 }
 img
 {

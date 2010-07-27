@@ -198,9 +198,9 @@
 
 
 
-<iframe src ="{{campaign.url}}" width="100%" height="600" scrolling="auto">
+<div id="ifra"><iframe id="ifm" src ="{{campaign.url}}" frameborder="0" width="100%" scrolling="auto">
   <p>Your browser does not support iframes.</p>
-</iframe>
+</iframe></div>
 
 <script>
 
@@ -476,6 +476,19 @@ $("#overlay-textarea-facebook").charCount();
 	allowed: 80,		
 	warning: 20,
 });
+
+function pageY(elem) {
+    return elem.offsetParent ? (elem.offsetTop + pageY(elem.offsetParent)) : elem.offsetTop;
+}
+var buffer = 30; //scroll bar buffer
+function resizeIframe() {
+    var height = document.documentElement.clientHeight;
+    height -= pageY(document.getElementById('ifra'))+ buffer ;
+    height = (height < 0) ? 0 : height;
+    document.getElementById('ifra').style.height = height + 'px';
+}
+document.getElementById('ifm').onload=resizeIframe;
+window.onresize = resizeIframe;
 
 </script>
 <script type="text/javascript" src="{% url static 'javascript/jquery.animate-shadow.js' %}" ></script>
