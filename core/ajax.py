@@ -3,7 +3,9 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
 from events.models import Event, Share
 from tauth.models import User
+from campaign.models import Campaign
 from django.conf import settings
+
 import simplejson as json
 import urllib
 import os
@@ -155,6 +157,23 @@ def event_going(req, event_id=""):
     dict["message"] = "going to event"
     return HttpResponse(json.dumps(dict))
 
+def campaign_going_twitter(req, campaign_id=""):
+    """ Going to event. """
+    if "user_id" not in req.session:
+        return HttpResponse("ERROR: User must be authenticated!")
+    
+    print "here I am"
+    campaign = Campaign.objects.get(id=campaign_id)
+    user = User.objects.get(id=req.session["user_id"])	
+    print dir(user)
+    user.campaign_interested.add(campaign.id)    
+
+    dict = {}
+    dict["status"] = "ok"
+    dict["message"] = "going to event"
+    return HttpResponse(json.dumps(dict))
+
+
 def event_tweet_invite(req, event_id=""):
     """ Tweet out invite to everyone. """
     ret_obj = {}
@@ -203,6 +222,67 @@ def event_tweet_invite(req, event_id=""):
     dict["url"] = short_url
     dict["msg"] = msg
     return HttpResponse(json.dumps(dict))
+
+
+def campaign_tweet_invite(req, campaign_id=""):
+    """ Tweet out invite to everyone. """
+    ret_obj = {}
+
+    if "user_id" not in req.session:
+        ret_obj["status"] = "error"
+        ret_obj["message"] = "User Must be Logged in."
+        return HttpResponse(json.dumps(ret_obj))
+
+    user = User.objects.get(id=req.session["user_id"])	
+
+    msg=req.GET["message"]
+    if len(msg) > 125:
+        msg = msg[:125]
+
+    if "shash" in req.GET:
+        parent_shash = req.GET["shash"]
+    elif "shash" in req.POST:
+        parent_shash = req.POST["shash"]
+    else:
+        parent_shash = None
+
+    campaign=Campaign.objects.get(id=campaign_id)
+    reach=user.get_num_follower_list()
+    print "campaign", campaign
+    print "reach", reach
+    print "msg", msg
+    print "parent shahs", parent_shash
+    print "user", user
+    share = Share(message=msg,
+                  campaign=Campaign.objects.get(id=campaign_id),
+                  from_user_facebook=None,
+                  from_user_twitter=user,
+                  from_account_type="T",
+                  parent_shash=parent_shash,
+                  reach=user.get_num_follower_list()
+                  )
+
+    
+    share.save()
+    
+    share.setHash()
+    print "hello world"
+    url = share.url(req)
+    short_url = bitly.shorten(url)
+
+    share.url_short = short_url
+    msg = msg + " " + short_url
+
+    share.save()
+    user.tweet(msg)
+
+    dict = {}
+    dict["status"] = "ok!"
+    dict["url"] = short_url
+    dict["msg"] = msg
+    return HttpResponse(json.dumps(dict))
+
+
 
 def event_tweet_invite_dm(req, event_id=""):
     #""" Send invite to one person."""

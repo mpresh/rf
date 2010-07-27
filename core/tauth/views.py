@@ -6,6 +6,7 @@ from pylib.lazy import reverse
 from utils import *
 from models import User
 from events.models import Event
+from campaign.models import Campaign
 from decorators import wants_user, needs_user
 import simplejson as json
 import urllib
@@ -185,17 +186,17 @@ def friend_list(req):
 	user = User.objects.get(username=req.user.username)	
 	return HttpResponse(json.dumps(user.get_friend_list()))
 
-def attendees(req, event_id=""):
+def attendees(req, campaign_id=""):
 	"""
-	Return a list of users attending the event.
+	Return a list of users that are interested in teh campaign.
 	If logged in, friends returned first.
 	GET Parameter: event_id
 	
 	"""
-	if event_id:
-		event = Event.objects.get(id=event_id)
+	if campaign_id:
+		campaign = Campaign.objects.get(id=campaign_id)
 		att_list = []	
-		attendees = event.attendees.all()
+		attendees = campaign.interested_twitter.all()
 		for att in attendees:
 			att_list.append([att.profile_pic, att.name, att.username])
 		return HttpResponse(json.dumps(att_list))

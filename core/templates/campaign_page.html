@@ -69,10 +69,8 @@
 			<script src="http://connect.facebook.net/en_US/all.js"></script>
 			
 			<div id="fb-root"></div>
-			<!--<button id="status_button">STATUS</button>-->
 			{% if fbuser %}
 			<br/>Facebook<br/>
-			<!--<button class="logoutnow">LOGOUT</button>-->
 			<fb:profile-pic id="facebook-profile-image" height="45px" width="45px" uid={{fbuser.facebook_id}} linked="false" ></fb:profile-pic> 
 			<br/>
 			<div class="logoutnow" href="" style="text-decoration:underline;">logout</div>
@@ -338,11 +336,11 @@ $("#twitter-feed-update").click(function() {
 	$('#overlay-div-content2-twitter').hide(); 
 	$('#overlay-div-content3').show();
 
-	$.ajax({ url: '{% url event_tweet_invite event_id=campaign.id %}', 
+	$.ajax({ url: '{% url campaign_tweet_invite campaign_id=campaign.id %}', 
 	dataType: "json", 
 	data: {message: $("#overlay-textarea-twitter").val(), 
 		   shash: "{{hash}}", }, 
-	success: function (data) { $.get('{% url event_going event_id=campaign.id %}', 
+	success: function (data) { $.get('{% url campaign_going_twitter campaign_id=campaign.id %}', 
 	                                  function(data) { refreshAttendee(); }); }, 
 	beforeSend: function() { } 
     }); 
@@ -392,11 +390,14 @@ $("#status_button").click(function(){
 
 var requiredPerms  = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
 $('#facebook-login').click(function(){
+alert("hello world");
 	var fbcheck  = "{{fbuser}}";
+
+alert("hello world2");
 	FB.getLoginStatus(function(response) {
 		if (response.session) {
 			// logged in and connected user, someone you know
-			//alert("LOGGED IN");
+			alert("LOGGED IN");
 			if (fbcheck == "") {
 				FB.logout(function(response) { 
 					//window.location.href                            = "{% url facebook_logout_callback %}?redirectArgs=overlayEQUALStrue";
@@ -404,7 +405,7 @@ $('#facebook-login').click(function(){
 			}
 		} else {
 			// no user session available, someone you dont know
-			//alert("LOGGED OUT");
+			alert("LOGGED OUT");
 			facebook_login_click();
 		}
 
@@ -452,7 +453,7 @@ $("#okay").click(function(){
 function refreshAttendee()
 {
 	var attendee_list = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-	$.getJSON('{% url attendees_list event_id=campaign.id %}', function(data){
+	$.getJSON('{% url attendees_list campaign_id=campaign.id %}', function(data){
 		$.each(data, function(index, attendee) {
 			attendee_list += '<img src= "'+attendee[0]+'">&nbsp&nbsp&nbsp';
 			if (index % 8==0 && index != 0)

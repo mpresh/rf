@@ -126,6 +126,42 @@ def campaign_page(req, chash=""):
         return render_to_response('404.html', {})
     dict = {}
     dict["campaign"] = c
+    dict["fbappid"] = settings.FACEBOOK_APP_ID
+
+    if "overlay" in req.GET:
+        dict["overlay"] = True
+        if req.GET["overlay"] == "facebook":
+            dict["overlayFacebook"] = True
+        elif req.GET["overlay"] == "twitter":
+            dict["overlayTwitter"] = True    
+        elif req.GET["overlay"] == "true":
+            dict["overlayTrue"] = True    
+
+    if "shash" in req.GET:
+        dict["shash"] = req.GET["shash"]
+    else:
+        dict["shash"] = ""
+
+    # twitter user
+    if "user_id" in req.session:
+        user = User.objects.get(id=req.session["user_id"])	
+        dict['user'] = user
+    else:
+        user = None
+
+    # facebook user
+    if "uid" in req.session:
+        print "FBUSER ID", req.session["uid"]
+        fbuser = FBUser.objects.get(facebook_id=req.session["uid"])	
+        dict['fbuser'] = fbuser
+    elif "uid" in req.COOKIES:
+        fauth_utils.sync_session_cookies(req)
+        fbuser = FBUser.objects.get(facebook_id=req.COOKIES["uid"])	
+        dict['fbuser'] = fbuser
+    else:
+        fbuser = None
+        dict["fbuser"] = ""
+
     return render_to_response('campaign_page.html', dict)
 
 def campaign_page_preview(req):
