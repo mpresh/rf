@@ -155,8 +155,8 @@ def create_campaign(req):
     for key in req.POST:
         print "KEYS", key, req.POST[key]
     campaign_url = req.POST["url"]
-    if not campiagn_url.startswith("http://"):
-        campiagn_url = "http://" + campiagn_url
+    if not campaign_url.startswith("http://"):
+        campaign_url = "http://" + campaign_url
 
     start_dt = datetime.datetime.now()
     end_dt = datetime.datetime.now()
