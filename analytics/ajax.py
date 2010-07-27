@@ -6,22 +6,23 @@ from django.shortcuts import render_to_response, get_object_or_404
 from events.models import *
 from fauth.models import *
 from tauth.models import *
+from campaign.models import Campaign
 
 from datetime import datetime, timedelta
 
 def analytics_date_range_reach(req):
     """Return data organized by date range."""
     dict = {}
-    if "event" in req.GET:
+    if "campaign" in req.GET:
         try:
-            event = Event.objects.get(id=req.GET["event"])
-            shares = Share.objects.filter(event=event.id)
+            campaign = Campaign.objects.get(id=req.GET["campaign"])
+            shares = Share.objects.filter(campaign=campaign.id)
         except Exception:
-            dict["error"] = "Valid Event id not provided."
+            dict["error"] = "Valid campaign id not provided."
             dict["status"] = 500
             return HttpResponse(json.dumps(dict))
     else:
-        dict["error"] = "Must specify event."
+        dict["error"] = "Must specify campaign."
         dict["status"] = 500
         return HttpResponse(json.dumps(dict))
 
@@ -131,16 +132,16 @@ def analytics_date_range_reach(req):
 def analytics_date_range_shares(req):
     """Return data organized by date range."""
     dict = {}
-    if "event" in req.GET:
+    if "campaign" in req.GET:
         try:
-            event = Event.objects.get(id=req.GET["event"])
-            shares = Share.objects.filter(event=event.id)
+            campaign = Campaign.objects.get(id=req.GET["campaign"])
+            shares = Share.objects.filter(campaign=campaign.id)
         except Exception:
-            dict["error"] = "Valid Event id not provided."
+            dict["error"] = "Valid Campaign id not provided."
             dict["status"] = 500
             return HttpResponse(json.dumps(dict))
     else:
-        dict["error"] = "Must specify event."
+        dict["error"] = "Must specify campaign."
         dict["status"] = 500
         return HttpResponse(json.dumps(dict))
 
@@ -253,16 +254,16 @@ def analytics_sources_pie(req):
 
     dict = {}
 
-    if "event" in req.GET:
+    if "campaign" in req.GET:
         try:
-            event = Event.objects.get(id=req.GET["event"])
-            shares = Share.objects.filter(event=event.id)
+            campaign = Campaign.objects.get(id=req.GET["campaign"])
+            shares = Share.objects.filter(campaign=campaign.id)
         except Exception:
-            dict["error"] = "Valid Event id not provided."
+            dict["error"] = "Valid Campaign id not provided."
             dict["status"] = 500
             return HttpResponse(json.dumps(dict))
     else:
-        dict["error"] = "Must specify event."
+        dict["error"] = "Must specify campaign."
         dict["status"] = 500
         return HttpResponse(json.dumps(dict))
 
@@ -369,16 +370,16 @@ def analytics_data(req):
     """Return json data for DataTable format"""
     dict = {}
 
-    if "event" in req.GET:
+    if "campaign" in req.GET:
         try:
-            event = Event.objects.get(id=req.GET["event"])
-            shares = Share.objects.filter(event=event.id)
+            campaign = Campaign.objects.get(id=req.GET["campaign"])
+            shares = Share.objects.filter(campaign=campaign.id)
         except Exception:
-            dict["error"] = "Valid Event id not provided."
+            dict["error"] = "Valid Campaign id not provided."
             dict["status"] = 500
             return HttpResponse(json.dumps(dict))
     else:
-        dict["error"] = "Must specify event."
+        dict["error"] = "Must specify campaign."
         dict["status"] = 500
         return HttpResponse(json.dumps(dict))
 

@@ -161,7 +161,7 @@ Analytics
 		   };
 		   var data_table = new google.visualization.Table(document.getElementById('table_analytics_data'));
 		   $.ajax({
-		        url: '{% url analytics_data %}?event={{event.id}}', 
+		        url: '{% url analytics_data %}?campaign={{campaign.id}}', 
 			     dataType: "json",
 			     data: {},
 			     success: function(data) {
@@ -210,7 +210,7 @@ Analytics
 		function drawPie(range_type, range_duration) {
 			var data_table = new google.visualization.PieChart(document.getElementById('pie_sources'));
 			$.ajax({
-				url: '{% url analytics_sources_pie %}?range_type=' + range_type + '&range_duration=' + range_duration + '&event={{event.id}}', 
+				url: '{% url analytics_sources_pie %}?range_type=' + range_type + '&range_duration=' + range_duration + '&campaign={{campaign.id}}', 
 				dataType: "json",
 				data: {},
 				success: function(data) {
@@ -230,7 +230,7 @@ Analytics
 	  		// Create and draw the visualization.
 	  		var data_table = new google.visualization.ColumnChart(document.getElementById('date_column_chart'));
 			$.ajax({
-				url: '{% url analytics_date_range_shares %}?range_type=' + range_type + '&range_duration=' + range_duration + '&event={{event.id}}', 
+				url: '{% url analytics_date_range_shares %}?range_type=' + range_type + '&range_duration=' + range_duration + '&campaign={{campaign.id}}', 
 				dataType: "json",
 				data: {},
 				success: function(data) {
@@ -251,7 +251,7 @@ Analytics
 	  		// Create and draw the visualization.
 	  		var data_table = new google.visualization.LineChart(document.getElementById('date_line_chart'));
 			$.ajax({
-				url: '{% url analytics_date_range_reach %}?range_type=' + range_type + '&range_duration=' + range_duration + '&event={{event.id}}', 
+				url: '{% url analytics_date_range_reach %}?range_type=' + range_type + '&range_duration=' + range_duration + '&campaign={{campaign.id}}', 
 				dataType: "json",
 				data: {},
 				success: function(data) {

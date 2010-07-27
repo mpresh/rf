@@ -78,7 +78,15 @@ def analytics_chash(req, chash=""):
     dict["fbappid"] = settings.FACEBOOK_APP_ID
     req.session["redirect"] = req.get_full_path()
 
-    shares = Share.objects.all()
+
+    try:
+        c = Campaign.objects.get(chash=chash)
+        shares = Share.objects.filter(campaign=c.id) 
+        dict["shares"] = shares
+        dict["campaign"] = c
+    except Exception:
+        return render_to_response('404.html', {})
+
     dict["total_shares"] = len(shares)
     total_facebook_shares = 0
     total_twitter_shares = 0
@@ -106,26 +114,6 @@ def analytics_chash(req, chash=""):
     dict["total_facebook_reach"] = total_facebook_reach
     dict["total_twitter_reach"] = total_twitter_reach
     dict["total_reach"] = total_twitter_reach + total_facebook_reach
-
-
-    if "event" in req.GET:
-        try:
-            event = Event.objects.get(id=req.GET["event"])
-            dict["event"] = event
-            shares = Share.objects.filter(event=event.id)
-            dict["shares"] = shares
-        except Exception:
-            return render_to_response('404.html', {})
-
-    try:
-        c = Campaign.objects.get(chash=chash)
-        event = c.events.all()[0]
-        dict["event"] = event
-        shares = Share.objects.filter(event=event.id)
-        dict["shares"] = shares
-    except:
-        print "here i am"
-        return render_to_response('404.html', {})
 
 
     if "user_id" in req.session:
