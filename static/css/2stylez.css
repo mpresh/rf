@@ -4,11 +4,11 @@
 #main {
 	padding-bottom: 300px;}  /* must be same height as the footer */
 
-#footer {position: relative;
+/* #footer {position: relative; */
 	margin-top: -150px; /* negative value of footer height */
-	height: 150px;
+ /* height: 150px;
 	clear:both;} 
-
+*/
 /*Opera Fix*/
 body:before {
 	content:"";
@@ -107,23 +107,6 @@ body
 /*******************************/
 /****        header         ****/
 /*******************************/
-#header
-{
-/*	height: 147px;*/
-}
-#header h1
-{
-	left: 21px;
-	top: 15px;
-}
-#header h1 a
-{
-	background-image: url(../images/look/logo.png);
-	border: none;
-	height: 68px;
-	line-height: 68px;
-	width: 186px;
-}
 #topnav
 {
 	list-style: none;
@@ -174,7 +157,7 @@ margin: auto;
 /*******************************/
 /****      content-main     ****/
 /*******************************/
-#content
+/*#content
 {
 	background-position: 0 -147px;
 	padding: 0 0 40px 20px;
@@ -210,7 +193,7 @@ margin: auto;
 	font-size: 1.4em;
 	line-height: 1.6em;
 	padding-bottom: 16px;
-}
+}*/
 #attendees_thumbs{
 	padding-left: 10px;
 	}

@@ -38,18 +38,18 @@
 
 
 
+<div id="badge">
+	<div id="greeting">
+		{{campaign.from_name}}'s offer to you and your friends:
+		<div id="status"></div>
+	</div>
 
-<div id="greeting">
-	{{campaign.from_name}}'s offer to you and your friends:
-	<div id="status"></div>
+	<div id="invite-button-div" onmouseover="$('#invite-button-div').stop().animate({shadow: '0 0 30px #44f'}, 'fast')" onmouseout="$('#invite-button-div').stop().animate({shadow: '3px 3px 10px #000'}, 'fast')" rel="#overlay-blogger-login">
+		<a href="" id="invite_button" rel="#overlay-blogger-login" style="font-size: 22px;color: red;">Share this to get your discount</a>
+	</div>
+
+	<div id="invitemsg">{{campaign.percent}}% OFF ADMISSION TO {{event.name|upper}}</div>
 </div>
-
-<div id="invite-button-div" onmouseover="$('#invite-button-div').stop().animate({shadow: '0 0 30px #44f'}, 'fast')" onmouseout="$('#invite-button-div').stop().animate({shadow: '3px 3px 10px #000'}, 'fast')" rel="#overlay-blogger-login">
-	<a href="" id="invite_button" rel="#overlay-blogger-login" style="font-size: 22px;color: red;">Share this to get your discount</a>
-</div>
-
-<div id="invitemsg">{{campaign.percent}}% OFF ADMISSION TO {{event.name|upper}}</div>
-
 
 <div id="overlay-blogger-login" class="overlay-blogger">
 
@@ -155,7 +155,7 @@
 </div>
 
 
-
+<!--
 <div id="dets"> 
 {% block details %}
 	<div id="event-title">BlogWorld 2010 Panel Spotlight</div>
@@ -174,9 +174,9 @@
 	<div id="detsfooter"><img src="{% url static 'images/look/pbot.png' %}"></div>
 {% endblock %}
 
-</div> 
+</div> -->
 
-<div id="eventinfo"><b>Date:</b> {{date_label}} &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<b>Time:</b> {{time_label}}<br>{{event.venue}} | {{event.venue_address}}</div>
+<!--<div id="eventinfo"><b>Date:</b> {{date_label}} &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<b>Time:</b> {{time_label}}<br>{{event.venue}} | {{event.venue_address}}</div>-->
 
 <div id="attendees">
 	<div id="msg">Interested Guests</div>
