@@ -5,8 +5,8 @@
     <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
     <meta http-equiv="Content-Language" content="en-us" />
 
-
     <script type="text/javascript" src="{% url static 'javascript/jquery-1.4.2.min.js' %}" ></script>
+    <script type="text/javascript" src="{% url static 'javascript/jquery.tabSlideOut.v1.3.js' %}" ></script>
     <script type="text/javascript" src="{% url static 'javascript/myjscript.js' %}" ></script>
     <link rel="stylesheet" type="text/css" href="{% url static 'css/top-site-base.css' %}" />    
     <script type="text/javascript" src="{% url static 'javascript/jquery.tools.min.js' %}" ></script>
@@ -37,6 +37,7 @@
 <body>
 
   <!-- Footer content -->
+
   {% include "header.html" %}
 
 
@@ -56,6 +57,48 @@
  	
  <!-- Footer content -->
  {% include "footer.html" %}
+
+
+<script type="text/javascript">
+
+
+
+
+    $(function(){
+        $('.slide-out-div').tabSlideOut({
+            tabHandle: '.handle',                     //class of the element that will become your tab
+            //pathToTabImage: 'http://tab-slide-out.googlecode.com/files/jquery.tabSlideOut.v1.3.js', //path to the image for the tab //Optionally can be set using css
+            pathToTabImage: '{% url static 'images/contact_tab.gif' %}', //path to the image for the tab //Optionally can be set using css
+            imageHeight: '122px',                     //height of tab image           //Optionally can be set using css
+            imageWidth: '40px',                       //width of tab image            //Optionally can be set using css
+            tabLocation: 'right',                      //side of screen where tab lives, top, right, bottom, or left
+            speed: 300,                               //speed of animation
+            action: 'click',                          //options: 'click' or 'hover', action to trigger animation
+            topPos: '300px',                          //position from the top/ use if tabLocation is left or right
+            leftPos: '20px',                          //position from left/ use if tabLocation is bottom or top
+            fixedPosition: false                      //options: true makes it stick(fixed position) on scroll
+        });
+
+    });
+
+    </script>
+<style type="text/css">
+      
+      .slide-out-div {
+          padding: 20px;
+          width: 250px;
+          background: #ccc;
+          border: 1px solid #29216d;
+      }      
+      </style>
+        <div class="slide-out-div">
+            <a class="handle" href="http://link-for-non-js-users.html">Content</a>
+            <h3>Contact RippleFunction</h3>
+	    <br/>
+            <p>Thanks for checking out our site.</p>
+            <p>We'd love to hear form you. <br/><br/>Please email info@ripplefunction.com</p>
+        </div>
+
 							     
 </body>
 </html>
