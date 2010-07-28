@@ -61,6 +61,21 @@ div#update-campaign textarea {
       font-size: 18px;
 }
 
+div#email-admin-details {
+text-align: center;
+font-size: 40px;
+}
+
+#email_address {
+font-size: 25px;
+width: 500px;
+}
+
+button#email-button {
+font-size: 20px;
+height: 30px;		     		    
+}
+
 #campaign_url {
 	      font-size: 30px;
 	      text-align: center;

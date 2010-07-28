@@ -15,7 +15,29 @@ import shutil
 import socket
 import datetime
 from pylib import bitly
+import sys
+from smtplib import SMTP
 
+def send_details_email(req):
+    print "here I am"
+    content = req.POST["content"]
+    chash = req.POST["chash"]
+    email = req.POST["email_address"]
+    print "email", email
+    print "content", content
+    print "chash", chash
+
+    from_addr = 'info@ripplefunction.com'
+    to_addrs = [email]
+
+    try:
+        s = SMTP()
+        s.connect('smtp.webfaction.com')
+        s.login('mpresh','1564f867')
+        s.sendmail(from_addr, to_addrs, content)
+        return HttpResponse(json.dumps({"status":200} ))    
+    except:
+        return HttpResponse(json.dumps({"status":500} ))    
 
 def campaign_update_ajax(req):
     print "here I am!!!!!!!!!!"

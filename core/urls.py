@@ -49,6 +49,7 @@ urlpatterns = patterns('',
                        url(r'campaign_welcome/$', 'views.campaign_created', name='campaign_created'),
                        url(r'create_campaign_ajax/$', 'ajax_create.create_campaign', name='create_campaign_ajax'),
                        url(r'create_campaign_url_check/$', 'ajax_create.create_campaign_url_check', name='create_campaign_url_check'),
+                       url(r'send_details_email/$', 'ajax_create.send_details_email', name='send_details_email'),
 
                        url(r'campaign_page_preview/$', 'views.campaign_page_preview', name='campaign_page_preview'),
                        url(r'camp/(?P<chash>\w{8}\w+)/$', 'views.campaign_page', name='campaign_page'),
