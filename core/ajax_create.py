@@ -17,6 +17,7 @@ import datetime
 from pylib import bitly
 import sys
 from smtplib import SMTP
+import re
 
 def send_details_email(req):
     print "here I am"
@@ -27,6 +28,7 @@ def send_details_email(req):
     print "content", content
     print "chash", chash
 
+    content = re.sub(r'<.*?>', '',content) 
     from_addr = 'info@ripplefunction.com'
     to_addrs = [email]
 
