@@ -64,7 +64,8 @@ def campaign_update_ajax(req):
                                           "%m/%d/%Y %I:%M %p")
     end_dt = datetime.datetime.strptime(end_date.strip() + " " + end_time.strip(), 
                                         "%m/%d/%Y %I:%M %p")   
-    
+
+    message_share = req.POST["campaign_message_share"]
     message = req.POST["campaign_message"]
     subdomain = req.POST["subdomain"]
     url = req.POST["url_redeem"]
@@ -76,6 +77,7 @@ def campaign_update_ajax(req):
     c.min_people = min_people
     c.percent = percent
     c.message = message
+    c.message_share = message_share
     c.subdomain = subdomain
     c.url = url
 

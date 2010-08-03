@@ -85,10 +85,14 @@
 			</li>
 
 			<li>
-				<label for="campaign_message">Message Displayed: </label> 
+				<label for="campaign_message">Message Displayed Front Label: </label> 
 				<textarea rows="6" cols="40"  name="campaign_message">{{campaign.message}}</textarea>
 			</li>
 
+			 <li>
+				<label for="campaign_message_share">Message Displayed During Share: </label> 
+				<textarea rows="6" cols="40"  name="campaign_message_share">{{campaign.message_share}}</textarea>
+			</li>
 			<li>
 				<label for="url_redeem">redeem promotion URL: </label> 
 				<textarea rows="6" cols="40"  name="url_redeem" class="url">{{campaign.url}}</textarea>

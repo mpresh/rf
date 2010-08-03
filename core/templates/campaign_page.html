@@ -47,7 +47,7 @@
 		<a href="" id="invite_button" rel="#overlay-blogger-login" style="font-size: 22px;color: red;">Share this to get your discount</a>
 	</div>
 
-	<div id="invitemsg">{{campaign.percent}}% OFF ADMISSION TO {{event.name|upper}}</div>
+	<div id="invitemsg">{{campaign.message|upper}}</div>
 </div>
 
 <div id="overlay-blogger-login" class="overlay-blogger">
@@ -110,7 +110,7 @@
 		<div id="facebook-top-msg">
 			<img src="{% url static 'images/facebook-share-msg.png' %}">
 		</div>
-		<textarea id="overlay-textarea-facebook">Join me at BlogWorld in Las Vegas, Oct 14-16. Use my {{campaign.percent}}% off coupon.</textarea>
+		<textarea id="overlay-textarea-facebook">{{campaign.message_share}}</textarea>
 	</div>
 	
 	<div id="overlay-div-content2-twitter">
@@ -125,7 +125,7 @@
 		<div id="twitter-top-msg">
 			<img src="{% url static 'images/twitter-share-msg.png' %}">
 		</div>
-		<textarea id="overlay-textarea-twitter" >Join me at BlogWorld in Las Vegas, Oct 14-16. Use my 20% off coupon.</textarea>
+		<textarea id="overlay-textarea-twitter" >{{}campaign.message_share}</textarea>
 	</div>
 	<div id="overlay-div-content3" >
 
