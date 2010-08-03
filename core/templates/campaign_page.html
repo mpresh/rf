@@ -125,7 +125,7 @@
 		<div id="twitter-top-msg">
 			<img src="{% url static 'images/twitter-share-msg.png' %}">
 		</div>
-		<textarea id="overlay-textarea-twitter" >{{}campaign.message_share}</textarea>
+		<textarea id="overlay-textarea-twitter" >{{campaign.message_share}}</textarea>
 	</div>
 	<div id="overlay-div-content3" >
 
@@ -145,7 +145,7 @@
 			Here’s your discount code:
 			</div>      	
 			
-			<div id="code"><p>{{campaign.code}}</p></div>
+			<div id="code"><p>{{campaign.code}}</p><br/>Redeem Here: &nbsp;<a href="{{campaign.url}}">{{campaign.url}}</a></div>
 
 	</div>
 
