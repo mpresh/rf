@@ -1,33 +1,22 @@
-<HTML>
-<HEAD>
-	<TITLE>Ripple Function</TITLE>
-	<meta name="author" content="">
-	<meta name="description" content="">
-	<meta name="keywords" content="">
-	<link type="text/css" href="{% url static 'css/frontpage_style.css' %}" rel="stylesheet">
-</head>
+{% extends "site_base.html" %}
 
-<BODY>
-<div id="container">
-	<div id="toplinks">
-	<a href="#">Get Ripple Function</a> &nbsp; | &nbsp; <a href="#">How it Works</a> &nbsp; | &nbsp; <a href="#">Contact</a>
-	</div>
-<BR><BR><BR><BR>
-	<div id="content">
-	
+{% block title %}Ripple Function{% endblock %}
+
+{% block  js_css_include %}
+<link type="text/css" href="{% url static 'css/frontpage_style.css' %}" rel="stylesheet">
+{% endblock %} 
+
+{% block site-content %}
+<br/><br/><br/><br/>
+<div id="content-front">
 	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="545" height="383" id="viddler_14c3c664"><param name="movie" value="http://www.viddler.com/player/14c3c664/" /><param name="allowScriptAccess" value="always" /><param name="allowFullScreen" value="true" /><embed src="http://www.viddler.com/player/14c3c664/" width="545" height="383" type="application/x-shockwave-flash" allowScriptAccess="always" allowFullScreen="true" name="viddler_14c3c664"></embed></object>
+<div/>
+<br/><br/><br/>
+{% endblock %}
+
+
 	
-	</div>
-	
-	<div id="footer">
-		<div id="dets">
-			<a href="#">About</a> &nbsp; 
-			<a href="#">Privacy Policy</a>
-		</div>
-		<div id="copyright">
-			Copyright Ripple Function 2010. 
-		</div>
-	</div>
+
 </div>
 </BODY>
 </HTML>

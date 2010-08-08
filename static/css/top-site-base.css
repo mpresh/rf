@@ -73,3 +73,27 @@ body{
 #header #links a:active {text-decoration: none; color: #581e92;}
 #header #links a:hover {text-decoration: none; color: #581e92;}
 
+#footer {
+	text-align: center;
+	margin: auto;
+	margin-top: 60px;	    
+	padding: 55px 20px; 
+}
+
+#footer #copyright { 
+	position: relative;
+	width: 300px;
+	float: left; 
+}
+#footer #dets{ 
+	position: relative;
+	width: 300px;
+	float: right;
+	text-align: right;
+}
+#footer #dets a {
+	margin: 0px 5px 0px 5px;
+}
+
+
+
