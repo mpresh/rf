@@ -17,6 +17,7 @@ import socket
 import datetime
 import util
 from fauth import fauth_utils
+from pylib.bitly import *
 
 def create_campaign(req):
     return render_to_response('create_campaign.html', dict)    
@@ -118,10 +119,13 @@ def event_thanks(req, event_id=""):
 
     return render_to_response('thanks.html', dict)
 
-def campaign_page(req, chash=""):
+def campaign_page(req, chash="", camp_id=""):
     req.session["redirect"] = req.get_full_path()
     try:
-        c = Campaign.objects.get(chash=chash)
+        if chash:
+            c = Campaign.objects.get(chash=chash)
+        if camp_id:
+            c = Campaign.objects.get(id=camp_id)
     except:
         return render_to_response('404.html', {})
     dict = {}
@@ -181,8 +185,24 @@ def campaign_admin(req, chash=""):
         return render_to_response('404.html', {})
 
     dict = {}
-    dict["host"] = "http://" + req.get_host()
+    host = "http://" + req.get_host()
+    dict["host"] = host
     dict["campaign"] = c
+
+    campaign_admin_url = host + reverse("campaign_admin", kwargs={'chash':c.chash})
+    campaign_analytics_url = host + reverse("campaign_analytics", kwargs={'chash':c.chash})
+    campaign_update_url = host + reverse("campaign_update", kwargs={'chash':c.chash})
+    campaign_landing_url = host + reverse("campaign_page_id", kwargs={'camp_id':c.id})
+
+    #print "Campaign Admin URL", campaign_admin_url
+    #print "Campaign Analytics URL", campaign_analytics_url
+    #print "Campaign Update URL", campaign_update_url
+    #print "Campaign Landing URL", campaign_landing_url
+
+    dict["admin_url"] = shorten(campaign_admin_url)
+    dict["landing_url"] = shorten(campaign_landing_url)
+    dict["analytics_url"] = shorten(campaign_analytics_url)
+    dict["update_url"] = shorten(campaign_update_url)
     return render_to_response('campaign_admin.html', dict)
 
 def campaign_update(req, chash=""):
@@ -200,13 +220,31 @@ def campaign_update(req, chash=""):
 def campaign_created(req):
     req.session["redirect"] = req.get_full_path()
     dict = {}
-    dict["host"] = "http://" + req.get_host()
+    host = "http://" + req.get_host()
+    dict["host"] = host
+    print "HOST IS", host
+    
+    
     if "chash" in req.GET:
         try:
             c = Campaign.objects.get(chash=req.GET["chash"])
             dict["campaign"] = c
-            if c.campaign_type == "event":
-                dict["event"] = c.events.all()[0]
+
+            campaign_admin_url = host + reverse("campaign_admin", kwargs={'chash':c.chash})
+            campaign_analytics_url = host + reverse("campaign_analytics", kwargs={'chash':c.chash})
+            campaign_update_url = host + reverse("campaign_update", kwargs={'chash':c.chash})
+            campaign_landing_url = host + reverse("campaign_page_id", kwargs={'camp_id':c.id})
+
+            #print "Campaign Admin URL", campaign_admin_url
+            #print "Campaign Analytics URL", campaign_analytics_url
+            #print "Campaign Update URL", campaign_update_url
+            #print "Campaign Landing URL", campaign_landing_url
+
+            dict["admin_url"] = shorten(campaign_admin_url)
+            dict["landing_url"] = shorten(campaign_landing_url)
+            dict["analytics_url"] = shorten(campaign_analytics_url)
+            dict["update_url"] = shorten(campaign_update_url)
+
             return render_to_response('campaign_created.html', dict)
         except:
             pass

@@ -53,6 +53,8 @@ urlpatterns = patterns('',
 
                        url(r'campaign_page_preview/$', 'views.campaign_page_preview', name='campaign_page_preview'),
                        url(r'camp/(?P<chash>\w{8}\w+)/$', 'views.campaign_page', name='campaign_page'),
+                       url(r'camp/(?P<camp_id>\w+)/$', 'views.campaign_page', name='campaign_page_id'),
+
                        url(r'camp/(?P<chash>\w{8}\w+)/admin/$', 'views.campaign_admin', name='campaign_admin'),
                        url(r'camp/(?P<chash>\w{8}\w+)/update/$', 'views.campaign_update', name='campaign_update'),
                        url(r'campaign_update_ajax/$', 'ajax_create.campaign_update_ajax', name='campaign_update_ajax'),

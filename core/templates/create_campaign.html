@@ -40,10 +40,9 @@
 <script>
 
   $(document).ready(function() {
-  
-     $("#create-button").click(function(){
-     
-                var values = {};
+
+     function create() {
+           var values = {};
                 values["url"] = $('#campaign_url').val();
 		$.ajax({
      		url: '{% url create_campaign_ajax %}', 
@@ -56,6 +55,17 @@
      		beforeSend: function() {
      		}
              });
+     }
+
+     $("#campaign_url").keypress(function(e){
+        if(e.which == 13){
+          create();
+         }
+      });
+
+  
+     $("#create-button").click(function(){
+       create();  
      });
 
      $("input[type  = text]").click(function() {

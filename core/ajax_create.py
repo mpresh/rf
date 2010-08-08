@@ -29,6 +29,7 @@ def send_details_email(req):
     print "chash", chash
 
     content = re.sub(r'<.*?>', '',content) 
+    content = content.replace("&nbsp;", "") 
     from_addr = 'info@ripplefunction.com'
     to_addrs = [email]
 
