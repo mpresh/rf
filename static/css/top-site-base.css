@@ -39,7 +39,7 @@ body{
 #header #logo
 {
 	float: left;
-	padding-left: 120px;
+	padding-left: 40px;
 	position: relative;
 }
 #content
@@ -50,13 +50,20 @@ body{
 	padding-bottom: 10px;
 }
 
+#header-container{
+        position: relative;	
+	width: 980px;
+	margin: auto;
+	padding-bottom: 10px;
+}
+
 #header #links
 {
-	float: left;
+	float: right;
 	color: #581e92;
 	width: 300px;
 	text-align: right;
-	padding: 12px 0px 0px 500px;
+	padding: 12px 40px 0px 12px;
 	top: 12px;
 	font-size:12px;
 	font-weight: bold;
