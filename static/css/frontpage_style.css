@@ -9,16 +9,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 			line-height: 18px; 
 			color: #000; 
 		}
-		#container { 
-		#	margin: auto; 
-		#	width: 750px;
-		#}
-		#container #toplinks{
-			float: right; 
-			padding-top: 10px;
-			width: 300px;
-			text-align: right;
-		}
+
 		#container #content-front { 
  			margin: auto;
 			padding: 18px 20px; 
@@ -32,30 +23,4 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 			text-align: center; 
 		}
 		
-		#container #content-front #h{
-			font-size: 18px;
-			}
-		##container #footer { 
- 		#	margin: auto;
-		#	padding: 55px 20px; 
-		#	width: 750px;
-		#}
-		#container #footer #copyright { 
-		#	position: relative;
-		#	width: 300px;
-		#	float: left; 
-		#}
-		##container #footer #dets{ 
-		#	position: relative;
-		#	width: 300px;
-		#	float: right;
-		#	text-align: right;
-		#}
-
-		a { 
-			color: #4B0082; 
-			text-decoration: none; 
-		}
-		a:hover { 
-			text-decoration: underline; 
-		}
+		

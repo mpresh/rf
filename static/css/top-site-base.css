@@ -17,13 +17,6 @@ body{
     _height:100%;/*  /* for IE6 as it doesnt understand min-height */
 }
 
-#footer {
-    position: relative;
-   	margin-top:10px;
-   font-size: 16px;
-   text-align: center;
-}
-
 #main, #header
 {
 	background-image: url(../images/look/body-bg.png);
@@ -74,11 +67,14 @@ body{
 #header #links a:hover {text-decoration: none; color: #581e92;}
 
 #footer {
+        font-size: 16px;
 	text-align: center;
 	margin: auto;
 	margin-top: 60px;	    
 	padding: 55px 20px; 
+position: relative;   
 }
+
 
 #footer #copyright { 
 	position: relative;
@@ -93,7 +89,18 @@ body{
 }
 #footer #dets a {
 	margin: 0px 5px 0px 5px;
+			color: #4B0082; 
+			text-decoration: none; 
+		
 }
+#footer #dets a:hover { 
+			text-decoration: underline; 
+		}
 
-
+#footer-container{
+        position: relative;	
+	width: 980px;
+	margin: auto;
+	padding-bottom: 10px;
+}
 
