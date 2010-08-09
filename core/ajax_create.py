@@ -43,7 +43,6 @@ def send_details_email(req):
         return HttpResponse(json.dumps({"status":500} ))    
 
 def campaign_update_ajax(req):
-    print "here I am!!!!!!!!!!"
     if ("chash" in req.GET):
         c = Campaign.objects.get(chash=req.GET["chash"])
     else:
@@ -61,11 +60,14 @@ def campaign_update_ajax(req):
     end_date = req.POST["promotion_date_end"]
     end_time = req.POST["promotion_time_end"]
 
+    print "hello wporl", start_date, start_time
     start_dt = datetime.datetime.strptime(start_date.strip() + " " + start_time.strip(), 
                                           "%m/%d/%Y %I:%M %p")
+
     end_dt = datetime.datetime.strptime(end_date.strip() + " " + end_time.strip(), 
                                         "%m/%d/%Y %I:%M %p")   
 
+    print "hello wporl"
     message_share = req.POST["campaign_message_share"]
     message = req.POST["campaign_message"]
     subdomain = req.POST["subdomain"]
