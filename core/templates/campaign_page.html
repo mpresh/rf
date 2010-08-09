@@ -173,7 +173,7 @@
 	<div id="msg">Interested Guests</div>
 
 
-	<br/><br/><br/><br/><br/><br/>
+	<br/><br/>
 	<div id="attendees_thumbs">
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		{% for attendee in attendees %} 
@@ -197,6 +197,7 @@
 </iframe></div>
 
 <script>
+refreshAttendee();
 $("#ifra").showLoading({'afterShow': function(){ setTimeout( "jQuery('#ifra').hideLoading()", 5000 );}});         
 
 $("#badge").click(function(){
@@ -360,6 +361,7 @@ $("#facebook-feed-update").click(function(){
 		data: {message: $("#overlay-textarea-facebook").val(), shash: "{{shash}}" },
 
 		success: function(data){
+                  refreshAttendee();
 		},
 		beforeSend: function() {
                 $("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
@@ -407,17 +409,17 @@ $('#facebook-login').click(function(){
 	});
 });
 
-//(function () {
-//FB.getLoginStatus(function(response) {
-//		if (response.session) {	
+(function () {
+FB.getLoginStatus(function(response) {
+		if (response.session) {	
 //alert("logged in");
-//	
-//}
-//else {
+	
+}
+else {
 //alert("logged out");
-//}
-//}
-//)})();
+}
+}
+)})();
 
 
 $('.logoutnow').click(function() 
@@ -452,20 +454,23 @@ $("#invite_popup_close").bind('click', function() {
 });
 
 $("#okay").click(function(){
-	$("#invite_button").overlay().close();
+	$("#badge").overlay().close();
 });
-
-
 
 function refreshAttendee()
 {
-	var attendee_list = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+	var attendee_list = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";
 	$.getJSON('{% url attendees_list campaign_id=campaign.id %}', function(data){
 		$.each(data, function(index, attendee) {
-			attendee_list += '<img src= "'+attendee[0]+'">&nbsp&nbsp&nbsp';
-			if (index % 8==0 && index != 0)
+                        if (attendee[3] == "facebook") {
+			attendee_list += '<img height="44px" style="margin-bottom: 5px; border: 3px solid blue;" src= "'+attendee[0]+'">&nbsp&nbsp&nbsp;';
+                        }
+                        else {
+                        attendee_list += '<img height="44px" style="margin-bottom: 5px; border: 3px solid green;" src= "'+attendee[0]+'">&nbsp&nbsp&nbsp;';
+                        } 
+			if ((index+1) % 7==0 && index != 0)
 			{
-				attendee_list +='<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+				attendee_list +="<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 			}
 		});
 		$('#attendees_thumbs').html(attendee_list);

@@ -31,8 +31,10 @@ def campaign_facebook_update(req, campaign_id=""):
     else:
         parent_shash = None
 
+    c=Campaign.objects.get(id=campaign_id)
+    
     share = Share(message=msg,
-                  campaign=Campaign.objects.get(id=campaign_id),
+                  campaign=c,
                   from_user_facebook=fbuser,
                   from_user_twitter=None,
                   from_account_type="F",
@@ -49,6 +51,10 @@ def campaign_facebook_update(req, campaign_id=""):
 
     share.save()
     fbuser.feed(message=msg)
+    print "HERE I AM "
+    fbuser.campaign_interested.add(c.id)    
+    print "AND NOW"
+
     dict = {}
     dict["status"] = "ok!"
     dict["url"] = short_url

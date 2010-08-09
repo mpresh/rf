@@ -37,7 +37,6 @@ class FBUser(models.Model):
 				      str(self.facebook_id) + "/friends" 
 				      "?access_token=" + self.access_token).read()
 		data_dict = json.loads(data)
-		print "NUM FRIENDS DATA", type(data_dict), data_dict
 		return len(data_dict['data'])
 
 	def feed(self, to="me", message="Testing."):

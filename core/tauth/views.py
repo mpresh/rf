@@ -193,27 +193,19 @@ def attendees(req, campaign_id=""):
 	GET Parameter: event_id
 	
 	"""
+	print "IN ATTENDEES"
 	if campaign_id:
 		campaign = Campaign.objects.get(id=campaign_id)
 		att_list = []	
-		attendees = campaign.interested_twitter.all()
-		for att in attendees:
-			att_list.append([att.profile_pic, att.name, att.username])
+		attendees_twitter = campaign.interested_twitter.all()
+		for att in attendees_twitter:
+			att_list.append([att.profile_pic, att.name, att.username, "twitter"])
+		attendees_facebook = campaign.interested_facebook.all()
+		print "attendees facebook", attendees_facebook
+		for att in attendees_facebook:
+			url = "http://graph.facebook.com/" + att.facebook_id + "/picture"
+			att_list.append([url, att.name, att.username, "facebook"])
+
 		return HttpResponse(json.dumps(att_list))
 	else:
 		return HttpResponse(json.dumps([]))
-
-	if "user_id" in req.session:
-		user = User.objects.get(id=req.session["user_id"])	
-		friends = user.get_friend_list()
-	
-		friends_dict = {}
-		for friend in friends:
-			url = "http://api.twitter.com/1/users/show/" + str(friend) + ".json"
-			friend_obj = json.loads(urllib.urlopen(url).read())
-			friends_dict[friend] = [friend_obj["name"], 
-						friend_obj["profile_image_url"], 
-						friend_obj["screen_name"]]
-	
-		return HttpResponse(json.dumps(friends_dict))
-	

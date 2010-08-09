@@ -166,7 +166,10 @@ def campaign_page(req, chash="", camp_id=""):
         fbuser = None
         dict["fbuser"] = ""
 
-    print "DICT", dict
+    
+    #facebook_users = c.interested_facebook.all()
+    #twitter_users = c.interested_twitter.all()
+
     return render_to_response('campaign_page.html', dict)
 
 def campaign_page_preview(req):
