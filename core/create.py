@@ -213,8 +213,12 @@ def campaign_update(req, chash=""):
         return render_to_response('404.html', {})
 
     dict = {}
-    dict["host"] = "http://" + req.get_host()
+    host = "http://" + req.get_host()
+    dict["host"] = host
     dict["campaign"] = c
+    campaign_admin_url = host + reverse("campaign_admin", kwargs={'chash':c.chash})
+    dict["admin_url"] = shorten(campaign_admin_url)    
+
     return render_to_response('campaign_edit.html', dict)
 
 def campaign_created(req):

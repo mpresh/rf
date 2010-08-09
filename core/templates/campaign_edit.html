@@ -38,7 +38,7 @@
 		<ul>		
 		         <li>
 				<label for="title">Campaign Title: 
-				</label> <input type="text" value="{{campaign.title}}" name="title" class="required" />
+				</label> <input type="text" size="70" value="{{campaign.title}}" name="title" class="required" />
 			</li>
 			<li>
 				<label for="from_name">From Name: 
@@ -50,7 +50,7 @@
 			</li>
     		<li>
 				<label for="percent">Percent Discount: 
-				</label> <input type="text" value="{{campaign.percent}}" name="percent" class="required digits"/>
+				</label> <input type="text" value="{{campaign.percent}}" size="5" name="percent" class="required digits"/>
 			</li>
 			<li>
 				<label for="promotion_date_start">Promotion Start Date: </label> 
@@ -71,17 +71,17 @@
 
 			<li>
 				<label for="min_people">Minimum People: 
-				</label> <input type="text" value="{{campaign.min_people}}" name="min_people" class="required digits"/>
+				</label> <input type="text" value="{{campaign.min_people}}" size="5" name="min_people" class="required digits"/>
 			</li>
 
 			<li>
 				<label for="max_people">Maximum People: 
-				</label> <input type="text" value="{{campaign.max_people}}" name="max_people" class="required digits" />
+				</label> <input type="text" value="{{campaign.max_people}}" size="5" name="max_people" class="required digits" />
 			</li>
 
 			<li>
 				<label for="subdomain">Subdomain: 
-				</label> <input type="text" value="{{campaign.subdomain}}" name="subdomain" />
+				</label> <input type="text" value="{{campaign.subdomain}}" size="5" name="subdomain" />
 			</li>
 
 			<li>
@@ -95,7 +95,7 @@
 			</li>
 			<li>
 				<label for="url_redeem">redeem promotion URL: </label> 
-				<textarea rows="6" cols="40"  name="url_redeem" class="url">{{campaign.url}}</textarea>
+				<input type="text" value="{{campaign.url}}" size="60" name="url_redeem" />
 			</li>
                          <li>
 				Campaign Created At:  {{campaign.created_at}}
@@ -113,7 +113,7 @@
 <div id="admin_console" class="create">
 
 <li>
-Back To Admin Page: <a href="{% url campaign_admin chash=campaign.chash %}">{{host}}{% url campaign_admin chash=campaign.chash %}</a><br/>
+Back To Admin Page: &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{admin_url}}">{{admin_url}}</a><br/>
 </li>
 
 </div>
