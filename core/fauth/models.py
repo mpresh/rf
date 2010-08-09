@@ -54,6 +54,7 @@ class FBUser(models.Model):
 		data = response.read()
 		conn.close()
 		print "DATA IS", data
+	
 
 	def message(self, to="713879", message="Testing.", subject="subject"):
 		self.access_token = self.access_token.replace("%7C", "|")

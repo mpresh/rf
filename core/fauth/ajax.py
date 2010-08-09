@@ -42,6 +42,7 @@ def campaign_facebook_update(req, campaign_id=""):
     share.setHash()
 
     url = share.url(req)
+    print "URL IS", url
     short_url = bitly.shorten(url)
     share.url_short = short_url
     msg = msg + " " + short_url

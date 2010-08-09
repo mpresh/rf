@@ -51,7 +51,7 @@
 			<img src="{% url static 'images/step1-msg.png' %}">
 		</div>
 		
-		<div id="pick-msg">{% block custom-message %} To get your discount, share {{campaign.from_name}}'s offer with your friends on Facebook or Twitter, choose one:{% endblock %}</div>
+		<div id="pick-msg">{% block custom-message %} To get your discount, share gift with your friends on Facebook or Twitter, choose one:{% endblock %}</div>
 		<div class="overlay-bot">
 			<div id="previous-grey"><img src="{% url static 'images/previous-grey.png' %}"></div>
 			<div id="invite-progress"><img src="{% url static 'images/step1.png' %}"></div>
@@ -64,10 +64,10 @@
 			
 			<div id="fb-root"></div>
 			{% if fbuser %}
-			<br/>Facebook<br/>
+			<br/><font style="color:blue; font-size: 20px; font-weight: bold;">Facebook</font><br/>
 			<fb:profile-pic id="facebook-profile-image" height="45px" width="45px" uid={{fbuser.facebook_id}} linked="false" ></fb:profile-pic> 
 			<br/>
-			<div class="logoutnow" href="" style="text-decoration:underline;">logout</div>
+			<div class="logoutnow" href="" style="text-decoration:underline;"><font style="font-size: 11px; color: blue;">logout</font></div>
 			{% else %}
 			<img id="facebook-login" src="{% url static 'images/facebook-button.png' %}"/>
 			{% endif %}
@@ -76,10 +76,10 @@
 		<div id="overlay-div-twitter-login">
 
 			{% if user %}
-			<br/>Twitter<br />
+			<br/><font style="color:green; font-size: 20px; font-weight: bold;">Twitter</font><br />
 			<img id="twitter-profile-image" src="{{user.profile_pic}}" />
 			<br/>
-			<a href="{% url tauth_logout %}?redirectArgs=overlayEQUALStrue" style="text-decoration:underline;">logout</a>
+			<a href="{% url tauth_logout %}?redirectArgs=overlayEQUALStrue" style="text-decoration:underline; font-size: 11px; color: green;">logout</a>
 			{% else %}
 			<a href="{% url tauth_login %}?redirectArgs=overlayEQUALStwitter"><img id="twitter-login" src="{% url static 'images/twitter-button.png' %}" /></a><br/><br/>
 			{% endif %}
@@ -139,7 +139,7 @@
 			Here’s your discount code:
 			</div>      	
 			
-			<div id="code"><p>{{campaign.code}}</p><br/>Redeem Here: &nbsp;<a href="{{campaign.url}}">{{campaign.url}}</a></div>
+			<div id="code"><p style="width: 60%; margin: auto;text-align: center; border: 6px outset #0074A0; padding-bottom: 10px; ">{{campaign.code}}</p><br/>&nbsp;&nbsp;&nbsp;Redeem Here: &nbsp;<a href="{{campaign.url}}">{{campaign.url}}</a></div>
 
 	</div>
 
@@ -318,13 +318,13 @@ $('.previous').click(function(){
 });
 
 {% if overlay or overlayTrue or overlayFacebook or overlayTwitter%}
-$("#invite_button").overlay().load();
+$("#badge").overlay().load();
 {% endif %}
 
 FB.init({appId: '{{fbappid}}', status: true, cookie: true, xfbml: true});
 
 $("#twitter-feed-update").click(function() { 
-	contentView                                                 = 3;
+	contentView = 3;
 
 	$('#overlay-div-content1').hide(); 
 	$('#overlay-div-content2-facebook').hide(); 
@@ -337,7 +337,10 @@ $("#twitter-feed-update").click(function() {
 		   shash: "{{hash}}", }, 
 	success: function (data) { $.get('{% url campaign_going_twitter campaign_id=campaign.id %}', 
 	                                  function(data) { refreshAttendee(); }); }, 
-	beforeSend: function() { } 
+	beforeSend: function() { 
+                $("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
+} 
+
     }); 
 });
 
@@ -345,7 +348,7 @@ $("#twitter-feed-update").click(function() {
 
 
 $("#facebook-feed-update").click(function(){
-	contentView                                           = 3;
+	contentView = 3;
 	$('#overlay-div-content1').hide(); 
 	$('#overlay-div-content2-facebook').hide();	 
 	$('#overlay-div-content2-twitter').hide();
@@ -357,10 +360,9 @@ $("#facebook-feed-update").click(function(){
 		data: {message: $("#overlay-textarea-facebook").val(), shash: "{{shash}}" },
 
 		success: function(data){
-			//alert("msg sent");
 		},
 		beforeSend: function() {
-			//alert("sending feed request");
+                $("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
 		}
 	});   
 
@@ -404,6 +406,18 @@ $('#facebook-login').click(function(){
 
 	});
 });
+
+//(function () {
+//FB.getLoginStatus(function(response) {
+//		if (response.session) {	
+//alert("logged in");
+//	
+//}
+//else {
+//alert("logged out");
+//}
+//}
+//)})();
 
 
 $('.logoutnow').click(function() 

@@ -166,6 +166,7 @@ def campaign_page(req, chash="", camp_id=""):
         fbuser = None
         dict["fbuser"] = ""
 
+    print "DICT", dict
     return render_to_response('campaign_page.html', dict)
 
 def campaign_page_preview(req):
@@ -217,6 +218,23 @@ def campaign_update(req, chash=""):
     dict["host"] = host
     dict["campaign"] = c
     campaign_admin_url = host + reverse("campaign_admin", kwargs={'chash':c.chash})
+    
+    if c.start_date_time:
+        dict["start_date_label"] = c.start_date_time.strftime("%m/%d/%y")
+        dict["start_time_label"] = c.start_date_time.strftime("%I:%M %p")
+    else:
+        now = datetime.datetime.now()
+        dict["start_date_label"] = now.strftime("%m/%d/%y")
+        dict["start_time_label"] = now.strftime("%I:%M %p")
+
+    if c.end_date_time:
+        dict["end_date_label"] = c.end_date_time.strftime("%m/%d/%y")
+        dict["end_time_label"] = c.end_date_time.strftime("%I:%M %p")
+    else:
+        now = datetime.datetime.now()
+        dict["end_date_label"] = now.strftime("%m/%d/%y")
+        dict["end_time_label"] = now.strftime("%I:%M %p")
+
     dict["admin_url"] = shorten(campaign_admin_url)    
 
     return render_to_response('campaign_edit.html', dict)

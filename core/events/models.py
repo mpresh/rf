@@ -118,6 +118,8 @@ class Share(models.Model):
             path = re.sub("shash=[a-zA-Z0-9_-]+", "shash=" + self.getHash(), request.session["redirect"])
         else:
             path = re.sub("shash=[a-zA-Z0-9_-]+", "shash=" + self.getHash(), request.session["redirect"] + "&shash=12345")
+
+        path = re.sub("overlay=[a-zA-Z0-9_-]+[&]?", "", path)
         return "http://" + request.get_host() + path
 
     def referUrl(self, request):
