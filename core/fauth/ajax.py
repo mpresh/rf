@@ -32,7 +32,11 @@ def campaign_facebook_update(req, campaign_id=""):
         parent_shash = None
 
     c=Campaign.objects.get(id=campaign_id)
-    
+
+    print "campaign_facebook_update1"
+    print "msg", msg
+    print "campaign", c
+    print "reach", fbuser.num_friends()
     share = Share(message=msg,
                   campaign=c,
                   from_user_facebook=fbuser,
@@ -41,7 +45,10 @@ def campaign_facebook_update(req, campaign_id=""):
                   parent_shash=parent_shash,
                   reach=fbuser.num_friends()
                   )
+    print "hello"
     share.setHash()
+
+    print "campaign_facebook_update"
 
     url = share.url(req)
     print "URL IS", url

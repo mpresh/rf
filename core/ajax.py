@@ -249,7 +249,6 @@ def campaign_tweet_invite(req, campaign_id=""):
     campaign=Campaign.objects.get(id=campaign_id)
 
     user.campaign_interested.add(campaign.id)    
-    print "CAMPAIGN TWEET INVITE"
 
     reach=user.get_num_follower_list()
     print "campaign", campaign

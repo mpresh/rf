@@ -166,6 +166,28 @@ def campaign_page(req, chash="", camp_id=""):
         fbuser = None
         dict["fbuser"] = ""
 
+    # HACK: if the oauth cookie has expired, clean up the session
+    try:
+        fbuser.num_friends()
+    except:
+        if "access_token" in req.session:
+            del req.session['access_token']
+            del req.session['base_domain']
+            del req.session['secret']
+            del req.session['session_key']
+            del req.session['sessionid']
+            del req.session['sig']
+            del req.session['uid']
+
+        if "access_token" in req.COOKIES:
+            del req.COOKIES['access_token']
+            del req.COOKIES['base_domain']
+            del req.COOKIES['secret']
+            del req.COOKIES['session_key']
+            del req.COOKIES['sessionid']
+            del req.COOKIES['sig']
+            del req.COOKIES['uid'] 
+        del dict["fbuser"]
     
     #facebook_users = c.interested_facebook.all()
     #twitter_users = c.interested_twitter.all()

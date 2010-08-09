@@ -114,10 +114,14 @@ class Share(models.Model):
     def url(self, request):
         """Returns the url for this share link."""
 
+        print "HELLO", request.session["redirect"]
         if request.session["redirect"].find("shash=") != -1:
             path = re.sub("shash=[a-zA-Z0-9_-]+", "shash=" + self.getHash(), request.session["redirect"])
         else:
-            path = re.sub("shash=[a-zA-Z0-9_-]+", "shash=" + self.getHash(), request.session["redirect"] + "&shash=12345")
+            if request.session["redirect"].find("?") != -1:
+                path = re.sub("shash=[a-zA-Z0-9_-]+", "shash=" + self.getHash(), request.session["redirect"] + "&shash=12345")
+            else:
+                path = re.sub("shash=[a-zA-Z0-9_-]+", "shash=" + self.getHash(), request.session["redirect"] + "?shash=12345")
 
         path = re.sub("overlay=[a-zA-Z0-9_-]+[&]?", "", path)
         return "http://" + request.get_host() + path

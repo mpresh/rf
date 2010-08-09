@@ -76,8 +76,6 @@ def facebook_logout_callback(req):
 
     if "redirect" in req.session:
         redirect = req.session['redirect']
-    else:
-        redirect = req.build_absolute_uri()
 
     if "redirectArgs" in req.GET:
         redirect = handle_redirect_string(redirect, req.GET["redirectArgs"])
