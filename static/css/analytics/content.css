@@ -144,12 +144,12 @@ tr.oddTableRow {}
 	height: 500px;
 }
 .tFollowers{
-	height: 30px;
-	padding-left: 40px;
+	height: 10px;
+	padding-left: 10px;
 	padding-top:10px;
-	margin-left: 60px;
+	margin-left: 0px;
 	position: relative;
-	top: -30px;
+	top: -10px;
 	background-image: url("../../images/analytics/twittericon.png");
 	background-repeat: no-repeat;
 	font-size: 14px;
