@@ -25,10 +25,31 @@
 	width: 980px;
 }
 #content #badge{
+
+        #-moz-border-radius: 10px;
+	-webkit-border-radius: 0px 0px 5px 5px;
+	#border: 1px solid #a9a9a9;
+	box-shadow: 0 0 10px #000000;
+	#-moz-box-shadow: 0 0 10px #000000;
+	-webkit-box-shadow: 3px 3px 10px #000000;
+	#position: relative;
+	#margin-left: 6px;
+	
+	cursor: pointer;
+	#top: 153px;
+	#width: 455px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: bold;
+
+	background-color: #E9E9E9;
 	float: left;
-	background-image: url(../images/badge.png);
 	width: 469px;
-	height: 235px;
+	height: 220px;
+
+	font-size: 30px;
+	color: red;
+	
 	}
 #content-main h2
 {
@@ -67,15 +88,18 @@ h1 {
 	-webkit-box-shadow: 3px 3px 10px #000000;
 	position: relative;
 	margin-left: 6px;
-	height: 32px;
+	
 	cursor: pointer;
 	padding-top: 6px;
 	top: 153px;
 	width: 455px;
-	#width: 460px;
+	#height: 32px;
+	height: 105px;
 	text-align: center;
 	font-size: 16px;
 	font-weight: bold;
+
+	background-color: green;
 }
 #greeting
 {
@@ -109,39 +133,39 @@ h1 {
 	text-align: center;
 	padding: 15px 10px 0px 10px;
 	}
-#dets
-{
-	background-image: url(../images/look/ptop.png);
-	background-repeat: no-repeat;
-	height: 467px;
-	width: 475px;
-	left: 487px;
-	top: 149px;
-}
-#detsbg {
-    background-image: url(../images/look/pmid.png);
-    background-repeat: repeat-y;
-    margin-top:7px;
-}
-#detsfooter {
-	/* background-image: url(../images/look/pbot.png); */
-	background-repeat: no-repeat;
-	height: 46px;
-}
-#detsbg > p, #detsbg > div{
-    padding: 15px 33px 5px 33px;
-    font-size: 14px;
-    line-height: 1.5em;
-    color: #444;
-}
-#header #dets #event-title
-{
-	padding-top: 33px;
-	padding-left: 30px;
-	font-size: 24px;
-	font-decoration: bold;
-	color: #444;
-}
+##dets
+#{
+#	background-image: url(../images/look/ptop.png);
+#	background-repeat: no-repeat;
+#	height: 467px;
+#	width: 475px;
+#	left: 487px;
+#	top: 149px;
+#}
+##detsbg {
+#    background-image: url(../images/look/pmid.png);
+#    background-repeat: repeat-y;
+#    margin-top:7px;
+#}
+##detsfooter {
+#	/* background-image: url(../images/look/pbot.png); */
+#	background-repeat: no-repeat;
+#	height: 46px;
+#}
+##detsbg > p, #detsbg > div{
+#    padding: 15px 33px 5px 33px;
+#    font-size: 14px;
+#    line-height: 1.5em;
+#    color: #444;
+#}
+##header #dets #event-title
+#{
+#	padding-top: 33px;
+#	padding-left: 30px;
+#	font-size: 24px;
+#	font-decoration: bold;
+#	color: #444;
+#}
 #header #dets #info
 {
 	padding-top: 26px;
@@ -183,7 +207,7 @@ border:1px solid #ccc;
 	float: right;
 	background-image: url(../images/look/attendees.png);
 	background-repeat: no-repeat;
-	height: 234px;
+	height: 230px;
 	width: 466px;
 	overflow: auto;
 }
@@ -195,10 +219,15 @@ border:1px solid #ccc;
 	margin: 20px 0 0 22px;
 	overflow: auto;
 }
-#ifra {height: 0px}
+#ifra {height: 400px; 
+       margin-top: 50px; 
+       border:2px double #0074A0;
+}
+
 iframe {
 	height: 100%;
 }
+
 img
 {
 	border: 0;
