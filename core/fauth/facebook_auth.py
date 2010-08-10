@@ -20,8 +20,15 @@ from pylib.util import handle_redirect_string
 
 def facebook_callback(req):
 
+    print "FACEBOOK CALLBACK", req
+    for s in req.session.keys():
+        print "SESSION", s, req.session[s]
+
     cookies = req.GET;
     fauth_utils.sync_session_cookies(req)
+
+    for s in req.session.keys():
+        print "SESSION", s, req.session[s]
     
     (user, create) = FBUser.objects.get_or_create(facebook_id=req.session['uid'])
     user.access_token = req.session["access_token"]

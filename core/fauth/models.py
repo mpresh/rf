@@ -13,13 +13,13 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(
 import settings
 
 class FBUser(models.Model):
-    	username = models.CharField(max_length=40, default="")
+    	username = models.CharField(max_length=80, default="")
 	email = models.EmailField(default="", blank=True)
-	name = models.CharField(max_length=100, default="", blank=True)
-	profile_pic = models.CharField(max_length=100, default="", blank=True)
-	facebook_id = models.CharField(max_length=20, default="", blank=True)
+	name = models.CharField(max_length=200, default="", blank=True)
+	profile_pic = models.CharField(max_length=200, default="", blank=True)
+	facebook_id = models.CharField(max_length=40, default="", blank=True)
 
-        access_token = models.CharField(max_length=100, default="", blank=True)
+        access_token = models.CharField(max_length=300, default="", blank=True)
 
 	def __unicode__(self):
 		return "<Facebook User: %s %s %s %s>" % (self.id, self.username, self.facebook_id, self.name)
