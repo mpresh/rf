@@ -336,7 +336,7 @@ $("#twitter-feed-update").click(function() {
 	$.ajax({ url: '{% url campaign_tweet_invite campaign_id=campaign.id %}', 
 	dataType: "json", 
 	data: {message: $("#overlay-textarea-twitter").val(), 
-		   shash: "{{hash}}", }, 
+		   shash: "{{shash}}", }, 
 	success: function (data) { $.get('{% url campaign_going_twitter campaign_id=campaign.id %}', 
 	                                  function(data) { refreshAttendee(); }); }, 
 	beforeSend: function() { 
