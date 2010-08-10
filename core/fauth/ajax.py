@@ -69,8 +69,6 @@ def update_feed(req):
 
 
 def message(req):
-    for key in req.session.keys():
-
     if "uid" in req.session:
         fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
         fbuser.message()

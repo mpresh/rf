@@ -148,7 +148,6 @@ def _create_hotel(campaign, req):
     return HttpResponse(json.dumps({}))    
 
 def create_campaign_url_check(req):
-    for key in req.POST:
     campaign_url = req.POST["url"]
     if not campaign_url.startswith("http://"):
         campaign_url = "http://" + campaign_url 
@@ -171,7 +170,6 @@ def create_campaign_url_check(req):
         return HttpResponse(json.dumps({"url": campaign_url}))   
 
 def create_campaign(req):
-    for key in req.POST:
     campaign_url = req.POST["url"]
     if not campaign_url.startswith("http://"):
         campaign_url = "http://" + campaign_url
@@ -190,7 +188,6 @@ def create_campaign(req):
     return HttpResponse(json.dumps({"campaign_hash": c.chash}))
 
 def create_campaign_original(req):
-    for key in req.POST:
 
     if "campaign_type" not in req.POST:
         return HttpResponse(json.dumps({"status": "error"}))
