@@ -102,13 +102,15 @@ class Share(models.Model):
         else:
             return 0
     
-    def totalReach(self):
+    def totalReach(self, seen={}):
         """ Returns all of the shares that originated here."""
         total = 0
         total = total + self.getReach()
 
+        seen[self.id] = True
         for obj in self.children():
-            total = total + obj.totalReach()
+            if obj.ud not in seen:
+                total = total + obj.totalReach(seen=seen)
         return total
 
     def url(self, request):
