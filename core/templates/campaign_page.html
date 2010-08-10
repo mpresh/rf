@@ -6,7 +6,8 @@
         <script type="text/javascript" src="{% url static 'javascript/jquery.cookie.js' %}" ></script>
         <script type="text/javascript" src="{% url static 'javascript/charCount.js' %}" ></script>
         <script type="text/javascript" src="{% url static 'javascript/jquery.showLoading.js' %}" ></script>	
-	
+   <script type="text/javascript" src="{% url static 'javascript/overlay.js' %}" ></script>
+
         <!--	<link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="stylesheet" />-->
        <link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text/css" />	
         <link rel="stylesheet" href="{% url static 'css/overlay.css' %}" type="text/css" />
@@ -36,7 +37,6 @@
 </div>
 
 <div id="overlay-blogger-login" class="overlay-blogger">
-
 	<div id="overlay-div-content1">
 		<div class="overlay-top">
 			<img src="{% url static 'images/step1-msg.png' %}">
@@ -138,29 +138,6 @@
 </div>
 
 
-<!--
-<div id="dets"> 
-{% block details %}
-	<div id="event-title">BlogWorld 2010 Panel Spotlight</div>
-	<div id="detsbg">
-		<div id="info">Blogging Super Panel Live Feedback</div> 
-		<div id="goog"><img src="{% url static 'images/speakers.png' %}"></div>
-		<p>Is your blog optimizing its potential to make money? Find out! This panel of the top money making bloggers of all time will spend a few hours reviewing your blogs live. So get there early and step up to the mic and be ready to have your blog picked apart by the pros who know.<br><br>
-			John Chow, JohnChow.com<br>
-			Darren Rowse, Problogger.com<br>
-			Jeremy Shoemaker, ShoeMoney.com<br>
-			Brian Clark, Copyblogger.com<br>
-			Zac Johnson, ZacJohnson.com
-		</p>
-		<div id="blogworld"><img src="{% url static 'images/blogworld.png' %}"></div>
-	</div>
-	<div id="detsfooter"><img src="{% url static 'images/look/pbot.png' %}"></div>
-{% endblock %}
-
-</div> -->
-
-<!--<div id="eventinfo"><b>Date:</b> {{date_label}} &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;<b>Time:</b> {{time_label}}<br>{{event.venue}} | {{event.venue_address}}</div>-->
-
 <div id="attendees">
 	<div id="msg">Interested Guests</div>
 
@@ -189,14 +166,42 @@
 </iframe></div>
 
 <script>
+function refreshAttendee()
+{
+	var attendee_list = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";
+
+	$.getJSON('{% url attendees_list campaign_id=campaign.id %}', function(data){
+		$.each(data, function(index, attendee) {
+                        if (attendee[3] == "facebook") {
+			attendee_list += '<img height="44px" style="margin-bottom: 5px; border: 3px solid blue;" src= "'+attendee[0]+'">&nbsp&nbsp&nbsp;';
+                        }
+                        else {
+                        attendee_list += '<img height="44px" style="margin-bottom: 5px; border: 3px solid green;" src= "'+attendee[0]+'">&nbsp&nbsp&nbsp;';
+                        } 
+			if ((index+1) % 7==0 && index != 0)
+			{
+				attendee_list +="<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+			}
+		});
+		$('#attendees_thumbs').html(attendee_list);
+	});
+}
+
 refreshAttendee();
+
+
 $("#ifra").showLoading({'afterShow': function(){ setTimeout( "jQuery('#ifra').hideLoading()", 5000 );}});         
+
 
 $("#badge").click(function(){
 	$("#badge").overlay().load();
 });       
 
 var contentView = 0;
+
+//alert("test");
+</script>
+<script>
 
 $("#badge").overlay({
 	expose: {
@@ -205,7 +210,7 @@ $("#badge").overlay({
 		opacity: 0.8
 	},
 	onLoad: function(event) {
-
+alert("called");
 		// if twitter user logged in, show twitter page
 		{% if user and overlayTwitter %}
 		contentView = 2;
@@ -214,7 +219,7 @@ $("#badge").overlay({
 		$('#overlay-div-content2-twitter').show();
 		$('#overlay-div-content3').hide();
 		{% else %} 	
-
+	
 		// if fbuser logged in
 		{% if fbuser and overlayFacebook %}
 		contentView = 2;
@@ -223,7 +228,7 @@ $("#badge").overlay({
 		$('#overlay-div-content2-twitter').hide();
 		$('#overlay-div-content3').hide();	
 		{% else %} 
-
+	
 		// show first view with facebook and twitter login buttons
 		{% if not user and not fbuser %}
 		contentView = 1;
@@ -232,7 +237,7 @@ $("#badge").overlay({
 		$('#overlay-div-content2-twitter').hide();
 		$('#overlay-div-content3').hide();
 		{% else %} 	
-
+	
 		// if fbuser logged in
 		{% if fbuser %}
 		contentView = 2;
@@ -241,7 +246,7 @@ $("#badge").overlay({
 		$('#overlay-div-content2-twitter').hide();
 		$('#overlay-div-content3').hide();	
 		{% else %} 	
-
+	
 		// if fbuser logged in
 		{% if user  %}
 		contentView = 2;
@@ -249,7 +254,7 @@ $("#badge").overlay({
 		$('#overlay-div-content2-facebook').hide(); 
 		$('#overlay-div-content2-twitter').show();
 		$('#overlay-div-content3').hide();
-
+	
 		{% endif %}
 		{% endif %}
 		{% endif %}
@@ -259,7 +264,6 @@ $("#badge").overlay({
 	top: 170,
 	left: 250,
 });
-
 
 $('#facebook-profile-image').click(function(){
 	contentView = 2;
@@ -431,25 +435,6 @@ $("#okay").click(function(){
 	$("#badge").overlay().close();
 });
 
-function refreshAttendee()
-{
-	var attendee_list = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";
-	$.getJSON('{% url attendees_list campaign_id=campaign.id %}', function(data){
-		$.each(data, function(index, attendee) {
-                        if (attendee[3] == "facebook") {
-			attendee_list += '<img height="44px" style="margin-bottom: 5px; border: 3px solid blue;" src= "'+attendee[0]+'">&nbsp&nbsp&nbsp;';
-                        }
-                        else {
-                        attendee_list += '<img height="44px" style="margin-bottom: 5px; border: 3px solid green;" src= "'+attendee[0]+'">&nbsp&nbsp&nbsp;';
-                        } 
-			if ((index+1) % 7==0 && index != 0)
-			{
-				attendee_list +="<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-			}
-		});
-		$('#attendees_thumbs').html(attendee_list);
-	});
-}
 
 //default usage
 $("#overlay-textarea-twitter").charCount();

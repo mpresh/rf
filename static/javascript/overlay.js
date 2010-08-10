@@ -11,6 +11,7 @@
  */
 (function($) { 
 
+
 	// static constructs
 	$.tools = $.tools || {version: '1.2.3'};
 	
@@ -40,12 +41,11 @@
 		}
 	};
 
-	
+
 	var instances = [], effects = {};
-		
+
 	// the default effect. nice and easy!
 	$.tools.overlay.addEffect('default', 
-		
 		/* 
 			onLoad/onClose functions must be called otherwise none of the 
 			user supplied callback methods won't be called
@@ -70,7 +70,7 @@
 
 	
 	function Overlay(trigger, conf) {		
-		
+		//alert("here1");
 		// private variables
 		var self = this,
 			 fire = trigger.add(self),
@@ -269,11 +269,10 @@
 	
 	// jQuery plugin initialization
 	$.fn.overlay = function(conf) {   
-		
 		// already constructed --> return API
 		var el = this.data("overlay");
 		if (el) { return el; }	  		 
-		
+		//alert("overlay fn");
 		if ($.isFunction(conf)) {
 			conf = {onBeforeLoad: conf};	
 		}
@@ -288,6 +287,5 @@
 		
 		return conf.api ? el: this;		
 	}; 
-	
 })(jQuery);
 
