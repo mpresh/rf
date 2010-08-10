@@ -14,9 +14,11 @@ def handle_redirect_string(redirect_url, redirect_args_string):
     if redirect_url.find("?") != -1:
         (url, query_string) = redirect_url.split("?")
         query_args = query_string.split("&")
+        print "QUERY ARGS", query_args
         for arg in query_args:
-            (key, value) = arg.split("=")
-            query_args_dict[key] = value
+            if arg.strip():
+                (key, value) = arg.split("=")
+                query_args_dict[key] = value
     else:
         url = redirect_url 
         
