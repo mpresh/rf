@@ -109,7 +109,7 @@ class Share(models.Model):
 
         seen[self.id] = True
         for obj in self.children():
-            if obj.ud not in seen:
+            if obj.id not in seen:
                 total = total + obj.totalReach(seen=seen)
         return total
 
