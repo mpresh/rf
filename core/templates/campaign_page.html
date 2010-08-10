@@ -391,8 +391,6 @@ $("#status_button").click(function(){
 
 var requiredPerms  = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
 $('#facebook-login').click(function(){
-	var fbcheck  = "{{fbuser}}";
-
 	FB.getLoginStatus(function(response) {
 		if (response.session) {
 			// logged in and connected user, someone you know
