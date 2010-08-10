@@ -27,8 +27,7 @@ def frontpage(req):
     if domain != "www" and domain != "ripplefunction":
         campaigns = Campaign.objects.filter(subdomain=domain)
         campaign = list(campaigns)[-1]
-        event = campaign.events.all()[0]
-        return HttpResponseRedirect(reverse('event_blogvip_flow') + "?event=" + str(event.id))
+        return HttpResponseRedirect(reverse('campaign_page_id', kwargs={'camp_id':campaign.id})
 
     return render_to_response('frontpage.html', {})
 
