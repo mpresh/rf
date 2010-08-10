@@ -397,32 +397,16 @@ $('#facebook-login').click(function(){
 		if (response.session) {
 			// logged in and connected user, someone you know
 			//alert("LOGGED IN");
-			if (fbcheck == "") {
-				FB.logout(function(response) { 
-					//window.location.href                            = "{% url facebook_logout_callback %}?redirectArgs=overlayEQUALStrue";
-				});
-			}
-		} else {
-			// no user session available, someone you dont know
-			//alert("LOGGED OUT");
-			facebook_login_click();
-		}
+			FB.logout(function(response) { 
+                              facebook_login_click();
+			});
+                } else {
+                            facebook_login_click();
+                }
 
-	});
+        });
+
 });
-
-(function () {
-FB.getLoginStatus(function(response) {
-		if (response.session) {	
-//alert("logged in");
-	
-}
-else {
-//alert("logged out");
-}
-}
-)})();
-
 
 $('.logoutnow').click(function() 
 {
