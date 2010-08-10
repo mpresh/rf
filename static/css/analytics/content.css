@@ -26,7 +26,7 @@
 }
 /* div for impressions chart, breakdown chart */
 #topPic, #botPic{
-	margin: 15px 10px 10px 10px;
+	margin: 15px 10px 10px 0px;
 	border: solid 1px #ccc;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
