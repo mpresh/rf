@@ -1,20 +1,15 @@
 {% extends "site_base.html" %}
 
 {% block  js_css_include %}
-	<script type="text/javascript" src="{% url static 'javascript/jquery-ui-1.8.1.custom.js' %}"></script>
+	<!--<script type="text/javascript" src="{% url static 'javascript/jquery-ui-1.8.1.custom.js' %}"></script>-->
 
         <script type="text/javascript" src="{% url static 'javascript/jquery.cookie.js' %}" ></script>
         <script type="text/javascript" src="{% url static 'javascript/charCount.js' %}" ></script>
         <script type="text/javascript" src="{% url static 'javascript/jquery.showLoading.js' %}" ></script>	
-
-	<link rel="stylesheet" href="{% url static 'css/calendar-system.css' %}" type="text/css" />
-	<link rel="stylesheet" href="{% url static 'css/calendar-en.css' %}" type="text/css" />
-	<link rel="stylesheet" href="{% url static 'css/jquery.calendar.css' %}" type="text/css" />
-	<link rel="stylesheet" href="{% url static 'css/jquery.ptTimeSelect.css' %}" type="text/css" />	
-	<link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="Stylesheet" />
-<link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text/css" />	
-
-   <link rel="stylesheet" href="{% url static 'css/overlay.css' %}" type="text/css" />
+	
+        <!--	<link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="stylesheet" />-->
+       <link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text/css" />	
+        <link rel="stylesheet" href="{% url static 'css/overlay.css' %}" type="text/css" />
  	<link rel="stylesheet" href="{% url static 'css/style.css' %}" type="text/css" />
 	<link rel="stylesheet" href="{% url static 'css/2stylez.css' %}" type="text/css" />
 	<link rel="stylesheet" href="{% url static 'css/2home.css' %}" type="text/css" />  
