@@ -33,10 +33,6 @@ def campaign_facebook_update(req, campaign_id=""):
 
     c=Campaign.objects.get(id=campaign_id)
 
-    print "campaign_facebook_update1"
-    print "msg", msg
-    print "campaign", c
-    print "reach", fbuser.num_friends()
     share = Share(message=msg,
                   campaign=c,
                   from_user_facebook=fbuser,
@@ -45,22 +41,16 @@ def campaign_facebook_update(req, campaign_id=""):
                   parent_shash=parent_shash,
                   reach=fbuser.num_friends()
                   )
-    print "hello"
     share.setHash()
 
-    print "campaign_facebook_update"
-
     url = share.url(req)
-    print "URL IS", url
     short_url = bitly.shorten(url)
     share.url_short = short_url
     msg = msg + " " + short_url
 
     share.save()
     fbuser.feed(message=msg)
-    print "HERE I AM "
     fbuser.campaign_interested.add(c.id)    
-    print "AND NOW"
 
     dict = {}
     dict["status"] = "ok!"
@@ -79,10 +69,7 @@ def update_feed(req):
 
 
 def message(req):
-    print "message"
-    print "SESSION KEYS"
     for key in req.session.keys():
-        print "KEY", key, req.session[key]
 
     if "uid" in req.session:
         fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
@@ -102,10 +89,6 @@ def friends(req):
         fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
         data = fbuser.friends()
         
-        print "DAAAATAAAA", data
-        #for friend in data:
-        #    print item
-
         dict = {}
         dict["status"] = "ok!"
         dict["data"] = data

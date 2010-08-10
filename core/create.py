@@ -82,7 +82,6 @@ def event_create(req):
                   subdomain=subdomain)
         
         if user:
-            print "AM I HERE"
             e.organizer_id=user.id,
         e.save()
 
@@ -155,7 +154,6 @@ def campaign_page(req, chash="", camp_id=""):
 
     # facebook user
     if "uid" in req.session:
-        print "FBUSER ID", req.session["uid"]
         fbuser = FBUser.objects.get(facebook_id=req.session["uid"])	
         dict['fbuser'] = fbuser
     elif "uid" in req.COOKIES:
@@ -220,11 +218,6 @@ def campaign_admin(req, chash=""):
     campaign_update_url = host + reverse("campaign_update", kwargs={'chash':c.chash})
     campaign_landing_url = host + reverse("campaign_page_id", kwargs={'camp_id':c.id})
 
-    #print "Campaign Admin URL", campaign_admin_url
-    #print "Campaign Analytics URL", campaign_analytics_url
-    #print "Campaign Update URL", campaign_update_url
-    #print "Campaign Landing URL", campaign_landing_url
-
     dict["admin_url"] = shorten(campaign_admin_url)
     dict["landing_url"] = shorten(campaign_landing_url)
     dict["analytics_url"] = shorten(campaign_analytics_url)
@@ -269,8 +262,6 @@ def campaign_created(req):
     dict = {}
     host = "http://" + req.get_host()
     dict["host"] = host
-    print "HOST IS", host
-    
     
     if "chash" in req.GET:
         try:
@@ -281,11 +272,6 @@ def campaign_created(req):
             campaign_analytics_url = host + reverse("campaign_analytics", kwargs={'chash':c.chash})
             campaign_update_url = host + reverse("campaign_update", kwargs={'chash':c.chash})
             campaign_landing_url = host + reverse("campaign_page_id", kwargs={'camp_id':c.id})
-
-            #print "Campaign Admin URL", campaign_admin_url
-            #print "Campaign Analytics URL", campaign_analytics_url
-            #print "Campaign Update URL", campaign_update_url
-            #print "Campaign Landing URL", campaign_landing_url
 
             dict["admin_url"] = shorten(campaign_admin_url)
             dict["landing_url"] = shorten(campaign_landing_url)

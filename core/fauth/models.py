@@ -81,7 +81,11 @@ class FBUser(models.Model):
 		print "Returned value", data
 		data_dict = json.loads(data)
 		print data_dict
-		self.name = data_dict["name"]
+		if "error" in data_dict:
+			return
+
+		if "name" in data_dict:
+			self.name = data_dict["name"]
 		if "email" in data_dict:
 			self.email = data_dict["email"]
 		self.save()

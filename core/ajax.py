@@ -162,10 +162,8 @@ def campaign_going_twitter(req, campaign_id=""):
     if "user_id" not in req.session:
         return HttpResponse("ERROR: User must be authenticated!")
     
-    print "here I am"
     campaign = Campaign.objects.get(id=campaign_id)
     user = User.objects.get(id=req.session["user_id"])	
-    print dir(user)
     user.campaign_interested.add(campaign.id)    
 
     dict = {}
@@ -251,11 +249,6 @@ def campaign_tweet_invite(req, campaign_id=""):
     user.campaign_interested.add(campaign.id)    
 
     reach=user.get_num_follower_list()
-    print "campaign", campaign
-    print "reach", reach
-    print "msg", msg
-    print "parent shahs", parent_shash
-    print "user", user
     share = Share(message=msg,
                   campaign=Campaign.objects.get(id=campaign_id),
                   from_user_facebook=None,
@@ -269,7 +262,6 @@ def campaign_tweet_invite(req, campaign_id=""):
     share.save()
     
     share.setHash()
-    print "hello world"
     url = share.url(req)
     short_url = bitly.shorten(url)
 

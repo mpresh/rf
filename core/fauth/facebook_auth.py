@@ -20,30 +20,12 @@ from pylib.util import handle_redirect_string
 
 def facebook_callback(req):
 
-    print "inside facebook callbacsk"
     cookies = req.GET;
-    print "GET KEYS"
-    for key in cookies.keys():
-        print "KEY", key, cookies[key]
-
     fauth_utils.sync_session_cookies(req)
     
     (user, create) = FBUser.objects.get_or_create(facebook_id=req.session['uid'])
     user.access_token = req.session["access_token"]
     user.save()
-
-    #if create:
-    user.fill_info()
-    #user.friends()
-    #user.feed()
-
-    print "SESSION KEYS"
-    for key in req.session.keys():
-        print "KEY", key, req.session[key]
-
-    print "COOKIES KEYS"
-    for key in req.COOKIES.keys():
-        print "KEY", key, req.COOKIES[key]
 
     if "redirect" not in req.session:
         redirect = reverse('index')

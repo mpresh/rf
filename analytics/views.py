@@ -19,23 +19,17 @@ def analytics(req):
     total_twitter_shares = 0
     total_twitter_reach = 0
     total_facebook_reach = 0
-    print "prob"
     for share in shares:
         if share.from_account_type == "F":
-            print "F"
             total_facebook_shares = total_facebook_shares + 1
             if not share.parent_shash:
                 total_facebook_reach = total_facebook_reach + share.totalReach()
                 
         elif share.from_account_type == "T":
-            print "T"
             total_twitter_shares = total_twitter_shares + 1
             if not share.parent_shash:
-                print "probltm here", total_twitter_reach
                 total_twitter_reach = total_twitter_reach + share.totalReach()
     
-    print "HELLO analytics"
-
     dict["total_facebook_shares"] = total_facebook_shares
     dict["total_twitter_shares"] = total_twitter_shares
     dict["total_facebook_reach"] = total_facebook_reach
@@ -73,7 +67,6 @@ def analytics(req):
 
 
 def analytics_chash(req, chash=""):
-    print "here I am"
     dict = {}
     dict["fbappid"] = settings.FACEBOOK_APP_ID
     req.session["redirect"] = req.get_full_path()
@@ -92,22 +85,17 @@ def analytics_chash(req, chash=""):
     total_twitter_shares = 0
     total_twitter_reach = 0
     total_facebook_reach = 0
-    print "prob"
     for share in shares:
         if share.from_account_type == "F":
-            print "F"
             total_facebook_shares = total_facebook_shares + 1
             if not share.parent_shash:
                 total_facebook_reach = total_facebook_reach + share.totalReach()
                 
         elif share.from_account_type == "T":
-            print "T"
             total_twitter_shares = total_twitter_shares + 1
             if not share.parent_shash:
-                print "probltm here", total_twitter_reach
                 total_twitter_reach = total_twitter_reach + share.totalReach()
     
-    print "HELLO analytics"
 
     dict["total_facebook_shares"] = total_facebook_shares
     dict["total_twitter_shares"] = total_twitter_shares

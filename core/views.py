@@ -27,7 +27,6 @@ def test2(req):
 
 
 def test(req):
-    print "HELLO", reverse('test')
     req.session["redirect"] = req.get_full_path()  
     return render_to_response('test.html', {})
 
@@ -117,11 +116,9 @@ def invite(req):
     if user:
         # if this invite is not for you, don't show page
         to_users = invite.to_users.all()
-        print "TO USERS", to_users
         to_user_ids = [u.id for u in to_users]
         to_user_usernames = [u.username for u in to_users]
 
-        print to_user_ids, to_user_usernames
         if user.id not in to_user_ids and "DEFAULT" not in to_user_usernames: 
             return HttpResponseRedirect(reverse("event_home", kwargs={"event_id":dict["event"].id}))
 
@@ -187,7 +184,6 @@ def blogvip_flow(req):
 
     # facebook user
     if "uid" in req.session:
-        print "FBUSER ID", req.session["uid"]
         fbuser = FBUser.objects.get(facebook_id=req.session["uid"])	
         dict['fbuser'] = fbuser
     elif "uid" in req.COOKIES:
@@ -230,10 +226,8 @@ def blogvip_flow(req):
         dict["css"] = str(event.id) + ".css"
 
 
-    print "BLOGVIP FLOW dict", dict
     template_path = os.path.join(os.path.dirname(__file__), 'templates/event_templates/' + str(event.id) + ".html")
     if os.path.exists(template_path):
-        print "using template:", template_path
         return render_to_response(str(event.id) + '.html', dict)
     else:
         return render_to_response("blogvip_flow.html", dict)
@@ -246,7 +240,6 @@ def event_home(req, event_id=""):
         e = None
     
     # logged in
-    print "here I am ", e, dir(e)
     e.num_attendees = len(e.attendees.all())
     e.spots_left = e.capacity - e.num_attendees
     e.discount_price = e.price / 2
@@ -255,8 +248,6 @@ def event_home(req, event_id=""):
     invites = e.invitations.all()
     invite = invites[0]
     # redirect to invite
-    print "BBBB" 
-    print reverse("index")
     return HttpResponseRedirect(reverse('event_invite', kwargs={"invite_id":invite.id}))
 
     dict = {}

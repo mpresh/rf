@@ -20,13 +20,9 @@ from smtplib import SMTP
 import re
 
 def send_details_email(req):
-    print "here I am"
     content = req.POST["content"]
     chash = req.POST["chash"]
     email = req.POST["email_address"]
-    print "email", email
-    print "content", content
-    print "chash", chash
 
     content = re.sub(r'<.*?>', '',content) 
     content = content.replace("&nbsp;", "") 
@@ -60,14 +56,12 @@ def campaign_update_ajax(req):
     end_date = req.POST["promotion_date_end"]
     end_time = req.POST["promotion_time_end"]
 
-    print "hello wporl", start_date, start_time
     start_dt = datetime.datetime.strptime(start_date.strip() + " " + start_time.strip(), 
                                           "%m/%d/%Y %I:%M %p")
 
     end_dt = datetime.datetime.strptime(end_date.strip() + " " + end_time.strip(), 
                                         "%m/%d/%Y %I:%M %p")   
 
-    print "hello wporl"
     message_share = req.POST["campaign_message_share"]
     message = req.POST["campaign_message"]
     subdomain = req.POST["subdomain"]
@@ -92,7 +86,6 @@ def _create_business(campaign, req):
 
 
 def _create_event(campaign, req):
-    print "CREATING EVENT"
 
     ename = req.POST["event_name"]
     start_date = req.POST["event_date_start"]
@@ -156,7 +149,6 @@ def _create_hotel(campaign, req):
 
 def create_campaign_url_check(req):
     for key in req.POST:
-        print "KEYS", key, req.POST[key]
     campaign_url = req.POST["url"]
     if not campaign_url.startswith("http://"):
         campaign_url = "http://" + campaign_url 
@@ -169,7 +161,6 @@ def create_campaign_url_check(req):
     try:
         status = obj.getcode()
         status_str = str(status)
-        print "status_str", status_str
     
         if status_str[0] == "2" or status_str[0] == 3:
             return HttpResponse(json.dumps({"url": campaign_url}))   
@@ -177,12 +168,10 @@ def create_campaign_url_check(req):
             
             return HttpResponse(json.dumps({"url": ""}))   
     except Exception:
-        print "here I am "
         return HttpResponse(json.dumps({"url": campaign_url}))   
 
 def create_campaign(req):
     for key in req.POST:
-        print "KEYS", key, req.POST[key]
     campaign_url = req.POST["url"]
     if not campaign_url.startswith("http://"):
         campaign_url = "http://" + campaign_url
@@ -190,7 +179,6 @@ def create_campaign(req):
     start_dt = datetime.datetime.now()
     end_dt = datetime.datetime.now()
 
-    print "here i am"
     c = Campaign(
         #start_date_time=start_dt,
         #end_date_time=end_dt,
@@ -199,12 +187,10 @@ def create_campaign(req):
 
     c.save()
     c.setHash()
-    print "hello world"
     return HttpResponse(json.dumps({"campaign_hash": c.chash}))
 
 def create_campaign_original(req):
     for key in req.POST:
-        print "KEYS", key, req.POST[key]
 
     if "campaign_type" not in req.POST:
         return HttpResponse(json.dumps({"status": "error"}))
