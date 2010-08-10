@@ -36,13 +36,13 @@ def about(req):
 
 def event_list(req):
     req.session["redirect"] = req.get_full_path()  
-    all_events = Event.objects.all()
+    all_campaigns = Campaign.objects.all()
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])
-        return render_to_response('list.html', {"events":all_events,
+        return render_to_response('list.html', {"campaigns":all_campaigns,
                                                 "user" : user})
 
-    return render_to_response('list.html', {"events":all_events})
+    return render_to_response('list.html', {"campaigns":all_cmpaigns})
     
 def index(req):
     return render_to_response('index.html', {})

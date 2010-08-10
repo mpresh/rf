@@ -1,66 +1,31 @@
-{% extends "event_base.html" %}
+{% extends "site_base.html" %}
 
-{% block title %}Browse{% endblock %}
+{% block title %}Browse Promotions{% endblock %}
 
-{% block content %}
-  <hr />
-<p>List of events.</p>
+{% block site-content %}
+  
+<h1>List of Promotions.</h1>
+<br/>
+  
+    {% for camp in campaigns %}
 
-    <ul>
-    {% for event in events %}
-    <hr />
-        <li>
-	  <a href={% url event_blogvip_flow %}?event={{event.id}}>{{ event.name }}</a> <br />
-	    Event Id: {{ event.id }} <br />
-	    Description: {{event.description}} <br />
-	    Start Time: {{event.event_date_time_start}} <br />
-	    End Time: {{event.event_date_time_end}} <br />
-            Capacity: {{event.capacity}} <br />
-	    Venue: {{event.venue }} <br />
-            Venue Address: {{event.venue_address}} <br />
-	    Price: {{event.price}} <br />
- 	    URL: {{event.url}} <br />
-            Organizer: {{event.organizer_id}}
-	  <a href={%url event_details event_id=event.id %}>details</a> <br />
-	</li>
-    {% endfor %}
-    </ul>
-    <hr />
+        
+	  <a href='{% url campaign_page_id camp_id=camp.id%}'>{{camp.title }}</a> <br />
+	    Campaign Id: {{ camp.id }} <br />
+	    Start Time: {{camp.start_date_time}} <br />
+	    End Time: {{camp.end_date_time}} <br />
+            Percent: {{camp.percent}} <br />
+	    Code: {{camp.code }} <br />
+            Created At: {{camp.created_at}} <br />
+	    Subdomain: {{camp.subdomain}} <br />
+ 	    URL: {{camp.url}} <br />
 
-<script>
-var create_note = function() {
-  var title = $("#title").val()
-  var slug = $("#slug").val()
-  if (title != "" && slug != "") {
-    var data = { title:title, slug:slug };
-    var args = { type:"POST", url:"{% url event_create %}", data:data, complete:done };
-    $.ajax(args);
-  }
-  else {
-    display_error("Requires bla bla bla.", $(".new"));
-  }
-  return false;
-};
+	  <a href={%url campaign_admin chash=camp.chash %}>details</a> <br />
+	
+    <br /><br/>
+	{% endfor %}
+  
+    
 
-
-var done = function(res, status) {
-  if (status == "success") {
-    var txt = res.responseText;
-    var titleStr = txt.match(/id="title" value="\w+"/ig)[0];
-    var slugStr = txt.match(/id="slug" value="\w+"/ig)[0];
-    var title = titleStr.match(/"\w+"/ig)[1].replace(/"/g,'');
-    var slug = slugStr.match(/"\w+"/ig)[1].replace(/"/g,'');
-    var newLi = $('<li><a href="/note/'+slug+'">'+title+'</a></li>');
-    $("#notes").prepend(newLi);
-    $("#title").val("");
-    $("#slug").val("");
-  }
-  else {
-    display_error(res.responseText, $(".new"));
-  }
-}
-
-$("#create").click(create_note);
-</script>    
 {% endblock %}
 
