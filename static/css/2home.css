@@ -28,15 +28,12 @@
 
         -moz-border-radius: 10px;
 	-webkit-border-radius: 0px 0px 5px 5px;
-	#border: 1px solid #a9a9a9;
 	box-shadow: 0 0 10px #000000;
 	-moz-box-shadow: 0 0 10px #000000;
 	-webkit-box-shadow: 3px 3px 10px #000000;
-	#position: relative;
-	#margin-left: 6px;
-	
+	#border: 3px solid #a9a9a9;
 	cursor: pointer;
-	#top: 153px;
+	
 	#width: 455px;
 	text-align: center;
 	font-size: 16px;
@@ -99,7 +96,6 @@ h1 {
 	font-size: 16px;
 	font-weight: bold;
 
-	//background-color: green;
 }
 #greeting
 {
@@ -133,39 +129,7 @@ h1 {
 	text-align: center;
 	padding: 15px 10px 0px 10px;
 	}
-##dets
-#{
-#	background-image: url(../images/look/ptop.png);
-#	background-repeat: no-repeat;
-#	height: 467px;
-#	width: 475px;
-#	left: 487px;
-#	top: 149px;
-#}
-##detsbg {
-#    background-image: url(../images/look/pmid.png);
-#    background-repeat: repeat-y;
-#    margin-top:7px;
-#}
-##detsfooter {
-#	/* background-image: url(../images/look/pbot.png); */
-#	background-repeat: no-repeat;
-#	height: 46px;
-#}
-##detsbg > p, #detsbg > div{
-#    padding: 15px 33px 5px 33px;
-#    font-size: 14px;
-#    line-height: 1.5em;
-#    color: #444;
-#}
-##header #dets #event-title
-#{
-#	padding-top: 33px;
-#	padding-left: 30px;
-#	font-size: 24px;
-#	font-decoration: bold;
-#	color: #444;
-#}
+
 #header #dets #info
 {
 	padding-top: 26px;

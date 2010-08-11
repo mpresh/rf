@@ -3,7 +3,6 @@
 	display:none;
 	z-index:10000;
 	background-color:#fff;	 
-	//background-color:green;	 
 	width: 460px;
 	height: 251px;
 	padding-top: 35px;
@@ -94,11 +93,6 @@
 	text-align: center;
 }
 
-//.overlay-blogger img {
-//	margin-top: 5px;
-//	margin-botom: 5px;
-//}
-
 #invite-progress{
 	font-size: 12px;
 	float: left;
@@ -178,7 +172,6 @@ Facebook Elements
 
 #overlay-div-facebook-login {
 	text-align: center;
-	//background-color: #DEDEDE;
 	padding: 0px 0px 0px 70px;
 	width: 128px;
 	float: left;
@@ -191,13 +184,10 @@ Facebook Elements
 	margin-left: 10px;
 }
 #facebook-div-feed-update {
-	//margin-top: 5px;
-	//margin-right: 10px;
 	float:left;
 	margin: 10px 0px 0px 62px;
 	height: 27px;
 	width: 45px;
-	//float: right;
 	cursor: pointer;
 }
 #facebook-feed-update {
@@ -220,7 +210,6 @@ Twitter Elements
 *************************************/
 #overlay-div-twitter-login {
 	text-align: center;
-	//background-color: #DEDEDE;
 	padding: 0px 70px 0px 0px;
 	float: right;
 	width: 128px;
@@ -230,10 +219,8 @@ Twitter Elements
 #twitter-top-msg{
 	padding: 15px 0px 14px 0px;
 	margin-left: 10px;
-	//font-family: Arial, Helvetica,sans-serif;
 }
 #twitter-div-feed-update {
-	//margin: 5px 5px 0px 0px;
 	margin: 10px 0px 0px 62px;
 	height: 27px;
 	width: 45px;
@@ -241,9 +228,8 @@ Twitter Elements
 	cursor: pointer;
 }
 #twitter-feed-update {
-    //margin-top: 3px;
     height: 27px;
-	width: 45px;
+    width: 45px;
 }
 #twitter-login {
 	    margin-top: 0px;
