@@ -6,8 +6,8 @@
         <script type="text/javascript" src="{% url static 'javascript/jquery.cookie.js' %}" ></script>
         <script type="text/javascript" src="{% url static 'javascript/charCount.js' %}" ></script>
         <script type="text/javascript" src="{% url static 'javascript/jquery.showLoading.js' %}" ></script>	
-        <script type="text/javascript" src="{% url static 'javascript/overlay.js' %}" ></script>
-        <script type="text/javascript" src="{% url static 'javascript/toolbox.expose.js' %}" ></script>
+        <!-- <script type="text/javascript" src="{% url static 'javascript/overlay.js' %}" ></script>-->
+        <!--<script type="text/javascript" src="{% url static 'javascript/toolbox.expose.js' %}" ></script>-->
 
         <!--	<link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="stylesheet" />-->
        <link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text/css" />	
@@ -30,8 +30,8 @@
 
 
 
-
-<div id="badge" onmouseover="$('#badge').stop().animate({shadow: '0 0 30px #44f'}, 'fast')" onmouseout="$('#badge').stop().animate({shadow: '3px 3px 10px #000'}, 'fast')" rel="#overlay-blogger-login">
+<div id="badge" rel="#overlay-blogger-login">
+<!--<div id="badge" onmouseover="$('#badge').stop().animate({shadow: '0 0 30px #44f'}, 'fast')" onmouseout="$('#badge').stop().animate({shadow: '3px 3px 10px #000'}, 'fast')" rel="#overlay-blogger-login">-->
 <br/><font style="color: #0074A0; font-size: 34px;">CLICK HERE </font><br/>
 <font style="font-size: 50px;">Get <b>{{campaign.percent}}% </b>Discount </font><br/>
 <br/><font style="font-size: 32px; font-weight: bold; color: black;">JUST BY</font><font style="color: black; font-size: 25px;"> telling your friends.</font>
@@ -166,6 +166,7 @@
 </iframe></div>
 
 <script>
+
 function refreshAttendee()
 {
 	var attendee_list = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";
@@ -189,7 +190,6 @@ function refreshAttendee()
 
 refreshAttendee();
 
-
 $("#ifra").showLoading({'afterShow': function(){ setTimeout( "jQuery('#ifra').hideLoading()", 5000 );}});         
 
 
@@ -199,9 +199,7 @@ $("#badge").click(function(){
 
 var contentView = 0;
 
-//alert("test");
-</script>
-<script>
+alert("test");
 
 $("#badge").overlay({
 	expose: {
@@ -261,8 +259,22 @@ $("#badge").overlay({
 		{% endif %}
 		{% endif %}
 	},
-	top: 170,
+	top: 170
 });
+
+
+// $("#badge").overlay({
+//	expose: {
+//		loadSpeed: 200,
+//		color: 'gray',
+//		opacity: 0.8
+//	},
+//	onLoad: function(event) {
+//        alert("called");
+//	},
+//	top: 170,
+//});
+
 
 $('#facebook-profile-image').click(function(){
 	contentView = 2;
@@ -327,15 +339,16 @@ $("#twitter-feed-update").click(function() {
 	$('#overlay-div-content2-twitter').hide(); 
 	$('#overlay-div-content3').show();
 
-	$.ajax({ url: '{% url campaign_tweet_invite campaign_id=campaign.id %}', 
-	dataType: "json", 
-	data: {message: $("#overlay-textarea-twitter").val(), 
-		   shash: "{{shash}}", }, 
-	success: function (data) { $.get('{% url campaign_going_twitter campaign_id=campaign.id %}', 
-	                                  function(data) { refreshAttendee(); }); }, 
-	beforeSend: function() { 
-                $("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
-} 
+	$.ajax({ 
+                   url: "{% url campaign_tweet_invite campaign_id=campaign.id %}", 
+	           dataType: "json", 
+	           data: {message: $("#overlay-textarea-twitter").val(), 
+		   shash: "{{shash}}"},
+	           success: function (data) { $.get('{% url campaign_going_twitter campaign_id=campaign.id %}', 
+	                                  function(data) { refreshAttendee(); }); },
+	           beforeSend: function() { 
+                         $("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
+                 } 
 
     }); 
 });
@@ -439,12 +452,12 @@ $("#okay").click(function(){
 $("#overlay-textarea-twitter").charCount();
 ({
 	allowed: 80,		
-	warning: 20,
+	warning: 20
 });
 $("#overlay-textarea-facebook").charCount();
 ({
 	allowed: 80,		
-	warning: 20,
+	warning: 20
 });
 
 function pageY(elem) {

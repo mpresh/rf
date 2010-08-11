@@ -272,7 +272,7 @@
 		// already constructed --> return API
 		var el = this.data("overlay");
 		if (el) { return el; }	  		 
-		//alert("overlay fn");
+		alert("overlay fn");
 		if ($.isFunction(conf)) {
 			conf = {onBeforeLoad: conf};	
 		}
