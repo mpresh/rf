@@ -96,8 +96,10 @@ function facebook_login_click() {
 
       var url = "/facebook_callback?redirectArgs=overlayEQUALSfacebook";
       window.location.href = url;
-  } else {
-  }
+  } else { FB.logout(function(response) { 
+			}); }
+
+
       }, {perms: requiredPerms.join(',')}
       );
 

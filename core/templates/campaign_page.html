@@ -399,19 +399,22 @@ $("#status_button").click(function(){
 
 var requiredPerms  = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
 $('#facebook-login').click(function(){
-	FB.getLoginStatus(function(response) {
-		if (response.session) {
-			// logged in and connected user, someone you know
-			//alert("LOGGED IN");
-			FB.logout(function(response) { 
-                              facebook_login_click();
-			});
-                } else {
-                         //alert("logged out");
-                            facebook_login_click();
-                }
-
-        });
+        facebook_login_click();
+	//FB.getLoginStatus(function(response) {
+	//alert("facebook login");
+	//
+	//	if (response.session) {
+	//		// logged in and connected user, someone you know
+	//		//alert("LOGGED IN");
+	//		FB.logout(function(response) { 
+        //                      facebook_login_click();
+	//		});
+        //        } else {
+        //                 //alert("logged out");
+        //                    facebook_login_click();
+        //        }
+	//
+        //});
 
 });
 
