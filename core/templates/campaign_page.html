@@ -190,7 +190,7 @@ function refreshAttendee()
 
 refreshAttendee();
 
-$("#ifra").showLoading({'afterShow': function(){ setTimeout( "jQuery('#ifra').hideLoading()", 5000 );}});         
+//$("#ifra").showLoading({'afterShow': function(){ setTimeout( "jQuery('#ifra').hideLoading()", 5000 );}});         
 
 
 $("#badge").click(function(){
@@ -199,14 +199,14 @@ $("#badge").click(function(){
 
 var contentView = 0;
 
-alert("test");
+//alert("test");
 
 $("#badge").overlay({
-	expose: {
-		loadSpeed: 200,
-		color: 'gray',
-		opacity: 0.8
-	},
+//	expose: {
+//		loadSpeed: 200,
+//		color: 'gray'
+//		opacity: 0.1
+//	},
 	onLoad: function(event) {
 //alert("called");
 		// if twitter user logged in, show twitter page
@@ -406,6 +406,7 @@ $('#facebook-login').click(function(){
                               facebook_login_click();
 			});
                 } else {
+                         //alert("logged out");
                             facebook_login_click();
                 }
 

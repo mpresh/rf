@@ -1,5 +1,7 @@
 # random utility functions
 def handle_redirect_string(redirect_url, redirect_args_string):
+    redirect_url = redirect_url.replace("fb_xd_fragment", "")
+    redirect_args_string = redirect_args_string.replace("fb_xd_fragment", "")
 
     print "HANDLE_REDIRECT_STRING", redirect_url, redirect_args_string
     redirectargs_list = redirect_args_string.split("AND")
@@ -8,8 +10,9 @@ def handle_redirect_string(redirect_url, redirect_args_string):
     for param in redirectargs_list:
         (key, value) = param.split("EQUALS")
         args_dict[key] = value
+    
 
-
+    print "REDIRECT_URL", redirect_url
     query_args_dict = {}
     if redirect_url.find("?") != -1:
         (url, query_string) = redirect_url.split("?")
