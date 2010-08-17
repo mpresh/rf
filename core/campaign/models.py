@@ -23,6 +23,7 @@ class Campaign(models.Model):
     from_name = models.CharField(max_length=100, default="Mike", null=True)
     subdomain = models.CharField(max_length=50, default="www", null=True)
     campaign_type = models.CharField(max_length=50, null=True)
+    url_redeem = models.URLField(verify_exists=True, blank=True)
 
     interested_twitter = models.ManyToManyField(User, related_name="campaign_interested")
     interested_facebook = models.ManyToManyField(FBUser, related_name="campaign_interested")

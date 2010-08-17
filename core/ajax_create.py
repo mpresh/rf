@@ -65,7 +65,8 @@ def campaign_update_ajax(req):
     message_share = req.POST["campaign_message_share"]
     message = req.POST["campaign_message"]
     subdomain = req.POST["subdomain"]
-    url = req.POST["url_redeem"]
+    url_redeem = req.POST["url_redeem"]
+    url = req.POST["url"]
 
     c.title = title
     c.from_name= from_name
@@ -77,6 +78,7 @@ def campaign_update_ajax(req):
     c.message_share = message_share
     c.subdomain = subdomain
     c.url = url
+    c.url_redeem = url_redeem
 
     c.save()
     return HttpResponse(json.dumps({"status" : 200}))    
@@ -178,9 +180,8 @@ def create_campaign(req):
     end_dt = datetime.datetime.now()
 
     c = Campaign(
-        #start_date_time=start_dt,
-        #end_date_time=end_dt,
-        url=campaign_url
+        url=campaign_url,
+        url_redeem=campaign_url,
         )
 
     c.save()
