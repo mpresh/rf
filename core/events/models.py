@@ -83,15 +83,21 @@ class Share(models.Model):
 
     def allOffspring(self):
         list_objs = []
+        seen = {}
+        seen[self.id] = True
         for obj in self.children():
-            list_objs.extend(obj.allOffspringHelper())
+            if obj.id not in seen:
+                list_objs.extend(obj.allOffspringHelper(seen=seen))
         return list_objs
 
-    def allOffspringHelper(self):
+    def allOffspringHelper(self, seen={}):
         """ Returns all of the shares that originated here."""
         list_objs = [self]
+        seen[self.id] = True
         for obj in self.children():
-            list_objs.extend(obj.allOffspringHelper())
+            if obj.id not in seen:
+                print obj
+                list_objs.extend(obj.allOffspringHelper(seen=seen))
         return list_objs
 
     def getReach(self):

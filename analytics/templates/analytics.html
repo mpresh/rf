@@ -148,6 +148,7 @@ Analytics
 	      FB.init({appId: '{{fbappid}}', status: true, cookie: true, xfbml: true});
 	      google.load("visualization", "1", {packages:["table", "piechart", "corechart"]});
 	      google.setOnLoadCallback(drawGraphs);
+
 	      function drawTable() {
 	           var cssClassNames = {
 		        'headerRow': 'headerRow',
@@ -162,8 +163,8 @@ Analytics
 		   var data_table = new google.visualization.Table(document.getElementById('table_analytics_data'));
 		   $.ajax({
 		        url: '{% url analytics_data %}?campaign={{campaign.id}}', 
-			     dataType: "json",
 			     data: {},
+	                     dataType: "json", 
 			     success: function(data) {
 			          var json_data = new google.visualization.DataTable(data.data, 0.5);
 				  json_data.sort({column: 3, desc: true})
@@ -175,17 +176,14 @@ Analytics
                                   formatter.format(json_data, [7]);
 				  var view = new google.visualization.DataView(json_data);
 				  view.hideColumns([2,3,8,6,5]);
-				  
 				  // Render Table
 				  var options = {};
 				  options['page'] = 'enable';
 				  options['pageSize'] = 10;
 				  options['allowHtml'] = true;
 				  options['cssClassNames'] = cssClassNames;
-                                  
 				  data_table.draw(view, options);
 				  data_table.draw(view, options);
-	                          	
 				  // Setup Listener
 				  google.visualization.events.addListener(data_table, 'select', function() {
 				       var row = data_table.getSelection()[0].row;
@@ -273,7 +271,7 @@ Analytics
 
 
 		function drawGraphs() {
-			drawTable();
+			drawTable();	                
 			drawPie($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
 			drawDateColumnShare($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
 			drawDateLineReach($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
@@ -283,7 +281,7 @@ Analytics
 			drawPie($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
 			drawDateColumnShare($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
 			drawDateLineReach($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
-xs		});
+		});
 
 		function showUserData(pic, name, link, followers, reach, shares, reshares, totalShares, network) {
 		        var html_str = "";

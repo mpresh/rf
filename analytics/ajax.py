@@ -369,7 +369,6 @@ def analytics_sources_pie(req):
 def analytics_data(req):
     """Return json data for DataTable format"""
     dict = {}
-
     if "campaign" in req.GET:
         try:
             campaign = Campaign.objects.get(id=req.GET["campaign"])
@@ -382,7 +381,6 @@ def analytics_data(req):
         dict["error"] = "Must specify campaign."
         dict["status"] = 500
         return HttpResponse(json.dumps(dict))
-
 
     data = {}
     column_list = []
