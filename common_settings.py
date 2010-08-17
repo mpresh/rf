@@ -79,6 +79,7 @@ INSTALLED_APPS = (
     'analytics',
     'core.campaign',
     #'django_extensions',
+    'south',
 )
 
 
