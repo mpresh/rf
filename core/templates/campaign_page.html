@@ -162,9 +162,13 @@
 
 
 
-<div id="ifra"><iframe id="ifm" src ="{{campaign.url}}" frameborder="0" width="100%" scrolling="auto">
+<div id="ifra">
+
+<iframe id="ifm" src ="{{campaign.url}}" frameborder="0" width="100%" scrolling="auto">
   <p>Your browser does not support iframes.</p>
-</iframe></div>
+</iframe>
+
+</div>
 
 <script>
 
@@ -476,7 +480,7 @@ function resizeIframe() {
     height = (height < 0) ? 0 : height;
     document.getElementById('ifra').style.height = height + 'px';
 }
-document.getElementById('ifm').onload=resizeIframe;
+//document.getElementById('ifm').onload=resizeIframe;
 window.onresize = resizeIframe;
 
 </script>

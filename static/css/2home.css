@@ -182,12 +182,13 @@ border:1px solid #ccc;
 	margin: 20px 0 0 22px;
 	overflow: auto;
 }
-#ifra {height: 400px; 
+#ifra {
+       height: 500px; 
        margin-top: 50px; 
        border:2px double #0074A0;
 }
 
-iframe {
+#ifm {
 	height: 100%;
 }
 
