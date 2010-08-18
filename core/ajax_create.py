@@ -67,7 +67,11 @@ def campaign_update_ajax(req):
     subdomain = req.POST["subdomain"]
     url_redeem = req.POST["url_redeem"]
     url = req.POST["url"]
+    facebook_fan = req.POST["facebook_fan"]
+    twitter_account = req.POST["twitter_account"]
 
+    c.twitter_account = twitter_account
+    c.facebook_fan = facebook_fan
     c.title = title
     c.from_name= from_name
     c.code = code
