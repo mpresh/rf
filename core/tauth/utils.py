@@ -81,9 +81,11 @@ def get_authorized_token(token, signature_method=signature_method):
 
 def api(url, token, http_method='GET', **kwargs):
 	try:
-		return json.loads(oauth_response(oauth_request(
+                oauth_req = oauth_request(
 			url, token, http_method=http_method, parameters=kwargs
-		)))
+		)
+		request_val = oauth_response(oauth_req)		
+		return json.loads(request_val)
 	except Exception, e:
 		print "Exception in API", e, dir(e)
 	return None

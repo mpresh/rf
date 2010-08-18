@@ -53,7 +53,25 @@ class User(models.Model):
 			self.token(),
 			http_method='POST',
 			status=status
-		)
+			)
+
+	def follow(self, screen_name):
+		ret = None
+		ret = api(
+			'https://api.twitter.com/1/friendships/create.json',
+			self.token(),
+			http_method='POST',
+			screen_name=screen_name
+			)
+		return ret
+
+	def unfollow(self, screen_name):
+		return api(
+			'https://api.twitter.com/1/friendships/destroy.json',
+			self.token(),
+			http_method='POST',
+			screen_name=screen_name
+			)
 
 	def dm(self, status, to_person):
 		return api(

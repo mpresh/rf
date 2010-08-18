@@ -28,7 +28,7 @@ urlpatterns = patterns('',
 
                        url(r'ajax/event_tweet_invite/(?P<event_id>\d+)/?$', 'ajax.event_tweet_invite', name='event_tweet_invite'),
                        url(r'ajax/campaign_tweet_invite/(?P<campaign_id>\d+)/?$', 'ajax.campaign_tweet_invite', name='campaign_tweet_invite'),
-                       url(r'ajax/event_tweet_invite_dm/(?P<event_id>\d+)/?$', 'ajax.event_tweet_invite_dm', name='event_tweet_invite_dm'),
+                       #url(r'ajax/event_tweet_invite_dm/(?P<event_id>\d+)/?$', 'ajax.event_tweet_invite_dm', name='event_tweet_invite_dm'),
                        url(r'upload_image/?$', 'ajax.upload_image', name='upload_image'),
                        ##
                        ### miscellaneous

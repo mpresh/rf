@@ -9,9 +9,9 @@
 	<script type="text/javascript" src="{% url static 'javascript/jquery.uploadify.js' %}"> </script>
 	<script type="text/javascript" src="{% url static 'javascript/jquery.validate.js' %}"> </script>
 	<script type="text/javascript" src="{% url static 'javascript/myjscript.js' %}"> </script>
-<script type="text/javascript" src="{% url static 'javascript/jquery.showLoading.js' %}" ></script>	
+	<script type="text/javascript" src="{% url static 'javascript/jquery.showLoading.js' %}" ></script>	
 
-<link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text/css" />	
+	<link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text/css" />	
 	<link rel="stylesheet" href="{% url static 'css/calendar-system.css' %}" type="text/css" >
 	<link rel="stylesheet" href="{% url static 'css/calendar-en.css' %}" type="text/css" >
 	<link rel="stylesheet" href="{% url static 'css/jquery.calendar.css' %}" type="text/css" >
@@ -150,7 +150,13 @@ $(document).ready(function() {
 			type: "POST",
 			data: values, 
 		success: function(data){
-                        $("#update-campaign").showLoading(1000);
+                        //alert("suceess");
+                        $("#update-campaign").showLoading(
+                                              {'afterShow': function(){ 
+                                                            setTimeout( "window.location.href = '{% url campaign_admin chash=campaign.chash %}'", 10 );
+                                                                      }
+                                              }
+                                              );
                          window.location.href = "{% url campaign_admin chash=campaign.chash %}";
 					},
 		beforeSend: function() {
