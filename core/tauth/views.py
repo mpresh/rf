@@ -12,6 +12,7 @@ import simplejson as json
 import urllib
 from django.utils.functional import lazy
 from pylib.util import handle_redirect_string
+import re
 
 reverse_lazy = lazy(reverse, unicode)
 
@@ -200,11 +201,20 @@ def attendees(req, campaign_id=""):
 		for att in attendees_twitter:
 			att_list.append([att.profile_pic, att.name, att.username, "twitter"])
 		attendees_facebook = campaign.interested_facebook.all()
-		print "attendees facebook", attendees_facebook
+		print "attendees facebook", attendees_facebook, 
 		for att in attendees_facebook:
 			url = "http://graph.facebook.com/" + att.facebook_id + "/picture"
-			att_list.append([url, att.name, att.username, "facebook"])
+			#if not att.username:
+			try:
+				fid = re.match("http://graph.facebook.com/(\d+)/picture", url).group(1)
+			except:
+				fid = ""
+			att_list.append([url, att.name, fid, "facebook"])
 
+			#else:
+			#	att_list.append([url, att.name, att.username, "facebook"])
+
+		print "AAA", att_list
 		return HttpResponse(json.dumps(att_list))
 	else:
 		return HttpResponse(json.dumps([]))
