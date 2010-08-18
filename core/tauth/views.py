@@ -74,11 +74,12 @@ def login(req):
 	for key in req.session.keys():
 		print "KEY LOGIN", key, req.session[key]
 
-	print "url is ", url_auth
+	#url_auth = url_auth + "&oauth_callback=" + urllib.quote("http://www.cnn.com")
+	print "Twitter url login is ", url_auth
+
 	return HttpResponseRedirect(url_auth)
 
 def callback(req):
-	print "ENTERING CALLBACK"
 	token = req.session.get('token', None)
 	#token = req.GET["oauth_token"]
 	print "token is ", token

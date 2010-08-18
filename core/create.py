@@ -25,7 +25,7 @@ def create_campaign(req):
 def event_create(req):
     dict = {}
     invite_url = util.get_invite_url(req)
-    req.session["redirect"] = req.get_full_path()        
+    #req.session["redirect"] = req.get_full_path()        
 
     #if "user_id" not in req.session:
     #    return HttpResponseRedirect(reverse('tauth_login'))
@@ -106,7 +106,7 @@ def event_create(req):
     return render_to_response('create.html', dict)
 
 def event_thanks(req, event_id=""):
-    req.session["redirect"] = req.get_full_path()
+    #req.session["redirect"] = req.get_full_path()
     
     dict = {}
     if "user_id" in req.session:
@@ -202,7 +202,7 @@ def campaign_page_preview(req):
         return render_to_response('404.html', {})
 
 def campaign_admin(req, chash=""):
-    req.session["redirect"] = req.get_full_path()
+    #req.session["redirect"] = req.get_full_path()
     try:
         c = Campaign.objects.get(chash=chash)
     except:
@@ -225,7 +225,7 @@ def campaign_admin(req, chash=""):
     return render_to_response('campaign_admin.html', dict)
 
 def campaign_update(req, chash=""):
-    req.session["redirect"] = req.get_full_path()
+    #req.session["redirect"] = req.get_full_path()
     try:
         c = Campaign.objects.get(chash=chash)
     except:
@@ -258,7 +258,7 @@ def campaign_update(req, chash=""):
     return render_to_response('campaign_edit.html', dict)
 
 def campaign_created(req):
-    req.session["redirect"] = req.get_full_path()
+    #req.session["redirect"] = req.get_full_path()
     dict = {}
     host = "http://" + req.get_host()
     dict["host"] = host

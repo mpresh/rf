@@ -11,7 +11,7 @@ from core.campaign.models import Campaign
 def analytics(req):
     dict = {}
     dict["fbappid"] = settings.FACEBOOK_APP_ID
-    req.session["redirect"] = req.get_full_path()
+    #req.session["redirect"] = req.get_full_path()
 
     shares = Share.objects.all()
     dict["total_shares"] = len(shares)
@@ -69,7 +69,7 @@ def analytics(req):
 def analytics_chash(req, chash=""):
     dict = {}
     dict["fbappid"] = settings.FACEBOOK_APP_ID
-    req.session["redirect"] = req.get_full_path()
+    #req.session["redirect"] = req.get_full_path()
 
 
     try:

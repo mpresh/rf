@@ -19,7 +19,7 @@ import util
 from fauth import fauth_utils
 
 def frontpage(req):
-    req.session["redirect"] = req.get_full_path()  
+    #req.session["redirect"] = req.get_full_path()  
 
     domain = req.META['HTTP_HOST'].split(".")[0]
     print "DOMAIN IS", domain

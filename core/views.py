@@ -27,15 +27,15 @@ def test2(req):
 
 
 def test(req):
-    req.session["redirect"] = req.get_full_path()  
+    #req.session["redirect"] = req.get_full_path()  
     return render_to_response('test.html', {})
 
 def about(req):
-    req.session["redirect"] = req.get_full_path()
+    #req.session["redirect"] = req.get_full_path()
     return render_to_response('about.html', {})
 
 def event_list(req):
-    req.session["redirect"] = req.get_full_path()  
+    #req.session["redirect"] = req.get_full_path()  
     all_campaigns = Campaign.objects.all()
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])
@@ -54,7 +54,7 @@ def event_details(req, event_id=""):
         user = User.objects.get(id=req.session["user_id"])
         dict['user'] = user
 
-    req.session["redirect"] = req.get_full_path()
+    #req.session["redirect"] = req.get_full_path()
     if event_id:
         e = Event.objects.get(id=event_id)
         dict['event'] = e
@@ -71,7 +71,7 @@ def map(request):
                                            "zoom": 14})
 
 def user_details(req, user_id=""):
-    req.session["redirect"] = req.get_full_path()
+    #req.session["redirect"] = req.get_full_path()
 
     dict = {}
     if user_id:
@@ -90,7 +90,7 @@ def user_details(req, user_id=""):
     return render_to_response('user.html', dict)    
 
 def invite(req):
-    req.session["redirect"] = req.get_full_path()
+    #req.session["redirect"] = req.get_full_path()
     invite = None
     
     dict = {}
@@ -139,7 +139,7 @@ def blogvip_flow(req):
     
     if "event" in req.GET:
         event_id = req.GET["event"]
-        req.session["redirect"] = req.get_full_path()
+        #req.session["redirect"] = req.get_full_path()
 
         try:
             event = Event.objects.get(id=event_id)
@@ -148,7 +148,7 @@ def blogvip_flow(req):
             event = None
     elif "ehash" in req.GET:
         ehash = req.GET["ehash"]
-        req.session["redirect"] = req.get_full_path()
+        #req.session["redirect"] = req.get_full_path()
 
         try:
             event = Event.objects.get(ehash=ehash)
@@ -233,7 +233,7 @@ def blogvip_flow(req):
         return render_to_response("blogvip_flow.html", dict)
 
 def event_home(req, event_id=""):
-    req.session["redirect"] = req.get_full_path()
+    #req.session["redirect"] = req.get_full_path()
     if event_id:
         e = Event.objects.get(id=event_id)
     else:
