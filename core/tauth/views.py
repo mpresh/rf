@@ -193,7 +193,6 @@ def attendees(req, campaign_id=""):
 	GET Parameter: event_id
 	
 	"""
-	print "IN ATTENDEES"
 	if campaign_id:
 		campaign = Campaign.objects.get(id=campaign_id)
 		att_list = []	
