@@ -174,7 +174,7 @@
 
 function refreshAttendee()
 {
-	var attendee_list = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ";
+	var attendee_list = "&nbsp;&nbsp;&nbsp;&nbsp; ";
 
 	$.getJSON('{% url attendees_list campaign_id=campaign.id %}', function(data){
 		$.each(data, function(index, attendee) {
