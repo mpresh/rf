@@ -82,12 +82,12 @@ height: 30px;
               color: #E0E0E0; 
               font-weight: bold;
 
-	      width: 600px;
+	      width: 70%px;
 	      height: 50px;
 }
 #create-button {
 	       height: 40px;
-	       width: 100px;
+	       width: 20%;
 	       margin: 0 0 130px 0;
 }
 
