@@ -36,6 +36,17 @@
 	<form id="update-campaign-form" action="" method="post">	
 
 		<ul>		
+                        <li>
+				<label for="title">Campaign Type: &nbsp; &nbsp;
+				</label> <select name="campaign_type" id="campaign_type">
+                                             <option value="discount" selected>Discount</option>
+					     <option value="contest">Contest</option>
+					     <option value="raffle">Raffle/Giveaway</option>
+				</select>
+			        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label for="subdomain">Subdomain: 
+				</label> <input type="text" value="{{campaign.subdomain}}" size="5" name="subdomain" />
+			</li>
 		         <li>
 				<label for="title">Campaign Title: 
 				</label> <input type="text" size="70" value="{{campaign.title}}" name="title" class="required" />
@@ -47,8 +58,7 @@
 			<li>
 				<label for="code">Discount Code: 
 				</label> <input type="text" value="{{campaign.code}}" name="code" class="required" />
-			</li>
-    		<li>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<label for="percent">Percent Discount: 
 				</label> <input type="text" value="{{campaign.percent}}" size="5" name="percent" class="required digits"/>
 			</li>
@@ -72,16 +82,9 @@
 			<li>
 				<label for="min_people">Minimum People: 
 				</label> <input type="text" value="{{campaign.min_people}}" size="5" name="min_people" class="required digits"/>
-			</li>
-
-			<li>
+			        &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
 				<label for="max_people">Maximum People: 
 				</label> <input type="text" value="{{campaign.max_people}}" size="5" name="max_people" class="required digits" />
-			</li>
-
-			<li>
-				<label for="subdomain">Subdomain: 
-				</label> <input type="text" value="{{campaign.subdomain}}" size="5" name="subdomain" />
 			</li>
 
 			<li>
