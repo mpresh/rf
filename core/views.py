@@ -42,7 +42,7 @@ def event_list(req):
         return render_to_response('list.html', {"campaigns":all_campaigns,
                                                 "user" : user})
 
-    return render_to_response('list.html', {"campaigns":all_cmpaigns})
+    return render_to_response('list.html', {"campaigns":all_campaigns})
     
 def index(req):
     return render_to_response('index.html', {})
