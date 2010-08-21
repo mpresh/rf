@@ -3,6 +3,8 @@
 	{% block  js_css_include %}
  	<link rel="stylesheet" href="{% url static 'css/campaign_admin.css' %}" type="text/css" />
  	<link rel="stylesheet" href="{% url static 'css/create.css' %}" type="text/css" />
+        <script type="text/javascript" src="{% url static 'javascript/jquery.showLoading.js' %}" ></script>	
+       <link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text/css" />	
 	{% endblock %}
 
 {% block title %}Admin Console.{% endblock %}
@@ -35,9 +37,54 @@ Email Details To Self
 </button>
 </div>
 
+<div id="winners" class="create" style="text-align:center">
+  <h2>Pick Raffle Winners:<button style="" id="winners-button">Click Here</button></h2>
+<br/>
+<div id="choose-winners">
+    <div id="choose-number-winners">Number of Winners: 
+             <input type="text" id="number-of-winners" value="1" name="number-of-winners" size="2"/> 
+             <button id="random-select-winners">Select Winners</button></div>
+</div>
 
+<div id="winner-selection"></div>
+
+</div>
 
 <script>
+
+$("#random-select-winners").click(function(){
+        $.ajax({
+		url: '{% url ajax_select_winners %}?campaign={{campaign.id}}', 
+		dataType: "json",
+		data: {number: $("number-of-winners").val()},
+		success: function(data) {
+                        jQuery('#choose-winners').hideLoading();
+			
+                if ($("#winner-selection").is(":hidden")) {
+                    $("#winner-selection").slideDown("slow");
+                    $("#random-select-winners").html("Hide Winners");
+                } else {
+                    $("#winner-selection").slideUp("slow");
+                    $("#random-select-winners").html("Select Winners");
+                }
+		},
+		beforeSend: function() {
+                       $("#choose-winners").showLoading();
+		}
+	});
+});
+
+$("#winners-button").click(function(){
+if ($("#choose-winners").is(":hidden")) {
+    $("#choose-winners").slideDown("slow");
+    $("#winners-button").html("Hide");
+} else {
+    $("#choose-winners").slideUp("slow");
+    $("#winners-button").html("Click Here");
+}
+});
+
+
   $("input[type  = text]").click(function() {
          
                 if (typeof($(this).attr("original")) == "undefined") {

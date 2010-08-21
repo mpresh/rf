@@ -23,3 +23,38 @@ div#admin_console li{
 		 margin: 30px;	
 }
 
+div#winners button {
+    height:40px; 
+    width: 160px; 
+    margin: 0 20px 0 20px;
+    font-size: 20px;
+}
+
+div#choose-number-winners {
+   margin: 20px 20px 20px 20px;
+   height: 50px;
+   background-color: #CCFFCC;
+   border: 2px solid #CCFF99;
+   font-size: 30px;
+   padding: 5px 0 0 0;
+}
+
+div#choose-number-winners button {
+     height: 40px;
+     width: 160px;
+     font-size: 20px;
+}
+
+div#choose-number-winners input[type=text] {
+    font-size: 18px;
+    margin: 0 20px 0 20px;
+}
+
+
+div#choose-winners {
+    border:1px solid #ccc; height:100px; display:none;
+}
+
+div#winner-selection {
+    border:1px solid #ccc; height:100px; display:none;
+}
