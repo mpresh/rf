@@ -24,6 +24,9 @@ class FBUser(models.Model):
 	def __unicode__(self):
 		return "<Facebook User: %s %s %s %s>" % (self.id, self.username, self.facebook_id, self.name)
 
+	def get_profile_pic(self):
+		return "http://www.facebook.com/profile.php?id=%s" % (self.facebook_id)
+
         def friends(self):
 		print "grabbing friends data"
 		data = urllib.urlopen("https://graph.facebook.com/" + 

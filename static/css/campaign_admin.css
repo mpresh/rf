@@ -52,9 +52,23 @@ div#choose-number-winners input[type=text] {
 
 
 div#choose-winners {
-    border:1px solid #ccc; height:100px;
+    border:1px solid #ccc; 
+    height:100px;
 }
 
 div#winner-selection {
-    border:1px solid #ccc; height:100px; display:none;
+    border:1px solid #ccc; 
+    #height:100px; 
+    display:none;
 }
+
+ul#winners-list {
+}
+
+ul#winners-list li{
+		background-color: silver;
+		height: 60px;
+		font-size: 20px;
+}
+
+
