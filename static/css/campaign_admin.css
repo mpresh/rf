@@ -52,7 +52,7 @@ div#choose-number-winners input[type=text] {
 
 
 div#choose-winners {
-    border:1px solid #ccc; height:100px; display:none;
+    border:1px solid #ccc; height:100px;
 }
 
 div#winner-selection {
