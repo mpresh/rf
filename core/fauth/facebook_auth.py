@@ -33,6 +33,8 @@ def facebook_callback(req):
     (user, create) = FBUser.objects.get_or_create(facebook_id=req.session['uid'])
     user.access_token = req.session["access_token"]
     user.save()
+    user.fill_info()
+    user.save()
 
     if "redirect" not in req.session:
         redirect = reverse('index')
