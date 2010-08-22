@@ -65,7 +65,12 @@ $.fn.getNodeName = function() {
 
 var exclude = [];
 
-function get_winners_call() {
+function get_winners_call(call_type) {
+        if (call_type == "refresh") {
+                            $("#winners-list").html("");
+        }
+
+        alert("exclude " + JSON.stringify(exclude));
         $.ajax({
 		url: '{% url ajax_select_winners %}?campaign={{campaign.id}}', 
 		dataType: "json",
@@ -83,8 +88,7 @@ function get_winners_call() {
                         }
                        
                         
-                        exclude = data.exclude;
-                        //$("#winners-list").html(""); 
+                        exclude = data.exclude; 
                         $.each(data.winners, function(index, value) { 
                             $("#winners-list").append("<li><div class='name' style='padding: 10px 0 0 20px; float: left;'>" + value.name + "</div> &nbsp;&nbsp;&nbsp; <div class='image' style='float: right;'><img class='winner-logo' src='" + value.profile_pic + "' /> <img class='close-winner-logo' src='{% url static 'images/close2.png' %}' /> </div></li>"); 
                         });
@@ -106,16 +110,18 @@ function get_winners_call() {
 }
 
 function bind_close_button() {
+    $("ul#winners-list img.close-winner-logo").unbind("click");
     $("ul#winners-list img.close-winner-logo").click(function(){
+        alert("Button Close Pressed");
         var li = $(this).parent().parent()[0];
         var ul = $(li).parent().getNodeName();
         $(li).remove();
-        get_winners_call();
+        get_winners_call("update");
     });
 }
 
 $("#random-select-winners").click(function(){
-        get_winners_call();
+        get_winners_call("refresh");
 });
 
 

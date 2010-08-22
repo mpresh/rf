@@ -40,65 +40,60 @@ def select_winners(req):
     except:
         total_number = 1
 
-    print req
     try:
         number = int(req.GET["number"])
-        print "LALALa", number
     except:
         number = total_number
 
-    print "GEEEEEET", req.GET.keys()
-
     try:
         current_number = int(req.GET["current_number"])
-        print "current number", current_number
     except:
         current_number = 0
 
     try:
         exclude = eval(req.GET["exclude"])
-        print "EXCLUDE LALA"
     except:
         exclude = []
 
+    print "total_number=%s  number=%s  current_number=%s" % (total_number, number, current_number) 
 
-    print "EXCLUDE", exclude    
     random.seed(time.time())
 
     shares = list(shares)
     dict = {}
     dict["winners"] = []
-    while len(dict["winners"]) < number and len(shares) > 0:
+    while (((current_number + len(dict["winners"])) < number) and len(shares) > 0):
+        print "total_number=%s  number=%s  current_number=%s" % (total_number, number, current_number) 
         randSelection = random.randint(0, len(shares) - 1)
         selectedShare = shares.pop(randSelection)
-        print "AAA", selectedShare
         if selectedShare.from_account_type == "F":
             fbuser = selectedShare.from_user_facebook
             user = {}
             user["type"] = "facebook"
             user["name"] = fbuser.name
             user["profile_pic"] = fbuser.get_profile_pic()
-            user["username"] = fbuser.usrname
+            user["username"] = fbuser.username
+            user["id"] = fbuser.facebook_id
         elif selectedShare.from_account_type == "T":
-            print "0", selectedShare.from_user_twitter
             tuser = selectedShare.from_user_twitter
             user = {}
             user["type"] = "twitter"
             user["name"] = tuser.name
             user["profile_pic"] = tuser.profile_pic
             user["username"] = tuser.username
+            user["id"] = tuser.twitter_id
         else:
             user = None
-
-        key = (user["type"] + "_" + user["username"]) 
+      
+        key = (user["type"] + "_" + user["id"]) 
+        print key, exclude
         if  key not in exclude:
             dict["winners"].append(user)
             exclude.append(key)
-
+        
     dict["exclude"] = exclude;
-    print "hello ", number, dict, current_number            
     # number of winners is less than requested number of winners
-    if len(dict["winners"]) < number:
+    if (current_number + len(dict["winners"])) < number:
         dict["status"] = 501
         total_number = current_number + len(dict["winners"])
         dict["message"] = "No more valid winners at this time. Total winners %s." % (str(total_number))
