@@ -26,7 +26,8 @@ class FBUser(models.Model):
 		return "<Facebook User: %s %s %s %s>" % (self.id, self.username, self.facebook_id, self.name)
 
 	def get_profile_pic(self):
-		return "http://www.facebook.com/profile.php?id=%s" % (self.facebook_id)
+		#return "http://www.facebook.com/profile.php?id=%s" % (self.facebook_id)
+		return "http://graph.facebook.com/%s/picture" % (self.facebook_id)
 
         def friends(self):
 		print "grabbing friends data"

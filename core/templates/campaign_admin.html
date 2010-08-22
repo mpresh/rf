@@ -70,7 +70,6 @@ function get_winners_call(call_type) {
                             $("#winners-list").html("");
         }
 
-        alert("exclude " + JSON.stringify(exclude));
         $.ajax({
 		url: '{% url ajax_select_winners %}?campaign={{campaign.id}}', 
 		dataType: "json",
@@ -112,7 +111,6 @@ function get_winners_call(call_type) {
 function bind_close_button() {
     $("ul#winners-list img.close-winner-logo").unbind("click");
     $("ul#winners-list img.close-winner-logo").click(function(){
-        alert("Button Close Pressed");
         var li = $(this).parent().parent()[0];
         var ul = $(li).parent().getNodeName();
         $(li).remove();
