@@ -48,6 +48,8 @@ Email Details To Self
 	     <button id="random-select-hide" style="display: none;">Hide Winners</button>
     </div>
 </div>
+<div id="error-message">
+</div>
 <div id="winner-selection">
       <ul id="winners-list">
       </ul>
@@ -56,36 +58,66 @@ Email Details To Self
 </div>
 
 <script>
+$.fn.getNodeName = function() { 
+  // returns the nodeName of the first matched element, or ""
+  return this[0] ? this[0].nodeName : "";
+};
 
-$("#random-select-winners").click(function(){
+var exclude = [];
+
+function get_winners_call() {
         $.ajax({
 		url: '{% url ajax_select_winners %}?campaign={{campaign.id}}', 
 		dataType: "json",
 		data: {total_number: $("#number-of-winners").val(),
-                       current_number: $("#winners-list").children().size()
+                       current_number: $("#winners-list").children().size(),
+                       exclude: JSON.stringify(exclude)
                       },
 		success: function(data) {
-                        $("#winners-list").html(""); 
+                        if (data.status == 501) {
+                            $("#error-message").show();
+                            $("#error-message").html(data.message); 
+                        }
+                        else {
+                             $("#error-message").hide();
+                        }
+                       
+                        
+                        exclude = data.exclude;
+                        //$("#winners-list").html(""); 
                         $.each(data.winners, function(index, value) { 
-                            alert(value.profile_pic);
-                            $("#winners-list").append("<li>" + value.name + " &nbsp;&nbsp;&nbsp; <img src='" + value.profile_pic + "' /></li>"); 
+                            $("#winners-list").append("<li><div class='name' style='padding: 10px 0 0 20px; float: left;'>" + value.name + "</div> &nbsp;&nbsp;&nbsp; <div class='image' style='float: right;'><img class='winner-logo' src='" + value.profile_pic + "' /> <img class='close-winner-logo' src='{% url static 'images/close2.png' %}' /> </div></li>"); 
                         });
- 
+                         
                         jQuery('#choose-winners').hideLoading();
                       
-			
-                if ($("#winner-selection").is(":hidden")) {
-                    $("#random-select-hide").show();
-                    $("#winner-selection").slideDown("slow");
-                    $("#random-select-winners").html("Refresh");
-                } 
+		        bind_close_button();	
+                        if ($("#winner-selection").is(":hidden")) {
+                            $("#random-select-hide").show();
+                            $("#winner-selection").slideDown("slow");
+                            $("#random-select-winners").html("Refresh");
+                        } 
                   			
 		},
 		beforeSend: function() {
                        $("#choose-winners").showLoading();
 		}
 	});
+}
+
+function bind_close_button() {
+    $("ul#winners-list img.close-winner-logo").click(function(){
+        var li = $(this).parent().parent()[0];
+        var ul = $(li).parent().getNodeName();
+        $(li).remove();
+        get_winners_call();
+    });
+}
+
+$("#random-select-winners").click(function(){
+        get_winners_call();
 });
+
 
 $("#random-select-hide").click( function() {
           if ($("#winner-selection").is(":hidden")) {

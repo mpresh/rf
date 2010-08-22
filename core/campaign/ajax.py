@@ -40,21 +40,29 @@ def select_winners(req):
     except:
         total_number = 1
 
+    print req
     try:
         number = int(req.GET["number"])
+        print "LALALa", number
     except:
         number = total_number
 
+    print "GEEEEEET", req.GET.keys()
+
     try:
         current_number = int(req.GET["current_number"])
+        print "current number", current_number
     except:
         current_number = 0
 
     try:
-        exclude = req.GET["exclude"]
+        exclude = eval(req.GET["exclude"])
+        print "EXCLUDE LALA"
     except:
-        exclude = {}
+        exclude = []
 
+
+    print "EXCLUDE", exclude    
     random.seed(time.time())
 
     shares = list(shares)
@@ -82,12 +90,12 @@ def select_winners(req):
         else:
             user = None
 
-        key = (user["type"], user["username"]) 
+        key = (user["type"] + "_" + user["username"]) 
         if  key not in exclude:
             dict["winners"].append(user)
-            exclude[key] = True
+            exclude.append(key)
 
-
+    dict["exclude"] = exclude;
     print "hello ", number, dict, current_number            
     # number of winners is less than requested number of winners
     if len(dict["winners"]) < number:
