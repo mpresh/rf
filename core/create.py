@@ -190,7 +190,7 @@ def campaign_page(req, chash="", camp_id=""):
     #facebook_users = c.interested_facebook.all()
     #twitter_users = c.interested_twitter.all()
 
-    return render_to_response('campaign_page.html', dict)
+    return render_to_response('campaign_page2.html', dict)
 
 def campaign_page_preview(req):
     if "url" in req.GET:

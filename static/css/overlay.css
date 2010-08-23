@@ -157,11 +157,25 @@
 #code p{
 	font-size: 32px;
 	padding: 14px 0px 0px 20px;
+	width: 60%; margin: auto;
+	text-align: center; 
+	border: 6px outset #0074A0;
+	padding-bottom: 10px; 
 	}
+#code span {
+	padding: 5px 5px 0px 18px;
+	font-size: 18px;
+}
+#code a { font-size:18px;}
 #code-msg{
-	font-size: 14px;
-	padding: 0px 0px 12px 18px;
+	font-size: 17px;
+	padding: 20px 0px 12px 18px;
 	}
+#d_clip_container{
+	width: 135px;
+	margin: auto;
+	padding: 5px 0px 10px 0px;
+}
 /*************************************
 Facebook Elements
 *************************************/
