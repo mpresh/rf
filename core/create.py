@@ -189,8 +189,14 @@ def campaign_page(req, chash="", camp_id=""):
     
     #facebook_users = c.interested_facebook.all()
     #twitter_users = c.interested_twitter.all()
-
-    return render_to_response('campaign_page2.html', dict)
+  
+    templates = ['campaign_page.html', 'campaign_page2.html']
+    try:
+        template = templates[int(req.GET["t"])]
+    except:
+        template = 'campaign_page.html'
+        
+    return render_to_response(template, dict)
 
 def campaign_page_preview(req):
     if "url" in req.GET:
