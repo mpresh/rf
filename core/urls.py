@@ -65,6 +65,7 @@ urlpatterns = patterns('',
                        #
                        url(r'^',  include('fauth.urls')),
                        url(r'^',  include('tauth.urls')),
+                       url(r'^',  include('campaign.urls')),
 
                        (r'site_media/(?P<path>.*)$', 'django.views.static.serve',
                               {'document_root': settings.MEDIA_ROOT}),

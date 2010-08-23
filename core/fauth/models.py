@@ -8,6 +8,7 @@ import time
 import sys
 import os
 import socket
+import re
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")))
 import settings
@@ -23,6 +24,10 @@ class FBUser(models.Model):
 
 	def __unicode__(self):
 		return "<Facebook User: %s %s %s %s>" % (self.id, self.username, self.facebook_id, self.name)
+
+	def get_profile_pic(self):
+		#return "http://www.facebook.com/profile.php?id=%s" % (self.facebook_id)
+		return "http://graph.facebook.com/%s/picture" % (self.facebook_id)
 
         def friends(self):
 		print "grabbing friends data"
@@ -80,7 +85,6 @@ class FBUser(models.Model):
 				      "?access_token=" + self.access_token).read()
 		print "Returned value", data
 		data_dict = json.loads(data)
-		print data_dict
 		if "error" in data_dict:
 			return
 
@@ -88,4 +92,12 @@ class FBUser(models.Model):
 			self.name = data_dict["name"]
 		if "email" in data_dict:
 			self.email = data_dict["email"]
+		if "link" in data_dict:
+			try:
+				link = data_dict["link"]
+				mo = re.match(".*[/](.*?)$", link)
+				if mo:
+					self.username = mo.group(1)
+			except:
+				pass
 		self.save()

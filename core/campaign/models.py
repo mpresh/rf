@@ -22,7 +22,7 @@ class Campaign(models.Model):
     message_share = models.CharField(max_length=300, default="Join me at Event in Las Vegas, Oct 14-16. Use my 50% off coupon.", null=True)
     from_name = models.CharField(max_length=100, default="Mike", null=True)
     subdomain = models.CharField(max_length=50, default="www", null=True)
-    campaign_type = models.CharField(max_length=50, null=True)
+    campaign_type = models.CharField(max_length=50, null=False, default="discount")
     url_redeem = models.URLField(verify_exists=True, blank=True)
     twitter_account = models.CharField(max_length=300, default="RippleFunction", null=True)
     facebook_fan_page = models.CharField(max_length=300, default="RippleFunction", null=True)

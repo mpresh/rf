@@ -78,7 +78,7 @@ INSTALLED_APPS = (
     'frontpage',
     'analytics',
     'core.campaign',
-    #'django_extensions',
+    'django_extensions',
     'south',
 )
 
