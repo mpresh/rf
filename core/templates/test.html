@@ -11,9 +11,9 @@ o<link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text
     <script type="text/javascript" src="{% url static 'javascript/jquery-1.4.2.min.js' %}" ></script>
 	<script type="text/javascript" src="{% url static 'javascript/myjscript.js' %}" ></script>
     <script type="text/javascript" src="{% url static 'javascript/jquery.tools.min.js' %}" ></script>
-    <script type="text/javascript" src="{% url static 'javascript/ajaxfileupload.js' %}" ></script>
+        <script type="text/javascript" src="{% url static 'javascript/ajaxfileupload.js' %}" ></script>
 
-    <link type="text/css" href="{% url static 'css/ajaxfileupload.css' %}" rel="Stylesheet" />
+
 	<link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="Stylesheet" />	
 	<script type="text/javascript" src="{% url static 'css/jquery-ui-1.8.1.custom.js' %}"> 
  </script>
@@ -157,61 +157,6 @@ function previewImage(image_path) {
     alert(image_path);
     $('div.image_preview').html("<img src='" + image_path + "' />");
 	alert("hiii2");
-}
-
-function ajaxFileUpload(file_name)
-{
-	    alert("ajaxFileUpload called " + file_name);
-        //starting setting some animation when the ajax starts and completes
-        $("div.image_preview")
-           .ajaxStart(function(){
-				alert("ajaxStart");
-                $(this).html("<img src='{% url static 'images/ajax-loader.gif' %}' />");
-        })
-           .ajaxComplete(function(){ 
-	            $(this).html("<img src='{% url static 'images/muse.png' %}' />");
-		        alert("done with upload");
-        });
-
-        /*
-                prepareing ajax file upload
-                url: the url of script file handling the uploaded files
-                fileElementId: the file type of input element id and it will be the index of  $_FILES Array()
-                dataType: it support json, xml
-                secureuri:use secure protocol
-                success: call back function when the ajax complete
-                error: callback function when the ajax failed
-
-        */
-        $.ajaxFileUpload
-        (
-                {
-                        url:'/upload_image',
-                        secureuri:false,
-                        fileElementId:'image',
-                        dataType: 'json',
-                        success: function (data, status)
-                        {
-                                if(typeof(data.error) != 'undefined')
-                                {
-                                        if(data.error != '')
-                                        {
-                                                alert(" error1 " + data.error);
-                                        }else
-                                        {
-                                                alert("no error " + data.msg);
-                                        }
-                                }
-                        },
-                        error: function (data, status, e)
-                        {
-                                alert("error2 " + e);
-                        }
-                }
-        )
-
-        return false;
-
 }
 
 

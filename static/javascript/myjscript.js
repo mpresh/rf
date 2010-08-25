@@ -1,3 +1,25 @@
+function ajaxFileUpload(file_name, success, campaign_id)
+{
+        $.ajaxFileUpload
+	    (
+	     {
+		 url:'/upload_image?camp_id=' + campaign_id + '&file_name=' + file_name,
+		     secureuri:false,
+		     fileElementId:file_name,
+		     dataType: 'json',
+		     success: success,
+		     error: function (data, status, e)
+		     {
+			 alert("error2 " + e);
+		     }
+	     }
+	     )
+ 
+	    return false;
+ 
+}
+
+
 function trim(stringToTrim) {
     return stringToTrim.replace(/^\s+|\s+$/g,"");
 }

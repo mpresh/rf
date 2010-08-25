@@ -243,6 +243,7 @@ def campaign_launch(req, chash=""):
     dict["campaign"] = c
 
     host = "http://" + req.get_host()
+    dict["host"] = host
     campaign_admin_url = host + reverse("campaign_admin", kwargs={'chash':c.chash})
     campaign_landing_url = host + reverse("campaign_page_id", kwargs={'camp_id':c.id})
     dict["admin_url"] = shorten(campaign_admin_url)

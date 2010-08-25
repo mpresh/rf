@@ -22,16 +22,20 @@ AFETCH_HOST = "localhost"
 
 
 def upload_image(req):
-    """Upload an image from the creation page onto server."""
+    """Upload an image from client to server."""
+    f = req.FILES[req.GET['file_name']]
+    cid = req.GET['camp_id']
 
-    user = User.objects.get(id=req.session["user_id"])
+    campaign = Campaign.objects.get(id=cid)
+    destination_dir = os.path.join(settings.ROOT_PATH, 'static/images/campaign/logos/widget/')
+    if not os.path.exists(destination_dir):
+        os.system("mkdir -p " + destination_dir)
 
-    if not os.path.exists(os.path.join(settings.ROOT_PATH, 'static/images/tmp')):
-        os.mkdir(os.path.join(settings.ROOT_PATH, 'static/images/tmp'))
-	
-    f = req.FILES['image']
-    destination = open(os.path.join(settings.ROOT_PATH, 
-                                    'static/images/tmp/' + str(user.id) + "_" + f.name), 'wb+')
+    image_file = os.path.join(destination_dir, str(campaign.id))
+    if os.path.exists(image_file):
+        os.system("rm -f " + image_file)
+    destination = open(image_file, 'wb+')
+    
     for chunk in f.chunks():     
         destination.write(chunk)
     destination.close() 

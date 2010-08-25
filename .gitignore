@@ -8,3 +8,5 @@ static/css/event_css/*
 afetch/twistd.pid
 afetch/twistd.log*
 core/templates/event_templates/*
+static/images/campaign/*
+static/images/campaign_logos/*
