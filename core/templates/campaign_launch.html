@@ -45,12 +45,13 @@
 <ul>
 <li>
     <label for="height">Height:&nbsp;&nbsp; </label>
-    <input type="text" value="200" size="3" name="widget-height" id="widget-height"/>&nbsp;&nbsp;px
+    <input type="text" value="200" size="3" name="widget-height" id="widget-height"/>&nbsp;px
+  <div style="width: 160px; float: right;" id="height-slider"></div>
 </li>
-
 <li>
     <label for="width">Width:&nbsp;&nbsp; </label>
-    <input type="text" value="200" size="3" name="widget-width" id="widget-width"/>&nbsp;&nbsp;px
+    <input type="text" value="200" size="3" name="widget-width" id="widget-width"/>&nbsp;px
+  <div style="width: 160px; float: right;" id="width-slider"></div>
 </li>
 
 <li>
@@ -60,6 +61,20 @@
     <div id="picker" style="display:none; border: 1px solid gray; text-alighn: center; padding-left: 50px;"></div>
 </li>
 
+<li>
+    <label for="message">Message:&nbsp;&nbsp; </label>
+    <textarea cols=36 rows=6 id="widget-message">{{campaign.title}}</textarea>&nbsp;&nbsp;
+</li>
+<li>
+    <label for="widget-text-color">Text Color:&nbsp;&nbsp; </label>
+    <input type="color" value="black" size="10" name="widget-text-color" id="widget-text-color"/>
+    <button id="hide-color2" style="display:none;">Hide</button>
+    <div id="picker2" style="display:none; border: 1px solid gray; text-alighn: center; padding-left: 50px;"></div>
+</li>
+<li>
+    <label for="widget-text-size">Text Size:&nbsp;&nbsp; </label>
+    <input type="text" value="14" size="3" name="widget-text-size" id="widget-text-size"/>&nbsp;px
+  <div style="width: 160px; float: right;" id="text-size-slider"></div>
 <li></li>
 
 <li></li>
@@ -87,14 +102,25 @@ Back To Admin Page: &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{admin_url}}">{{admin_url}
                    "background-color" : $("#widget-background-color").val(),
 });
  
+  // text size
+  $("#widget-text-size").keyup(function(){
+      $("#widget").css({'font-size' : parseInt($("#widget-text-size").val())})
+      $("#text-size-slider").slider("value", parseInt($("#widget-text-size").val()));
+  });
+  $("#widget").css({'font-size' : parseInt($("#widget-text-size").val())})
+
+
+
   // height
-  $("#widget-height").change(function(){
+  $("#widget-height").keyup(function(){
       $("#widget").height(parseInt($("#widget-height").val()))
+      $("#height-slider").slider("value", parseInt($("#widget-text-size").val()));
   });
 
   // width
-  $("#widget-width").change(function(){
+  $("#widget-width").keyup(function(){
       $("#widget").width(parseInt($("#widget-width").val()))
+      $("#width-slider").slider("value", parseInt($("#widget-text-size").val()));
   });
 
 
@@ -112,9 +138,89 @@ Back To Admin Page: &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{admin_url}}">{{admin_url}
   $('#widget-background-color').click(function(){
         $("#picker").slideDown('slow');
         $('#hide-color').show(); 
+  });
+
+  // text color 
+  $('#hide-color2').click(function(){
+       $("#picker2").slideUp('slow');
+       $('#hide-color2').hide();
+  })
+  $('#picker2').farbtastic(function (color) {
+     $('#widget-text-color').val(color);
+     $("#widget").css({'color': $('#widget-text-color').val()});
+  });
+  
+  $('#widget-text-color').click(function(){
+        $("#picker2").slideDown('slow');
+        $('#hide-color2').show(); 
+  });
+
+
+$("#getcode").click(function(){
+    $("#code").val("<a target='ripple' href='{{landing_url}}'><div style=\
+'width: " + $("#widget").width() + "px; \
+height: " + $("#widget").height() + "px; \
+color: " + $("#widget").css('color')+ "; \
+font-size: " + $("#widget").css('font-size')+ "px; \
+text-align: center; \
+border: 2px solid black; \
+background-color: " + $("#widget").css('background-color') + ";'> \
+" + $("#widget").text() + " \
+</div></a>");
+
+ $("#dialog").dialog({
+        "width": 500,
+        "height": 400,
+     });
+});   
+
+// text size slider
+$("#text-size-slider").slider({value : $("#widget-text-size").val(),
+                               min: 0,
+                               max: 40,
+                               range: true,
+                               animate: true, 
+                               slide: function(event, ui) { 
+                                     $("#widget-text-size").val(ui.value);
+                                     $("#widget").css({'font-size': ui.value});
+
+                       }});
+
+// height slider
+$("#height-slider").slider({value : $("#widget-height").val(),
+                               min: 0,
+                               max: 600,
+                               range: true,
+                               animate: true, 
+                               slide: function(event, ui) { 
+                                     $("#widget-height").val(ui.value);
+                                     $("#widget").css({'height': ui.value});
+
+                       }});
+
+// width slider
+$("#width-slider").slider({value : $("#widget-width").val(),
+                               min: 0,
+                               max: 400,
+                               range: true,
+                               animate: true, 
+                               slide: function(event, ui) { 
+                                     $("#widget-width").val(ui.value);
+                                     $("#widget").css({'width': ui.value});
+
+                       }});
+
+// message
+$("#widget").text($("#widget-message").val());
+
+$("#widget-message").keyup(function(){
+    $("#widget").html($("#widget-message").val());
 });
+
+
+  // dragabble and resizable
   $('#widget').draggable({ containment: '#widget-preview' });
-  $('#widget'). resizable({
+  $('#widget').resizable({
    stop: function(event, ui) {
                         $("#widget-height").val($("#widget").height());
                         $("#widget-width").val($("#widget").width());
@@ -124,17 +230,6 @@ Back To Admin Page: &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{admin_url}}">{{admin_url}
                         $("#widget-width").val($("#widget").width());
                      },
   });
-
-
-$("#getcode").click(function(){
-
-    $("#dialog").dialog({
-        "width": 500,
-        "height": 400,
-});
-
-  });
-
 </script>
 
 

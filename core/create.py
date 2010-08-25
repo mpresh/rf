@@ -244,7 +244,9 @@ def campaign_launch(req, chash=""):
 
     host = "http://" + req.get_host()
     campaign_admin_url = host + reverse("campaign_admin", kwargs={'chash':c.chash})
+    campaign_landing_url = host + reverse("campaign_page_id", kwargs={'camp_id':c.id})
     dict["admin_url"] = shorten(campaign_admin_url)
+    dict["landing_url"] = shorten(campaign_landing_url)
 
     return render_to_response('campaign_launch.html', dict)
 
