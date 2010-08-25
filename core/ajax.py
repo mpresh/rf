@@ -233,6 +233,32 @@ def campaign_tweet_invite(req, campaign_id=""):
 
     user = User.objects.get(id=req.session["user_id"])	
 
+    campaign=Campaign.objects.get(id=campaign_id)
+
+    user.campaign_interested.add(campaign.id)    
+    dict = tweet_wrapper(req, campaign_id)
+    if dict["status"] == "ok!":
+        user.follow(campaign.twitter_account)
+        
+    return HttpResponse(json.dumps(dict))
+        
+
+def get_discount_twitter(req, campaign_id=""):
+    """ Get discount code via twitter login. """
+    ret_obj = {}
+
+    if "user_id" not in req.session:
+        ret_obj["status"] = "error"
+        ret_obj["message"] = "User Must be Logged in."
+        return HttpResponse(json.dumps(ret_obj))
+    
+    campaign=Campaign.objects.get(id=campaign_id)
+    user.campaign_interested.add(campaign.id)    
+
+
+def tweet_wrapper(req, campaign_id=""):
+    user = User.objects.get(id=req.session["user_id"])	
+
     msg=req.GET["message"]
     if len(msg) > 125:
         msg = msg[:125]
@@ -244,11 +270,6 @@ def campaign_tweet_invite(req, campaign_id=""):
     else:
         parent_shash = None
 
-    campaign=Campaign.objects.get(id=campaign_id)
-
-    user.campaign_interested.add(campaign.id)    
-
-    reach=user.get_num_follower_list()
     share = Share(message=msg,
                   campaign=Campaign.objects.get(id=campaign_id),
                   from_user_facebook=None,
@@ -271,13 +292,11 @@ def campaign_tweet_invite(req, campaign_id=""):
     share.save()
     user.tweet(msg)
 
-    user.follow(campaign.twitter_account)
-
     dict = {}
     dict["status"] = "ok!"
     dict["url"] = short_url
     dict["msg"] = msg
-    return HttpResponse(json.dumps(dict))
+    return (dict)
 
 
 

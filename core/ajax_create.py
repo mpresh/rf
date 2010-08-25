@@ -5,6 +5,7 @@ from events.models import Event, Share
 from tauth.models import User
 from fauth.models import FBUser
 from campaign.models import Campaign
+from campaign.models import CampaignAttr
 from django.conf import settings
 import simplejson as json
 import urllib
@@ -234,6 +235,7 @@ def create_campaign_original(req):
         )
     c.save()
     c.setHash()
+    create_attr(c.id, 'discount', '')
 
     if campaign_type == "business":
         return _create_business(c, req)
@@ -244,3 +246,17 @@ def create_campaign_original(req):
     elif campaign_type == "event":
         return _create_event(c, req)
     return HttpResponse(json.dumps({}))
+
+def create_attr(campaign_id, name='', value=''):
+    ca = CampaignAttr(
+        name=name,
+        keyvalue = value,
+        campaign = campaign_id
+        )
+    ca.save()
+    return
+
+def del_all_attr(campaign_id):
+    CampaignAttr.objects.filter(campaign=campaign_id).delete()
+    return
+
