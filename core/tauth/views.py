@@ -195,14 +195,13 @@ def attendees(req, campaign_id=""):
 	GET Parameter: event_id
 	
 	"""
-	if campaign_id:
+	if campaign_id and campaign_id != "0":
 		campaign = Campaign.objects.get(id=campaign_id)
 		att_list = []	
 		attendees_twitter = campaign.interested_twitter.all()
 		for att in attendees_twitter:
 			att_list.append([att.profile_pic, att.name, att.username, "twitter"])
 		attendees_facebook = campaign.interested_facebook.all()
-		print "attendees facebook", attendees_facebook, 
 		for att in attendees_facebook:
 			url = "http://graph.facebook.com/" + att.facebook_id + "/picture"
 			#if not att.username:
@@ -211,11 +210,11 @@ def attendees(req, campaign_id=""):
 			except:
 				fid = ""
 			att_list.append([url, att.name, fid, "facebook"])
-
+	
 			#else:
 			#	att_list.append([url, att.name, att.username, "facebook"])
-
-		print "AAA", att_list
+	
 		return HttpResponse(json.dumps(att_list))
 	else:
 		return HttpResponse(json.dumps([]))
+

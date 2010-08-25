@@ -126,8 +126,8 @@
 			<div id="okay"><img src="{% url static 'images/done.png' %}"></div>
 		</div>
 		
-			<BR /><BR />
-			<div id="code-msg">Thanks! You've shared your discount with your friends.<BR><BR>
+			<BR />
+			<div id="code-msg">Thanks! You've shared your discount with your friends.<BR>
 			Here’s your discount code:
 			</div>      	
 			
@@ -175,7 +175,6 @@
 function refreshAttendee()
 {
 	var attendee_list = "&nbsp;&nbsp;&nbsp;&nbsp; ";
-
 	$.getJSON('{% url attendees_list campaign_id=campaign.id %}', function(data){
 		$.each(data, function(index, attendee) {
                         if (attendee[3] == "facebook") {
