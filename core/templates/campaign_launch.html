@@ -18,11 +18,12 @@
 	<link rel="stylesheet" href="{% url static 'css/jquery.ptTimeSelect.css' %}" type="text/css" >	
 	<link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="Stylesheet" />
 	<script type="text/javascript" src="{% url static 'javascript/jquery-ui-1.8.4.custom.min.js' %}"></script>
+	<script type="text/javascript" src="{% url static 'javascript/jquery.cleditor.min.js' %}"></script>
+	<link type="text/css" href="{% url static 'css/jquery.cleditor.css' %}" rel="Stylesheet" />
 
-
-
- 	<link rel="stylesheet" href="{% url static 'css/campaign_launch.css' %}" type="text/css" />
  	<link rel="stylesheet" href="{% url static 'css/create.css' %}" type="text/css" />
+ 	<link rel="stylesheet" href="{% url static 'css/campaign_launch.css' %}" type="text/css" />
+
 
 
 	<script type="text/javascript" src="{% url static 'javascript/farbtastic.js' %}" ></script>	
@@ -101,6 +102,8 @@
 Back To Admin Page: &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{admin_url}}">{{admin_url}}</a><br/>
 </div>
 <script>
+
+
 
   // background image
   $("#widget-remove-img").click(function() {
@@ -235,9 +238,12 @@ $("#width-slider").slider({value : $("#widget-width").val(),
                        }});
 
 // message
-$("#widget").text($("#widget-message").val());
+$("#widget-message").cleditor({height: 160, width: 360});
+$("#widget").text($("#widget-message").html());
 
-$("#widget-message").keyup(function(){
+
+
+$("#widget-message").cleditor().change(function(){
     $("#widget").html($("#widget-message").val());
 });
 
