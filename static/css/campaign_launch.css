@@ -1,0 +1,49 @@
+#widget-wrapper {
+   background-color: #dddddd;
+   height: 500px;
+}
+
+#widget-features {
+    background-color: white;
+    width: 45%;
+   float: left;
+  height: 100%;
+  margin: auto;
+  border: 1px solid gray;
+  position: relative;
+}
+
+
+#widget-preview {
+ background-color: white;
+    width: 45%;
+    float: right;
+    margin: auto;
+    height: 100%;
+    border: 1px solid gray;
+}
+
+#widget {
+border: 1px solid black; 
+}
+
+div#widget-features input[type=text] {
+    color: black;
+}
+
+
+button#getcode {
+
+    /*set the div in the bottom right corner*/
+    position:absolute;
+    bottom:20px;
+    right:20px;
+    width:220px;
+
+}
+
+textarea#code {
+   width: 98%;
+   height: 97%%;
+   color: black;
+}

@@ -223,12 +223,30 @@ def campaign_admin(req, chash=""):
     campaign_analytics_url = host + reverse("campaign_analytics", kwargs={'chash':c.chash})
     campaign_update_url = host + reverse("campaign_update", kwargs={'chash':c.chash})
     campaign_landing_url = host + reverse("campaign_page_id", kwargs={'camp_id':c.id})
+    campaign_launch_url = host + reverse("campaign_launch", kwargs={'chash':c.chash})
 
     dict["admin_url"] = shorten(campaign_admin_url)
     dict["landing_url"] = shorten(campaign_landing_url)
     dict["analytics_url"] = shorten(campaign_analytics_url)
     dict["update_url"] = shorten(campaign_update_url)
+    dict["launch_url"] = shorten(campaign_launch_url)
+
     return render_to_response('campaign_admin.html', dict)
+
+def campaign_launch(req, chash=""):
+    try:
+        c = Campaign.objects.get(chash=chash)
+    except:
+        return render_to_response('404.html', {})
+
+    dict = {}
+    dict["campaign"] = c
+
+    host = "http://" + req.get_host()
+    campaign_admin_url = host + reverse("campaign_admin", kwargs={'chash':c.chash})
+    dict["admin_url"] = shorten(campaign_admin_url)
+
+    return render_to_response('campaign_launch.html', dict)
 
 def campaign_update(req, chash=""):
     #req.session["redirect"] = req.get_full_path()
@@ -278,11 +296,13 @@ def campaign_created(req):
             campaign_analytics_url = host + reverse("campaign_analytics", kwargs={'chash':c.chash})
             campaign_update_url = host + reverse("campaign_update", kwargs={'chash':c.chash})
             campaign_landing_url = host + reverse("campaign_page_id", kwargs={'camp_id':c.id})
+            campaign_launch_url = host + reverse("campaign_launch", kwargs={'camp_id':c.id})
 
             dict["admin_url"] = shorten(campaign_admin_url)
             dict["landing_url"] = shorten(campaign_landing_url)
             dict["analytics_url"] = shorten(campaign_analytics_url)
             dict["update_url"] = shorten(campaign_update_url)
+            dict["launch_url"] = shorten(campaign_launch_url)
 
             return render_to_response('campaign_created.html', dict)
         except:
