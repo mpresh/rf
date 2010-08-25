@@ -51,3 +51,12 @@ class Campaign(models.Model):
         self.chash = chash.hexdigest()
         self.save()
 
+class CampaignAttr(models.Model):
+    
+    name = models.CharField(max_length=100, default="discount")
+    value = models.CharField(max_length=300, null=True)
+    campaign = models.ForeignKey(Campaign, related_name="attributes")
+    
+    
+    def __unicode__(self):
+        return "<Campaign: %s %s>" % (self.id, self.name)
