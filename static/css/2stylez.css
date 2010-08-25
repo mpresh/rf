@@ -196,7 +196,10 @@ margin: auto;
 }*/
 #attendees_thumbs{
 	padding: 0px 0px 0px 10px;
-	}
+	height: 150px;
+	width: 452px;
+	overflow: auto;
+}
 /*******************************/
 /****    content-right      ****/
 /*******************************/

@@ -1,7 +1,6 @@
 #container
 {
-	background-image: url(../images/look/divider2.png);
-	background-repeat: no-repeat;
+
 	position: relative;
 	height: 220px;
 	width: 960px;
@@ -9,10 +8,17 @@
 }
 #main
 {
-	background-image: url(../images/look/backdivide.png);
-	background-repeat: repeat-x;
 }
+#divideBG{
+	background-image: url(../images/look/backdivide2.png);
+	background-repeat: repeat-x;
+	height: 57px;
+	position: absolute;
+	top: 170px;
+	width: 100%;
+	border-bottom: 2px solid #ddd;
 
+}
 /*** Badge ***/
 #badge
 {
@@ -22,7 +28,7 @@
 	top: 10px;
 	padding: 10px;
 	border: 1px solid;
-	background-color: #eee;
+	background-color: #f7f7f7;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	box-shadow: 3px 3px 5px #000000;
@@ -88,11 +94,40 @@
 	margin-top: 15px;
 }
 #attendees_thumbs{
-	margin-left: 0px;
+	margin-left: 70px;
+	overflow:none;
 }
 #attendees_thumbs img {
 	width: 35px;
 	height: 35px;
+	margin: 0px 0px 10px 10px;
+	
+}
+#attendees_slide{
+	display: none;
+	position: absolute;
+	right: 0px;
+	top: 15px;
+	width: 345px;
+	z-index: 100;
+	background-color: white;
+	border: 1px solid;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	padding: 10px 0px 20px 0px;
+}
+#attendees_expand{
+	margin-top: 10px;
+	padding: 5px 10px 0 10px;
+	height: 300px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	border-top: 1px solid;
+}
+#attendees_expand img {
+	width: 45px;
+	height: 45px;
+	margin-bottom:10px;
 }
 
 #msg
