@@ -28,20 +28,19 @@
   </head>
 <body>
 <div id="main">
+    <div id="divideBG"></div>
     <div id="container">
 
 
 	<div id="attendees">
 	    <div id="msg">Interested</div>
-	    <div id="attendees_thumbs" style="overflow: auto;">
-		{% for attendee in attendees %} 
-		    <a href="">
-			<img class="attendeeIcon" src="{{attendee.profile_pic}}" /> 
-		    </a>
-		{% endfor %}
-	    </div>
+	    <div id="attendees_thumbs"></div>
 	</div>
-
+	<div id="attendees_slide">
+	    <span>Interested</span>
+	    <a id="less">Close</a>
+	    <div id="attendees_expand"></div>
+	</div>
 
         <div id="badge">
 	    <h1>{{campaign.title}}</h1>
@@ -148,28 +147,42 @@
 var contentView = 0;
 var shareLink = '';
 
-function refreshAttendee()
+function refreshAttendee(limit)
 {
-	var attendee_list = "&nbsp;&nbsp;&nbsp;&nbsp; ";
+	var attendee_list = "";
+	var attendee_expand = "";
 
 	$.getJSON('{% url attendees_list campaign_id=campaign.id %}', function(data){
 		$.each(data, function(index, attendee) {
+		     if ((limit > 0) && (index+1 <= limit)) {
                         if (attendee[3] == "facebook") {
-			attendee_list += '<a target="facebook_' + attendee[2] + '" href="http://www.facebook.com/profile.php?id=' +  attendee[2]  + '"><img height="44px" style="margin-bottom: 5px; border: 3px solid blue;" src= "'+attendee[0]+'"></a>&nbsp&nbsp&nbsp;';
+			attendee_list += '<a target="facebook_' + attendee[2] + '" href="http://www.facebook.com/profile.php?id=' +  attendee[2]  + '"><img src= "'+attendee[0]+'"></a>';
                         }
                         else {
-                        attendee_list += '<a target="twitter_' + attendee[2] + '" href="http://twitter.com/' +  attendee[2]  + '"><img height="44px" style="margin-bottom: 5px; border: 3px solid green;" src= "'+attendee[0]+'"></a>&nbsp&nbsp&nbsp;';
+                        attendee_list += '<a target="twitter_' + attendee[2] + '" href="http://twitter.com/' +  attendee[2]  + '"><img src= "'+attendee[0]+'"></a>';
                         } 
-			if ((index+1) % 4==0 && index != 0)
+			if ((index+1) % 5==0 && index != 0)
 			{
-				attendee_list +="<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+				attendee_list +="<br />";
 			}
+		     } 
+		     if (attendee[3] == "facebook") {
+			attendee_expand += '<a target="facebook_' + attendee[2] + '" href="http://www.facebook.com/profile.php?id=' +  attendee[2]  + '"><img src= "'+attendee[0]+'"></a>';
+                        }
+                        else {
+                        attendee_expand += '<a target="twitter_' + attendee[2] + '" href="http://twitter.com/' +  attendee[2]  + '"><img src= "'+attendee[0]+'"></a>';
+                        } 
+			attendee_expand +="<br />";
 		});
 		$('#attendees_thumbs').html(attendee_list);
+		if (data.length > limit) {
+		    $('#msg').html('Interested<br><a onClick="expandAttendees()">more</a>');
+		}
+		$('#attendees_expand').html(attendee_expand);
 	});
 }
 
-refreshAttendee();
+refreshAttendee(15);
 
 $("#ifra").showLoading({'afterShow': function(){ setTimeout( "jQuery('#ifra').hideLoading()", 5000 );}});         
 
@@ -259,11 +272,6 @@ function pageOverlay(page, type){
         break;
     }
 }
-
-$('#facebook-profile-image').click(function(){
-	pageOverlay(2, 'facebook');
-});
-
 $('#facebook-share').click(function(){
     shareLink = 'facebook';
     $("#overlay-blogger-login").overlay().load();
@@ -274,8 +282,14 @@ $('#twitter-share').click(function(){
     $("#overlay-blogger-login").overlay().load();
 });
 
-$('#twitter-profile-image').click(function(){
-	pageOverlay(2, 'twitter');
+function expandAttendees(){
+    $('#attendees').hide();
+    $('#attendees_slide').show();
+}
+
+$('#less').click(function(){
+    $('#attendees').show();
+    $('#attendees_slide').hide();
 });
 
 {% if overlay or overlayTrue or overlayFacebook or overlayTwitter%}
@@ -295,7 +309,7 @@ $("#twitter-feed-update").click(function() {
 	           data: {message: $("#overlay-textarea-twitter").val(), 
 		   shash: "{{shash}}"},
 	           success: function (data) { $.get('{% url campaign_going_twitter campaign_id=campaign.id %}', 
-	                                  function(data) { refreshAttendee(); }); },
+	                                  function(data) { refreshAttendee(15); }); },
 	           beforeSend: function() { 
                          $("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
                  } 
@@ -315,7 +329,7 @@ $("#facebook-feed-update").click(function(){
 		data: {message: $("#overlay-textarea-facebook").val(), shash: "{{shash}}" },
 
 		success: function(data){
-                  refreshAttendee();
+                  refreshAttendee(15);
 		},
 		beforeSend: function() {
                 $("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
@@ -330,23 +344,6 @@ function activateCopy() {
     clip.setText( '{{campaign.code}}' );
     clip.glue( 'd_clip_button', 'd_clip_container' );
 }
-
-$("#status_button").click(function(){
-	FB.getLoginStatus(function(response) {
-		//alert("HAHA" + response + inspect(response));
-		if (response.session) {
-			// logged in and connected user, someone you know
-			//alert("logged in ");
-		} else {
-			// no user session available, someone you dont know
-			//alert("logged out");
-		}
-	});
-});
-
-
-
-
 
 var requiredPerms  = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
 $('#facebook-login').click(function(){
@@ -399,11 +396,6 @@ $("#invite_popup_close").bind('click', function() {
 	$('#tweet_msg').html("");
 	ajax_loader_image();
 });
-
-$("#okay").click(function(){
-	$("#badge").overlay().close();
-});
-
 
 //default usage
 $("#overlay-textarea-twitter").charCount();
