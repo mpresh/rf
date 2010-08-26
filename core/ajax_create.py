@@ -70,9 +70,9 @@ def campaign_update_ajax(req):
     url = req.POST["url"]
     facebook_fan = req.POST["facebook_fan"]
     twitter_account = req.POST["twitter_account"]
-    campaign_type = req.POST["campaign_type"]
+    #campaign_type = req.POST["campaign_type"]
 
-    c.campaign_type = campaign_type
+    #c.campaign_type = campaign_type
     c.twitter_account = twitter_account
     c.facebook_fan = facebook_fan
     c.title = title
@@ -180,6 +180,7 @@ def create_campaign_url_check(req):
 
 def create_campaign(req):
     campaign_url = req.POST["url"]
+    
     if not campaign_url.startswith("http://"):
         campaign_url = "http://" + campaign_url
 
@@ -192,6 +193,10 @@ def create_campaign(req):
         )
 
     c.save()
+
+    c.campaign_type = req.POST['campaign_type']
+    c.save()
+
     c.setHash()
     return HttpResponse(json.dumps({"campaign_hash": c.chash}))
 

@@ -41,7 +41,14 @@
 <img src='{% url static 'images/discounts/discount4.jpg'%}'/>
 <img src='{% url static 'images/discounts/discount5.jpeg'%}'/>
   </div>
-  <div id="make-selection"></div>
+  <div id="make-selection">
+                                Incentive:
+				<select name="campaign_type" id="campaign_type">
+                                             <option value="discount" selected><- Discounts</option>
+					     <option value="raffle">Giveaways -></option>
+				</select>
+
+  </div>
 </div>
   <div id="raffle-selection">
 <img src='{% url static 'images/prize/prize1.jpg'%}'/>
@@ -64,10 +71,10 @@
 $('#discount-selection').cycle({ 
     fx:     'fade', 
     speed:   300, 
-    timeout: 4500, 
+    timeout: 6000, 
     next:   '#discount-selection', 
     pause:   1,
-    delay: 2000
+    delay: 3000
 });
 
 
@@ -75,7 +82,7 @@ $('#discount-selection').cycle({
 $('#raffle-selection').cycle({ 
     fx:     'fade', 
     speed:   300, 
-    timeout: 4500, 
+    timeout: 6000, 
     next:   '#raffle-selection', 
     pause:   1 
 });
@@ -86,6 +93,7 @@ $('#raffle-selection').cycle({
      function create() {
            var values = {};
                 values["url"] = $('#campaign_url').val();
+                values["campaign_type"] = $('#campaign_type').val();
 		$.ajax({
      		url: '{% url create_campaign_ajax %}', 
      			dataType: "json",
