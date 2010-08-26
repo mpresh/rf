@@ -8,7 +8,7 @@
 	<script type="text/javascript" src="{% url static 'javascript/jquery.uploadify.js' %}"> </script>
 	<script type="text/javascript" src="{% url static 'javascript/jquery.validate.js' %}"> </script>
 	<script type="text/javascript" src="{% url static 'javascript/myjscript.js' %}"> </script>
-
+	<script type="text/javascript" src="{% url static 'javascript/jquery.cycle.all.min.js' %}"> </script>
 
 	<link rel="stylesheet" href="{% url static 'css/calendar-system.css' %}" type="text/css" >
 	<link rel="stylesheet" href="{% url static 'css/calendar-en.css' %}" type="text/css" >
@@ -32,6 +32,26 @@
 
 </div>
 
+<div id="campaign-choice-wrapper">
+ <div id="inner-campaign-choice-wrapper">
+  <div id="discount-selection">
+<img src='{% url static 'images/discounts/discount1.jpeg'%}'/>
+<img src='{% url static 'images/discounts/discount2.jpeg'%}'/>
+<img src='{% url static 'images/discounts/discount3.jpg'%}'/>
+<img src='{% url static 'images/discounts/discount4.jpg'%}'/>
+<img src='{% url static 'images/discounts/discount5.jpeg'%}'/>
+  </div>
+  <div id="make-selection"></div>
+</div>
+  <div id="raffle-selection">
+<img src='{% url static 'images/prize/prize1.jpg'%}'/>
+<img src='{% url static 'images/prize/prize2.jpeg'%}'/>
+<img src='{% url static 'images/prize/prize3.jpeg'%}'/>
+<img src='{% url static 'images/prize/prize4.jpg'%}'/>
+<img src='{% url static 'images/prize/prize5.jpg'%}'/>
+  </div>
+</div>
+
 
 <div id="preview" style="display:none;">
   <div id="preview-sign">Preview Landing Page</div>
@@ -40,6 +60,26 @@
     </iframe>
 </div>
 <script>
+
+$('#discount-selection').cycle({ 
+    fx:     'fade', 
+    speed:   300, 
+    timeout: 4500, 
+    next:   '#discount-selection', 
+    pause:   1,
+    delay: 2000
+});
+
+
+
+$('#raffle-selection').cycle({ 
+    fx:     'fade', 
+    speed:   300, 
+    timeout: 4500, 
+    next:   '#raffle-selection', 
+    pause:   1 
+});
+
 
   $(document).ready(function() {
 
