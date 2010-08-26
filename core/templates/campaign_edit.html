@@ -36,26 +36,26 @@
 	<form id="update-campaign-form" action="" method="post">	
 
 		<ul>		
-                        <li>
+                        <li id="li-subdomain">
 				<label for="subdomain">Subdomain: 
 				</label> <input type="text" value="{{campaign.subdomain}}" size="5" name="subdomain" />
 			</li>
 		         <li>
-				<label for="title">Campaign Title: 
+				<label for="title">Promotion Title: 
 				</label> <input type="text" size="70" value="{{campaign.title}}" name="title" class="required" />
 			</li>
-			<li>
-				<label for="from_name">From Name: 
+			<li id="li-from-name">
+				<label for="from_name">Discount From (Name/Organization): 
 				</label> <input type="text" value="{{campaign.from_name}}" name="from_name" class="required" />
 			</li>
-			<li>
+			<li id="li-discount-code">
 				<label for="code">Discount Code: 
 				</label> <input type="text" value="{{campaign.code}}" name="code" class="required" />
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<label for="percent">Percent Discount: 
 				</label> <input type="text" value="{{campaign.percent}}" size="5" name="percent" class="required digits"/>
 			</li>
-			<li>
+			<li id="li-dates-start">
 				<label for="promotion_date_start">Promotion Start Date: </label> 
 				<input type="text" name="promotion_date_start" size="12" id="promotion_date_start" value="{{start_date_label}}" class="required" />
 				&nbsp;&nbsp;&nbsp;&nbsp;
@@ -63,7 +63,7 @@
 				<input type="text" name="promotion_time_start" size="8" id="promotion_time_start" value="{{start_time_label}}" class="required"/>
 			</li>
 
-			<li>
+			<li id="li-dates-end">
 				<label for="promotion_date_end">Promotion End Date: </label> 
 				<input type="text" name="promotion_date_end" size="12" id="promotion_date_end" value="{{end_date_label}}" class="required" />
 				&nbsp;&nbsp;&nbsp;&nbsp;          
@@ -72,7 +72,7 @@
 
 			</li>
 
-			<li>
+			<li id="li-people-num">
 				<label for="min_people">Minimum People: 
 				</label> <input type="text" value="{{campaign.min_people}}" size="5" name="min_people" class="required digits"/>
 			        &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
@@ -90,11 +90,11 @@
 				<textarea rows="6" cols="40"  name="campaign_message_share">{{campaign.message_share}}</textarea>
 			</li>
 			 <li>
-				<label for="url">information URL on landing page: </label> 
+				<label for="url">product URL on landing page: </label> 
 				<input type="text" value="{{campaign.url}}" size="60" name="url" />
 			</li>
-			<li>
-				<label for="url_redeem">redeem promotion URL: </label> 
+			<li id="li-discount-url">
+				<label for="url_redeem">redeem discount URL: </label> 
 				<input type="text" value="{{campaign.url_redeem}}" size="60" name="url_redeem" />
 			</li>
 			<li>
@@ -126,6 +126,23 @@ Back To Admin Page: &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{admin_url}}">{{admin_url}
 
 </div>
 <script>
+////////////////////////////////////////////////
+if ('{{campaign.campaign_type}}' == 'discount'){
+
+}
+
+///////////////////////////////////////////////
+if ('{{campaign.campaign_type}}' == 'raffle'){
+    $("#li-discount-code").hide();
+    $("li-from-name").hide();
+    $("li-discount-url").hide();
+}
+////////////////////////////////////////////////
+$("#li-people-num").hide();
+$("#li-dates-start").hide();
+$("#li-dates-end").hide();
+$("#li-subdomain").hide();
+////////////////////////////////////////////////
 
   $("#update-campaign-form").validate();
 $(document).ready(function() {

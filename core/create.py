@@ -190,7 +190,7 @@ def campaign_page(req, chash="", camp_id=""):
     #facebook_users = c.interested_facebook.all()
     #twitter_users = c.interested_twitter.all()
   
-    templates = ['campaign_page.html', 'campaign_page2.html']
+    templates = ['campaign_page2.html', 'campaign_page.html']
     try:
         template = templates[int(req.GET["t"])]
     except:
