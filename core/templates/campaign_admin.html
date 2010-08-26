@@ -40,7 +40,7 @@ Email Details To Self
 </button>
 </div>
 
-<div id="winners" class="create" style="text-align:center">
+<div id="winners" class="create" style="text-align:center; display: none;">
   <h2>Pick Raffle Winners:<button style="" id="winners-button">Click Here</button></h2>
 <br/>
 <div id="winners-wrapper" style="display: none;">
@@ -61,6 +61,12 @@ Email Details To Self
 </div>
 
 <script>
+// show pick winners if raffle
+if ('{{campaign.campaign_type}}' == 'raffle') {
+    $("#winners").show();
+}
+
+
 $.fn.getNodeName = function() { 
   // returns the nodeName of the first matched element, or ""
   return this[0] ? this[0].nodeName : "";
