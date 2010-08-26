@@ -45,6 +45,7 @@ def campaign_update_ajax(req):
     else:
         return HttpResponse(json.dumps({"status":500} ))    
 
+    
     if "campaign_type" in req.POST:
         c.campaign_type = req.POST["campaign_type"]
     if "title" in req.POST:
@@ -57,6 +58,7 @@ def campaign_update_ajax(req):
         c.twitter_account = req.POST["twitter_account"]
     if "facebook_fan" in req.POST:
         c.facebook_fan = req.POST["facebook_fan"]
+    
     if "max_people" in req.POST:
         c.max_people = req.POST["max_people"]
     if "min_people" in req.POST:
@@ -65,29 +67,32 @@ def campaign_update_ajax(req):
         c.percent = req.POST["percent"]
     if "campaign_message" in req.POST:
         c.message = req.POST["campaign_message"]
+    
     if "campaign_message_share" in req.POST:
         c.message_share = req.POST["campaign_message_share"]
     if "subdomain" in req.POST:
         c.subdomain = req.POST["subdomain"]
     if "url_redeem" in req.POST:
+        print "REDEEEM", req.POST["url_redeem"]    
         c.url_redeem = req.POST["url_redeem"]    
     if "url" in req.POST:
         c.url = req.POST["url"]
-
+    
     if "promotion_date_start" in req.POST and "promotion_time_start" in req.POST: 
         start_date = req.POST["promotion_date_start"]
         start_time = req.POST["promotion_time_start"]        
         start_dt = datetime.datetime.strptime(start_date.strip() + " " + start_time.strip(), 
                                               "%m/%d/%Y %I:%M %p")
         c.start_date_time = start_dt
-
+    
     if "promotion_date_end" in req.POST and "promotion_time_end" in req.POST: 
-        start_end = req.POST["promotion_date_end"]
-        start_end = req.POST["promotion_time_end"]        
+    
+        end_date = req.POST["promotion_date_end"]
+        end_time = req.POST["promotion_time_end"]        
         end_dt = datetime.datetime.strptime(end_date.strip() + " " + end_time.strip(), 
                                               "%m/%d/%Y %I:%M %p")
         c.end_date_time = end_dt
-
+    print "hi5"
 
     c.save()
     return HttpResponse(json.dumps({"status" : 200}))    

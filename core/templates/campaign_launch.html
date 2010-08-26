@@ -106,7 +106,6 @@ Back To Admin Page: &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{admin_url}}">{{admin_url}
 
   // background image
   $("#widget-remove-img").click(function() {
-  alert($("#widget-background-image").val());
       $("#widget").css({'background-image': 'none'});
             $("#widget-remove-img").hide();
   });
@@ -116,7 +115,7 @@ Back To Admin Page: &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{admin_url}}">{{admin_url}
             ajaxFileUpload("widget-background-image", function() {
                     $("#widget").css({'background-image':'url(' + url + ')'})
                 }, 
-                {{campaign.id}});
+                {{campaign.id}}, "widget");
             $("#widget-remove-img").show();
             $("#widget-background-image").val(url);
   }); 

@@ -25,9 +25,10 @@ def upload_image(req):
     """Upload an image from client to server."""
     f = req.FILES[req.GET['file_name']]
     cid = req.GET['camp_id']
+    image_purpose = req.GET['image_purpose']
 
     campaign = Campaign.objects.get(id=cid)
-    destination_dir = os.path.join(settings.ROOT_PATH, 'static/images/campaign/logos/widget/')
+    destination_dir = os.path.join(settings.ROOT_PATH, 'static/images/campaign/logos/' + image_purpose + '/')
     if not os.path.exists(destination_dir):
         os.system("mkdir -p " + destination_dir)
 

@@ -1,9 +1,9 @@
-function ajaxFileUpload(file_name, success, campaign_id)
+function ajaxFileUpload(file_name, success, campaign_id, image_purpose)
 {
         $.ajaxFileUpload
 	    (
 	     {
-		 url:'/upload_image?camp_id=' + campaign_id + '&file_name=' + file_name,
+		 url:'/upload_image?camp_id=' + campaign_id + '&file_name=' + file_name + '&image_purpose=' + image_purpose,
 		     secureuri:false,
 		     fileElementId:file_name,
 		     dataType: 'json',
