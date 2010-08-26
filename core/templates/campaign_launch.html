@@ -1,7 +1,6 @@
 {% extends "site_base.html" %}
 
 	{% block  js_css_include %}
-        <script type="text/javascript" src="{% url static 'javascript/ajaxfileupload.js' %}" ></script>
 	<script type="text/javascript" src="{% url static 'javascript/jquery-ui-1.8.1.custom.js' %}"></script>
 	<script type="text/javascript" src="{% url static 'javascript/jquery.ui.datepicker.js' %}"> </script>
 	<script type="text/javascript" src="{% url static 'javascript/jquery.timePicker.js' %}"> </script>
@@ -80,9 +79,9 @@
 <li></li>
 
 <li>
-    <label for="widget-background-image">Background Image &nbsp;&nbsp;</label>
+   <label for="widget-background-image">Background Image &nbsp;&nbsp;</label>
    <button id="widget-remove-img" style="display:none;">Remove Img</button>
-    <input name="widget-background-image" id="widget-background-image" type="file"> </input>
+   <input name="widget-background-image" id="widget-background-image" type="file"> </input>
 </li>
 </ul>
 <button id="getcode"></button>

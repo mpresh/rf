@@ -90,21 +90,29 @@
 				<textarea rows="6" cols="40"  name="campaign_message_share">{{campaign.message_share}}</textarea>
 			</li>
 			 <li>
-				<label for="url">product URL on landing page: </label> 
+				<label for="url">URL to be shown on landing page: </label> 
 				<input type="text" value="{{campaign.url}}" size="60" name="url" />
 			</li>
 			<li id="li-discount-url">
 				<label for="url_redeem">redeem discount URL: </label> 
 				<input type="text" value="{{campaign.url_redeem}}" size="60" name="url_redeem" />
 			</li>
-			<li>
+			<li id="li-twitter-fan">
 				<label for="twitter">Twitter Account Follow: </label> 
 				<input type="text" value="{{campaign.twitter_account}}" size="60" name="twitter_account" />
 			</li>
-			<li>
-				<label for="facebook_fan">Facebook Fan: </label> 
+			<li id="li-facebook-fan">
+	 			<label for="facebook_fan">Facebook Fan: </label> 
 				<input type="text" value="{{campaign.facebook_fan_page}}" size="60" name="facebook_fan" />
 			</li>
+                        <li id="li-prize-image">
+ 			<label for="prize-wrapper">Image of Prize: </label> 
+                                   <div id="prize-wrapper" style="height: 250px; width: 60%;">
+				    <div style="float: left;"><input name="prize-image" id="prize-image" type="file" onChange="ajaxFileUpload(this.value);"> </input></div>
+				    <div style="float: right; background-color: #eeeeee; border: 2px solid black; height: 246px; width: 250px; text-align: center;" id="prize-image_preview"><br/><br/><br/><br/>Image Preview</div>
+                                  </div>
+			</li>
+
                          <li>
 				Campaign Created At:  {{campaign.created_at}}
 			</li>
@@ -134,14 +142,16 @@ if ('{{campaign.campaign_type}}' == 'discount'){
 ///////////////////////////////////////////////
 if ('{{campaign.campaign_type}}' == 'raffle'){
     $("#li-discount-code").hide();
-    $("li-from-name").hide();
-    $("li-discount-url").hide();
+    $("#li-from-name").hide();
+    $("#li-discount-url").hide();
 }
 ////////////////////////////////////////////////
 $("#li-people-num").hide();
 $("#li-dates-start").hide();
 $("#li-dates-end").hide();
 $("#li-subdomain").hide();
+$("#li-twitter-fan").hide();
+$("#li-facebook-fan").hide();
 ////////////////////////////////////////////////
 
   $("#update-campaign-form").validate();
