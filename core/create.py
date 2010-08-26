@@ -194,7 +194,7 @@ def campaign_page(req, chash="", camp_id=""):
     try:
         template = templates[int(req.GET["t"])]
     except:
-        template = 'campaign_page.html'
+        template = 'campaign_page2.html'
         
     return render_to_response(template, dict)
 
