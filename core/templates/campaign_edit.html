@@ -164,6 +164,8 @@ $(document).ready(function() {
 });
 
 	$('#promotion_date_start').datepicker({ 
+                changeMonth: true,
+                changeYear: true,
 		buttonImageOnly: false,
 		buttonImage: "{% url static 'images/calendar.png' %}",
 		showOn: 'both',
@@ -174,7 +176,10 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#promotion_date_end').datepicker({ buttonImageOnly: false,
+	$('#promotion_date_end').datepicker({ 
+                changeMonth: true,
+                changeYear: true,
+                buttonImageOnly: false,
 		buttonImage: "{% url static 'images/calendar.png' %}",
 		showOn: 'both'
 	});
