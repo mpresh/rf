@@ -30,6 +30,7 @@
            <div id="campaign-title">{{campaign.title}}</div>
 <div id="main">
 
+
       <div id="container">
 
       {% ifequal campaign.campaign_type "discount" %}
@@ -65,7 +66,7 @@
 		      </button>
 		  {% else %}
 		      <button id="facebook-login" class="badge-button">
-		           <img id="facebook-login2" src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
+		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
                   {% endif %}
 	     </div>  
@@ -76,9 +77,9 @@
 		           <img src="{% url static 'images/twitterShare_icon2.png' %}"/><span>Share</span>
 		     </button>
                  {% else %}
-                     <button id="twitter-login" onClick="location.href='{% url tauth_login %}?redirectArgs=overlayEQUALStwitter'" class="badge-button">
-		         <img id="twitter-login2" src="{% url static 'images/twitterShare_icon2.png' %}" />
-			 <span>Share</span>
+                     <button onClick="location.href='{% url tauth_login %}?redirectArgs=overlayEQUALStwitter'" 
+		     class="badge-button" id="twitter-login">
+		         <img src="{% url static 'images/twitterShare_icon2.png' %}" /><span>Share</span>
 		     </button>
                  {% endif %}
              </div>
@@ -86,27 +87,25 @@
 	</div> <!-- badge -->
 
 
-	
-
 
 	<div id="overlay-blogger-login" class="overlay-blogger">
 
 	<div id="overlay-div-content2-facebook" >
-		<div class="overlay-top">
-                     {%ifequal campaign.campaign.type "discount" %}
-		     <p>Discounts Are Better When You Share Them</p>
+                <div class="overlay-top">
+                    {%ifequal campaign.campaign.type "discount" %}
+                    <p>Discounts Are Better When You Share Them</p>
                      {% else %}  
-		     <p>Share and win, it's that simple</p>
-		     {% endifequal %}
+                    <p>Share and win, it's that simple</p>
+                    {% endifequal %}
+                </div>
+                <div id="facebook-top-msg">
+                     {%ifequal campaign.campaign.type "discount" %}
+                     <p>Share to Reveal Discount</p>
+                     {% else %}  
+                     <p>Share to enter contest</p>
+                    {% endifequal %}
 		</div>
-		<div id="facebook-top-msg">
-                     {%ifequal campaign.campaign.type "discount" %}
-		     <p>Share to Reveal Discount</p>
-                     {% else %}  
-		     <p>Share to enter contest</p>
-		     {% endifequal %}
 
-		</div>
 		<div class="textarea-div">
 		     <textarea id="overlay-textarea-facebook">{{campaign.message_share}}</textarea>
 		</div>
@@ -115,20 +114,21 @@
 	
 	<div id="overlay-div-content2-twitter">
 		<div class="overlay-top">
-                     {%ifequal campaign.campaign.type "discount" %}
-		     <p>Discounts Are Better When You Share Them</p>
-                     {% else %}  
-		     <p>Share and win, it's that simple</p>
-		     {% endifequal %}
+                    {%ifequal campaign.campaign.type "discount" %}
+                    <p>Discounts Are Better When You Share Them</p>
+                    {% else %}  
+                    <p>Share and win, it's that simple</p>
+                    {% endifequal %}
+                </div>
+                
+                <div id="twitter-top-msg">
+                    {%ifequal campaign.campaign.type "discount" %}
+                    <p>Share to Reveal Discount</p>
+                    {% else %}  
+                    <p>Share to enter contest</p>
+                    {% endifequal %}
 		</div>
-		
-		<div id="twitter-top-msg">
-                     {%ifequal campaign.campaign.type "discount" %}
-		     <p>Share to Reveal Discount</p>
-                     {% else %}  
-		     <p>Share to enter contest</p>
-		     {% endifequal %}
-		</div>
+
 		<div class="textarea-div">
 		     <textarea id="overlay-textarea-twitter" >{{campaign.message_share}}</textarea>
 		</div>
@@ -137,14 +137,15 @@
 
 	<div id="overlay-div-content3" >
 		<div class="overlay-top">
-                     {%ifequal campaign.campaign.type "discount" %}
-		     <p>Discount Code</p>
-                     {% else %}
-  		     <p>Successfully Entered Contest</p>
-		     {% endifequal %}
-		</div>
+                    {%ifequal campaign.campaign.type "discount" %}
+                    <p>Discount Code</p>
+                    {% else %}
+                    <p>Successfully Entered Contest</p>
+                    {% endifequal %}
+                </div>
 
                 {%ifequal campaign.campaign.type "discount" %}
+
 		<div id="code-msg">Thanks for sharing.<BR> Here is your discount code:</div>
 		<div id="code">
 		    <p id="discount-code">{{campaign.code}}</p>
@@ -154,10 +155,9 @@
 		    <span>Redeem Here:</span><a href="{{campaign.url_redeem}}">{{campaign.url_redeem}}</a></font></div>
 		{% else %}
                 <div id="code-msg">Thanks for sharing.<BR> You have entered raffle:</div>
-		<img id="img-prize" src="{{campaign.url_redeem}}" />
+                <img id="img-prize" src="{{campaign.url_redeem}}" />
 
                 {% endifequal %}
-
 	</div>
 
 </div>
@@ -165,12 +165,7 @@
 
 </div>
 
-
-
-
-
-<div id="divideBG"></div>
-<div id="divider">
+	<div id="divider">
 	    <div id ="logo"><img height="35px" src="{% url static 'images/rf-logo.png' %}"></div>
 	    {% if fbuser %}
 	    <div id ="floggedin">
@@ -187,6 +182,8 @@ alse" >
 	    </div>
 	    {% endif %}
 	</div>
+      <div id="divideBG"></div>
+
 
 <div id="ifra">
     <iframe id="ifm" src ="{{campaign.url}}" frameborder="0" width="100%" scrolling="auto">
@@ -340,8 +337,11 @@ $('#less').click(function(){
     $('#attendees_slide').hide();
 });
 
-{% if overlay or overlayTrue or overlayFacebook or overlayTwitter%}
-    $("#overlay-blogger-login").overlay().load();
+{% if user and overlayTwitter %}
+     $("#overlay-blogger-login").overlay().load();
+{% endif %}
+{% if fbuser and overlayFacebook %}
+     $("#overlay-blogger-login").overlay().load();
 {% endif %}
 
 FB.init({appId: '{{fbappid}}', status: true, cookie: true, xfbml: true});
