@@ -27,10 +27,13 @@
 
   </head>
 <body>
+           <div id="campaign-title">{{campaign.title}}</div>
 <div id="main">
+
     <div id="divideBG"></div>
     <div id="container">
 
+      {% ifequal campaign.campaign_type "discount" %}
 
 	<div id="attendees">
 	    <div id="msg">Interested</div>
@@ -41,30 +44,38 @@
 	    <a id="less">Close</a>
 	    <div id="attendees_expand"></div>
 	</div>
+        {% else %}
+        <div id="raffle-prize">
+
+       <div id="img-label">PRIZE:</div>
+       {% if campaign.url_redeem %}
+       <img id="img-prize" src="{{campaign.url_redeem}}"/>
+       {% endif %}
+        </div>
+        {% endifequal %}
 
         <div id="badge">
-	    <h1>{{campaign.title}}</h1>
-	    <span id="call2Act"><h2>By <b>Sharing</b> with friends:</h2></span>
+	    <div id="callMsg">{{campaign.message}}</div>
+	    <span id="call2Act"><h2>JUST BY <b>Sharing</b> with friends:</h2></span>
 	    <div id="facebook-login-share">
                   <script src="http://connect.facebook.net/en_US/all.js"></script>
 		  <div id="fb-root"></div>
                   {% if fbuser %}
-		      <img id="facebook-share" src="{% url static 'images/facebookShare_icon.png' %}"/>
+		      <img id="facebook-share" style="height:60px;width: 45px;" src="{% url static 'images/facebookShare_icon.png' %}"/>
 		  {% else %}
-		      <img id="facebook-login" src="{% url static 'images/facebookShare_icon.png' %}"/>
+		      <img id="facebook-login" style="height:60px;width: 45px;" src="{% url static 'images/facebookShare_icon.png' %}"/>
                   {% endif %}
 	     </div>  
 
 	     <div id="twitter-login-share">
                  {% if user %}
-		     <img id="twitter-share" src="{% url static 'images/twitterShare_icon.png' %}"/>
+		     <img style="height:60px;width: 45px;" id="twitter-share" src="{% url static 'images/twitterShare_icon.png' %}"/>
                  {% else %}
                      <a href="{% url tauth_login %}?redirectArgs=overlayEQUALStwitter">
-		         <img id="twitter-login2" src="{% url static 'images/twitterShare_icon.png' %}" />
+		         <img style="height:60px;width: 45px;" id="twitter-login2" src="{% url static 'images/twitterShare_icon.png' %}" />
 		     </a>
                  {% endif %}
              </div>
-	    <h3><p id="callMsg">{{campaign.message}}</p></h3>
 
 	</div> <!-- badge -->
 
