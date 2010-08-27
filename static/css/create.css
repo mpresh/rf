@@ -99,7 +99,12 @@ div#create-campaign {
 
 div.create li {
 	   list-style: none;
-		 margin: 30px;	
+           padding: 10px;
+	   margin: 0;	
+}
+
+div.create li:hover {
+background-color: #c9edf3;
 }
 
 div.create h1 {
@@ -121,8 +126,9 @@ div#address_map {
 }
 
 div#choose-create-entity {
-     height: 150px;
+     height: 160px;
      text-align: center;
+     margin-top: 10px;
 }
 
 
@@ -211,4 +217,50 @@ margin-top: 50px;
     -moz-border-radius-topright: 18px;
     -webkit-border-top-right-radius: 18px;
 
+}
+
+
+
+div#campaign-choice-wrapper {
+    #background-color: #b0e8dd;
+    border: 2px solid gray;
+    width: 70%;
+    height: 200px;
+    margin: auto;
+}
+
+div#campaign-choice-wrapper img {
+     height: 180px;
+     width: 200px;
+     margin: 8px;     
+}
+
+div#inner-campaign-choice-wrapper {
+   width: 66%;
+   height: 200px;
+   background-color: white;	
+   float: left;
+}
+
+div#discount-selection {
+    background-color: white;
+    height: 180px;
+    padding: 10px;
+    float: left;
+    width: 47%%;
+}
+
+div#make-selection {
+    background-color: white;
+    width: 43%;
+    float: right;
+    padding: 10px;
+    height: 180px;
+}
+div#raffle-selection {
+    background-color: white;
+    width: 31%;
+    float: right;
+    padding: 10px;
+    height: 180px;
 }

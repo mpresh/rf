@@ -22,6 +22,7 @@
 /*** Badge ***/
 #badge
 {
+        float: left;
 	width: 590px;
 	height: 175px;
 	position: relative;
@@ -79,6 +80,10 @@
 
 #callMsg{
 	clear: both;
+        color: red;
+	font-size: 40px;
+	font-weight: bold;
+        margin: 20px;
 }
 /*** Divider ***/
 #divider
@@ -176,3 +181,38 @@ img
 	}
 
 
+div#campaign-title {
+   text-align: center;
+   color: #005a84;
+   font-size: 50px;
+   font-weight: bold;
+   background-color: #f7f7f7;
+}
+
+#call2Act {
+    margin: 20px;
+   
+}
+
+#raffle-prize {
+   background-color: red;
+   height: 100px;
+   width: 300px;
+   float: right;
+   border: 3px solid #005a84;
+}
+
+#img-prize {
+   border: 1px solid gray;   
+   height: 98px;
+   width: 98px;
+   float: right;
+}
+#img-label {
+   font-size: 55px;
+   float: left;
+   height: 100px;
+   width: 200px;
+   background-color: #f7f7f7;
+   text-align: center;
+}

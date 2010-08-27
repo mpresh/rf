@@ -27,10 +27,13 @@
 
   </head>
 <body>
+           <div id="campaign-title">{{campaign.title}}</div>
 <div id="main">
+
     <div id="divideBG"></div>
     <div id="container">
 
+      {% ifequal campaign.campaign_type "discount" %}
 
 	<div id="attendees">
 	    <div id="msg">Interested</div>
@@ -41,10 +44,19 @@
 	    <a id="less">Close</a>
 	    <div id="attendees_expand"></div>
 	</div>
+        {% else %}
+        <div id="raffle-prize">
+
+       <div id="img-label">PRIZE:</div>
+       {% if campaign.url_redeem %}
+       <img id="img-prize" src="{{campaign.url_redeem}}"/>
+       {% endif %}
+        </div>
+        {% endifequal %}
 
         <div id="badge">
-	    <h1>{{campaign.title}}</h1>
-	    <span id="call2Act"><h2>By <b>Sharing</b> with friends:</h2></span>
+	    <div id="callMsg">{{campaign.message}}</div>
+	    <span id="call2Act"><h2>JUST BY <b>Sharing</b> with friends:</h2></span>
 	    <div id="facebook-login-share">
                   <script src="http://connect.facebook.net/en_US/all.js"></script>
 		  <div id="fb-root"></div>
@@ -71,7 +83,6 @@
 		     </button>
                  {% endif %}
              </div>
-	    <h3><p id="callMsg">{{campaign.message}}</p></h3>
 
 	</div> <!-- badge -->
 

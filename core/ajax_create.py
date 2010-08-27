@@ -45,47 +45,54 @@ def campaign_update_ajax(req):
     else:
         return HttpResponse(json.dumps({"status":500} ))    
 
-    title = req.POST["title"]
-    from_name = req.POST["from_name"]
-    code = req.POST["code"]
-    max_people = req.POST["max_people"]        
-    min_people = req.POST["min_people"]    
-    percent = req.POST["percent"]
-
-    start_date = req.POST["promotion_date_start"]
-    start_time = req.POST["promotion_time_start"]
-    end_date = req.POST["promotion_date_end"]
-    end_time = req.POST["promotion_time_end"]
-
-    start_dt = datetime.datetime.strptime(start_date.strip() + " " + start_time.strip(), 
-                                          "%m/%d/%Y %I:%M %p")
-
-    end_dt = datetime.datetime.strptime(end_date.strip() + " " + end_time.strip(), 
-                                        "%m/%d/%Y %I:%M %p")   
-
-    message_share = req.POST["campaign_message_share"]
-    message = req.POST["campaign_message"]
-    subdomain = req.POST["subdomain"]
-    url_redeem = req.POST["url_redeem"]
-    url = req.POST["url"]
-    facebook_fan = req.POST["facebook_fan"]
-    twitter_account = req.POST["twitter_account"]
-    campaign_type = req.POST["campaign_type"]
-
-    c.campaign_type = campaign_type
-    c.twitter_account = twitter_account
-    c.facebook_fan = facebook_fan
-    c.title = title
-    c.from_name= from_name
-    c.code = code
-    c.max_people = max_people
-    c.min_people = min_people
-    c.percent = percent
-    c.message = message
-    c.message_share = message_share
-    c.subdomain = subdomain
-    c.url = url
-    c.url_redeem = url_redeem
+    
+    if "campaign_type" in req.POST:
+        c.campaign_type = req.POST["campaign_type"]
+    if "title" in req.POST:
+        c.title = req.POST["title"]
+    if "from_name" in req.POST:
+        c.from_name = req.POST["title"]
+    if "code" in req.POST:
+        c.code = req.POST["code"]
+    if "twitter_account" in req.POST:
+        c.twitter_account = req.POST["twitter_account"]
+    if "facebook_fan" in req.POST:
+        c.facebook_fan = req.POST["facebook_fan"]
+    
+    if "max_people" in req.POST:
+        c.max_people = req.POST["max_people"]
+    if "min_people" in req.POST:
+        c.min_people = req.POST["min_people"]
+    if "percent" in req.POST:
+        c.percent = req.POST["percent"]
+    if "campaign_message" in req.POST:
+        c.message = req.POST["campaign_message"]
+    
+    if "campaign_message_share" in req.POST:
+        c.message_share = req.POST["campaign_message_share"]
+    if "subdomain" in req.POST:
+        c.subdomain = req.POST["subdomain"]
+    if "url_redeem" in req.POST:
+        print "REDEEEM", req.POST["url_redeem"]    
+        c.url_redeem = req.POST["url_redeem"]    
+    if "url" in req.POST:
+        c.url = req.POST["url"]
+    
+    if "promotion_date_start" in req.POST and "promotion_time_start" in req.POST: 
+        start_date = req.POST["promotion_date_start"]
+        start_time = req.POST["promotion_time_start"]        
+        start_dt = datetime.datetime.strptime(start_date.strip() + " " + start_time.strip(), 
+                                              "%m/%d/%Y %I:%M %p")
+        c.start_date_time = start_dt
+    
+    if "promotion_date_end" in req.POST and "promotion_time_end" in req.POST: 
+    
+        end_date = req.POST["promotion_date_end"]
+        end_time = req.POST["promotion_time_end"]        
+        end_dt = datetime.datetime.strptime(end_date.strip() + " " + end_time.strip(), 
+                                              "%m/%d/%Y %I:%M %p")
+        c.end_date_time = end_dt
+    print "hi5"
 
     c.save()
     return HttpResponse(json.dumps({"status" : 200}))    
@@ -180,6 +187,7 @@ def create_campaign_url_check(req):
 
 def create_campaign(req):
     campaign_url = req.POST["url"]
+    
     if not campaign_url.startswith("http://"):
         campaign_url = "http://" + campaign_url
 
@@ -192,7 +200,13 @@ def create_campaign(req):
         )
 
     c.save()
+
+    c.campaign_type = req.POST['campaign_type']
+    c.save()
+
     c.setHash()
+    create_attr(c, name='post', value='')
+    create_attr(c, name='follow', value='')
     return HttpResponse(json.dumps({"campaign_hash": c.chash}))
 
 def create_campaign_original(req):
@@ -235,7 +249,6 @@ def create_campaign_original(req):
         )
     c.save()
     c.setHash()
-    create_attr(c.id, 'discount', '')
 
     if campaign_type == "business":
         return _create_business(c, req)
@@ -247,16 +260,17 @@ def create_campaign_original(req):
         return _create_event(c, req)
     return HttpResponse(json.dumps({}))
 
-def create_attr(campaign_id, name='', value=''):
+def create_attr(campaign, name='', value=''):
     ca = CampaignAttr(
         name=name,
-        keyvalue = value,
-        campaign = campaign_id
+        value=value,
+        campaign=campaign
         )
+
     ca.save()
     return
 
-def del_all_attr(campaign_id):
-    CampaignAttr.objects.filter(campaign=campaign_id).delete()
+def del_all_attr(campaign):
+    CampaignAttr.objects.filter(id=campaign.id).delete()
     return
 

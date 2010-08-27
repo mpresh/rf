@@ -13,11 +13,8 @@
 	  <a href='{% url campaign_page_id camp_id=camp.id%}'>{{camp.title }}</a> <br />
 	    Campaign Id: {{ camp.id }} <br />
 	    Start Time: {{camp.start_date_time}} <br />
-	    End Time: {{camp.end_date_time}} <br />
-            Percent: {{camp.percent}} <br />
-	    Code: {{camp.code }} <br />
+            Type: {{camp.campaign_type}} <br />
             Created At: {{camp.created_at}} <br />
-	    Subdomain: {{camp.subdomain}} <br />
  	    URL: {{camp.url}} <br />
 
 	  <a href={%url campaign_admin chash=camp.chash %}>details</a> <br />

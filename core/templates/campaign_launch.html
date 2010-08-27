@@ -1,7 +1,6 @@
 {% extends "site_base.html" %}
 
 	{% block  js_css_include %}
-
 	<script type="text/javascript" src="{% url static 'javascript/jquery-ui-1.8.1.custom.js' %}"></script>
 	<script type="text/javascript" src="{% url static 'javascript/jquery.ui.datepicker.js' %}"> </script>
 	<script type="text/javascript" src="{% url static 'javascript/jquery.timePicker.js' %}"> </script>
@@ -18,10 +17,12 @@
 	<link rel="stylesheet" href="{% url static 'css/jquery.ptTimeSelect.css' %}" type="text/css" >	
 	<link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="Stylesheet" />
 	<script type="text/javascript" src="{% url static 'javascript/jquery-ui-1.8.4.custom.min.js' %}"></script>
+	<script type="text/javascript" src="{% url static 'javascript/jquery.cleditor.min.js' %}"></script>
+	<link type="text/css" href="{% url static 'css/jquery.cleditor.css' %}" rel="Stylesheet" />
 
-
- 	<link rel="stylesheet" href="{% url static 'css/campaign_launch.css' %}" type="text/css" />
  	<link rel="stylesheet" href="{% url static 'css/create.css' %}" type="text/css" />
+ 	<link rel="stylesheet" href="{% url static 'css/campaign_launch.css' %}" type="text/css" />
+
 
 
 	<script type="text/javascript" src="{% url static 'javascript/farbtastic.js' %}" ></script>	
@@ -77,7 +78,11 @@
   <div style="width: 160px; float: right;" id="text-size-slider"></div>
 <li></li>
 
-<li></li>
+<li>
+   <label for="widget-background-image">Background Image &nbsp;&nbsp;</label>
+   <button id="widget-remove-img" style="display:none;">Remove Img</button>
+   <input name="widget-background-image" id="widget-background-image" type="file"> </input>
+</li>
 </ul>
 <button id="getcode"></button>
 </div>
@@ -96,6 +101,25 @@
 Back To Admin Page: &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{admin_url}}">{{admin_url}}</a><br/>
 </div>
 <script>
+
+
+
+  // background image
+  $("#widget-remove-img").click(function() {
+      $("#widget").css({'background-image': 'none'});
+            $("#widget-remove-img").hide();
+  });
+
+  $("#widget-background-image").change(function() {
+            var url = "{{host}}{%url static 'images/campaign/logos/widget/'%}{{campaign.id}}";
+            ajaxFileUpload("widget-background-image", function() {
+                    $("#widget").css({'background-image':'url(' + url + ')'})
+                }, 
+                {{campaign.id}}, "widget");
+            $("#widget-remove-img").show();
+            $("#widget-background-image").val(url);
+  }); 
+
   $("#getcode").text("<Get Embeddable Code>");
   $("#widget").css({"height" : parseInt($("#widget-height").val()),
                    "width" : parseInt($("#widget-width").val()),
@@ -165,6 +189,7 @@ font-size: " + $("#widget").css('font-size')+ "px; \
 text-align: center; \
 border: 2px solid black; \
 background-color: " + $("#widget").css('background-color') + ";'> \
+background-image: " + $("#widget").css('background-image') + ";'> \
 " + $("#widget").text() + " \
 </div></a>");
 
@@ -211,9 +236,12 @@ $("#width-slider").slider({value : $("#widget-width").val(),
                        }});
 
 // message
-$("#widget").text($("#widget-message").val());
+$("#widget-message").cleditor({height: 160, width: 360});
+$("#widget").text($("#widget-message").html());
 
-$("#widget-message").keyup(function(){
+
+
+$("#widget-message").cleditor().change(function(){
     $("#widget").html($("#widget-message").val());
 });
 
