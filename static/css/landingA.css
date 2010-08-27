@@ -18,7 +18,7 @@ margin: 0;
 	background-repeat: repeat-x;
 	height: 57px;
 	position: relative;
-	top: -83px;
+	#top: -23px;
 	width: 100%;
 	border-bottom: 2px solid #ddd;
 	z-index: -200;
@@ -110,9 +110,9 @@ margin: 0;
 	height: 50px;
 	float: right;
 	position: relative;
-	top: -124px;
-	right: 0px;
-	z-index: -199
+	top: -40px;
+	right: 30px;
+	z-index: 0
 }
 #divider div
 {
