@@ -30,8 +30,6 @@
            <div id="campaign-title">{{campaign.title}}</div>
 <div id="main">
 
-      <div id="divideBG"></div>
-
       <div id="container">
 
       {% ifequal campaign.campaign_type "discount" %}
@@ -67,7 +65,7 @@
 		      </button>
 		  {% else %}
 		      <button id="facebook-login" class="badge-button">
-		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
+		           <img id="facebook-login2" src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
                   {% endif %}
 	     </div>  
@@ -78,7 +76,7 @@
 		           <img src="{% url static 'images/twitterShare_icon2.png' %}"/><span>Share</span>
 		     </button>
                  {% else %}
-                     <button onClick="location.href='{% url tauth_login %}?redirectArgs=overlayEQUALStwitter'" class="badge-button">
+                     <button id="twitter-login" onClick="location.href='{% url tauth_login %}?redirectArgs=overlayEQUALStwitter'" class="badge-button">
 		         <img id="twitter-login2" src="{% url static 'images/twitterShare_icon2.png' %}" />
 			 <span>Share</span>
 		     </button>
@@ -88,23 +86,7 @@
 	</div> <!-- badge -->
 
 
-	<div id="divider">
-	    <div id ="logo"><img height="35px" src="{% url static 'images/rf-logo.png' %}"></div>
-	    {% if fbuser %}
-	    <div id ="floggedin">
-                <fb:profile-pic id="facebook-profile-image" height="30px" width="30px" uid={{fbuser.facebook_id}} linked="f\
-alse" >
-      </fb:profile-pic>
-                <a id="flogout" href="">logout</a>
-	    </div>
-	    {% endif %}
-	    {% if user %}
-	    <div id ="tloggedin">
-	        <img id="twitter-profile-image" src="{{user.profile_pic}}" />
-                <a href="{% url tauth_logout %}">logout</a>
-	    </div>
-	    {% endif %}
-	</div>
+	
 
 
 	<div id="overlay-blogger-login" class="overlay-blogger">
@@ -187,6 +169,24 @@ alse" >
 
 
 <div id="ifra">
+<div id="divideBG"></div>
+<div id="divider">
+	    <div id ="logo"><img height="35px" src="{% url static 'images/rf-logo.png' %}"></div>
+	    {% if fbuser %}
+	    <div id ="floggedin">
+                <fb:profile-pic id="facebook-profile-image" height="30px" width="30px" uid={{fbuser.facebook_id}} linked="f\
+alse" >
+      </fb:profile-pic>
+                <a id="flogout" href="">logout</a>
+	    </div>
+	    {% endif %}
+	    {% if user %}
+	    <div id ="tloggedin">
+	        <img id="twitter-profile-image" src="{{user.profile_pic}}" />
+                <a href="{% url tauth_logout %}">logout</a>
+	    </div>
+	    {% endif %}
+	</div>
     <iframe id="ifm" src ="{{campaign.url}}" frameborder="0" width="100%" scrolling="auto">
         <p>Your browser does not support iframes.</p>
     </iframe>

@@ -17,11 +17,11 @@ margin: 0;
 	background-image: url(../images/look/backdivide2.png);
 	background-repeat: repeat-x;
 	height: 57px;
-	position: absolute;
-	top: 170px;
+	position: relative;
+	top: -83px;
 	width: 100%;
 	border-bottom: 2px solid #ddd;
-
+	z-index: -200;
 }
 /*** Badge ***/
 #badge
@@ -52,6 +52,8 @@ margin: 0;
 #facebook-login-share, #twitter-login-share, #call2Act
 {
 	float: left;
+        #height: 45px;
+        #width: 110px;
 }
 .badge-button
 {
@@ -66,9 +68,15 @@ margin: 0;
 	line-height: 30px;
 }
 
+
 #facebook-login-share span
 {
 	color: #3757A0;
+}
+
+#twitter-login2, #facebook-login2 {
+    height: 30px;
+    width: 30px;
 }
 
 #twitter-login-share span
@@ -80,6 +88,12 @@ margin: 0;
 	width: 30px;
 	vertical-align: middle;
 	margin-right: 5px;
+}
+
+#facebook-share, #twitter-share, #facebook-login #twitter-login{
+    height: 40px;
+    width: 97px;
+    margin: 3px;
 }
 
 #callMsg{
@@ -95,10 +109,10 @@ margin: 0;
 	width: 340px;
 	height: 50px;
 	float: right;
-	position: absolute;
-	top: 180px;
+	position: relative;
+	top: -124px;
 	right: 0px;
-
+	z-index: -199
 }
 #divider div
 {
@@ -166,6 +180,7 @@ margin: 0;
 	margin-left: 10px;
 }
 #ifra {
+       position: relative;
        height: 00px; 
        border:2px double #0074A0;
        margin: auto;
@@ -214,8 +229,8 @@ border:2px double #0074A0;
 
 
 #img-prize {
-        height: 120px;
-   	width: 120px;
+        height: 140px;
+   	width: 125px;
    	float: right;   
         border: 2px solid red;
         -moz-border-radius: 10px;
@@ -228,8 +243,8 @@ border:2px double #0074A0;
 
 #raffle-prize
 {
-	height: 130px;
-        width: 320px;
+	height: 145px;
+        width: 340px;
         float: right;
 	position: relative;
 	top: 10px;
