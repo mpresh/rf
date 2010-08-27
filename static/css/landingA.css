@@ -190,12 +190,13 @@ img
 
 
 div#campaign-title {
+border:2px double #0074A0;
    text-align: center;
    color: #005a84;
    font-size: 70px;
    font-weight: bold;
    background-color: #f7f7f7;
-   margin: 10px;
+   margin: 20px;
    padding: 5px;
 }
 
