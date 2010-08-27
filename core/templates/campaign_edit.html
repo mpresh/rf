@@ -224,7 +224,9 @@ $(document).ready(function() {
 		$inputs.each(function() {
 		        values[this.name] = $(this).val();
 		});
+if ('{{campaign.campaign_type}}' == 'raffle'){
                 values["url_redeem"] = $("#img-img-preview").attr("src");
+}
 
 		$.ajax({
 			url: '{% url campaign_update_ajax %}?chash={{campaign.chash}}', 
