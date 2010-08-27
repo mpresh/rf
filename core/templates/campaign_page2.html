@@ -423,8 +423,8 @@ function resizeIframe() {
     height = (height < 0) ? 0 : height;
     document.getElementById('ifm').style.height = height + 'px';
 }
-document.getElementById('ifm').onload=resizeIframe;
-window.onresize = resizeIframe;
+//document.getElementById('ifm').onload=resizeIframe;
+//window.onresize = resizeIframe;
 
 </script>
 <script type="text/javascript" src="{% url static 'javascript/jquery.animate-shadow.js' %}" ></script>

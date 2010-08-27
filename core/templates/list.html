@@ -10,14 +10,14 @@
     {% for camp in campaigns %}
 
         
-	  <a href='{% url campaign_page_id camp_id=camp.id%}'>{{camp.title }}</a> <br />
+	  <a target="landing {{campaign.title}}" href='{% url campaign_page_id camp_id=camp.id%}'>{{camp.title }}</a> <br />
 	    Campaign Id: {{ camp.id }} <br />
 	    Start Time: {{camp.start_date_time}} <br />
             Type: {{camp.campaign_type}} <br />
             Created At: {{camp.created_at}} <br />
  	    URL: {{camp.url}} <br />
 
-	  <a href={%url campaign_admin chash=camp.chash %}>details</a> <br />
+	  <a target="admin {{campaign.title}}" href={%url campaign_admin chash=camp.chash %}>details</a> <br />
 	
     <br /><br/>
 	{% endfor %}
