@@ -1,3 +1,7 @@
+body {
+margin: 0;
+}
+
 #container
 {
 
@@ -23,7 +27,7 @@
 #badge
 {
         float: left;
-	width: 590px;
+	width: 530px;
 	height: 175px;
 	position: relative;
 	top: 10px;
@@ -49,15 +53,33 @@
 {
 	float: left;
 }
-#twitter-login-share, #facebook-login-share
+.badge-button
 {
 	cursor: pointer;
-	padding-left: 10px;
 	margin-right: 10px;
+	padding-bottom: 5px;
 }
-#twitter-login-share img, #facebook-login-share img{
-	height: 46px;
-	width: 35px;
+.badge-button span
+{
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 30px;
+}
+
+#facebook-login-share span
+{
+	color: #3757A0;
+}
+
+#twitter-login-share span
+{
+	color: #36B7D9
+}
+
+.badge-button img{
+	width: 30px;
+	vertical-align: middle;
+	margin-right: 5px;
 }
 
 #callMsg{
@@ -144,8 +166,12 @@
 	margin-left: 10px;
 }
 #ifra {
-       height: 500px; 
+       height: 00px; 
        border:2px double #0074A0;
+       margin: auto;
+       width: 98%;
+       height: 500px;
+       margin-top: 10px;
 }
 
 #ifm {
@@ -166,9 +192,11 @@ img
 div#campaign-title {
    text-align: center;
    color: #005a84;
-   font-size: 50px;
+   font-size: 70px;
    font-weight: bold;
    background-color: #f7f7f7;
+   margin: 10px;
+   padding: 5px;
 }
 
 #call2Act {
@@ -177,24 +205,49 @@ div#campaign-title {
 }
 
 #raffle-prize {
-   background-color: red;
    height: 100px;
    width: 300px;
    float: right;
    border: 3px solid #005a84;
 }
 
+
 #img-prize {
-   border: 1px solid gray;   
-   height: 98px;
-   width: 98px;
-   float: right;
+        height: 120px;
+   	width: 120px;
+   	float: right;   
+        border: 2px solid red;
+        -moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	box-shadow: 3px 3px 5px #000000;
+	-moz-box-shadow: 3px 3px 5px #000000;
+	-webkit-box-shadow: 3px 3px 5px #000000;
+}
+
+
+#raffle-prize
+{
+	height: 130px;
+        width: 320px;
+        float: right;
+	position: relative;
+	top: 10px;
+	padding: 10px;
+	border: 1px solid;
+	background-color: #f7f7f7;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	box-shadow: 3px 3px 5px #000000;
+	-moz-box-shadow: 3px 3px 5px #000000;
+	-webkit-box-shadow: 3px 3px 5px #000000;
 }
 #img-label {
    font-size: 55px;
    float: left;
    height: 100px;
-   width: 200px;
+   width: 140px;
    background-color: #f7f7f7;
    text-align: center;
+   margin-top: 30px;
+   font-weight: bold;
 }

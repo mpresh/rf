@@ -245,9 +245,7 @@ def campaign_launch(req, chash=""):
     host = "http://" + req.get_host()
     dict["host"] = host
     campaign_admin_url = host + reverse("campaign_admin", kwargs={'chash':c.chash})
-    campaign_landing_url = host + reverse("campaign_page_id", kwargs={'camp_id':c.id})
     dict["admin_url"] = shorten(campaign_admin_url)
-    dict["landing_url"] = shorten(campaign_landing_url)
 
     return render_to_response('campaign_launch.html', dict)
 
@@ -280,7 +278,9 @@ def campaign_update(req, chash=""):
         dict["end_date_label"] = now.strftime("%m/%d/%Y")
         dict["end_time_label"] = now.strftime("%I:%M %p")
 
-    dict["admin_url"] = shorten(campaign_admin_url)    
+    dict["admin_url"] = shorten(campaign_admin_url)
+    for attr_obj in c.attributes.all():
+        dict[attr_obj.name] = True;
 
     return render_to_response('campaign_edit.html', dict)
 
@@ -299,7 +299,7 @@ def campaign_created(req):
             campaign_analytics_url = host + reverse("campaign_analytics", kwargs={'chash':c.chash})
             campaign_update_url = host + reverse("campaign_update", kwargs={'chash':c.chash})
             campaign_landing_url = host + reverse("campaign_page_id", kwargs={'camp_id':c.id})
-            campaign_launch_url = host + reverse("campaign_launch", kwargs={'chash':c.chash})
+            campaign_launch_url = host + reverse("campaign_launch", kwargs={'camp_id':c.id})
 
             dict["admin_url"] = shorten(campaign_admin_url)
             dict["landing_url"] = shorten(campaign_landing_url)

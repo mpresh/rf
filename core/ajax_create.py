@@ -205,6 +205,8 @@ def create_campaign(req):
     c.save()
 
     c.setHash()
+    create_attr(c, name='post', value='')
+    create_attr(c, name='follow', value='')
     return HttpResponse(json.dumps({"campaign_hash": c.chash}))
 
 def create_campaign_original(req):
@@ -247,7 +249,6 @@ def create_campaign_original(req):
         )
     c.save()
     c.setHash()
-    create_attr(c.id, 'discount', '')
 
     if campaign_type == "business":
         return _create_business(c, req)
@@ -259,16 +260,17 @@ def create_campaign_original(req):
         return _create_event(c, req)
     return HttpResponse(json.dumps({}))
 
-def create_attr(campaign_id, name='', value=''):
+def create_attr(campaign, name='', value=''):
     ca = CampaignAttr(
         name=name,
-        keyvalue = value,
-        campaign = campaign_id
+        value=value,
+        campaign=campaign
         )
+
     ca.save()
     return
 
-def del_all_attr(campaign_id):
-    CampaignAttr.objects.filter(campaign=campaign_id).delete()
+def del_all_attr(campaign):
+    CampaignAttr.objects.filter(id=campaign.id).delete()
     return
 

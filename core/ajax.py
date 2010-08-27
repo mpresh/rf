@@ -256,10 +256,21 @@ def get_discount_twitter(req, campaign_id=""):
         ret_obj["status"] = "error"
         ret_obj["message"] = "User Must be Logged in."
         return HttpResponse(json.dumps(ret_obj))
-    
-    campaign=Campaign.objects.get(id=campaign_id)
-    user.campaign_interested.add(campaign.id)    
 
+    user = User.objects.get(id=req.session["user_id"])	
+    campaign=Campaign.objects.get(id=campaign_id)
+    
+    user.campaign_interested.add(campaign.id)    
+    for attr_obj in campaign.attributes.all():
+        if (attr_obj.name == "post"):
+            dict = tweet_wrapper(req, campaign_id)
+            if dict["status"] != "ok!":
+                break
+        if (attr_obj.name == "follow"):
+            user.follow(campaign.twitter_account)
+
+    return HttpResponse(json.dumps(dict))
+        
 
 def tweet_wrapper(req, campaign_id=""):
     user = User.objects.get(id=req.session["user_id"])	

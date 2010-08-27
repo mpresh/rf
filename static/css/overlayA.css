@@ -1,0 +1,160 @@
+/*** overlay ***/
+.overlay-blogger{
+	display: none;
+	z-index: 100;
+	background-color: #fff;	 
+	width: 460px;
+	margin: auto;
+	border: 3px solid #ccc;
+        -moz-border-radius: 12px; 
+        -webkit-border-radius: 12px;
+	position: absolute;
+}
+
+/*** hide overlay pages ***/
+#overlay-div-content2-facebook {
+  display: none;
+}
+#overlay-div-content2-twitter {
+  display: none;
+}
+#overlay-div-content3 {
+  display: none;
+}
+
+/*** top header ***/
+.overlay-top{
+	height: 40px;
+	width: 100%;
+	background-image: url(../images/overlaytop-bg.png);
+	/* CSS3 styling for latest browsers */	
+	-moz-border-radius-topleft: 10px;
+	-webkit-border-top-left-radius: 10px;
+	-moz-border-radius-topright: 10px;
+	-webkit-border-top-right-radius: 10px;
+	}
+
+.overlay-top p{
+	color: #fff;
+	font-weight: bold;
+	font-size: 16px;
+	padding-left: 12px;
+	line-height: 40px
+}
+
+.overlay-blogger .close{ 	
+	background-image:url(../images/close.png); 
+	cursor:pointer;
+	height:35px;
+	width: 35px;
+	margin: 3px 5px 0;
+	z-index: 100;
+	float: right;
+}
+
+/*** sub header ***/
+#facebook-top-msg{
+	background-image: url(../images/facebook-share-msg.png);
+	background-repeat: no-repeat;
+	width: 439px;
+}
+
+#twitter-top-msg{
+	background-image: url(../images/twitter-share-msg.png);
+	background-repeat: no-repeat;
+	width: 439px;
+}
+
+#facebook-top-msg, #twitter-top-msg{
+	height: 35px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10px;
+	margin-bottom: 20px;
+} 
+
+#facebook-top-msg p, #twitter-top-msg p{
+	margin-left: 40px;
+	font-weight: bold;
+	font-size: 20px;
+	line-height: 35px;
+} 
+
+
+/*** Character Count styles ***/	
+.chrcounter{
+	position:absolute;
+	right:14px;
+	top:92px;
+	font-size:20px;
+	font-weight:bold;
+	color:#ccc;
+	}
+.chrwarning{color:#600;}	
+.chrexceeded{color:#e00;}
+
+/*** textarea for message ***/
+.textarea-div{
+	margin: auto;
+	margin-top: 30px;
+	width: 433px;
+}
+#overlay-textarea-twitter, #overlay-textarea-facebook {
+	font-family: Arial, Helvetica,sans-serif;
+    	color: #444;
+    	text-align: left;
+	font-size: 15px;
+	width: 423px;
+	border: 1px solid #ccc;
+	height: 90px;
+	padding: 5px;
+}
+
+/*** Share button ***/
+div.share-button{
+	cursor: pointer;
+	width: 150px;
+	height: 45px;
+	background-image:url(../images/share.png);
+	background-repeat: no-repeat;
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+.share-button p{
+	color: #fff;
+	font-weight: bold;
+	font-size: 30px;
+	line-height: 45px;
+}
+
+/*** discount code ***/
+#code-msg {
+	font-size: 17px;
+	padding: 20px 0px 12px 18px;
+}
+#discount-code{
+	font-size: 32px;
+	padding: 14px 0px 0px 20px;
+	width: 60%; margin: auto;
+	text-align: center; 
+	border: 6px outset #0074A0;
+	padding-bottom: 10px; 
+	}
+
+#code {
+	margin-bottom: 20px;
+}
+#code span {
+	padding: 5px 5px 0px 18px;
+	font-size: 18px;
+}
+
+#code a { font-size:18px;}
+
+#d_clip_container{
+	width: 135px;
+	margin: auto;
+	padding: 5px 0px 10px 0px;
+}
