@@ -294,13 +294,13 @@ def campaign_created(req):
         try:
             c = Campaign.objects.get(chash=req.GET["chash"])
             dict["campaign"] = c
-
+            
             campaign_admin_url = host + reverse("campaign_admin", kwargs={'chash':c.chash})
             campaign_analytics_url = host + reverse("campaign_analytics", kwargs={'chash':c.chash})
             campaign_update_url = host + reverse("campaign_update", kwargs={'chash':c.chash})
             campaign_landing_url = host + reverse("campaign_page_id", kwargs={'camp_id':c.id})
-            campaign_launch_url = host + reverse("campaign_launch", kwargs={'camp_id':c.id})
-
+            campaign_launch_url = host + reverse("campaign_launch", kwargs={'chash':c.chash})
+            
             dict["admin_url"] = shorten(campaign_admin_url)
             dict["landing_url"] = shorten(campaign_landing_url)
             dict["analytics_url"] = shorten(campaign_analytics_url)
