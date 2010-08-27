@@ -99,7 +99,7 @@
                     {% endifequal %}
                 </div>
                 <div id="facebook-top-msg">
-                     {%ifequal campaign.campaign.type "discount" %}
+                     {%ifequal campaign.campaign_type "discount" %}
                      <p>Share to Reveal Discount</p>
                      {% else %}  
                      <p>Share to enter contest</p>
@@ -114,7 +114,7 @@
 	
 	<div id="overlay-div-content2-twitter">
 		<div class="overlay-top">
-                    {%ifequal campaign.campaign.type "discount" %}
+                    {%ifequal campaign.campaign_type "discount" %}
                     <p>Discounts Are Better When You Share Them</p>
                     {% else %}  
                     <p>Share and win, it's that simple</p>
@@ -122,7 +122,7 @@
                 </div>
                 
                 <div id="twitter-top-msg">
-                    {%ifequal campaign.campaign.type "discount" %}
+                    {%ifequal campaign.campaign_type "discount" %}
                     <p>Share to Reveal Discount</p>
                     {% else %}  
                     <p>Share to enter contest</p>
