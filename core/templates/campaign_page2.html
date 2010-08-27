@@ -30,8 +30,9 @@
            <div id="campaign-title">{{campaign.title}}</div>
 <div id="main">
 
-    <div id="divideBG"></div>
-    <div id="container">
+      <div id="divideBG"></div>
+
+      <div id="container">
 
       {% ifequal campaign.campaign_type "discount" %}
 
@@ -89,7 +90,20 @@
 
 	<div id="divider">
 	    <div id ="logo"><img height="35px" src="{% url static 'images/rf-logo.png' %}"></div>
-	
+	    {% if fbuser %}
+	    <div id ="floggedin">
+                <fb:profile-pic id="facebook-profile-image" height="30px" width="30px" uid={{fbuser.facebook_id}} linked="f\
+alse" >
+      </fb:profile-pic>
+                <a id="flogout" href="">logout</a>
+	    </div>
+	    {% endif %}
+	    {% if user %}
+	    <div id ="tloggedin">
+	        <img id="twitter-profile-image" src="{{user.profile_pic}}" />
+                <a href="{% url tauth_logout %}">logout</a>
+	    </div>
+	    {% endif %}
 	</div>
 
 
