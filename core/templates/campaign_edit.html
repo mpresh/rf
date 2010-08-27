@@ -144,13 +144,12 @@ Back To Admin Page: &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{admin_url}}">{{admin_url}
 
 </div>
 
-
 <script>
 
           {% if campaign.url_redeem %}
             $("#prize-remove-image").show();
             $("#prize-remove-image").click(function() {
-            $("#prize-image-preview").html("<br/><br/><br/><br/>Image Preview<img id='img-img-preview' src=''/>");
+            $("#prize-image-preview").html("<br/><br/><br/><br/>Image Preview<img id='img-img-preview' src='' />");
             $("#prize-remove-imageg").hide();
             }); 
           {% endif %}
@@ -163,10 +162,16 @@ $("#choose-img-http").slideDown();
 });
 
 $('#select-url-img-input').click(function(){
-             $("#prize-image-preview").html("<img id='img-img-preview' style='width: 100%; height: 246px;' src=" + $('#url-img-input').val() + "/>");
+             var strLen = $('#url-img-input').val().length; 	  
+             if ($('#url-img-input').val().charAt(strLen - 1) == '/') {
+                 var myStr = $('#url-img-input').val().slice(0, strLen-1);
+             }
+             $('#url-img-input').val(myStr);
+
+             $("#prize-image-preview").html("<img id='img-img-preview' style='width: 100%; height: 246px;' src=" + myStr + " />");
              $("#prize-remove-image").show();
 $("#prize-remove-image").click(function() {
-            $("#prize-image-preview").html("<br/><br/><br/><br/>Image Preview<img id='img-img-preview' src=''/>");
+            $("#prize-image-preview").html("<br/><br/><br/><br/>Image Preview<img id='img-img-preview' src='' />");
             $("#prize-remove-image").hide();
 });
 });
@@ -176,10 +181,10 @@ $("#prize-image").change(function() {
             var url = "{{host}}{%url static 'images/campaign/logos/prize/'%}{{campaign.id}}";
             
             ajaxFileUpload("prize-image", function() {
-                    $("#prize-image-preview").html("<img id='img-img-preview' style='width: 100%; height: 246px;' src=" + url + "/>");
+                    $("#prize-image-preview").html("<img id='img-img-preview' style='width: 100%; height: 246px;' src=" + url + " />");
                     $("#prize-remove-image").show();
 $("#prize-remove-image").click(function() {
-            $("#prize-image-preview").html("<br/><br/><br/><br/>Image Preview<img id='img-img-preview' src=''/>");
+            $("#prize-image-preview").html("<br/><br/><br/><br/>Image Preview<img id='img-img-preview' src='' />");
             $("#prize-remove-image").hide();
 });
                 }, 
