@@ -155,7 +155,7 @@
 		    <span>Redeem Here:</span><a href="{{campaign.url_redeem}}">{{campaign.url_redeem}}</a></font></div>
 		{% else %}
                 <div id="code-msg">Thanks for sharing.<BR> You have entered raffle:</div>
-                <img id="img-prize" src="{{campaign.url_redeem}}" />
+                <img style="margin: 20px;" id="img-prize" src="{{campaign.url_redeem}}" />
 
                 {% endifequal %}
 	</div>
@@ -349,17 +349,20 @@ FB.init({appId: '{{fbappid}}', status: true, cookie: true, xfbml: true});
 $("#twitter-feed-update").click(function() { 
         // Show discount page
         pageOverlay(3, '');
-	activateCopy();
+	//activateCopy();
 
 	$.ajax({ 
                    url: "{% url campaign_tweet_invite campaign_id=campaign.id %}", 
 	           dataType: "json", 
 	           data: {message: $("#overlay-textarea-twitter").val(), 
 		   shash: "{{shash}}"},
-	           success: function (data) { $.get('{% url campaign_going_twitter campaign_id=campaign.id %}', 
+	           success: function (data) {
+                                          $.get('{% url campaign_going_twitter campaign_id=campaign.id %}', 
 	                                  function(data) { refreshAttendee(15); }); },
 	           beforeSend: function() { 
+                {%ifequal campaign.campaign_type "discount" %} 
                          $("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
+                {% endifequal %}
                  } 
 
     }); 
@@ -369,18 +372,20 @@ $("#twitter-feed-update").click(function() {
 $("#facebook-feed-update").click(function(){
 	// Show discount page
 	pageOverlay(3, '');
-	activateCopy();
-
+	//activateCopy();
 	$.ajax({
 		url: '{% url campaign_facebook_update campaign_id=campaign.id %}', 
 		dataType: "json",
-		data: {message: $("#overlay-textarea-facebook").val(), shash: "{{shash}}" },
+		data: {message: $("#overlay-textarea-facebook").val(), 
+                       shash: "{{shash}}" },
 
 		success: function(data){
                   refreshAttendee(15);
 		},
 		beforeSend: function() {
+                {%ifequal campaign.campaign_type "discount" %} 
                 $("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
+                {% endifequal %}
 		}
 	});   
 

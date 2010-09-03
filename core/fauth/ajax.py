@@ -32,7 +32,6 @@ def campaign_facebook_update(req, campaign_id=""):
         parent_shash = None
 
     c=Campaign.objects.get(id=campaign_id)
-
     share = Share(message=msg,
                   campaign=c,
                   from_user_facebook=fbuser,
@@ -42,7 +41,6 @@ def campaign_facebook_update(req, campaign_id=""):
                   reach=fbuser.num_friends()
                   )
     share.setHash()
-
     url = share.url(req)
     short_url = bitly.shorten(url)
     share.url_short = short_url
