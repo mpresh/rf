@@ -122,7 +122,6 @@ class Share(models.Model):
     def url(self, request):
         """Returns the url for this share link."""
 
-        print "HELLO", request.session["redirect"]
         if request.session["redirect"].find("shash=") != -1:
             path = re.sub("shash=[a-zA-Z0-9_-]+", "shash=" + self.getHash(), request.session["redirect"])
         else:
