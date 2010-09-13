@@ -42,6 +42,8 @@ urlpatterns = patterns('',
                        url(r'event_details/(?P<event_id>\d+)/$', 'views.event_details', name='event_details'),
                        url(r'user_details/(?P<user_id>\d+)/$', 'views.user_details', name='user_details'),
                        url(r'about/$', 'views.about', name='about'),
+                       url(r'contact/$', 'views.contact', name='contact'),
+                       url(r'howitworks/$', 'views.howitworks', name='howitworks'),
                        url(r'list/$', 'views.event_list', name='event_list'),
 
                        url(r'create_campaign/$', 'views.create_campaign', name='create_campaign'),

@@ -31,8 +31,13 @@ def test(req):
     return render_to_response('test.html', {})
 
 def about(req):
-    #req.session["redirect"] = req.get_full_path()
     return render_to_response('about.html', {})
+
+def contact(req):
+    return render_to_response('contact.html', {})
+
+def howitworks(req):
+    return render_to_response('howitworks.html', {})
 
 def event_list(req):
     #req.session["redirect"] = req.get_full_path()  

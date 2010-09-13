@@ -17,7 +17,6 @@ margin-top: 30px;
 
 
 div.photo {
-border: 1px solid gray;
 float: left;
 margin: 10px;
 width: 10%;
@@ -28,7 +27,6 @@ text-align: center;
 
 div.content {
 padding: 2px 1% 2px 1%;
-border: 1px solid gray;
 float: right;
 margin: 10px;
 width: 78%;
