@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
-from events.models import Event
+from events.models import Event, Share
 from tauth.models import User
 from fauth.models import FBUser
 from campaign.models import Campaign
@@ -146,6 +146,9 @@ def campaign_page(req, chash="", camp_id=""):
 
     if "shash" in req.GET:
         dict["shash"] = req.GET["shash"]
+        share = Share.objects.get(shash=dict["shash"])
+        share.page_views = share.page_views + 1
+        share.save()
     else:
         dict["shash"] = ""
 

@@ -431,13 +431,14 @@ def analytics_data(req):
                                   "totalReach":share.totalReach(),
                                   "pic" : picture,
                                   "page" : page,
-                                  "clicks" : campaign.page_views}
+                                  "clicks" : share.page_views}
         else:
             user_dict[name_id]["num"] = user_dict[name_id]["num"] + 1
             user_dict[name_id]["child_num_retweet"] = user_dict[name_id]["child_num_retweet"] + len(share.children())
             user_dict[name_id]["total_num_retweet"] = user_dict[name_id]["total_num_retweet"] + len(share.allOffspring())
             user_dict[name_id]["reach"] = user_dict[name_id]["reach"] + share.getReach()
             user_dict[name_id]["totalReach"] = user_dict[name_id]["totalReach"] + share.totalReach()
+            user_dict[name_id]["clicks"] = user_dict[name_id]["clicks"] + share.page_views
 
 
     # div_num is total number of shares by this user
