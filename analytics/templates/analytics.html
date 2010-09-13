@@ -114,7 +114,7 @@ Analytics
 		<div id="mid" class="span-24 last">
 		<div id="influenceTitle">Top Influencers</div>
 		<!-- Influencers -->
-		<div class="span-12">
+		<div class="span-14">
 		     <div id="midLeft">
 		          <div id="tableHeader">Sort By</div>
 			  <script src="http://connect.facebook.net/en_US/all.js"></script>
@@ -123,16 +123,18 @@ Analytics
 	            </div>
 		<!-- end influencers -->
 		</div>
-		<div class="span-12 last"><div id="midRight"><= Select a user to see more information...</div></div>
+		<div class="span-10 last"><div id="midRight"><= Select a user to see more information...</div></div>
 		</div>
 
 			     
+	 <div id="stats" class="span-24 last">	
 	 <p>Total Facebook Shares: &nbsp; {{total_facebook_shares}}</p>
    	 <p>Total Twitter Shares: &nbsp; {{total_twitter_shares}}</p>
-
 	 <p>Total Facebook Reach: &nbsp; {{total_facebook_reach}}</p>
 	 <p>Total Twitter Reach: &nbsp; {{total_twitter_reach}}</p>
-
+	 <p>Total Page Views: &nbsp; {{campaign.page_views}}</p>
+	 <p>Top Level Page Views: &nbsp; {{campaign.page_views}}</p>
+	 </div>
     
 		<div class="span-24 last"><br/><br/><br/></div>
 
@@ -140,8 +142,8 @@ Analytics
 	<script> 
 
 	  
-	      $("#date_column_chart").showLoading({'afterShow': function(){ setTimeout( "jQuery('#date_column_chart').hideLoading()", 2000 );}});
-	      $("#midRight").showLoading({'afterShow': function(){ setTimeout( "jQuery('#midRight').hideLoading()", 2000 );}});         
+	      //$("#date_column_chart").showLoading({'afterShow': function(){ setTimeout( "jQuery('#date_column_chart').hideLoading()", 2000 );}});
+	      //$("#midRight").showLoading({'afterShow': function(){ setTimeout( "jQuery('#midRight').hideLoading()", 2000 );}});         
               //$("#date_line_chart").showLoading({'addClass': 'loading-indicator-bars',
               //                                   'afterShow': function(){ setTimeout( "jQuery('#date_line_chart').hideLoading()", 2000 );}});
 
@@ -174,8 +176,13 @@ Analytics
                                   formatter.format(json_data, [4]);
 				  var formatter = new google.visualization.PatternFormat('<p class=\"light\">shares</p>{0}');
                                   formatter.format(json_data, [7]);
+                                  var formatter = new google.visualization.PatternFormat('<p class=\"light\">shares</p>{0}');
+                                  formatter.format(json_data, [6]);
+                                  var formatter = new google.visualization.PatternFormat('<p class=\"light\">clicks</p>{0}');
+                                  formatter.format(json_data, [9]);
+
 				  var view = new google.visualization.DataView(json_data);
-				  view.hideColumns([2,3,8,6,5]);
+				  view.hideColumns([2,3,8]);
 				  // Render Table
 				  var options = {};
 				  options['page'] = 'enable';
@@ -184,6 +191,7 @@ Analytics
 				  options['cssClassNames'] = cssClassNames;
 				  data_table.draw(view, options);
 				  data_table.draw(view, options);
+
 				  // Setup Listener
 				  google.visualization.events.addListener(data_table, 'select', function() {
 				       var row = data_table.getSelection()[0].row;
@@ -198,9 +206,13 @@ Analytics
 				  		    json_data.getValue(row, 8)
 				       );
 			          });
-
+                                  jQuery('#midRight').hideLoading();
+                                  jQuery('#date_column_chart').hideLoading();
 			     },
-			     beforeSend: function() {}
+			     beforeSend: function() {
+                                 $("#midRight").showLoading();         
+                                 $("#date_column_chart").showLoading();
+                             }
 			}); 
 
 		}

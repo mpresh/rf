@@ -390,9 +390,10 @@ def analytics_data(req):
     column_list.append({"id" : "followers", "label" : "Followers", "type" : "number"})
     column_list.append({"id" : "reach", "label" : "Reach", "type" : "number"})
     column_list.append({"id" : "num_shares", "label" : "Shares", "type" : "number"})
-    column_list.append({"id" : "child_num_retweets", "label" : "ReShare", "type" : "number"})
-    column_list.append({"id" : "total_num_retweets", "label" : "Total Shares", "type" : "number"})
+    column_list.append({"id" : "child_num_retweets", "label" : "Child<br/>Re-Shares", "type" : "number"})
+    column_list.append({"id" : "total_num_retweets", "label" : "Total<br/>Re-Shares", "type" : "number"})
     column_list.append({"id" : "network", "label" : "Network", "type" : "string"})
+    column_list.append({"id" : "clicks", "label" : "Clicks", "type" : "number"})
 
     data["cols"] = column_list
 
@@ -412,8 +413,6 @@ def analytics_data(req):
             page = "http://www.facebook.com/" + fbuser.username
             picture = "<img src='http://graph.facebook.com/" + fbuser.facebook_id + "/picture' />" 
 
-
-
         elif share.from_account_type == "T":
             user = User.objects.get(id=share.from_user_twitter.id)
             name = user.name 
@@ -431,7 +430,8 @@ def analytics_data(req):
                                   "reach":share.getReach(), 
                                   "totalReach":share.totalReach(),
                                   "pic" : picture,
-                                  "page" : page}
+                                  "page" : page,
+                                  "clicks" : campaign.page_views}
         else:
             user_dict[name_id]["num"] = user_dict[name_id]["num"] + 1
             user_dict[name_id]["child_num_retweet"] = user_dict[name_id]["child_num_retweet"] + len(share.children())
@@ -439,21 +439,25 @@ def analytics_data(req):
             user_dict[name_id]["reach"] = user_dict[name_id]["reach"] + share.getReach()
             user_dict[name_id]["totalReach"] = user_dict[name_id]["totalReach"] + share.totalReach()
 
+
+    # div_num is total number of shares by this user
     for name_id in user_dict.keys():
         if float(user_dict[name_id]["num"]) == 0:
             div_num = 1.0
         else:
             div_num = float(user_dict[name_id]["num"])
-        name = "<a href='http://www.cnn.com'>" + user_dict[name_id]["name"] + "</a>"
+
+
         rows_list.append({"c" : [{"v" : user_dict[name_id]["pic"], "p": {'className': 'userPic'}},
                                  {"v" : user_dict[name_id]["name"], "p": {'className': 'userName'}}, 
                                  {"v" : user_dict[name_id]["page"]},
                                  {"v" : int(float(user_dict[name_id]["reach"]) / div_num)},
                                  {"v" : int(float(user_dict[name_id]["totalReach"]) / div_num), "p": {'style': 'width: 90px;'}},
                                  {"v" : user_dict[name_id]["num"]},
-                                 {"v" : user_dict[name_id]["child_num_retweet"]},
-                                 {"v" : user_dict[name_id]["total_num_retweet"], "p": {'style': 'width: 90px;'}},
+                                 {"v" : user_dict[name_id]["child_num_retweet"], "p": {'style': 'width: 60px;'}},
+                                 {"v" : user_dict[name_id]["total_num_retweet"], "p": {'style': 'width: 60px;'}},
                                  {"v" : user_dict[name_id]["network"]},
+                                 {"v" : user_dict[name_id]["clicks"]},
         ]});
  
 

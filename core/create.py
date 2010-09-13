@@ -127,9 +127,13 @@ def campaign_page(req, chash="", camp_id=""):
             c = Campaign.objects.get(id=camp_id)
     except:
         return render_to_response('404.html', {})
+    c.page_views = c.page_views + 1
+    c.save()
+
     dict = {}
     dict["campaign"] = c
     dict["fbappid"] = settings.FACEBOOK_APP_ID
+    
 
     if "overlay" in req.GET:
         dict["overlay"] = True
