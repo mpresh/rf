@@ -69,6 +69,7 @@ class Share(models.Model):
     shash = models.CharField(max_length=100, default="", null=True)
     parent_shash = models.CharField(max_length=100, default="", null=True)
     reach = models.IntegerField(blank=True, default=0)
+    page_views = models.IntegerField(null=False, default=0)
 
     def __unicode__(self):
         return "<Share: %s %s>" % (self.id, self.getHash())
