@@ -36,7 +36,14 @@ urlpatterns = patterns('',
                        url(r'test/?$', 'views.test', name='test'),
                        url(r'test2/?$', 'views.test2', name='test2'),
                        url(r'test3/?$', 'views.test3', name='test3'),
+
+                       # widget stuff
+                       url(r'camp/badge/(?P<camp_id>\w+)/$', 'views.campaign_badge', name='badge_id'),
+                       url(r'camp/widget/(?P<camp_id>\w+)/$', 'views.campaign_widget', name='widget_id'),
+                       url(r'camp/badge/$', 'views.campaign_badge', name='badge'),
+                       url(r'camp/widget/$', 'views.campaign_widget', name='widget'),
                        ##
+
                        url(r'event_home/(?P<event_id>\d+)/?$', 'views.event_home', name='event_home'),                       
                        url(r'thanks/(?P<event_id>\d+)/$', 'views.event_thanks', name='event_thanks'),
                        url(r'event_details/(?P<event_id>\d+)/$', 'views.event_details', name='event_details'),

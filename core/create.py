@@ -20,7 +20,20 @@ from fauth import fauth_utils
 from pylib.bitly import *
 
 def create_campaign(req):
+    dict = {}
     return render_to_response('create_campaign.html', dict)    
+
+def campaign_widget(req, camp_id="1"):
+    campaign = Campaign.objects.get(id=camp_id)
+    dict = {"campaign":campaign}
+    dict["fbappid"] = settings.FACEBOOK_APP_ID
+    return render_to_response('widget.html', dict)    
+
+def campaign_badge(req, camp_id="1"):
+    campaign = Campaign.objects.get(id=camp_id)
+    dict = {"campaign":campaign}
+    dict["fbappid"] = settings.FACEBOOK_APP_ID
+    return render_to_response('badge.html', dict)    
 
 def event_create(req):
     dict = {}
