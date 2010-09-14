@@ -127,8 +127,6 @@ def campaign_page(req, chash="", camp_id=""):
             c = Campaign.objects.get(id=camp_id)
     except:
         return render_to_response('404.html', {})
-    c.page_views = c.page_views + 1
-    c.save()
 
     dict = {}
     dict["campaign"] = c
@@ -149,8 +147,13 @@ def campaign_page(req, chash="", camp_id=""):
         share = Share.objects.get(shash=dict["shash"])
         share.page_views = share.page_views + 1
         share.save()
+        c.page_views_total = c.page_views_total + 1
     else:
         dict["shash"] = ""
+        c.page_views = c.page_views + 1
+        c.page_views_total = c.page_views_total + 1
+
+    c.save()
 
     # twitter user
     if "user_id" in req.session:
