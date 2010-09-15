@@ -115,9 +115,18 @@ def campaign_badge(req, camp_id="1"):
         fbuser = None
         dict["fbuser"] = ""
 
+    for key in req.COOKIES.keys():
+        print "COOKIE", key, req.COOKIES[key]
+
+    print "between", req.session.keys()
+    for key in req.session.keys():
+        print "SESSION", key, req.session[key]
+
     # HACK: if the oauth cookie has expired, clean up the session
     try:
+        print "testing fbuser_numfriends"
         fbuser.num_friends()
+        print "toke is ok"
     except:
         if "access_token" in req.session:
             del req.session['access_token']
@@ -138,6 +147,13 @@ def campaign_badge(req, camp_id="1"):
             del req.COOKIES['uid'] 
         del dict["fbuser"]
 
+    for key in req.COOKIES.keys():
+        print "COOKIE", key, req.COOKIES[key]
+
+    print "between", req.session.keys()
+    for key in req.session.keys():
+        print "SESSION", key, req.session[key]
+ 
     return render_to_response('badge.html', dict)    
 
 def campaign_page(req, chash="", camp_id=""):

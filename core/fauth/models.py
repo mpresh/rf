@@ -39,12 +39,30 @@ class FBUser(models.Model):
 
 	def num_friends(self):
 		data = urllib.urlopen("https://graph.facebook.com/" + 
-				      str(self.facebook_id) + "/friends" 
-				      "?access_token=" + self.access_token).read()
+				      str(self.facebook_id) + "/friends"
+                		      "?access_token=" + self.access_token).read()
 		data_dict = json.loads(data)
+		print "URL", "https://graph.facebook.com/" + str(self.facebook_id) + "/friends?access_token=" + self.access_token
+		print "self.access_token", self.access_token
+                print "DATA", data_dict
+		return len(data_dict['data'])
+
+	def num_friends_post(self):
+                params = urllib.urlencode({'access_token' : self.access_token})
+		headers = {"Content-Type": "multipart/form-data",
+			   "Accept": "*/*"}
+		conn = httplib.HTTPSConnection("graph.facebook.com")
+		conn.request("POST", "/" + str(self.facebook_id) + "/friends", params, headers) 
+		response = conn.getresponse()
+                data = response.read()
+		data_dict = json.loads(data)
+		
+                print "DATA", data_dict
 		return len(data_dict['data'])
 
 	def feed(self, to="me", message="Testing."):
+		print "self.access_token", self.access_token
+	        #self.access_token = "374592118121|2.L1AZSRgyEco_AAqk2KSIrg__.3600.1284566400-1809480|pftR96mozxCtTFolrUKzY7qK6ZU"
 		self.access_token = self.access_token.replace("%7C", "|")
 		params = urllib.urlencode({'access_token' : self.access_token,
 					   'message' : message})

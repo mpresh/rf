@@ -20,6 +20,7 @@ from pylib import bitly
 
 def campaign_facebook_update(req, campaign_id=""):
     """ Send feed update to facebook from user share. """
+
     fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
 
     msg=req.GET["message"]
@@ -30,8 +31,9 @@ def campaign_facebook_update(req, campaign_id=""):
         parent_shash = req.GET["shash"]
     else:
         parent_shash = None
-
+    print "alla1"
     c=Campaign.objects.get(id=campaign_id)
+    print "alla2"
     share = Share(message=msg,
                   campaign=c,
                   from_user_facebook=fbuser,
@@ -40,13 +42,16 @@ def campaign_facebook_update(req, campaign_id=""):
                   parent_shash=parent_shash,
                   reach=fbuser.num_friends()
                   )
+    print "alla3"
     share.setHash()
+    print "alla"
     url = share.url(req)
     short_url = bitly.shorten(url)
     share.url_short = short_url
     msg = msg + " " + short_url
 
     share.save()
+    print "hah"
     fbuser.feed(message=msg)
     fbuser.campaign_interested.add(c.id)    
 

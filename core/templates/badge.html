@@ -13,6 +13,7 @@
 		      <button id="facebook-share" class="badge-button">
 		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
+                     <a id="flogout">logout</a>
 		  {% else %}
 		      <button id="facebook-login" class="badge-button">
 		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
@@ -205,9 +206,10 @@ div#ripple-badge {
 // Global vars
 var contentView = 0;
 var shareLink = '';
+var overlayType = 'twitter';
 
 function badge_facebook_login_click() {
-  var requiredPerms = ['email','user_about_me', 'publish_stream'];
+  var requiredPerms  = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
   FB.login(function(response) {
     if (response.session) {
       var a = response.session;
@@ -227,6 +229,7 @@ function badge_facebook_login_click() {
 		data: {},
 		success: function(data){
 				//alert("REQUEST DONE", data);
+                                overlayType = 'facebook';
                                 $("#overlay-blogger-login").overlay().load();                                
 		},
 		beforeSend: function() {
@@ -244,11 +247,24 @@ function badge_facebook_login_click() {
 }
 
 FB.init({appId: '{{fbappid}}', status: true, cookie: true, xfbml: true});
-var requiredPerms  = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
+
 
 $('#facebook-login').click(function(){
         badge_facebook_login_click();
 });
+
+//default usage
+$("#overlay-textarea-twitter").charCount();
+({
+	allowed: 80,		
+	warning: 20
+});
+$("#overlay-textarea-facebook").charCount();
+({
+	allowed: 80,		
+	warning: 20
+});
+
 
 $('#flogout').click(function() 
 {
@@ -264,12 +280,20 @@ $('#flogout').click(function()
 	FB.getLoginStatus(function(response) {
 		if (response.session) {	
 			FB.logout(function(response) { 
-						window.location.href   = "{% url facebook_logout_callback %}";
-					});
-				}
-				else{
-					window.location.href  = "{% url facebook_logout_callback %}";
-				}
+                             $.ajax({url: "{% url facebook_logout_callback %}",
+                                     success: function(data){
+                                               $("#flogout").hide();
+                                              }
+                                   });
+				});
+		}
+		else {
+                             $.ajax({url: "{% url facebook_logout_callback %}",
+                                    success: function(data){
+                                               $("#flogout").hide();
+                                            }
+                                    });
+		}
 	});
 });
 
@@ -373,6 +397,7 @@ $("#overlay-blogger-login").overlay({
 	left: 220
 });
 function pageOverlay(page, type){
+    type = overlayType;
     switch(page) 
     {
     case 1:
@@ -405,10 +430,12 @@ function pageOverlay(page, type){
 }
 $('#facebook-share').click(function(){
     shareLink = 'facebook';
+    overlayType = "facebook";
     $("#overlay-blogger-login").overlay().load();
 });
 
 $('#twitter-share').click(function(){
+    overlayType = "twitter";
     shareLink = 'twitter';
     $("#overlay-blogger-login").overlay().load();
 });

@@ -18,6 +18,10 @@ import util
 import fauth_utils
 from pylib.util import handle_redirect_string
 
+def facebook_callback_test(req):
+    print "FACEBOOK CALLBACK TEST", req
+    return render_to_response('test3.html', {})
+
 def facebook_callback(req):
 
     print "FACEBOOK CALLBACK", req
