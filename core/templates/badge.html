@@ -36,7 +36,9 @@
 	</div> <!-- badge -->
 
 
-	<div id="overlay-div-content2-facebook" >
+	<div id="overlay-blogger-login" class="overlay-blogger">
+
+	    <div id="overlay-div-content2-facebook" >
                 <div class="overlay-top">
                     {%ifequal campaign.campaign_type "discount" %}
                     <p>Discounts Are Better When You Share Them</p>
@@ -56,9 +58,9 @@
 		     <textarea id="overlay-textarea-facebook">{{campaign.message_share}}</textarea>
 		</div>
 		<div id="facebook-feed-update" class="share-button"><p>Share</p></div>
-	</div>
+	    </div><!-- end overlay-div-content2-facebook -->
 	
-	<div id="overlay-div-content2-twitter">
+	    <div id="overlay-div-content2-twitter">
 		<div class="overlay-top">
                     {%ifequal campaign.campaign_type "discount" %}
                     <p>Discounts Are Better When You Share Them</p>
@@ -79,9 +81,9 @@
 		     <textarea id="overlay-textarea-twitter" >{{campaign.message_share}}</textarea>
 		</div>
 		<div id="twitter-feed-update" class="share-button"><p>Share</p></div>
-	</div>
+	    </div> <!-- end overlay-div-content2-twitter -->
 
-	<div id="overlay-div-content3" >
+	    <div id="overlay-div-content3" >
 		<div class="overlay-top">
                     {%ifequal campaign.campaign_type "discount" %}
                     <p>Discount Code</p>
@@ -104,8 +106,8 @@
                 <img style="margin: 20px;" id="img-prize" src="{{campaign.url_redeem}}" />
 
                 {% endifequal %}
-	</div>
-
+	    </div><!-- end overlay-div-content3 -->
+         </div><!-- end overlay-blogger -->
 
 
 
@@ -152,7 +154,7 @@ div#badge-footer {
    background-color: white;
    position: absolute;
    bottom: 0px;
-   -webkit-border-radius: 10px 10px 10px 10px;
+   -webkit-border-radius: 0px 0px 10px 10px;
 }
 
 div#facebook-login-share {
@@ -193,14 +195,20 @@ div#ripple-badge {
 	color: red;
 }
 
+.overlay-top p {
+    margin: 0px;
+}
 </style>
 
 
 <script>
+// Global vars
+var contentView = 0;
+var shareLink = '';
+
 function badge_facebook_login_click() {
   var requiredPerms = ['email','user_about_me', 'publish_stream'];
   FB.login(function(response) {
-	
     if (response.session) {
       var a = response.session;
       var options = { path: '/', expires: 10 };
@@ -211,8 +219,20 @@ function badge_facebook_login_click() {
       $.cookie("base_domain", a.base_domain, options);
       $.cookie("access_token", a.access_token, options);
       $.cookie("sig", a.sig, options);
-  
 
+      // make an ajax call here to login to facebook
+      $.ajax({
+		url: '{% url facebook_callback_ajax %}', 
+		dataType: "json",
+		data: {},
+		success: function(data){
+				//alert("REQUEST DONE", data);
+                                $("#overlay-blogger-login").overlay().load();                                
+		},
+		beforeSend: function() {
+			       //alert("sending feed requesst");
+		}
+	});
       //var url = "/facebook_callback?redirectArgs=overlayEQUALSfacebook";
       //window.location.href = url;
   } else { FB.logout(function(response) { 
@@ -260,47 +280,138 @@ function activateCopy() {
     clip.glue( 'd_clip_button', 'd_clip_container' );
 }
 
-//$("#facebook-feed-update").click(function(){
-//	// Show discount page
-//	pageOverlay(3, '');
-//	//activateCopy();
-//	$.ajax({
-//		url: '{% url campaign_facebook_update campaign_id=campaign.id %}', 
-//		dataType: "json",
-//		data: {message: $("#overlay-textarea-facebook").val(), 
-//                       shash: "{{shash}}" },
-//
-//		success: function(data){
-//                  refreshAttendee(15);
-//		},
-//		beforeSend: function() {
-//                {%ifequal campaign.campaign_type "discount" %} 
-//                $("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
-//                {% endifequal %}
-//		}
-//	});   
-//
-//});
-//$("#twitter-feed-update").click(function() { 
-//        // Show discount page
-//        pageOverlay(3, '');
-//	//activateCopy();
-//
-//	$.ajax({ 
-//                   url: "{% url campaign_tweet_invite campaign_id=campaign.id %}", 
-//	           dataType: "json", 
-//	           data: {message: $("#overlay-textarea-twitter").val(), 
-//		   shash: "{{shash}}"},
-//	           success: function (data) {
-//                                          $.get('{% url campaign_going_twitter campaign_id=campaign.id %}', 
-//	                                  function(data) { refreshAttendee(15); }); },
-//	           beforeSend: function() { 
-//                {%ifequal campaign.campaign_type "discount" %} 
-//                         $("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
-//                {% endifequal %}
-//                 } 
-//
-//    }); 
-//});
-//
+$("#facebook-feed-update").click(function(){
+	// Show discount page
+	pageOverlay(3, '');
+	//activateCopy();
+	$.ajax({
+		url: '{% url campaign_facebook_update campaign_id=campaign.id %}', 
+		dataType: "json",
+		data: {message: $("#overlay-textarea-facebook").val(), 
+                       shash: "{{shash}}" },
+
+		success: function(data){
+                  refreshAttendee(15);
+		},
+		beforeSend: function() {
+                {%ifequal campaign.campaign_type "discount" %} 
+                $("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
+                {% endifequal %}
+		}
+	});   
+
+});
+$("#twitter-feed-update").click(function() { 
+        // Show discount page
+        pageOverlay(3, '');
+	//activateCopy();
+
+	$.ajax({ 
+                   url: "{% url campaign_tweet_invite campaign_id=campaign.id %}", 
+	           dataType: "json", 
+	           data: {message: $("#overlay-textarea-twitter").val(), 
+		   shash: "{{shash}}"},
+	           success: function (data) {
+                                          $.get('{% url campaign_going_twitter campaign_id=campaign.id %}', 
+	                                  function(data) { refreshAttendee(15); }); },
+	           beforeSend: function() { 
+                {%ifequal campaign.campaign_type "discount" %} 
+                         $("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
+                {% endifequal %}
+                 } 
+
+    }); 
+});
+$("#overlay-blogger-login").overlay({
+	expose: {
+		loadSpeed: 100,
+		color: '#666',
+		opacity: 0.8
+	},
+	onLoad: function(event) {
+                // Which page to start on?
+		// if twitter user logged in, show twitter page
+		{% if user and overlayTwitter %}
+		    pageOverlay(2, 'twitter');
+		{% else %} 	
+	
+		    // if fbuser logged in
+		    {% if fbuser and overlayFacebook %}
+		        pageOverlay(2, 'facebook');
+		    {% else %} 
+	
+		        // show first view with facebook and twitter login buttons
+		        {% if not user and not fbuser %}
+		            pageOverlay(1, '');
+		        {% else %} 	
+		        
+		            // if fbuser logged in
+		            {% if fbuser %}
+		                pageOverlay(2, 'facebook');
+		            {% else %} 	
+		            
+		                // if fbuser logged in
+		                {% if user  %}
+		                pageOverlay(2, 'twitter');
+		                {% endif %}
+		            {% endif %}
+		        {% endif %}
+		    {% endif %}
+		{% endif %}
+            
+		if (shareLink == 'facebook') {
+		    pageOverlay(2, 'facebook');
+		    shareLink = '';
+		}
+		if (shareLink == 'twitter') {
+		    pageOverlay(2, 'twitter');
+		    shareLink = '';
+		}
+
+	},
+	top: 170,
+	left: 220
+});
+function pageOverlay(page, type){
+    switch(page) 
+    {
+    case 1:
+	contentView = 1;
+        $('#overlay-div-content2-facebook').hide();
+        $('#overlay-div-content2-twitter').hide();
+        $('#overlay-div-content3').show();
+	break;
+    case 2:
+        contentView = 2;
+	if (type == 'facebook') {
+	    $('#overlay-div-content2-facebook').show();
+	    $('#overlay-div-content2-twitter').hide();
+	    $('#overlay-div-content3').hide();
+	} else {
+	    $('#overlay-div-content2-facebook').hide();
+	    $('#overlay-div-content2-twitter').show();
+	    $('#overlay-div-content3').hide();
+	}
+	break;
+    case 3:
+        contentView = 3;
+        $('#overlay-div-content2-facebook').hide();
+        $('#overlay-div-content2-twitter').hide();
+        $('#overlay-div-content3').show();
+	break;
+    default:
+        break;
+    }
+}
+$('#facebook-share').click(function(){
+    shareLink = 'facebook';
+    $("#overlay-blogger-login").overlay().load();
+});
+
+$('#twitter-share').click(function(){
+    shareLink = 'twitter';
+    $("#overlay-blogger-login").overlay().load();
+});
+
+
 </script>

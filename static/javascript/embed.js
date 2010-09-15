@@ -12,6 +12,9 @@ function fill_widget() {
     $("#ripple-embed").load("/camp/badge");
 }
 
+LazyLoad.css(["/site_media/css/overlayA.css"],
+	    function() {
+
 LazyLoad.js(["http://code.jquery.com/jquery-1.4.2.min.js", 
              "/site_media/javascript/myjscript.js", 
              "/site_media/javascript/jquery.tools.min.js",
@@ -24,6 +27,8 @@ LazyLoad.js(["http://code.jquery.com/jquery-1.4.2.min.js",
 	fill_widget();
     });
 
+            });
+ 
 
 
 

@@ -46,6 +46,36 @@ def facebook_callback(req):
 
     return HttpResponseRedirect(redirect)
 
+def facebook_callback_ajax(req):
+
+    print "FACEBOOK CALLBACK AJAX", req
+    for s in req.session.keys():
+        print "SESSION", s, req.session[s]
+
+    cookies = req.GET;
+    print "hello world"
+    fauth_utils.sync_session_cookies(req)
+
+    for s in req.session.keys():
+        print "SESSION", s, req.session[s]
+    
+    (user, create) = FBUser.objects.get_or_create(facebook_id=req.session['uid'])
+    user.access_token = req.session["access_token"]
+    user.save()
+    user.fill_info()
+    user.save()
+
+    #if "redirect" not in req.session:
+    #    redirect = reverse('index')
+    #else:
+    #    redirect = req.session['redirect']
+
+    #if "redirectArgs" in req.GET:
+    #    redirect = handle_redirect_string(redirect, req.GET["redirectArgs"])
+    dict = {}
+
+    return HttpResponse(json.dumps(dict))
+
 def facebook_logout_callback(req):
     if "access_token" in req.session:
         del req.session['access_token']
