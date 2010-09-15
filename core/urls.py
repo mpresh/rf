@@ -45,7 +45,6 @@ urlpatterns = patterns('',
                        ##
 
                        url(r'event_home/(?P<event_id>\d+)/?$', 'views.event_home', name='event_home'),                       
-                       url(r'thanks/(?P<event_id>\d+)/$', 'views.event_thanks', name='event_thanks'),
                        url(r'event_details/(?P<event_id>\d+)/$', 'views.event_details', name='event_details'),
                        url(r'user_details/(?P<user_id>\d+)/$', 'views.user_details', name='user_details'),
                        url(r'about/$', 'views.about', name='about'),
@@ -54,7 +53,6 @@ urlpatterns = patterns('',
                        url(r'list/$', 'views.event_list', name='event_list'),
 
                        url(r'create_campaign/$', 'views.create_campaign', name='create_campaign'),
-                       url(r'create/$', 'views.event_create', name='event_create'),
                        url(r'campaign_welcome/$', 'views.campaign_created', name='campaign_created'),
                        url(r'create_campaign_ajax/$', 'ajax_create.create_campaign', name='create_campaign_ajax'),
                        url(r'create_campaign_url_check/$', 'ajax_create.create_campaign_url_check', name='create_campaign_url_check'),
