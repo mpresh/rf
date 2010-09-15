@@ -10,7 +10,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-                       url(r'^$', 'views.index', name='index'),
                        #
                        ## json / ajax calls
                        url(r'ajax/follow_list.json/?$', 'tauth.views.follow_list', name='follow_list'),
@@ -44,7 +43,6 @@ urlpatterns = patterns('',
                        url(r'camp/widget/$', 'views.campaign_widget', name='widget'),
                        ##
 
-                       url(r'event_home/(?P<event_id>\d+)/?$', 'views.event_home', name='event_home'),                       
                        url(r'event_details/(?P<event_id>\d+)/$', 'views.event_details', name='event_details'),
                        url(r'user_details/(?P<user_id>\d+)/$', 'views.user_details', name='user_details'),
                        url(r'about/$', 'views.about', name='about'),
@@ -68,9 +66,6 @@ urlpatterns = patterns('',
                        url(r'campaign_update_ajax/$', 'ajax_create.campaign_update_ajax', name='campaign_update_ajax'),
 
 
-                       url(r'invite/(?P<invite_id>\d+)/$', 'views.invite', name='event_invite'),
-                       #url(r'blogvip/(?P<invite_id>\d+)/$', 'views.blogvip', name='event_blogvip'),
-                       url(r'be/?$', 'views.blogvip_flow', name='event_blogvip_flow'),
                        #
                        url(r'^',  include('fauth.urls')),
                        url(r'^',  include('tauth.urls')),
