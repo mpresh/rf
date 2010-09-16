@@ -49,8 +49,10 @@ class FBUser(models.Model):
 
 	def num_friends_post(self):
                 params = urllib.urlencode({'access_token' : self.access_token})
-		headers = {"Content-Type": "multipart/form-data",
-			   "Accept": "*/*"}
+		headers ={"Content-Type": "application/x-www-form-urlencoded",
+			  "Host": "graph.facebook.com",
+			  "Accept": "*/*"
+			  }
 		conn = httplib.HTTPSConnection("graph.facebook.com")
 		conn.request("POST", "/" + str(self.facebook_id) + "/friends", params, headers) 
 		response = conn.getresponse()
@@ -65,8 +67,10 @@ class FBUser(models.Model):
 		self.access_token = self.access_token.replace("%7C", "|")
 		params = urllib.urlencode({'access_token' : self.access_token,
 					   'message' : message})
-		headers = {"Content-Type": "multipart/form-data",
-			   "Accept": "*/*"}
+		headers ={"Content-Type": "application/x-www-form-urlencoded",
+			  "Host": "graph.facebook.com",
+			  "Accept": "*/*"
+			  }
 		print "PARAMS", params
 		conn = httplib.HTTPSConnection("graph.facebook.com")
 		conn.request("POST", "/" + str(to) + "/feed", params, headers) 
@@ -82,8 +86,10 @@ class FBUser(models.Model):
 		params = urllib.urlencode({'access_token' : self.access_token,
 					   'message' : message,
 					   'subject' : subject})
-		headers = {"Content-Type": "multipart/form-data",
-			   "Accept": "*/*"}
+		headers ={"Content-Type": "application/x-www-form-urlencoded",
+			  "Host": "graph.facebook.com",
+			  "Accept": "*/*"
+			  }
 		conn = httplib.HTTPSConnection("graph.facebook.com")
 		conn.request("POST", "/" + str(to) + "/notes", params, headers) 
 		response = conn.getresponse()
