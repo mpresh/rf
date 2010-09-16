@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="Content-Language" content="en-us" />
+
+<link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text/css" media="print">	
+
+<script type="text/javascript" src="{% url static 'javascript/jquery.showLoading.js' %}" ></script>	
+    <script type="text/javascript" src="{% url static 'javascript/jquery-1.4.2.min.js' %}" ></script>
+	<script type="text/javascript" src="{% url static 'javascript/myjscript.js' %}" ></script>
+    <script type="text/javascript" src="{% url static 'javascript/jquery.tools.min.js' %}" ></script>
+        <script type="text/javascript" src="{% url static 'javascript/ajaxfileupload.js' %}" ></script>
+
+
+	<link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="Stylesheet" />	
+	<script type="text/javascript" src="{% url static 'css/jquery-ui-1.8.1.custom.js' %}"> 
+ </script>
+<script type="text/javascript" src="{% url static 'javascript/jquery.timePicker.js' %}"></script>
+
+
+<html> 
+<head> 
+  <title>Test Facebook Login</title> 
+</head> 
+<body>  
+<a id="flogin" href="">login</a>
+<br/>
+<br/>
+<a id="flogout" href="">logout</a>
+<script>
+//function popitup(url) {
+//newwindow=window.open(url,'name','height=200,width=150');
+//if (window.focus) {newwindow.focus()}
+//return false;
+//}
+$('#flogin').click(function () {
+        //var pos = screenCenterPos(800, 500);
+        signinWin = window.open("https://graph.facebook.com/oauth/authorize?client_id=ab791fa270c8dda4bece7d38abe5b580&redirect_uri=http://www.demo.com:8000/facebook_login_callback&display=popup", "SignIn", "width=780,height=410");
+        setTimeout(CheckLoginStatus, 2000);
+        signinWin.focus();
+        return false;
+    });
+
+function CheckLoginStatus() {
+    if (signinWin.closed) {
+        //$('#UserInfo').text($.cookie("some_cookie");
+        //alert("hello world");
+        //window.location.href = "{% url facebook_login_callback %}"
+   }
+    else setTimeout(CheckLoginStatus, 1000);
+}
+if (opener) {
+    window.close();
+    opener.href = window.href;
+}
+</script>
+</body> 
+</html>

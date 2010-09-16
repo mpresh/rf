@@ -11,4 +11,8 @@ urlpatterns = patterns('',
                        url(r'ajax/campaign_facebook_update/(?P<campaign_id>\d+)/?$', 'fauth.ajax.campaign_facebook_update', name='campaign_facebook_update'),
                        url(r'ajax/facebook_message/$', 'fauth.ajax.message', name='facebook_message'),
                        url(r'ajax/facebook_friends/$', 'fauth.ajax.friends', name='facebook_friends'),
+
+
+                       url(r'facebook_login_test/$', 'fauth.views.facebook_login_test', name='facebook_login_test'),
+                       url(r'facebook_login_callback/$', 'fauth.facebook_auth.facebook_login_callback', name='facebook_login_callback'),
                        )

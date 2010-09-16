@@ -30,11 +30,17 @@ urlpatterns = patterns('',
                        #url(r'ajax/event_tweet_invite_dm/(?P<event_id>\d+)/?$', 'ajax.event_tweet_invite_dm', name='event_tweet_invite_dm'),
                        url(r'upload_image/?$', 'ajax.upload_image', name='upload_image'),
                        ##
+
+                       #
+                       url(r'^',  include('fauth.urls')),
+                       url(r'^',  include('tauth.urls')),
+                       url(r'^',  include('campaign.urls')),
+
                        ### miscellaneous
-                       url(r'map/?$', 'views.map', name='map'),
-                       url(r'test/?$', 'views.test', name='test'),
-                       url(r'test2/?$', 'views.test2', name='test2'),
-                       url(r'test3/?$', 'views.test3', name='test3'),
+                       url(r'^map/?$', 'views.map', name='map'),
+                       url(r'^test/?$', 'views.test', name='test'),
+                       url(r'^test2/?$', 'views.test2', name='test2'),
+                       url(r'^test3/?$', 'views.test3', name='test3'),
 
                        # widget stuff
                        url(r'camp/badge/(?P<camp_id>\w+)/$', 'views.campaign_badge', name='badge_id'),
@@ -65,11 +71,6 @@ urlpatterns = patterns('',
                        url(r'camp/(?P<chash>\w{8}\w+)/launch/$', 'views.campaign_launch', name='campaign_launch'),
                        url(r'campaign_update_ajax/$', 'ajax_create.campaign_update_ajax', name='campaign_update_ajax'),
 
-
-                       #
-                       url(r'^',  include('fauth.urls')),
-                       url(r'^',  include('tauth.urls')),
-                       url(r'^',  include('campaign.urls')),
 
                        (r'site_media/(?P<path>.*)$', 'django.views.static.serve',
                               {'document_root': settings.MEDIA_ROOT}),

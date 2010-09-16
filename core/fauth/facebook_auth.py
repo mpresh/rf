@@ -18,6 +18,40 @@ import util
 import fauth_utils
 from pylib.util import handle_redirect_string
 
+def facebook_login_callback(req):
+    print "!!!FACEBOOK LOGIN CALLBACK", req
+    
+    try:
+        code = req.GET["code"]
+        #redirect = req.session["redirect"]
+        print "CODE IS", code
+
+        url = "https://graph.facebook.com/oauth/access_token?"
+        url = url + "client_id=" + settings.FACEBOOK_API
+        url = url + "&redirect_uri=" + "http://www.demo.com:8000/facebook_login_callback"
+        url = url + "&client_secret=" + settings.FACEBOOK_SECRET
+        url = url + "&code=" + code 
+
+        print "URL IS", url
+        result = urllib.urlopen(url).read()
+        print "RETURNED RESULT", result
+        list_of_values = result.split("&")
+        values_dict = {}
+        for value in list_of_values:
+            (k, v) = value.split("=")
+            values_dict[k] = v
+
+        url = "https://graph.facebook.com/me?access_token=" + values_dict["access_token"]
+        result = urllib.urlopen(url).read()
+        
+        my_info = json.loads(result)
+        print "result", my_info
+
+    except Exception as e:
+        return render_to_response('facebook_login_callback.html', {"status":500})
+
+    return render_to_response('facebook_login_callback.html', {"status":200})
+
 def facebook_callback_test(req):
     print "FACEBOOK CALLBACK TEST", req
     return render_to_response('test3.html', {})

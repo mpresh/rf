@@ -63,6 +63,7 @@ TEMPLATE_DIRS = (
     os.path.join(ROOT_PATH, 'analytics/templates'),
     os.path.join(ROOT_PATH, 'core/entities/templates'),
     os.path.join(ROOT_PATH, 'core/campaign/templates'),
+    os.path.join(ROOT_PATH, 'core/fauth/templates'),
 )
 
 INSTALLED_APPS = (
