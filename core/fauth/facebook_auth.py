@@ -57,7 +57,7 @@ def facebook_login_callback(req):
         for key in req.session:
             print "SESSION", key, req.session["key"]
 
-    except Exception as e:
+    except Exception:
         return HttpResponseRedirect(redirect)
 
     return HttpResponseRedirect(redirect)

@@ -13,21 +13,21 @@ function fill_widget() {
 }
 
 LazyLoad.css(["/site_media/css/overlayA.css"],
-	    function() {
+	     function() {
 
-LazyLoad.js(["http://code.jquery.com/jquery-1.4.2.min.js", 
-             "/site_media/javascript/myjscript.js", 
-             "/site_media/javascript/jquery.tools.min.js",
-             "/site_media/javascript/charCount.js",
-             "/site_media/javascript/jquery.cookie.js",
-             "/site_media/javascript/jquery.showLoading.js",
-	     "/site_media/javascript/ZeroClipboard.js",
-	     "http://connect.facebook.net/en_US/all.js"
-             ], function () {
-	fill_widget();
-    });
-
-            });
+		 LazyLoad.js(["http://code.jquery.com/jquery-1.4.2.min.js", 
+			      "/site_media/javascript/myjscript.js", 
+			      "/site_media/javascript/jquery.tools.min.js",
+			      "/site_media/javascript/charCount.js",
+			      "/site_media/javascript/jquery.cookie.js",
+			      "/site_media/javascript/jquery.showLoading.js",
+			      "/site_media/javascript/ZeroClipboard.js",
+			      "http://connect.facebook.net/en_US/all.js"
+			      ], function () {
+				 fill_widget();
+			     });
+		 
+	     });
  
 
 

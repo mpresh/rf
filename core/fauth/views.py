@@ -28,7 +28,7 @@ def facebook_login_test(req):
     dict["facebook_api"] = settings.FACEBOOK_API
     dict["redirect_uri"] = host + reverse("facebook_login_callback")
     dict["scope"] = "publish_stream"
-    dict["scope"] = ""
+    
     if "uid" in req.session:
         fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
         dict["fbuser"] = fbuser

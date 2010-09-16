@@ -57,35 +57,11 @@ def campaign_widget(req, camp_id="1"):
         fbuser = None
         dict["fbuser"] = ""
 
-    # HACK: if the oauth cookie has expired, clean up the session
-    try:
-        fbuser.num_friends()
-    except:
-        if "access_token" in req.session:
-            del req.session['access_token']
-            del req.session['base_domain']
-            del req.session['secret']
-            del req.session['session_key']
-            del req.session['sessionid']
-            del req.session['sig']
-            del req.session['uid']
-
-        if "access_token" in req.COOKIES:
-            del req.COOKIES['access_token']
-            del req.COOKIES['base_domain']
-            del req.COOKIES['secret']
-            del req.COOKIES['session_key']
-            del req.COOKIES['sessionid']
-            del req.COOKIES['sig']
-            del req.COOKIES['uid'] 
-        del dict["fbuser"]
-
     return render_to_response('widget.html', dict)    
 
 def campaign_badge(req, camp_id="1"):
     campaign = Campaign.objects.get(id=camp_id)
     dict = {"campaign":campaign}
-    dict["fbappid"] = settings.FACEBOOK_APP_ID
 
     if "overlay" in req.GET:
         dict["overlay"] = True
@@ -103,57 +79,23 @@ def campaign_badge(req, camp_id="1"):
     else:
         user = None
 
-    # facebook user
-    if "uid" in req.session:
-        fbuser = FBUser.objects.get(facebook_id=req.session["uid"])	
-        dict['fbuser'] = fbuser
-    elif "uid" in req.COOKIES:
-        fauth_utils.sync_session_cookies(req)
-        fbuser = FBUser.objects.get(facebook_id=req.COOKIES["uid"])	
-        dict['fbuser'] = fbuser
-    else:
-        fbuser = None
-        dict["fbuser"] = ""
-
-    for key in req.COOKIES.keys():
-        print "COOKIE", key, req.COOKIES[key]
-
-    print "between", req.session.keys()
-    for key in req.session.keys():
-        print "SESSION", key, req.session[key]
-
     # HACK: if the oauth cookie has expired, clean up the session
     try:
-        print "testing fbuser_numfriends"
         fbuser.num_friends()
-        print "toke is ok"
     except:
-        if "access_token" in req.session:
-            del req.session['access_token']
-            del req.session['base_domain']
-            del req.session['secret']
-            del req.session['session_key']
-            del req.session['sessionid']
-            del req.session['sig']
-            del req.session['uid']
-
-        if "access_token" in req.COOKIES:
-            del req.COOKIES['access_token']
-            del req.COOKIES['base_domain']
-            del req.COOKIES['secret']
-            del req.COOKIES['session_key']
-            del req.COOKIES['sessionid']
-            del req.COOKIES['sig']
-            del req.COOKIES['uid'] 
-        del dict["fbuser"]
-
-    for key in req.COOKIES.keys():
-        print "COOKIE", key, req.COOKIES[key]
-
-    print "between", req.session.keys()
-    for key in req.session.keys():
-        print "SESSION", key, req.session[key]
+        del req.session['uid']
  
+    req.session["redirect"] = reverse("facebook_login_test")
+    host = "http://" + req.get_host()
+    dict["facebook_app_id"] = settings.FACEBOOK_APP_ID
+    dict["facebook_api"] = settings.FACEBOOK_API
+    dict["redirect_uri"] = host + reverse("facebook_login_callback")
+    dict["scope"] = "publish_stream"
+
+    if "uid" in req.session:
+        fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
+        dict["fbuser"] = fbuser
+
     return render_to_response('badge.html', dict)    
 
 def campaign_page(req, chash="", camp_id=""):
