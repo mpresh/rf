@@ -62,7 +62,6 @@ class FBUser(models.Model):
 
 	def feed(self, to="me", message="Testing."):
 		print "self.access_token", self.access_token
-	        #self.access_token = "374592118121|2.L1AZSRgyEco_AAqk2KSIrg__.3600.1284566400-1809480|pftR96mozxCtTFolrUKzY7qK6ZU"
 		self.access_token = self.access_token.replace("%7C", "|")
 		params = urllib.urlencode({'access_token' : self.access_token,
 					   'message' : message})
@@ -95,14 +94,17 @@ class FBUser(models.Model):
 		print "DATA IS", data
 	
 
-	def fill_info(self):
+	def fill_info(self, data_dict=None):
 		""" Fill in information about user synchronously."""
 		print "Filling info", self.facebook_id, self.access_token
-		data = urllib.urlopen("https://graph.facebook.com/" + 
-				      str(self.facebook_id) + 
-				      "?access_token=" + self.access_token).read()
-		print "Returned value", data
-		data_dict = json.loads(data)
+		if not data_dict:
+			data = urllib.urlopen("https://graph.facebook.com/" + 
+					      str(self.facebook_id) + 
+					      "?access_token=" + self.access_token).read()	
+			data_dict = json.loads(data)
+
+		print "Returned value", data_dict
+
 		if "error" in data_dict:
 			return
 

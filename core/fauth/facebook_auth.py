@@ -19,38 +19,48 @@ import fauth_utils
 from pylib.util import handle_redirect_string
 
 def facebook_login_callback(req):
-    print "!!!FACEBOOK LOGIN CALLBACK", req
-    
+    print "facebook login callback"
+    redirect = req.session["redirect"]
     try:
         code = req.GET["code"]
-        #redirect = req.session["redirect"]
-        print "CODE IS", code
-
+        host = "http://" + req.get_host()
         url = "https://graph.facebook.com/oauth/access_token?"
         url = url + "client_id=" + settings.FACEBOOK_API
-        url = url + "&redirect_uri=" + "http://www.demo.com:8000/facebook_login_callback"
+        url = url + "&redirect_uri=" + host + reverse("facebook_login_callback")
         url = url + "&client_secret=" + settings.FACEBOOK_SECRET
         url = url + "&code=" + code 
-
-        print "URL IS", url
+        print "ACCESS_TOKEN", url
         result = urllib.urlopen(url).read()
-        print "RETURNED RESULT", result
+        print "ACCESS_TOKEN", result
         list_of_values = result.split("&")
         values_dict = {}
+        print "step5", list_of_values
         for value in list_of_values:
             (k, v) = value.split("=")
             values_dict[k] = v
-
-        url = "https://graph.facebook.com/me?access_token=" + values_dict["access_token"]
-        result = urllib.urlopen(url).read()
         
+        access_token = values_dict["access_token"]
+        
+        print "access_token", access_token
+        url = "https://graph.facebook.com/me?access_token=" + access_token
+        result = urllib.urlopen(url).read()
         my_info = json.loads(result)
-        print "result", my_info
+        print "login2"
+        uid = my_info["id"]
+        (user, create) = FBUser.objects.get_or_create(facebook_id=uid)
+        user.access_token = access_token
+        req.session["uid"] = uid
+        user.save()
+        print "login3"
+        user.fill_info(my_info)
+        user.save()
+        for key in req.session:
+            print "SESSION", key, req.session["key"]
 
     except Exception as e:
-        return render_to_response('facebook_login_callback.html', {"status":500})
+        return HttpResponseRedirect(redirect)
 
-    return render_to_response('facebook_login_callback.html', {"status":200})
+    return HttpResponseRedirect(redirect)
 
 def facebook_callback_test(req):
     print "FACEBOOK CALLBACK TEST", req
@@ -74,10 +84,7 @@ def facebook_callback(req):
     user.fill_info()
     user.save()
 
-    if "redirect" not in req.session:
-        redirect = reverse('index')
-    else:
-        redirect = req.session['redirect']
+    redirect = req.session['redirect']
 
     if "redirectArgs" in req.GET:
         redirect = handle_redirect_string(redirect, req.GET["redirectArgs"])

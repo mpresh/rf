@@ -13,6 +13,23 @@ urlpatterns = patterns('',
                        url(r'ajax/facebook_friends/$', 'fauth.ajax.friends', name='facebook_friends'),
 
 
+
+
+                       # sample html page to test out the facebook login functionality
                        url(r'facebook_login_test/$', 'fauth.views.facebook_login_test', name='facebook_login_test'),
+
+                       # redirect facebook ogin callback
                        url(r'facebook_login_callback/$', 'fauth.facebook_auth.facebook_login_callback', name='facebook_login_callback'),
+
+                       # ajax call to logout
+                       url(r'ajax/facebook_logout/$', 'fauth.ajax.facebook_logout', name='ajax_facebook_logout'),
+
+                       # ajax call to check if facebook is logged expired and log out if it is
+                       url(r'ajax/facebook_check_logout/$', 'fauth.ajax.facebook_check_logout', name='ajax_facebook_check_logout'),
+
+                       # ajax call to post a test feed
+                       url(r'ajax/facebook_info_test/$', 'fauth.ajax.facebook_info_test', name='ajax_facebook_info_test'),
+
+                       # ajax call to get info
+                       url(r'ajax/facebook_feed_test/$', 'fauth.ajax.facebook_feed_test', name='ajax_facebook_feed_test'),
                        )

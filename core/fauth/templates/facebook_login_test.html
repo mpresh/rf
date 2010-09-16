@@ -5,39 +5,99 @@
     <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
     <meta http-equiv="Content-Language" content="en-us" />
 
-<link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text/css" media="print">	
 
-<script type="text/javascript" src="{% url static 'javascript/jquery.showLoading.js' %}" ></script>	
     <script type="text/javascript" src="{% url static 'javascript/jquery-1.4.2.min.js' %}" ></script>
 	<script type="text/javascript" src="{% url static 'javascript/myjscript.js' %}" ></script>
-    <script type="text/javascript" src="{% url static 'javascript/jquery.tools.min.js' %}" ></script>
-        <script type="text/javascript" src="{% url static 'javascript/ajaxfileupload.js' %}" ></script>
-
-
-	<link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="Stylesheet" />	
-	<script type="text/javascript" src="{% url static 'css/jquery-ui-1.8.1.custom.js' %}"> 
- </script>
-<script type="text/javascript" src="{% url static 'javascript/jquery.timePicker.js' %}"></script>
-
 
 <html> 
 <head> 
   <title>Test Facebook Login</title> 
 </head> 
-<body>  
-<a id="flogin" href="">login</a>
-<br/>
-<br/>
-<a id="flogout" href="">logout</a>
+<body> 
+
+<div id="div-logout">
+<button id="flogout">logout</button>
+
+<button id="infobtn">Get Info</button>
+<button id="feedbtn">Post Feed</button>
+<div id="div-info"></div>
+</div>
+
+<div id="div-login">
+<button id="flogin">login</button>
+</div>
+
+
+<div id="fb-root"></div>
+ <script src="http://connect.facebook.net/en_US/all.js"></script>
+</body> 
 <script>
-//function popitup(url) {
-//newwindow=window.open(url,'name','height=200,width=150');
-//if (window.focus) {newwindow.focus()}
-//return false;
-//}
+
+{% if fbuser %}
+    $("#div-login").hide();
+    {% else %}
+    $("#div-logout").hide();
+{% endif %}
+
+
+   FB.init({
+     appId  : '{{facebook_app_id}}',
+     status : true, // check login status
+     cookie : true, // enable cookies to allow the server to access the session
+     xfbml  : true  // parse XFBML
+   });
+
+$('#feedbtn').click(function(){
+    $.ajax({ 
+                   url: "{% url ajax_facebook_feed_test %}", 
+	           dataType: "json", 
+	           data: {},
+	           success: function (data) { 
+
+                   },
+	           beforeSend: function() {
+                     
+                 } 
+
+    }); 
+});
+
+$('#infobtn').click(function(){
+    $.ajax({ 
+                   url: "{% url ajax_facebook_info_test %}", 
+	           dataType: "json", 
+	           data: {},
+	           success: function (data) {
+                       var text = JSON.stringify(data.data) 
+                       $("#div-info").text(text);
+
+                   },
+	           beforeSend: function() {
+                 } 
+
+    }); 
+});
+
+ 
+$('#flogout').click(function(){
+    $.ajax({ 
+                   url: "{% url ajax_facebook_logout %}", 
+	           dataType: "json", 
+	           data: {},
+	           success: function (data) { 
+                       $("#div-logout").hide();
+                       $("#div-login").show();
+
+                   },
+	           beforeSend: function() {
+                       FB.logout();
+                 } 
+
+    }); 
+});
+
 $('#flogin').click(function () {
-        //var pos = screenCenterPos(800, 500);
-        signinWin = window.open("https://graph.facebook.com/oauth/authorize?client_id=ab791fa270c8dda4bece7d38abe5b580&redirect_uri=http://www.demo.com:8000/facebook_login_callback&display=popup", "SignIn", "width=780,height=410");
+        signinWin = window.open("https://graph.facebook.com/oauth/authorize?client_id={{facebook_api}}&redirect_uri={{redirect_uri}}&display=popup&scope={{scope}}", "SignIn", "width=780,height=410");
         setTimeout(CheckLoginStatus, 2000);
         signinWin.focus();
         return false;
@@ -45,9 +105,8 @@ $('#flogin').click(function () {
 
 function CheckLoginStatus() {
     if (signinWin.closed) {
-        //$('#UserInfo').text($.cookie("some_cookie");
-        //alert("hello world");
-        //window.location.href = "{% url facebook_login_callback %}"
+        window.location.href = "{% url facebook_login_test %}"
+
    }
     else setTimeout(CheckLoginStatus, 1000);
 }
@@ -56,5 +115,7 @@ if (opener) {
     opener.href = window.href;
 }
 </script>
-</body> 
+
+
+
 </html>

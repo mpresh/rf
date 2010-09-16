@@ -99,3 +99,43 @@ def friends(req):
         dict["status"] = "error"
         dict["message"] = "no user"
         return HttpResponse(json.dumps(dict))
+
+
+def facebook_logout(req):
+    """facebook logout."""
+    del req.session["uid"]
+    dict = {}
+    return HttpResponse(json.dumps(dict))
+
+def facebook_check_logout(req):
+    """facebook logout."""
+    dict = {}
+    if "uid" in req.session:
+        fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
+        url = "https://graph.facebook.com/me?access_token=" + fbuser.access_token
+        result = urllib.urlopen(url).read()
+        my_info = json.loads(result)
+        if "id" in my_info:
+            return HttpResponse(json.dumps(dict))
+        else:
+            del req.session["uid"]
+
+    return HttpResponse(json.dumps(dict))
+
+def facebook_feed_test(req):
+    dict = {}
+    fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
+    fbuser.feed()
+    return HttpResponse(json.dumps(dict))
+
+
+def facebook_info_test(req):
+    
+    fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
+    url = "https://graph.facebook.com/me?access_token=" + fbuser.access_token
+    result = urllib.urlopen(url).read()
+    my_info = json.loads(result)
+    dict = {}
+    dict["data"] = my_info
+    print "result", dict
+    return HttpResponse(json.dumps(dict))
