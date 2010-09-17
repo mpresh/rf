@@ -9,19 +9,20 @@ function fill_widget_iframe() {
 }
 
 function fill_widget() {
-    $("#ripple-embed").load("/camp/badge");
+    //$("#ripple-embed").load("/camp/badge");
+    $("#ripple-embed").load("http://www.ripplefunction.com/camp/badge");
 }
 
-LazyLoad.css(["/site_media/css/overlayA.css"],
+LazyLoad.css(["http://www.ripplefunction.com/site_media/css/overlayA.css"],
 	     function() {
 
 		 LazyLoad.js(["http://code.jquery.com/jquery-1.4.2.min.js", 
-			      "/site_media/javascript/myjscript.js", 
-			      "/site_media/javascript/jquery.tools.min.js",
-			      "/site_media/javascript/charCount.js",
-			      "/site_media/javascript/jquery.cookie.js",
-			      "/site_media/javascript/jquery.showLoading.js",
-			      "/site_media/javascript/ZeroClipboard.js",
+			      "http://www.ripplefunction.com/site_media/javascript/myjscript.js", 
+			      "http://www.ripplefunction.com/site_media/javascript/jquery.tools.min.js",
+			      "http://www.ripplefunction.com/site_media/javascript/charCount.js",
+			      "http://www.ripplefunction.com/site_media/javascript/jquery.cookie.js",
+			      "http://www.ripplefunction.com/site_media/javascript/jquery.showLoading.js",
+			      "http://www.ripplefunction.com/site_media/javascript/ZeroClipboard.js",
 			      "http://connect.facebook.net/en_US/all.js"
 			      ], function () {
 				 fill_widget();

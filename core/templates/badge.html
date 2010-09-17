@@ -163,8 +163,9 @@ FB.getLoginStatus(function(response) {
   }
 });
 
+/////////// twitter login ////////////////
 $('#twitter-login').click(function(){
-       signinWin = window.open("{{host}}{% url tauth_login %}?redirectArgs=overlayEQUALStwitter", "SignIn", "width=780,height=410");
+       signinWin = window.open("{{host}}{% url tauth_login %}", "SignIn", "width=780,height=410");
        setTimeout(CheckLoginStatusTwitter, 2000);
        signinWin.focus();
        return false;
@@ -173,13 +174,14 @@ function CheckLoginStatusTwitter() {
     if (signinWin.closed) {
             $("#div-twitter-logged-in").show();
             $("#div-twitter-logged-out").hide();
-    shareLink = 'twitter';
-    overlayType = "twitter";
-    $("#overlay-blogger-login").overlay().load();
+            shareLink = 'twitter';
+            overlayType = "twitter";
+            $("#overlay-blogger-login").overlay().load();
    }
     else setTimeout(CheckLoginStatusTwitter, 1000);
 }
 
+///////////// facebook login //////////////
 $('#facebook-login').click(function(){
        signinWin = window.open("https://graph.facebook.com/oauth/authorize?client_id={{facebook_api}}&redirect_uri={{redirect_uri}}&display=popup&scope={{scope}}", "SignIn", "width=780,height=410");
        setTimeout(CheckLoginStatusFacebook, 2000);
@@ -190,9 +192,9 @@ function CheckLoginStatusFacebook() {
     if (signinWin.closed) {
             $("#div-facebook-logged-in").show();
             $("#div-facebook-logged-out").hide();
-    shareLink = 'facebook';
-    overlayType = "facebook";
-    $("#overlay-blogger-login").overlay().load();
+            shareLink = 'facebook';
+            overlayType = "facebook";
+            $("#overlay-blogger-login").overlay().load();
    }
     else setTimeout(CheckLoginStatusFacebook, 1000);
 }
