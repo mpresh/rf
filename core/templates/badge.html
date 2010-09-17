@@ -231,6 +231,24 @@ $('#flogout').click(function(){
         }); 
 });
 
+$('#tlogout').click(function(){
+alert("hello");
+        $.ajax({ 
+                   url: "{% url tauth_logout %}", 
+	           dataType: "json", 
+	           data: {},
+	           success: function (data) { 
+                       
+                   },
+	           beforeSend: function() {
+       $("#div-twitter-logged-out").show();
+                       $("#div-twitter-logged-in").hide();
+                 } 
+
+        }); 
+});
+
+
 function activateCopy() {
     ZeroClipboard.setMoviePath( "http://collectivevip.com{% url static 'javascript/ZeroClipboard.swf' %}" ); 
     var clip = new ZeroClipboard.Client();
