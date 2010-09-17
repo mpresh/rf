@@ -12,14 +12,14 @@
            
                     <div id="div-facebook-logged-in" style="display:none; cursor:default;">
 		      <button id="facebook-share" class="badge-button" style="cursor: pointer;">
-		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
+		           <img src="{{host}}{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
                       <a id="flogout" style="cursor: pointer; color: gray; font-size: 12px;">logout</a>
                     </div>
 
                     <div id="div-facebook-logged-out" style="display=none;cursor:default;">
 		      <button id="facebook-login" class="badge-button" style="cursor: pointer;">
-		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
+		           <img src="{{host}}{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
 		      <span style="color: gray; font-size: 12px;">logged out</span>
                     </div>
@@ -28,13 +28,13 @@
 	     <div id="twitter-login-share">
                   <div id="div-twitter-logged-in" style="display:none;cursor:default;">
 		     <button id="twitter-share" class="badge-button" style="cursor: pointer;">
-		           <img src="{% url static 'images/twitterShare_icon2.png' %}"/><span>Share</span>
+		           <img src="{{host}}{% url static 'images/twitterShare_icon2.png' %}"/><span>Share</span>
 		     </button>
                       <a id="tlogout" style="cursor: pointer; color: gray; font-size: 12px;">logout</a>
 		  </div>
 		  <div id="div-twitter-logged-out" style="display=none;cursor:default;">
                      <button id="twitter-login" class="badge-button"  style="cursor: pointer;">
-		         <img src="{% url static 'images/twitterShare_icon2.png' %}" /><span>Share</span>
+		         <img src="{{host}}{% url static 'images/twitterShare_icon2.png' %}" /><span>Share</span>
 		     </button>
 		     <span style="color: gray; font-size: 12px;">logged out</span>
 		  </div>
@@ -145,7 +145,7 @@ FB.getLoginStatus(function(response) {
 
     // if the user is logged in but has no fbuser, get it with ajax
     $.ajax({ 
-                   url: "{% url ajax_facebook_sync_server %}", 
+                   url: "{{host}}{% url ajax_facebook_sync_server %}", 
     	           dataType: "json", 
     	           data: {uid : response.session.uid,
                           access_token : response.session.access_token},
@@ -164,7 +164,7 @@ FB.getLoginStatus(function(response) {
 });
 
 $('#twitter-login').click(function(){
-       signinWin = window.open("{% url tauth_login %}?redirectArgs=overlayEQUALStwitter", "SignIn", "width=780,height=410");
+       signinWin = window.open("{{host}}{% url tauth_login %}?redirectArgs=overlayEQUALStwitter", "SignIn", "width=780,height=410");
        setTimeout(CheckLoginStatusTwitter, 2000);
        signinWin.focus();
        return false;
@@ -213,7 +213,7 @@ $("#overlay-textarea-facebook").charCount();
 
 $('#flogout').click(function(){
         $.ajax({ 
-                   url: "{% url ajax_facebook_logout %}", 
+                   url: "{{host}}{% url ajax_facebook_logout %}", 
 	           dataType: "json", 
 	           data: {},
 	           success: function (data) { 
@@ -238,9 +238,8 @@ $('#flogout').click(function(){
 });
 
 $('#tlogout').click(function(){
-alert("hello");
         $.ajax({ 
-                   url: "{% url tauth_logout %}", 
+                   url: "{{host}}{% url tauth_logout %}", 
 	           dataType: "json", 
 	           data: {},
 	           success: function (data) { 
@@ -256,7 +255,7 @@ alert("hello");
 
 
 function activateCopy() {
-    ZeroClipboard.setMoviePath( "http://collectivevip.com{% url static 'javascript/ZeroClipboard.swf' %}" ); 
+    ZeroClipboard.setMoviePath( "{{host}}{% url static 'javascript/ZeroClipboard.swf' %}" ); 
     var clip = new ZeroClipboard.Client();
     clip.setText( '{{campaign.code}}' );
     clip.glue( 'd_clip_button', 'd_clip_container' );
@@ -267,7 +266,7 @@ $("#facebook-feed-update").click(function(){
 	pageOverlay(3, '');
 	//activateCopy();
 	$.ajax({
-		url: '{% url campaign_facebook_update campaign_id=campaign.id %}', 
+		url: '{{host}}{% url campaign_facebook_update campaign_id=campaign.id %}', 
 		dataType: "json",
 		data: {message: $("#overlay-textarea-facebook").val(), 
                        shash: "{{shash}}" },
@@ -289,12 +288,12 @@ $("#twitter-feed-update").click(function() {
 	//activateCopy();
 
 	$.ajax({ 
-                   url: "{% url campaign_tweet_invite campaign_id=campaign.id %}", 
+                   url: "{{host}}{% url campaign_tweet_invite campaign_id=campaign.id %}", 
 	           dataType: "json", 
 	           data: {message: $("#overlay-textarea-twitter").val(), 
 		   shash: "{{shash}}"},
 	           success: function (data) {
-                                          $.get('{% url campaign_going_twitter campaign_id=campaign.id %}', 
+                                          $.get('{{host}}{% url campaign_going_twitter campaign_id=campaign.id %}', 
 	                                  function(data) { refreshAttendee(15); }); },
 	           beforeSend: function() { 
                 {%ifequal campaign.campaign_type "discount" %} 

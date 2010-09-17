@@ -51,7 +51,7 @@ def tauth_info(req):
 def login(req):
 	print "ENTERING LOGIN"
 	if 'redirect' not in req.session:
-		req.session['redirect'] = str(reverse('index'))
+		req.session['redirect'] = str(reverse('frontpage'))
 
 	if "redirectArgs" in req.GET:
 		print "calling handle_redirect_string", type(req.session["redirect"])
@@ -150,7 +150,7 @@ def logout(req):
 		redirect = str(req.session["redirect"])
 		del req.session["redirect"]
 	else:
-		redirect = str(reverse('index'))
+		redirect = str(reverse('frontpage'))
 
 	print "REDIRECTS", redirect
 	if "redirectArgs" in req.GET:

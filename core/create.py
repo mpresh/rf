@@ -87,6 +87,7 @@ def campaign_badge(req, camp_id="1"):
  
     req.session["redirect"] = reverse("facebook_login_test")
     host = "http://" + req.get_host()
+    dict["host"] = host
     dict["facebook_app_id"] = settings.FACEBOOK_APP_ID
     dict["facebook_api"] = settings.FACEBOOK_API
     dict["redirect_uri"] = host + reverse("facebook_login_callback")
