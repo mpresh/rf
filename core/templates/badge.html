@@ -173,6 +173,9 @@ function CheckLoginStatusTwitter() {
     if (signinWin.closed) {
             $("#div-twitter-logged-in").show();
             $("#div-twitter-logged-out").hide();
+    shareLink = 'twitter';
+    overlayType = "twitter";
+    $("#overlay-blogger-login").overlay().load();
    }
     else setTimeout(CheckLoginStatusTwitter, 1000);
 }
@@ -187,6 +190,9 @@ function CheckLoginStatusFacebook() {
     if (signinWin.closed) {
             $("#div-facebook-logged-in").show();
             $("#div-facebook-logged-out").hide();
+    shareLink = 'facebook';
+    overlayType = "facebook";
+    $("#overlay-blogger-login").overlay().load();
    }
     else setTimeout(CheckLoginStatusFacebook, 1000);
 }
