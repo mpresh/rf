@@ -36,4 +36,7 @@ urlpatterns = patterns('',
                        # ajax call to sync session on client side with session on server
                        url(r'ajax/facebook_sync_server/$', 'fauth.ajax.facebook_sync_server', name='ajax_facebook_sync_server'),
                        
+
+                       # ajax call to sync session on client side with session on server
+                       url(r'facebook_callback_close/$', 'fauth.views.facebook_callback_close', name='facebook_callback_close'),
                        )

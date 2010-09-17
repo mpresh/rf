@@ -20,7 +20,7 @@ from pylib.util import handle_redirect_string
 
 def facebook_login_callback(req):
     print "facebook login callback"
-    redirect = req.session["redirect"]
+    redirect = reverse("facebook_callback_close")
     try:
         code = req.GET["code"]
         host = "http://" + req.get_host()

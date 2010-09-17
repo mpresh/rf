@@ -10,15 +10,15 @@
 		  <div id="fb-root"></div>
                   <script src="http://connect.facebook.net/en_US/all.js"></script>
            
-                    <div id="div-facebook-logged-in" style="display:none;">
-		      <button id="facebook-share" class="badge-button">
+                    <div id="div-facebook-logged-in" style="display:none; cursor:default;">
+		      <button id="facebook-share" class="badge-button" style="cursor: pointer;">
 		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
-                      <a id="flogout" style="color: gray; font-size: 12px;">logout</a>
+                      <a id="flogout" style="cursor: pointer; color: gray; font-size: 12px;">logout</a>
                     </div>
 
-                    <div id="div-facebook-logged-out" style="display=none;">
-		      <button id="facebook-login" class="badge-button">
+                    <div id="div-facebook-logged-out" style="display=none;cursor:default;">
+		      <button id="facebook-login" class="badge-button" style="cursor: pointer;">
 		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
 		      <span style="color: gray; font-size: 12px;">logged out</span>
@@ -26,27 +26,32 @@
 	     </div>  
 
 	     <div id="twitter-login-share">
-                 {% if user %}
-                  <div id="div-twitter-logged-in" style="display:none;">
-		     <button id="twitter-share" class="badge-button">
+                  <div id="div-twitter-logged-in" style="display:none;cursor:default;">
+		     <button id="twitter-share" class="badge-button" style="cursor: pointer;">
 		           <img src="{% url static 'images/twitterShare_icon2.png' %}"/><span>Share</span>
 		     </button>
-                      <a id="tlogout" style="color: gray; font-size: 12px;">logout</a>
+                      <a id="tlogout" style="cursor: pointer; color: gray; font-size: 12px;">logout</a>
 		  </div>
-                 {% else %}
-		  <div id="div-facebook-logged-out" style="display=none;">
-                     <button onClick="location.href='{% url tauth_login %}?redirectArgs=overlayEQUALStwitter'" 
-		     class="badge-button" id="twitter-login">
+		  <div id="div-twitter-logged-out" style="display=none;cursor:default;">
+                     <button id="twitter-login" class="badge-button"  style="cursor: pointer;">
 		         <img src="{% url static 'images/twitterShare_icon2.png' %}" /><span>Share</span>
 		     </button>
 		     <span style="color: gray; font-size: 12px;">logged out</span>
 		  </div>
-                 {% endif %}
              </div>
 	 </div><!-- badge footer-->
 	</div> <!-- badge -->
-
-
+	{% if user %}
+<script>
+    $("#div-twitter-logged-in").show();
+    $("#div-twitter-logged-out").hide();
+</script>
+	{% else %}
+<script>
+    $("#div-twitter-logged-out").show();
+    $("#div-twitter-logged-in").hide();
+</script>
+       {% endif %}
 	<div id="overlay-blogger-login" class="overlay-blogger">
 
 	    <div id="overlay-div-content2-facebook" >
@@ -158,19 +163,32 @@ FB.getLoginStatus(function(response) {
   }
 });
 
-
-$('#facebook-login').click(function(){
-       signinWin = window.open("https://graph.facebook.com/oauth/authorize?client_id={{facebook_api}}&redirect_uri={{redirect_uri}}&display=popup&scope={{scope}}", "SignIn", "width=780,height=410");
-       setTimeout(CheckLoginStatus, 2000);
+$('#twitter-login').click(function(){
+       signinWin = window.open("{% url tauth_login %}?redirectArgs=overlayEQUALStwitter", "SignIn", "width=780,height=410");
+       setTimeout(CheckLoginStatusTwitter, 2000);
        signinWin.focus();
        return false;
 });
-function CheckLoginStatus() {
+function CheckLoginStatusTwitter() {
+    if (signinWin.closed) {
+            $("#div-twitter-logged-in").show();
+            $("#div-twitter-logged-out").hide();
+   }
+    else setTimeout(CheckLoginStatusTwitter, 1000);
+}
+
+$('#facebook-login').click(function(){
+       signinWin = window.open("https://graph.facebook.com/oauth/authorize?client_id={{facebook_api}}&redirect_uri={{redirect_uri}}&display=popup&scope={{scope}}", "SignIn", "width=780,height=410");
+       setTimeout(CheckLoginStatusFacebook, 2000);
+       signinWin.focus();
+       return false;
+});
+function CheckLoginStatusFacebook() {
     if (signinWin.closed) {
             $("#div-facebook-logged-in").show();
             $("#div-facebook-logged-out").hide();
    }
-    else setTimeout(CheckLoginStatus, 1000);
+    else setTimeout(CheckLoginStatusFacebook, 1000);
 }
 
 //default usage

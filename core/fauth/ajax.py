@@ -150,16 +150,17 @@ def facebook_info_test(req):
     return HttpResponse(json.dumps(dict))
 
 def facebook_sync_server(req):
-    print "SYNCCCCC", req
-    print "KEYS", req.GET.keys()
-    
-    
     # get uid and access_token
     req.session["uid"] = req.GET["uid"]
     req.session["access_token"] = req.GET["access_token"]
     
     # get or create facebook user
-
-    # if create, fill in data
+    (user, create) = FBUser.objects.get_or_create(facebook_id=req.session['uid'])
+    user.access_token = req.session["access_token"]
+    user.save()
+    
+    if create:
+        user.fill_info()
+        user.save()
     
     return HttpResponse(json.dumps({}))

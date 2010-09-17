@@ -33,3 +33,8 @@ def facebook_login_test(req):
         fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
         dict["fbuser"] = fbuser
     return render_to_response('facebook_login_test.html', dict)
+
+
+def facebook_callback_close(req):
+    print "FACEBOOK CALLBACK CLOSE", req
+    return render_to_response('facebook_close.html', {})
