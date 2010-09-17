@@ -23,6 +23,7 @@ LazyLoad.css(["http://www.ripplefunction.com/site_media/css/overlayA.css"],
 			      "http://www.ripplefunction.com/site_media/javascript/jquery.cookie.js",
 			      "http://www.ripplefunction.com/site_media/javascript/jquery.showLoading.js",
 			      "http://www.ripplefunction.com/site_media/javascript/ZeroClipboard.js",
+                              "http://www.ripplefunction.com/site_media/javascript/jquery.xdomainajax.js",
 			      "http://connect.facebook.net/en_US/all.js"
 			      ], function () {
 				 fill_widget();
