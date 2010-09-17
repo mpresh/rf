@@ -9,28 +9,38 @@
 	    <div id="facebook-login-share">
 		  <div id="fb-root"></div>
                   <script src="http://connect.facebook.net/en_US/all.js"></script>
-                  {% if fbuser %}
+           
+                    <div id="div-facebook-logged-in" style="display:none;">
 		      <button id="facebook-share" class="badge-button">
 		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
-                     <a id="flogout">logout</a>
-		  {% else %}
+                      <a id="flogout" style="color: gray; font-size: 12px;">logout</a>
+                    </div>
+
+                    <div id="div-facebook-logged-out" style="display=none;">
 		      <button id="facebook-login" class="badge-button">
 		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
-                  {% endif %}
+		      <span style="color: gray; font-size: 12px;">logged out</span>
+                    </div>
 	     </div>  
 
 	     <div id="twitter-login-share">
                  {% if user %}
+                  <div id="div-twitter-logged-in" style="display:none;">
 		     <button id="twitter-share" class="badge-button">
 		           <img src="{% url static 'images/twitterShare_icon2.png' %}"/><span>Share</span>
 		     </button>
+                      <a id="tlogout" style="color: gray; font-size: 12px;">logout</a>
+		  </div>
                  {% else %}
+		  <div id="div-facebook-logged-out" style="display=none;">
                      <button onClick="location.href='{% url tauth_login %}?redirectArgs=overlayEQUALStwitter'" 
 		     class="badge-button" id="twitter-login">
 		         <img src="{% url static 'images/twitterShare_icon2.png' %}" /><span>Share</span>
 		     </button>
+		     <span style="color: gray; font-size: 12px;">logged out</span>
+		  </div>
                  {% endif %}
              </div>
 	 </div><!-- badge footer-->
@@ -120,45 +130,33 @@ var contentView = 0;
 var shareLink = '';
 var overlayType = 'twitter';
 
-function badge_facebook_login_click() {
-  var requiredPerms  = ['publish_stream'];
-  FB.login(function(response) {
-    if (response.session) {
-      var a = response.session;
-      var options = { path: '/', expires: 10 };
-      $.cookie("uid", a.uid, options);
-      $.cookie("session_key", a.session_key, options);
-      $.cookie("secret", a.secret, options);
-      $.cookie("expires", a.expires, options);
-      $.cookie("base_domain", a.base_domain, options);
-      $.cookie("access_token", a.access_token, options);
-      $.cookie("sig", a.sig, options);
-
-      // make an ajax call here to login to facebook
-      $.ajax({
-		url: '{% url facebook_callback_ajax %}', 
-		dataType: "json",
-		data: {},
-		success: function(data){
-				//alert("REQUEST DONE", data);
-                                overlayType = 'facebook';
-                                $("#overlay-blogger-login").overlay().load();                                
-		},
-		beforeSend: function() {
-			       //alert("sending feed requesst");
-		}
-	});
-      //var url = "/facebook_callback?redirectArgs=overlayEQUALSfacebook";
-      //window.location.href = url;
-  } else { FB.logout(function(response) { 
-			}); }
-
-
-      }, {perms: requiredPerms.join(',')}
-      );
-}
-
 FB.init({appId: '{{facebook_app_id}}', status: true, cookie: true, xfbml: true});
+
+FB.getLoginStatus(function(response) {
+  if (response.session) {
+    // logged in and connected user, someone you know
+    $("#div-facebook-logged-in").show();
+    $("#div-facebook-logged-out").hide();
+
+    // if the user is logged in but has no fbuser, get it with ajax
+    $.ajax({ 
+                   url: "{% url ajax_facebook_sync_server %}", 
+    	           dataType: "json", 
+    	           data: {uid : response.session.uid,
+                          access_token : response.session.access_token},
+    	           success: function (data){ 
+                   },
+    	           beforeSend: function() {
+                 } 
+    
+        });
+
+  } else {
+    // no user session available, someone you dont know
+    $("#div-facebook-logged-out").show();
+    $("#div-facebook-logged-in").hide();
+  }
+});
 
 
 $('#facebook-login').click(function(){
@@ -169,8 +167,8 @@ $('#facebook-login').click(function(){
 });
 function CheckLoginStatus() {
     if (signinWin.closed) {
-        alert("I have logged in");
-        #window.location.href = "{% url facebook_login_test %}"
+            $("#div-facebook-logged-in").show();
+            $("#div-facebook-logged-out").hide();
    }
     else setTimeout(CheckLoginStatus, 1000);
 }
@@ -195,10 +193,21 @@ $('#flogout').click(function(){
 	           dataType: "json", 
 	           data: {},
 	           success: function (data) { 
-                       $("#flogout").hide();
+                       $("#div-facebook-logged-out").show();
+                       $("#div-facebook-logged-in").hide();
                    },
 	           beforeSend: function() {
+       
+                       var options  = { path: '/', expires: -1 };
+	               $.cookie("uid", null, options);
+	               $.cookie("session_key", null, options);
+	               $.cookie("secret", null, options);
+	               $.cookie("expires", null, options);
+	               $.cookie("base_domain", null, options);
+	               $.cookie("access_token", null, options);
+	               $.cookie("sig", null, options);
                        FB.logout();
+
                  } 
 
         }); 

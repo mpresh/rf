@@ -32,4 +32,8 @@ urlpatterns = patterns('',
 
                        # ajax call to get info
                        url(r'ajax/facebook_feed_test/$', 'fauth.ajax.facebook_feed_test', name='ajax_facebook_feed_test'),
+
+                       # ajax call to sync session on client side with session on server
+                       url(r'ajax/facebook_sync_server/$', 'fauth.ajax.facebook_sync_server', name='ajax_facebook_sync_server'),
+                       
                        )

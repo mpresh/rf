@@ -78,12 +78,12 @@ def campaign_badge(req, camp_id="1"):
         dict['user'] = user
     else:
         user = None
-
+    
     # HACK: if the oauth cookie has expired, clean up the session
-    try:
-        fbuser.num_friends()
-    except:
-        del req.session['uid']
+    #try:
+    #    fbuser.num_friends()
+    #except:
+    #    del req.session['uid']
  
     req.session["redirect"] = reverse("facebook_login_test")
     host = "http://" + req.get_host()
@@ -92,10 +92,12 @@ def campaign_badge(req, camp_id="1"):
     dict["redirect_uri"] = host + reverse("facebook_login_callback")
     dict["scope"] = "publish_stream"
 
+    print "hello", req
     if "uid" in req.session:
         fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
         dict["fbuser"] = fbuser
 
+    print "BADGE DICT", dict
     return render_to_response('badge.html', dict)    
 
 def campaign_page(req, chash="", camp_id=""):

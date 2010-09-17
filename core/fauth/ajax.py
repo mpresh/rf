@@ -103,7 +103,16 @@ def friends(req):
 
 def facebook_logout(req):
     """facebook logout."""
-    del req.session["uid"]
+    print "REMOVING ALLLLL"
+    # remove all cookies and session keys
+    print "SESS", req.session.keys()
+    print "COOK", req.COOKIES.keys()
+    for key in req.session.keys():
+        del req.session[key]
+    for key in req.COOKIES.keys():
+        del req.COOKIES[key]
+    print "SESS", req.session.keys()
+    print "COOK", req.COOKIES.keys()
     dict = {}
     return HttpResponse(json.dumps(dict))
 
@@ -139,3 +148,18 @@ def facebook_info_test(req):
     dict["data"] = my_info
     print "result", dict
     return HttpResponse(json.dumps(dict))
+
+def facebook_sync_server(req):
+    print "SYNCCCCC", req
+    print "KEYS", req.GET.keys()
+    
+    
+    # get uid and access_token
+    req.session["uid"] = req.GET["uid"]
+    req.session["access_token"] = req.GET["access_token"]
+    
+    # get or create facebook user
+
+    # if create, fill in data
+    
+    return HttpResponse(json.dumps({}))
