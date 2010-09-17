@@ -13,7 +13,7 @@ function fill_widget() {
     $("#ripple-embed").load("http://www.ripplefunction.com/camp/badge");
 }
 
-LazyLoad.css(["http://www.ripplefunction.com/site_media/css/overlayA.css"],
+LazyLoad.css(["http://www.ripplefunction.com/site_media/css/overlayA.css", "http://www.ripplefunction.com/site_media/css/cross-site-badge.css"],
 	     function() {
 
 		 LazyLoad.js(["http://code.jquery.com/jquery-1.4.2.min.js", 
