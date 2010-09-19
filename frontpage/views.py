@@ -30,7 +30,17 @@ def frontpage(req):
             campaign = list(campaigns)[-1]
             return HttpResponseRedirect(reverse('campaign_page_id', kwargs={'camp_id':campaign.id}))
 
-    return render_to_response('frontpage.html', {})
+
+    templates = ["frontpage.html", "frontpageCoda.html"]
+    template = templates[0]
+    if "t" in req.GET:
+        t = req.GET["t"]
+        try:
+            template = templates[t]
+        except Exception:
+            pass
+
+    return render_to_response(template, {})
 
 
 def googlehostedservice(req):
