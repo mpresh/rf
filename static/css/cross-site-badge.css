@@ -1,3 +1,13 @@
+.hiding {
+    display: none;
+    cursor: default;
+}
+
+.showing {
+	display: inline;
+        cursor: default;
+}
+
 div#overlay-div-content2-twitter {
     display: none;
 }
@@ -9,8 +19,6 @@ div#overlay-div-content2-facebook {
 div#overlay-div-content3 {
     display: none;
 }
-
-
 
 
 div#badge-title {

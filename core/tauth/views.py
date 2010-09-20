@@ -49,9 +49,13 @@ def tauth_info(req):
 
 @wants_user
 def login(req):
+	host = "http://" + req.get_host()
 	print "ENTERING LOGIN"
 	if 'redirect' not in req.session:
-		req.session['redirect'] = str(reverse('facebook_callback_close'))
+		req.session['redirect'] = host + str(reverse('facebook_callback_close'))
+		
+	if "popup" in req.GET:
+		req.session['redirect'] = host + str(reverse('facebook_callback_close'))
 
 	if "redirectArgs" in req.GET:
 		print "calling handle_redirect_string", type(req.session["redirect"])

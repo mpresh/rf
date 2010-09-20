@@ -10,7 +10,11 @@ function fill_widget_iframe() {
 
 function fill_widget() {
     //$("#ripple-embed").load("/camp/badge");
-    $("#ripple-embed").load("http://www.ripplefunction.com/camp/badge");
+    $("#ripple-embed").load("http://www.ripplefunction.com/camp/badge", function(){
+   LazyLoad.js(["http://www.ripplefunction.com/site_media/javascript/embed-js.js"], 
+                function(){});
+});
+ 
 }
 
 LazyLoad.css(["http://www.ripplefunction.com/site_media/css/overlayA.css", "http://www.ripplefunction.com/site_media/css/cross-site-badge.css"],
