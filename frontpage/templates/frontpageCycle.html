@@ -1,0 +1,53 @@
+{% extends "site_base.html" %}
+
+{% block title %}Ripple Function{% endblock %}
+
+{% block  js_css_include %}
+<script type="text/javascript" src="{% url static 'javascript/jquery.cycle.all.min.js' %}"> </script>
+{% endblock %} 
+
+
+
+
+
+
+{% block site-content %}
+<script>
+$('#front-view').cycle({ 
+    fx:     'scrollHorz', 
+    speed:   'fast',
+    pager: '.slidenav',
+    next: '.nextslide',
+    prev: '.prevslide', 
+    timeout: 4000, 
+    next:   '#front-view', 
+    pause:   1,
+    delay: 2000,
+    timeout: 10000,
+    speed: 600
+});
+
+</script>
+
+<div id="slide-wrapper">
+<div id="front-view">
+<img src='{% url static 'images/frontpage/front1.jpg'%}'/>
+<img src='{% url static 'images/frontpage/front2.jpg'%}'/>
+<img src='{% url static 'images/frontpage/front3.jpg'%}'/>
+  </div>
+<div class="slidenav"></div>
+</div>
+
+<style>
+#front-view {
+height: 300px;
+width: 900px;
+}
+
+div.slidenav {position: absolute;right: 17px;top: 228px;z-index: 20;}
+    div.slidenav a:link, div.slidenav a:visited, div.slidenav a:active {display:inline; float:left; margin:0 8px 0 0; height:22px; width:22px; text-align:center; line-height:22px; font-size:10px; color:#999; background-image:url(../images/bg_numbers-new.png);}
+    div.slidenav a:hover {color:#666;} 
+    div.slidenav a.activeSlide {font-weight:bold; color:#333;}
+
+</style>
+{% endblock %} 

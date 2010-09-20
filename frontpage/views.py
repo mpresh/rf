@@ -31,15 +31,14 @@ def frontpage(req):
             return HttpResponseRedirect(reverse('campaign_page_id', kwargs={'camp_id':campaign.id}))
 
 
-    templates = ["frontpage.html", "frontpageCoda.html"]
+    templates = ["frontpage.html", "frontpageCycle.html"]
     template = templates[0]
     if "t" in req.GET:
         t = req.GET["t"]
         try:
-            template = templates[t]
+            template = templates[int(t)]
         except Exception:
             pass
-
     return render_to_response(template, {})
 
 
