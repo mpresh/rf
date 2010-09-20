@@ -47,14 +47,16 @@ div#badge-footer {
 
 div#facebook-login-share {
     float: left;
-    margin: 5px 0px 0px 80px;
+    margin: 5px 0px 0px 40px;
     cursor: pointer; 
+    width: 40%;
 }
 
 div#twitter-login-share {
     float: right;
-    margin: 5px 80px 0px 0px;
+    margin: 5px 40px 0px 0px;
     cursor: pointer;
+    width: 40%;  
 }
 
 div#ripple-badge {
