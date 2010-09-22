@@ -19,6 +19,11 @@ import util
 from fauth import fauth_utils
 from create import *
 
+# iframe embed
+def test4(req):
+    return render_to_response('test4.html', {})
+
+# javascript embed
 def test3(req):
     return render_to_response('test3.html', {})
 
