@@ -164,3 +164,20 @@ def facebook_sync_server(req):
         user.save()
     
     return HttpResponse(json.dumps({}))
+
+def check_facebook_logged_in(req):
+    print "req CHECK FACEBOOK LOGGEED IN ", req
+    for key in req.session.keys():
+        print "KEY", key, req.session[key]    
+        
+    if "uid" in req.session:
+        fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
+        try:
+            fbuser.num_friends()
+            return HttpResponse(json.dumps({"status": "1"}))
+        except Exception:
+            pass
+                
+    return HttpResponse(json.dumps({"status": "0"}))
+    
+

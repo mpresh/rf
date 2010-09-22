@@ -38,4 +38,6 @@ urlpatterns = patterns('',
                        
                        # close return page
                        url(r'facebook_callback_close/$', 'fauth.views.facebook_callback_close', name='facebook_callback_close'),
+
+                       url(r'fauth/ajax/logged_in/?$', 'fauth.ajax.check_facebook_logged_in', name='fauth_logged_in'),
                        )

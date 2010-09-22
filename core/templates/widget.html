@@ -179,12 +179,15 @@ var facebook_sync_server_url = host + "{% url ajax_facebook_sync_server %}";
 var ajax_facebook_logout_url = host + "{% url ajax_facebook_logout %}";
 var tauth_logout_url = host + "{% url tauth_logout %}?popup=true";
 var clipboard_url = host + "{% url static 'javascript/ZeroClipboard.swf' %}";
-var facebook_update_id_url = host + '{% url campaign_facebook_update campaign_id=campaign.id %}';
+var facebook_update_id_url = host + "{% url campaign_facebook_update campaign_id=campaign.id %}";
 var campaign_tweet_invite_url = host + "{% url campaign_tweet_invite campaign_id=campaign.id %}"
-var campaign_going_twitter_url = host + '{% url campaign_going_twitter campaign_id=campaign.id %}';
+var campaign_going_twitter_url = host + "{% url campaign_going_twitter campaign_id=campaign.id %}";
 
-var facebook_api = '{{facebook_api}}';
-var redirect_uri = '{{redirect_uri}}';
+var ajax_check_twitter_logged_in = host + "{% url tauth_logged_in %}";
+var ajax_check_facebook_logged_in = host + "{% url fauth_logged_in %}";
+
+var facebook_api = "{{facebook_api}}";
+var redirect_uri = "{{redirect_uri}}";
 
 var scope = '{{scope}}';
 

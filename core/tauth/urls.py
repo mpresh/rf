@@ -9,6 +9,7 @@ urlpatterns = patterns('',
                        url(r'login/callback/?$', 'tauth.views.callback', name='tauth_callback'),
                        url(r'logout/?$', 'tauth.views.logout', name='tauth_logout'),
                        url(r'tauth_info/?$', 'tauth.views.tauth_info', name='tauth_info'),
+                       url(r'tauth/ajax/logged_in/?$', 'tauth.ajax.check_twitter_logged_in', name='tauth_logged_in'),
                        )
 
 

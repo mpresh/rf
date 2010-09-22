@@ -54,28 +54,29 @@ $('#twitter-login').click(function(){
 });
 function CheckLoginStatusTwitter() {
     if (signinWin.closed) {
-        //$.ajax({ 
-        //    url: ajax_check_facebook_logged_in,
-	//           dataType: "json", 
-	//           data: {},
-	//           success: function (data) { 
-        //               $("#div-twitter-logged-in").show();
-        //               $("#div-twitter-logged-out").hide();	
-        //               shareLink = 'twitter';
-        //               overlayType = "twitter";
-        //               $("#overlay-blogger-login").overlay().load();
-        //           },
-	//           beforeSend: function() {
-        //         } 
-	//
-        //}); 
-            $("#div-twitter-logged-in").show();
-            $("#div-twitter-logged-out").hide();
-            shareLink = 'twitter';
-            overlayType = "twitter";
-            $("#overlay-blogger-login").overlay().load();
+        $.ajax({ 
+            url: ajax_check_twitter_logged_in,
+    	    dataType: "json", 
+    	    data: {},
+    	    success: function (data) {
+		    //alert(JSON.stringify(data));
+		    if (data["status"] == "1") {
+    	               $("#div-twitter-logged-in").show();
+                       $("#div-twitter-logged-out").hide();	
+                       shareLink = 'twitter';
+                       overlayType = "twitter";
+                       $("#overlay-blogger-login").overlay().load();
+		    }
+		},			       
+    	         beforeSend: function() {
+                 } 
+    	
+    		
+    	    });
+    }
+   else {
+       setTimeout(CheckLoginStatusTwitter, 1000);
    }
-    else setTimeout(CheckLoginStatusTwitter, 1000);
 }
 
 ///////////// facebook login //////////////
@@ -87,20 +88,29 @@ $('#facebook-login').click(function(){
 });
 function CheckLoginStatusFacebook() {
     if (signinWin.closed) {
-FB.getLoginStatus(function(response) {
-  if (response.session) {
-            $("#div-facebook-logged-in").show();
-            $("#div-facebook-logged-out").hide();
-            shareLink = 'facebook';
-            overlayType = "facebook";
-            $("#overlay-blogger-login").overlay().load();
-  } else {
 
-  }
-});
+$.ajax({ 
+            url: ajax_check_facebook_logged_in,
+    	    dataType: "json", 
+    	    data: {},
+    	    success: function (data) {
+	    //alert(JSON.stringify(data));
+                if (data["status"] == "1") {
+                   $("#div-facebook-logged-in").show();
+                   $("#div-facebook-logged-out").hide();
+                   shareLink = 'facebook';
+                   overlayType = "facebook";
+                   $("#overlay-blogger-login").overlay().load();
+		}
+		},			       
+    	         beforeSend: function() {
+                 } 
+    	
+    		
+    	    });
 
     
-   }
+    }
     else setTimeout(CheckLoginStatusFacebook, 1000);
 }
 
