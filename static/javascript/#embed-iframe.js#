@@ -3,14 +3,16 @@ LazyLoad=function(){var f=document,g,b={},e={css:[],js:[]},a;function j(l,k){var
 function fill_widget_iframe() {
     alert("hi");
     $("#ripple-embed").css({"height": "300px",
-		"width": "500px"
+		"width": "500px",
+		"background-color": "red"
 		});
-    $("#ripple-embed").html("<iframe id='ripple-frame' name='ripple-frame' width='100%' height='100%' frameborder='0' scrolling='no' src='http://www.ripplefunction.com/camp/widget'></iframe>");
+    
+    $("#ripple-embed").html("<iframe width='100%' height='100%' src='http://www.ripplefunction.com/camp/widget'></iframe>");
 }
 
-LazyLoad.js(["http://code.jquery.com/jquery-1.4.2.min.js"], 
-	function () {
+LazyLoad.js(["http://code.jquery.com/jquery-1.4.2.min.js"], function () {
+		     alert("hello");
 		    fill_widget_iframe();
 	 });
-
+});
 
