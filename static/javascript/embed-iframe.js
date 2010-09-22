@@ -5,7 +5,7 @@ function fill_widget_iframe() {
     $("#ripple-embed").css({"height": "265px",
 		"width": "480px",
 		});
-    $("#ripple-embed").html("<iframe id='ripple-frame' name='ripple-frame' width='100%' height='100%' frameborder='0' scrolling='no' src='/camp/widget'></iframe>");
+    $("#ripple-embed").html("<iframe id='ripple-frame' name='ripple-frame' width='100%' height='100%' frameborder='0' scrolling='no' src='http://www.ripplefunction.com/camp/widget'></iframe>");
 }
 
 LazyLoad.js(["http://code.jquery.com/jquery-1.4.2.min.js"], 

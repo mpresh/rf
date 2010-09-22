@@ -34,6 +34,10 @@ def campaign_facebook_update(req, campaign_id=""):
     print "alla1"
     c=Campaign.objects.get(id=campaign_id)
     print "alla2"
+    print "msg", msg
+    print "from user", fbuser
+    print "parent_shash", parent_shash
+    print "reach", fbuser.num_friends()
     share = Share(message=msg,
                   campaign=c,
                   from_user_facebook=fbuser,
