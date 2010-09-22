@@ -1,42 +1,70 @@
 
+        <div id="ripple-badge">
+	    <div id="badge-title">{{campaign.title}}</div>
+	    <div id="badge-subtitle">{{campaign.message}}</div>
+	    <div id="badge-action">JUST BY <b>Sharing</b> with friends:</div>
 
-        <div id="badge">
-	    <div id="callMsg">{{campaign.message}}</div>
-	    <span id="call2Act"><h2>JUST BY <b>Sharing</b> with friends:</h2></span>
+         <div id="badge-footer">
+
 	    <div id="facebook-login-share">
-                  <script src="http://connect.facebook.net/en_US/all.js"></script>
 		  <div id="fb-root"></div>
-                  {% if fbuser %}
-		      <button id="facebook-share" class="badge-button">
-		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
+           
+                    {% if fbuser %}
+                    <div id="div-facebook-logged-in" class="hiding"
+                    {% else  %}
+                    <div id="div-facebook-logged-in" class="hiding">
+                    {% endif %}
+		      <button id="facebook-share" class="badge-button" style="cursor: pointer;">
+		           <img src="{{host}}{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
-		  {% else %}
-		      <button id="facebook-login" class="badge-button">
-		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
+                      <a id="flogout" style="cursor: pointer; color: gray; font-size: 12px;">logout</a>
+                    </div>
+
+                    {% if fbuser %}
+                    <div id="div-facebook-logged-out" class="hiding">
+                    {% else %}
+                    <div id="div-facebook-logged-out" class="showing">
+                    {% endif %}
+		      <button id="facebook-login" class="badge-button" style="cursor: pointer;">
+		           <img src="{{host}}{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
-                  {% endif %}
+		      <span style="color: gray; font-size: 12px;">logged out</span>
+                    </div>
 	     </div>  
 
 	     <div id="twitter-login-share">
-                 {% if user %}
-		     <button id="twitter-share" class="badge-button">
-		           <img src="{% url static 'images/twitterShare_icon2.png' %}"/><span>Share</span>
+
+
+                         {% if user %}
+                   <div id="div-twitter-logged-in" class="showing">
+		        {% else %}
+                   <div id="div-twitter-logged-in" class="hiding">
+		        {% endif %}
+
+		     <button id="twitter-share" class="badge-button" style="cursor: pointer;">
+		           <img src="{{host}}{% url static 'images/twitterShare_icon2.png' %}"/><span>Share</span>
 		     </button>
-                 {% else %}
-                     <button onClick="location.href='{% url tauth_login %}?redirectArgs=overlayEQUALStwitter'" 
-		     class="badge-button" id="twitter-login">
-		         <img src="{% url static 'images/twitterShare_icon2.png' %}" /><span>Share</span>
+                      <a id="tlogout" style="cursor: pointer; color: gray; font-size: 12px;">logout</a>
+		  </div>
+                  	{% if user %}
+		  <div id="div-twitter-logged-out" class="hiding">
+		        {% else %}
+		  <div id="div-twitter-logged-out" class="showing">
+		        {% endif %}
+                     <button id="twitter-login" class="badge-button"  style="cursor: pointer;">
+		         <img src="{{host}}{% url static 'images/twitterShare_icon2.png' %}" /><span>Share</span>
 		     </button>
-                 {% endif %}
+		     <span style="color: gray; font-size: 12px;">logged out</span>
+		  </div>
+
              </div>
-
+	 </div><!-- badge footer-->
 	</div> <!-- badge -->
-
 
 
 	<div id="overlay-blogger-login" class="overlay-blogger">
 
-	<div id="overlay-div-content2-facebook" >
+	    <div id="overlay-div-content2-facebook" >
                 <div class="overlay-top">
                     {%ifequal campaign.campaign_type "discount" %}
                     <p>Discounts Are Better When You Share Them</p>
@@ -56,9 +84,9 @@
 		     <textarea id="overlay-textarea-facebook">{{campaign.message_share}}</textarea>
 		</div>
 		<div id="facebook-feed-update" class="share-button"><p>Share</p></div>
-	</div>
+	    </div><!-- end overlay-div-content2-facebook -->
 	
-	<div id="overlay-div-content2-twitter">
+	    <div id="overlay-div-content2-twitter">
 		<div class="overlay-top">
                     {%ifequal campaign.campaign_type "discount" %}
                     <p>Discounts Are Better When You Share Them</p>
@@ -79,9 +107,9 @@
 		     <textarea id="overlay-textarea-twitter" >{{campaign.message_share}}</textarea>
 		</div>
 		<div id="twitter-feed-update" class="share-button"><p>Share</p></div>
-	</div>
+	    </div> <!-- end overlay-div-content2-twitter -->
 
-	<div id="overlay-div-content3" >
+	    <div id="overlay-div-content3" >
 		<div class="overlay-top">
                     {%ifequal campaign.campaign_type "discount" %}
                     <p>Discount Code</p>
@@ -104,4 +132,59 @@
                 <img style="margin: 20px;" id="img-prize" src="{{campaign.url_redeem}}" />
 
                 {% endifequal %}
-	</div>
+	    </div><!-- end overlay-div-content3 -->
+         </div><!-- end overlay-blogger -->
+
+
+<script>
+// Global vars
+var facebook_app_id = '{{facebook_app_id}}';
+var host = '{{host}}';
+var campaign_type = '{{campaign.campaign_type}}';
+
+{% if user %}
+var user = true;
+var user_id = '{{user.id}}';
+{% else %}
+var user = false;
+var user_id = '';
+{% endif %}
+
+{% if fbuser %}
+var fbuser = true;
+var fbuser_id = '{{fbuser.id}}';
+{% else %}
+var fbuser = false;
+var fbuser_id = '';
+{% endif %}
+
+{% if overlayTwitter %}
+var overlayTwitter = true;
+{% else %}
+var overlayTwitter = false;
+{% endif %}
+
+{% if overlayfacebook %}
+var overlayFacebook = true;
+{% else %}
+var overlayFacebook = false;
+{% endif %}
+
+var shash = '{{shash}}';
+
+var tauth_login_url = host + "{% url tauth_login %}" ;
+var facebook_sync_server_url = host + "{% url ajax_facebook_sync_server %}";
+var ajax_facebook_logout_url = host + "{% url ajax_facebook_logout %}";
+var tauth_logout_url = host + "{% url tauth_logout %}";
+var clipboard_url = host + "{% url static 'javascript/ZeroClipboard.swf' %}";
+var facebook_update_id_url = host + '{% url campaign_facebook_update campaign_id=campaign.id %}';
+var campaign_tweet_invite_url = host + "{% url campaign_tweet_invite campaign_id=campaign.id %}"
+var campaign_going_twitter_url = host + '{% url campaign_going_twitter campaign_id=campaign.id %}';
+
+var facebook_api = '{{facebook_api}}';
+var redirect_uri = '{{redirect_uri}}';
+
+var scope = '{{scope}}';
+
+var code = '{{campaign.code}}';
+</script>
