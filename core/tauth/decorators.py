@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from models import User
 
 def wants_user(f):
+	print "WANTS USER", f
 	def decorated(*args, **kwargs):
 		try: args[0].user = User.objects.get(pk=args[0].session['user_id'])
 		except: args[0].user = None

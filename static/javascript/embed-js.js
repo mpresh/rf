@@ -37,6 +37,12 @@ FB.getLoginStatus(function(response) {
 
 /////////// twitter login ////////////////
 $('#twitter-login').click(function(){
+        var keyValuePairs = document.cookie.split(';');
+	for(var i = 0; i < keyValuePairs.length; i++) {
+    		var name = keyValuePairs[i].substring(0, keyValuePairs[i].indexOf('='));
+                var value = keyValuePairs[i].substring(keyValuePairs[i].indexOf('=')+1);
+                alert(name + "   " + value);
+        }
        signinWin = window.open(tauth_login_url + "?popup=true", "SignIn", "width=780,height=410");
        setTimeout(CheckLoginStatusTwitter, 2000);
        signinWin.focus();
@@ -44,6 +50,21 @@ $('#twitter-login').click(function(){
 });
 function CheckLoginStatusTwitter() {
     if (signinWin.closed) {
+        //$.ajax({ 
+        //    url: ajax_check_facebook_logged_in,
+	//           dataType: "json", 
+	//           data: {},
+	//           success: function (data) { 
+        //               $("#div-twitter-logged-in").show();
+        //               $("#div-twitter-logged-out").hide();	
+        //               shareLink = 'twitter';
+        //               overlayType = "twitter";
+        //               $("#overlay-blogger-login").overlay().load();
+        //           },
+	//           beforeSend: function() {
+        //         } 
+	//
+        //}); 
             $("#div-twitter-logged-in").show();
             $("#div-twitter-logged-out").hide();
             shareLink = 'twitter';
@@ -62,6 +83,21 @@ $('#facebook-login').click(function(){
 });
 function CheckLoginStatusFacebook() {
     if (signinWin.closed) {
+        //$.ajax({ 
+        //    url: ajax_check_facebook_logged_in,
+	//           dataType: "json", 
+	//           data: {},
+	//           success: function (data) { 
+        //               $("#div-twitter-logged-in").show();
+        //               $("#div-twitter-logged-out").hide();	
+        //               shareLink = 'twitter';
+        //               overlayType = "twitter";
+        //               $("#overlay-blogger-login").overlay().load();
+        //           },
+	//           beforeSend: function() {
+        //         } 
+	//
+        //}); 
             $("#div-facebook-logged-in").show();
             $("#div-facebook-logged-out").hide();
             shareLink = 'facebook';
@@ -112,16 +148,25 @@ $('#flogout').click(function(){
 });
 
 $('#tlogout').click(function(){
+        var options  = { path: '/'};
+        $.cookie("test", "mike testing", options);
+        var keyValuePairs = document.cookie.split(';');
+	for(var i = 0; i < keyValuePairs.length; i++) {
+    		var name = keyValuePairs[i].substring(0, keyValuePairs[i].indexOf('='));
+                var value = keyValuePairs[i].substring(keyValuePairs[i].indexOf('=')+1);
+                alert(name + "   " + value);
+        }
         $.ajax({ 
                    url: tauth_logout_url,
 	           dataType: "json", 
-	           data: {},
-	           success: function (data) { 
-                       
+	           data: {user_id: user_id},
+	           success: function (data) {
+                       user_id = '';
+                       user = false;
+                       $("#div-twitter-logged-out").show();
+                       $("#div-twitter-logged-in").hide();    
                    },
 	           beforeSend: function() {
-       $("#div-twitter-logged-out").show();
-                       $("#div-twitter-logged-in").hide();
                  } 
 
         }); 

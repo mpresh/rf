@@ -50,7 +50,7 @@ def tauth_info(req):
 @wants_user
 def login(req):
 	host = "http://" + req.get_host()
-	print "ENTERING LOGIN"
+	print "ENTERING LOGIN", req, "end login req"
 	if 'redirect' not in req.session:
 		req.session['redirect'] = host + str(reverse('facebook_callback_close'))
 		
@@ -61,13 +61,15 @@ def login(req):
 		print "calling handle_redirect_string", type(req.session["redirect"])
 		req.session["redirect"] = handle_redirect_string(req.session["redirect"], req.GET["redirectArgs"])
 
-	if req.user: 
-		print "login redirect:", req.session['redirect']
-		redirect = req.session['redirect']
-		del req.session["redirect"]
-		return HttpResponseRedirect(redirect)
+	if req.user is not None:# and "oauth_token" in req.user:
+		if req.user.oauth_token:
+			print "USERAAA", req.user, req.user.oauth_token
+		
+			print req.user, "login redirect:", req.session['redirect']
+			redirect = req.session['redirect']
+			del req.session["redirect"]
+			return HttpResponseRedirect(redirect)
 
-	print "ABOUT TO: get_unauthorized_roken"
 	try:
 		token = get_unauthorized_token()
 	except:
@@ -75,17 +77,13 @@ def login(req):
 	print "unauthorized token", token
 	req.session['token'] = token.to_string()
 	url_auth = get_authorization_url(token)
-	for key in req.session.keys():
-		print "KEY LOGIN", key, req.session[key]
 
-	#url_auth = url_auth + "&oauth_callback=" + urllib.quote("http://www.cnn.com")
+
 	print "Twitter url login is ", url_auth
-
 	return HttpResponseRedirect(url_auth)
 
 def callback(req):
 	token = req.session.get('token', None)
-	#token = req.GET["oauth_token"]
 	print "token is ", token
 	if not token:
 		print "TWITTER FAIL: NO TOKEN FOUND IN SESSION DURING CALLBACK"
@@ -150,10 +148,12 @@ def callback(req):
 
 @wants_user
 def logout(req):
+	print "tauth_logout REQQQ", req
 	if "redirect" in req.session:
 		redirect = str(req.session["redirect"])
 		del req.session["redirect"]
-	else:
+
+	if "popup" in req.GET:
 		redirect = str(reverse('facebook_callback_close'))
 
 	print "REDIRECTS", redirect
@@ -164,6 +164,7 @@ def logout(req):
 		req.user.oauth_token = ''
 		req.user.oauth_token_secret = ''
 		req.user.save()
+		print "LOGOUT oauth_token", req.user.oauth_token
 	
 	if "user_id" in req.session:
 		del req.session["user_id"]

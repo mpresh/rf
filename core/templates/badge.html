@@ -144,14 +144,18 @@ var campaign_type = '{{campaign.campaign_type}}';
 
 {% if user %}
 var user = true;
+var user_id = '{{user.id}}';
 {% else %}
 var user = false;
+var user_id = '';
 {% endif %}
 
 {% if fbuser %}
 var fbuser = true;
+var fbuser_id = '{{fbuser.id}}';
 {% else %}
 var fbuser = false;
+var fbuser_id = '';
 {% endif %}
 
 {% if overlayTwitter %}
