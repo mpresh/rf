@@ -1,3 +1,4 @@
+//alert("embed");
 $(".hiding").hide();
 $(".showing").show();
 
@@ -6,8 +7,11 @@ $(".showing").show();
 var contentView = 0;
 var shareLink = '';
 var overlayType = 'twitter';
-
+//
+//alert("here i am");
 FB.init({appId: facebook_app_id, status: true, cookie: true, xfbml: true});
+//alert("hi2 facebook loaded OK");
+ 
 
 FB.getLoginStatus(function(response) {
   if (response.session) {
@@ -37,6 +41,7 @@ FB.getLoginStatus(function(response) {
 
 /////////// twitter login ////////////////
 $('#twitter-login').click(function(){
+        alert("hello");
         var keyValuePairs = document.cookie.split(';');
 	for(var i = 0; i < keyValuePairs.length; i++) {
     		var name = keyValuePairs[i].substring(0, keyValuePairs[i].indexOf('='));
@@ -107,7 +112,7 @@ function CheckLoginStatusFacebook() {
     else setTimeout(CheckLoginStatusFacebook, 1000);
 }
 
-//default usage
+////default usage
 $("#overlay-textarea-twitter").charCount();
 ({
 	allowed: 80,		
@@ -219,13 +224,14 @@ $("#twitter-feed-update").click(function() {
                 }
                  } 
 
+	    });
     }); 
-});
+
 $("#overlay-blogger-login").overlay({
 	expose: {
 		loadSpeed: 100,
 		color: '#666',
-		opacity: 0.8
+		opacity: 0.0
 	},
 	onLoad: function(event) {
                 // Which page to start on?
@@ -272,9 +278,10 @@ $("#overlay-blogger-login").overlay({
 		}
 
 	},
-	top: 170,
-	left: 220
+	top: 0,
+	left: 10
 });
+
 function pageOverlay(page, type){
     type = overlayType;
     switch(page) 

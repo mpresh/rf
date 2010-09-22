@@ -51,6 +51,7 @@ div#badge-footer {
    position: absolute;
    bottom: 0px;
    -webkit-border-radius: 0px 0px 10px 10px;
+   -moz-border-radius: 0px 0px 10px 10px;
 }
 
 div#facebook-login-share {
@@ -84,8 +85,6 @@ div#ripple-badge {
 
 
 	background-color: #F2F2F2;
-	width: 469px;
-	height: 220px;
 
 	font-size: 20px;
 	color: red;
@@ -94,3 +93,5 @@ div#ripple-badge {
 .overlay-top p {
     margin: 0px;
 }
+
+

@@ -69,7 +69,7 @@
 	height: 35px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 10px;
+	margin-top: 5px;
 	margin-bottom: 20px;
 } 
 
@@ -85,8 +85,8 @@
 .chrcounter{
 	position:absolute;
 	right:14px;
-	top:92px;
-	font-size:20px;
+	top:97px;
+	font-size:18px;
 	font-weight:bold;
 	color:#ccc;
 	}
@@ -96,17 +96,18 @@
 /*** textarea for message ***/
 .textarea-div{
 	margin: auto;
-	margin-top: 30px;
-	width: 433px;
+	margin-top: 5px;
+	width: 439px;
+	height: 50px;
 }
 #overlay-textarea-twitter, #overlay-textarea-facebook {
 	font-family: Arial, Helvetica,sans-serif;
     	color: #444;
     	text-align: left;
 	font-size: 15px;
-	width: 423px;
+	width: 439px;
 	border: 1px solid #ccc;
-	height: 90px;
+	height: 60px;
 	padding: 5px;
 }
 
@@ -118,7 +119,7 @@ div.share-button{
 	background-image:url(../images/share.png);
 	background-repeat: no-repeat;
 	margin: auto;
-	margin-top: 10px;
+	margin-top: 2px;
 	margin-bottom: 10px;
 	text-align: center;
 }
@@ -144,7 +145,7 @@ div.share-button{
 	}
 
 #code {
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 #code span {
 	padding: 5px 5px 0px 18px;
