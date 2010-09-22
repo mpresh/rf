@@ -152,14 +152,15 @@ def logout(req):
 	if "redirect" in req.session:
 		redirect = str(req.session["redirect"])
 		del req.session["redirect"]
-
+	else:
+		redirect = str(reverse('facebook_callback_close'))
+	
 	if "popup" in req.GET:
 		redirect = str(reverse('facebook_callback_close'))
-
-	print "REDIRECTS", redirect
+	
 	if "redirectArgs" in req.GET:
 		redirect = handle_redirect_string(redirect, req.GET["redirectArgs"])
-
+	
 	if req.user is not None:
 		req.user.oauth_token = ''
 		req.user.oauth_token_secret = ''
@@ -168,6 +169,9 @@ def logout(req):
 	
 	if "user_id" in req.session:
 		del req.session["user_id"]
+
+	if "popup" in req.GET:
+		    return HttpResponse(json.dumps({}))
 
 	if redirect:
 		return HttpResponseRedirect(redirect)

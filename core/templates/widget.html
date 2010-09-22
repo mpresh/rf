@@ -17,7 +17,7 @@
 		      <button id="facebook-share" class="badge-button" style="cursor: pointer;">
 		           <img src="{{host}}{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
-                      <a id="flogout" style="cursor: pointer; color: gray; font-size: 12px;">logout!</a>
+                      <a id="flogout" style="cursor: pointer; color: gray; font-size: 12px;">logout</a>
                     </div>
 
                     {% if fbuser %}
@@ -177,7 +177,7 @@ var shash = '{{shash}}';
 var tauth_login_url = host + "{% url tauth_login %}" ;
 var facebook_sync_server_url = host + "{% url ajax_facebook_sync_server %}";
 var ajax_facebook_logout_url = host + "{% url ajax_facebook_logout %}";
-var tauth_logout_url = host + "{% url tauth_logout %}";
+var tauth_logout_url = host + "{% url tauth_logout %}?popup=true";
 var clipboard_url = host + "{% url static 'javascript/ZeroClipboard.swf' %}";
 var facebook_update_id_url = host + '{% url campaign_facebook_update campaign_id=campaign.id %}';
 var campaign_tweet_invite_url = host + "{% url campaign_tweet_invite campaign_id=campaign.id %}"

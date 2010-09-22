@@ -41,13 +41,12 @@ FB.getLoginStatus(function(response) {
 
 /////////// twitter login ////////////////
 $('#twitter-login').click(function(){
-        alert("hello");
         var keyValuePairs = document.cookie.split(';');
-	for(var i = 0; i < keyValuePairs.length; i++) {
-    		var name = keyValuePairs[i].substring(0, keyValuePairs[i].indexOf('='));
-                var value = keyValuePairs[i].substring(keyValuePairs[i].indexOf('=')+1);
-                alert(name + "   " + value);
-        }
+	//for(var i = 0; i < keyValuePairs.length; i++) {
+    	//	var name = keyValuePairs[i].substring(0, keyValuePairs[i].indexOf('='));
+        //        var value = keyValuePairs[i].substring(keyValuePairs[i].indexOf('=')+1);
+        //        alert(name + "   " + value);
+        //}
        signinWin = window.open(tauth_login_url + "?popup=true", "SignIn", "width=780,height=410");
        setTimeout(CheckLoginStatusTwitter, 2000);
        signinWin.focus();
@@ -88,26 +87,19 @@ $('#facebook-login').click(function(){
 });
 function CheckLoginStatusFacebook() {
     if (signinWin.closed) {
-        //$.ajax({ 
-        //    url: ajax_check_facebook_logged_in,
-	//           dataType: "json", 
-	//           data: {},
-	//           success: function (data) { 
-        //               $("#div-twitter-logged-in").show();
-        //               $("#div-twitter-logged-out").hide();	
-        //               shareLink = 'twitter';
-        //               overlayType = "twitter";
-        //               $("#overlay-blogger-login").overlay().load();
-        //           },
-	//           beforeSend: function() {
-        //         } 
-	//
-        //}); 
+FB.getLoginStatus(function(response) {
+  if (response.session) {
             $("#div-facebook-logged-in").show();
             $("#div-facebook-logged-out").hide();
             shareLink = 'facebook';
             overlayType = "facebook";
             $("#overlay-blogger-login").overlay().load();
+  } else {
+
+  }
+});
+
+    
    }
     else setTimeout(CheckLoginStatusFacebook, 1000);
 }
@@ -153,14 +145,12 @@ $('#flogout').click(function(){
 });
 
 $('#tlogout').click(function(){
-        var options  = { path: '/'};
-        $.cookie("test", "mike testing", options);
-        var keyValuePairs = document.cookie.split(';');
-	for(var i = 0; i < keyValuePairs.length; i++) {
-    		var name = keyValuePairs[i].substring(0, keyValuePairs[i].indexOf('='));
-                var value = keyValuePairs[i].substring(keyValuePairs[i].indexOf('=')+1);
-                alert(name + "   " + value);
-        }
+        //var keyValuePairs = document.cookie.split(';');
+	//for(var i = 0; i < keyValuePairs.length; i++) {
+    	//	var name = keyValuePairs[i].substring(0, keyValuePairs[i].indexOf('='));
+        //        var value = keyValuePairs[i].substring(keyValuePairs[i].indexOf('=')+1);
+        //        alert(name + "   " + value);
+	//}
         $.ajax({ 
                    url: tauth_logout_url,
 	           dataType: "json", 
@@ -279,7 +269,7 @@ $("#overlay-blogger-login").overlay({
 
 	},
 	top: 0,
-	left: 10
+	left: 3
 });
 
 function pageOverlay(page, type){
