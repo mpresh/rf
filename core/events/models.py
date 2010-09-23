@@ -7,6 +7,7 @@ from core.campaign.models import Campaign
 import re
 import hashlib
 import urlparse
+import urllib
 
 class Event(models.Model):
     name = models.CharField(max_length=200)
@@ -125,9 +126,18 @@ class Share(models.Model):
         """Returns the url for this share link."""
         
         if parent:
-            parent = urlparse.unquote(parent)
+            parent = urllib.unquote(parent)
             parsed_url = urlparse.urlparse(parent)
-            dict = urlparse.parse_qs(parsed_url.query)
+            try:
+                list_vals = parsed_url.query.split("&")
+            except Exception:
+                list_vals = parsed_url[3]
+            dict = {}
+            for val in list_vals:
+                if val:
+                    k, v = val.split("=")
+                    dict[k] = v
+            
             if "shash" not in dict:
                 if parent.find("?") != -1:
                     parent = parent + "&shash=" + self.getHash()
@@ -137,7 +147,6 @@ class Share(models.Model):
                 parent = re.sub("shash=[a-zA-Z0-9_-]+", "shash=" + self.getHash(), parent)
 
             url = parent
-            #url = urparse.quote(parent)
             return url
 
         if request.session["redirect"].find("shash=") != -1:

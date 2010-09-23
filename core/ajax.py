@@ -288,9 +288,19 @@ def tweet_wrapper(req, campaign_id=""):
 
     if "parent_url" in req.GET:
         parent_url = req.GET["parent_url"]
-        parent_url = urlparse.unquote(parent_url)
+        parent_url = urllib.unquote(parent_url)
         parsed_url = urlparse.urlparse(parent_url)
-        dict = urlparse.parse_qs(parsed_url.query)
+        try:
+            list_vals = parsed_url.query.split("&")
+        except Exception:
+            list_vals = parsed_url[4]
+        print "parsed_url", parsed_url
+        print "list vals", list_vals
+        dict = {}
+        for val in list_vals:
+            if val:
+                k, v = val.split("=")
+                dict[k] = v
         if "shash" in dict:
             parent_shash = dict["shash"][0]
     else:
@@ -307,11 +317,10 @@ def tweet_wrapper(req, campaign_id=""):
 
     
     share.save()
-    
+
     share.setHash()
     url = share.url(req, parent=parent_url)
     short_url = bitly.shorten(url)
-
     share.url_short = short_url
     msg = msg + " " + short_url
 

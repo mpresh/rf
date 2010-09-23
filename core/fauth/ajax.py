@@ -35,15 +35,22 @@ def campaign_facebook_update(req, campaign_id=""):
 
     if "parent_url" in req.GET:
         parent_url = req.GET["parent_url"]
-        parent_url = urlparse.unquote(parent_url)
+        parent_url = urllib.unquote(parent_url)
         parsed_url = urlparse.urlparse(parent_url)
-        dict = urlparse.parse_qs(parsed_url.query)
+        try:
+            list_vals = parsed_url.query.split("&")
+        except Exception:
+            list_vals = parsed_url[3]
+        dict = {}
+        for val in list_vals:
+            if val:
+                k, v = val.split("=")
+                dict[k] = v
         if "shash" in dict:
             parent_shash = dict["shash"][0]
     else:
         parent_url = None
-
-
+        
     c=Campaign.objects.get(id=campaign_id)
     share = Share(message=msg,
                   campaign=c,
@@ -55,14 +62,12 @@ def campaign_facebook_update(req, campaign_id=""):
                   )
 
     share.setHash()
-    print "alla"
     url = share.url(req, parent=parent_url)
     short_url = bitly.shorten(url)
     share.url_short = short_url
     msg = msg + " " + short_url
 
     share.save()
-    print "hah"
     fbuser.feed(message=msg)
     fbuser.campaign_interested.add(c.id)    
 
@@ -114,16 +119,11 @@ def friends(req):
 
 def facebook_logout(req):
     """facebook logout."""
-    print "REMOVING ALLLLL"
     # remove all cookies and session keys
-    print "SESS", req.session.keys()
-    print "COOK", req.COOKIES.keys()
     for key in req.session.keys():
         del req.session[key]
     for key in req.COOKIES.keys():
         del req.COOKIES[key]
-    print "SESS", req.session.keys()
-    print "COOK", req.COOKIES.keys()
     dict = {}
     return HttpResponse(json.dumps(dict))
 
@@ -157,7 +157,6 @@ def facebook_info_test(req):
     my_info = json.loads(result)
     dict = {}
     dict["data"] = my_info
-    print "result", dict
     return HttpResponse(json.dumps(dict))
 
 def facebook_sync_server(req):
