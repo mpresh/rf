@@ -13,6 +13,7 @@ import urllib
 from django.utils.functional import lazy
 from pylib.util import handle_redirect_string
 import re
+import urlparse
 
 reverse_lazy = lazy(reverse, unicode)
 
@@ -130,7 +131,6 @@ def callback(req):
 
 	redirect = req.session["redirect"]
 	
-	print "REQUEST", req
 	for key in req.session.keys():
 		print "KEY CALLBACK", key, req.session[key]
 	
@@ -138,8 +138,10 @@ def callback(req):
 	if req.META["SERVER_NAME"].find("localhost") != -1:
 		return HttpResponseRedirect(redirect)
 
+	parsed_redirect = urlparse,urlparse(redirect)
+	
 	base_url = "http://" + req.META["SERVER_NAME"] + ":" + req.META["SERVER_PORT"]
-	redirect = base_url + redirect
+	redirect = base_url + parsed_redirect.path
 	if "refer_domain" in req.session and req.session["refer_domain"] != "wwww":
 		redirect = redirect.replace("www", req.session["refer_domain"])
 	print "REDIRECT", redirect
