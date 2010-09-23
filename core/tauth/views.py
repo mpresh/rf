@@ -138,7 +138,7 @@ def callback(req):
 	if req.META["SERVER_NAME"].find("localhost") != -1:
 		return HttpResponseRedirect(redirect)
 
-	parsed_redirect = urlparse,urlparse(redirect)
+	parsed_redirect = urlparse.urlparse(redirect)
 	
 	base_url = "http://" + req.META["SERVER_NAME"] + ":" + req.META["SERVER_PORT"]
 	redirect = base_url + parsed_redirect.path
