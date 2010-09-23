@@ -6,8 +6,7 @@ function fill_widget_iframe() {
 		"width": "480px",
 		});
     var campaign_id = $("#ripple-embed").text();
-    var url = "http://www.ripplefunction.com/camp/widget?parent_url=" + escape(location.href) + "%campaign=" + campaign_id;
-
+    var url = "http://www.ripplefunction.com/camp/widget?parent_url=" + escape(location.href) + "&campaign=" + campaign_id;
     $("#ripple-embed").html("<iframe id='ripple-frame' name='ripple-frame' width='100%' height='100%' frameborder='0' scrolling='no' src='" + url + "'></iframe>");
 }
 
