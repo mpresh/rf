@@ -26,8 +26,6 @@ def create_campaign(req):
     return render_to_response('create_campaign.html', dict)    
 
 def campaign_widget(req, camp_id="1"):
-    campaign = Campaign.objects.get(id=camp_id)
-    dict = {"campaign":campaign}
 
     if "overlay" in req.GET:
         dict["overlay"] = True
@@ -46,6 +44,20 @@ def campaign_widget(req, camp_id="1"):
         dict["parent_url"] = parent_url
         #parent_url = urlparse.unquote(parent_url)
         
+
+    if "parent_url" in req.GET:
+        parent_url = req.GET["parent_url"]
+        dict["parent_url"] = parent_url
+        #parent_url = urlparse.unquote(parent_url)
+
+    if "campaign" in req.GET:
+        try:
+            campaign_id = int(req.GET["campaign"])
+            campaign = Campaign.objects.get(id=campaign_id)
+            dict = {"campaign":campaign}
+        except Exception:
+            campaign = Campaign.objects.get(id=camp_id)
+            dict = {"campaign":campaign}
 
     # twitter user
     if "user_id" in req.session:
