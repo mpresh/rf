@@ -18,6 +18,7 @@ import datetime
 import util
 from fauth import fauth_utils
 from pylib.bitly import *
+import urlparse
 
 def create_campaign(req):
     """ This is the default create campaign page."""
@@ -36,6 +37,15 @@ def campaign_widget(req, camp_id="1"):
             dict["overlayTwitter"] = True    
         elif req.GET["overlay"] == "true":
             dict["overlayTrue"] = True    
+
+    # parent_url
+    print "WIDGET REQ", req
+    print "req.get.keys", req.GET.keys()
+    if "parent_url" in req.GET:
+        parent_url = req.GET["parent_url"]
+        dict["parent_url"] = parent_url
+        #parent_url = urlparse.unquote(parent_url)
+        
 
     # twitter user
     if "user_id" in req.session:
@@ -62,7 +72,7 @@ def campaign_widget(req, camp_id="1"):
         fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
         dict["fbuser"] = fbuser
 
-    print "BADGE DICT", dict
+    print "WIDGET DICT", dict
     return render_to_response('widget.html', dict)    
 
 def campaign_badge(req, camp_id="1"):

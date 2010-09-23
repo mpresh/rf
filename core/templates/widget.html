@@ -144,6 +144,12 @@ var facebook_app_id = '{{facebook_app_id}}';
 var host = '{{host}}';
 var campaign_type = '{{campaign.campaign_type}}';
 
+{% if parent_url %}
+var parent_url = '{{parent_url}}';
+{% else %}
+var parent_url = '';
+{% endif%}
+
 {% if user %}
 var user = true;
 var user_id = '{{user.id}}';

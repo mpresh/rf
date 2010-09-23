@@ -193,7 +193,8 @@ $("#facebook-feed-update").click(function(){
 		url: facebook_update_id_url, 
 		dataType: "json",
 		data: {message: $("#overlay-textarea-facebook").val(), 
-                       shash: shash },
+			shash: shash,
+			parent_url: parent_url},
 
 		success: function(data){
                   refreshAttendee(15);
@@ -214,7 +215,8 @@ $("#twitter-feed-update").click(function() {
                    url: campaign_tweet_invite_url, 
 	           dataType: "json", 
 	           data: {message: $("#overlay-textarea-twitter").val(), 
-		   shash: shash},
+			shash: shash,
+			parent_url: parent_url},
 	           success: function (data) {
                                           $.get(campaign_going_twitter_url, 
 	                                  function(data) { refreshAttendee(15); }); },

@@ -6,6 +6,7 @@ from core.fauth.models import FBUser
 from core.campaign.models import Campaign
 import re
 import hashlib
+import urlparse
 
 class Event(models.Model):
     name = models.CharField(max_length=200)
@@ -120,8 +121,24 @@ class Share(models.Model):
                 total = total + obj.totalReach(seen=seen)
         return total
 
-    def url(self, request):
+    def url(self, request, parent=""):
         """Returns the url for this share link."""
+        
+        if parent:
+            parent = urlparse.unquote(parent)
+            parsed_url = urlparse.urlparse(parent)
+            dict = urlparse.parse_qs(parsed_url.query)
+            if "shash" not in dict:
+                if parent.find("?") != -1:
+                    parent = parent + "&shash=" + self.getHash()
+                else:
+                    parent = parent + "?shash=" + self.getHash()
+            else:
+                parent = re.sub("shash=[a-zA-Z0-9_-]+", "shash=" + self.getHash(), parent)
+
+            url = parent
+            #url = urparse.quote(parent)
+            return url
 
         if request.session["redirect"].find("shash=") != -1:
             path = re.sub("shash=[a-zA-Z0-9_-]+", "shash=" + self.getHash(), request.session["redirect"])

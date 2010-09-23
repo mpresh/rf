@@ -15,7 +15,7 @@ import shutil
 import socket
 import datetime
 from pylib import bitly
-
+import urlparse
 
 AFETCH_PORT = 5002
 AFETCH_HOST = "localhost"
@@ -286,6 +286,16 @@ def tweet_wrapper(req, campaign_id=""):
     else:
         parent_shash = None
 
+    if "parent_url" in req.GET:
+        parent_url = req.GET["parent_url"]
+        parent_url = urlparse.unquote(parent_url)
+        parsed_url = urlparse.urlparse(parent_url)
+        dict = urlparse.parse_qs(parsed_url.query)
+        if "shash" in dict:
+            parent_shash = dict["shash"][0]
+    else:
+        parent_url = None
+
     share = Share(message=msg,
                   campaign=Campaign.objects.get(id=campaign_id),
                   from_user_facebook=None,
@@ -299,7 +309,7 @@ def tweet_wrapper(req, campaign_id=""):
     share.save()
     
     share.setHash()
-    url = share.url(req)
+    url = share.url(req, parent=parent_url)
     short_url = bitly.shorten(url)
 
     share.url_short = short_url

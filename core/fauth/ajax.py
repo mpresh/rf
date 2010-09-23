@@ -17,6 +17,7 @@ import socket
 import datetime
 import util
 from pylib import bitly
+import urlparse
 
 def campaign_facebook_update(req, campaign_id=""):
     """ Send feed update to facebook from user share. """
@@ -31,13 +32,19 @@ def campaign_facebook_update(req, campaign_id=""):
         parent_shash = req.GET["shash"]
     else:
         parent_shash = None
-    print "alla1"
+
+    if "parent_url" in req.GET:
+        parent_url = req.GET["parent_url"]
+        parent_url = urlparse.unquote(parent_url)
+        parsed_url = urlparse.urlparse(parent_url)
+        dict = urlparse.parse_qs(parsed_url.query)
+        if "shash" in dict:
+            parent_shash = dict["shash"][0]
+    else:
+        parent_url = None
+
+
     c=Campaign.objects.get(id=campaign_id)
-    print "alla2"
-    print "msg", msg
-    print "from user", fbuser
-    print "parent_shash", parent_shash
-    print "reach", fbuser.num_friends()
     share = Share(message=msg,
                   campaign=c,
                   from_user_facebook=fbuser,
@@ -46,10 +53,10 @@ def campaign_facebook_update(req, campaign_id=""):
                   parent_shash=parent_shash,
                   reach=fbuser.num_friends()
                   )
-    print "alla3"
+
     share.setHash()
     print "alla"
-    url = share.url(req)
+    url = share.url(req, parent=parent_url)
     short_url = bitly.shorten(url)
     share.url_short = short_url
     msg = msg + " " + short_url
