@@ -2,12 +2,16 @@ LazyLoad=function(){var f=document,g,b={},e={css:[],js:[]},a;function j(l,k){var
 
 function fill_widget_iframe() {
     //alert("filling widget with iframe in embed-iframe.js file");
-    $("#ripple-embed").css({"height": "265px",
-		"width": "480px",
+    $("#ripple-embed").css({"height": "250px",
+		"width": "485px",
+                //"background-color": "red"
 		});
     var campaign_id = $("#ripple-embed").text();
     var url = "http://www.ripplefunction.com/camp/widget?parent_url=" + escape(location.href) + "&campaign=" + campaign_id;
-    $("#ripple-embed").html("<iframe id='ripple-frame' name='ripple-frame' width='100%' height='100%' frameborder='0' scrolling='no' src='" + url + "'></iframe>");
+    //alert(url);
+    var html = "<iframe id='ripple-frame' name='ripple-frame' width='100%' height='100%' frameborder='0' scrolling='no' src='" + url + "'></iframe>";
+    //alert(html);
+    $("#ripple-embed").html(html);
 }
 
 if (typeof jQuery == 'undefined') {
