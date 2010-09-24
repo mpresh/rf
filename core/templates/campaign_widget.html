@@ -41,7 +41,7 @@
     <ul>
     <li>
         <label for="message">Message:&nbsp;&nbsp; </label>
-        <textarea id="widget-message">{{campaign.title}}</textarea>&nbsp;&nbsp;
+        <textarea id="widget-message"></textarea>&nbsp;&nbsp;
     </li>
     <li>
         <div style="height:240px;">
@@ -101,6 +101,7 @@ $("#getcode").click(function(){
 
 
 // message
+$("#widget-message").html("<div id='badge-title'>{{campaign.title}}</div><div id='badge-subtitle'>{{campaign.message}}</div><div id='badge-action'>JUST BY <b>Sharing</b> with friends:</div>");
 $("#widget-message").cleditor({height: 120, 
                                width: "100%",
                                fonts:        // font names in the font popup
