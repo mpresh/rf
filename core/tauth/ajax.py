@@ -22,7 +22,7 @@ def check_twitter_logged_in(req):
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])
         if user.oauth_token:
-            return HttpResponse(json.dumps({"status": "1"}))
+            return HttpResponse(json.dumps({"status": "1", "profile-img":user.profile_pic}))
     for key in req.session.keys():
         print "KEY", key, req.session[key]
     return HttpResponse(json.dumps({"status": "0"}))

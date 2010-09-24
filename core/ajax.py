@@ -289,6 +289,7 @@ def tweet_wrapper(req, campaign_id=""):
     if "parent_url" in req.GET:
         parent_url = req.GET["parent_url"]
         parent_url = urllib.unquote(parent_url)
+        parent_url = parent_url.replace("#", "")
         parsed_url = urlparse.urlparse(parent_url)
         try:
             list_vals = parsed_url.query.split("&")
@@ -315,11 +316,12 @@ def tweet_wrapper(req, campaign_id=""):
                   reach=user.get_num_follower_list()
                   )
 
-    
     share.save()
 
     share.setHash()
+    print "hey2"
     url = share.url(req, parent=parent_url)
+    print "hey1"
     short_url = bitly.shorten(url)
     share.url_short = short_url
     msg = msg + " " + short_url

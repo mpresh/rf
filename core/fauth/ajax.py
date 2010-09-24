@@ -36,6 +36,7 @@ def campaign_facebook_update(req, campaign_id=""):
     if "parent_url" in req.GET:
         parent_url = req.GET["parent_url"]
         parent_url = urllib.unquote(parent_url)
+        parent_url = parent_url.replace("#", "")
         parsed_url = urlparse.urlparse(parent_url)
         try:
             list_vals = parsed_url.query.split("&")

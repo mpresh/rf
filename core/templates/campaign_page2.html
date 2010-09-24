@@ -58,27 +58,27 @@
 	    <div id="facebook-login-share">
                   <script src="http://connect.facebook.net/en_US/all.js"></script>
 		  <div id="fb-root"></div>
-                  {% if fbuser %}
-		      <button id="facebook-share" class="badge-button" style="cursor: pointer;">
+                  
+		      <button id="facebook-share" class="badge-button" style="cursor: pointer;" style="display:none;">
 		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
-		  {% else %}
-		      <button id="facebook-login" class="badge-button" style="cursor: pointer;">
+		  
+		      <button id="facebook-login" class="badge-button" style="cursor: pointer;" style="display:none;">
 		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
-                  {% endif %}
+                  
 	     </div>  
 
 	     <div id="twitter-login-share">
-                 {% if user %}
-		     <button id="twitter-share" class="badge-button" style="cursor: pointer;">
+                 
+		     <button id="twitter-share" class="badge-button" style="cursor: pointer;" style="display:none;">
 		           <img src="{% url static 'images/twitterShare_icon2.png' %}"/><span>Share</span>
 		     </button>
-                 {% else %}
-                     <button class="badge-button" id="twitter-login" style="cursor: pointer;">
+                 
+                     <button class="badge-button" id="twitter-login" style="cursor: pointer;" style="display:none;">
 		         <img src="{% url static 'images/twitterShare_icon2.png' %}" /><span>Share</span>
 		     </button>
-                 {% endif %}
+                 
              </div>
 
 	</div> <!-- badge -->
@@ -197,18 +197,16 @@ var facebook_app_id = '{{facebook_app_id}}';
 var host = '{{host}}';
 var campaign_type = '{{campaign.campaign_type}}';
 
-{% if parent_url %}
-var parent_url = '{{parent_url}}';
-{% else %}
-var parent_url = '';
-{% endif%}
-
 
 {% if user %}
 var user = true;
 var user_id = '{{user.id}}';
+$('#twitter-share').show();
+$('#twitter-login').hide();
 $("#tloggedin").show();
 {% else %}
+$('#twitter-login').show();
+$('#twitter-share').hide();
 var user = false;
 var user_id = '';
 {% endif %}
@@ -216,10 +214,14 @@ var user_id = '';
 {% if fbuser %}
 var fbuser = true;
 var fbuser_id = '{{fbuser.id}}';
+$('#facebook-share').show();
+$('#facebook-login').hide();
 $("#floggedin").show();
 {% else %}
 var fbuser = false;
 var fbuser_id = '';
+$('#facebook-login').show();
+$('#facebook-share').hide();
 {% endif %}
 
 {% if overlayTwitter %}
@@ -420,7 +422,8 @@ $("#twitter-feed-update").click(function() {
                    url: "{% url campaign_tweet_invite campaign_id=campaign.id %}", 
 	           dataType: "json", 
 	           data: {message: $("#overlay-textarea-twitter").val(), 
-		   shash: "{{shash}}"},
+		   shash: "{{shash}}",
+                   parent_url: location.href},
 	           success: function (data) {
                                           $.get('{% url campaign_going_twitter campaign_id=campaign.id %}', 
 	                                  function(data) { refreshAttendee(15); }); },
@@ -442,8 +445,8 @@ $("#facebook-feed-update").click(function(){
 		url: '{% url campaign_facebook_update campaign_id=campaign.id %}', 
 		dataType: "json",
 		data: {message: $("#overlay-textarea-facebook").val(), 
-                       shash: "{{shash}}" },
-
+                       shash: "{{shash}}",
+                       parent_url: location.href},
 		success: function(data){
                   refreshAttendee(15);
 		},
@@ -478,9 +481,10 @@ function CheckLoginStatusTwitter() {
     	    dataType: "json", 
     	    data: {},
     	    success: function (data) {
-                   alert(JSON.stringify(data));
+                   //alert(JSON.stringify(data));
 		    if (data["status"] == "1") {
                        $("#tloggedin").show();
+                       $("#twitter-profile-image").attr("src", data["profile-img"]);
                        shareLink = 'twitter';
                        overlayType = "twitter";
                        $("#overlay-blogger-login").overlay().load();
@@ -542,6 +546,8 @@ $('#flogout').click(function(){
                        $("#floggedin").hide();
                        fbuser_id = '';
                        fbuser = false;
+                       $('#facebook-share').hide();
+                       $('#facebook-login').show();
                    },
 	           beforeSend: function() {
        
@@ -569,6 +575,8 @@ $('#tlogout').click(function(){
                        user_id = '';
                        user = false;
                        $("#tloggedin").hide();
+                       $('#twitter-share').hide();
+                       $('#twitter-login').show();
                    },
 	           beforeSend: function() {
                  } 
