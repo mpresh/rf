@@ -10,9 +10,12 @@ function fill_widget_iframe() {
     $("#ripple-embed").html("<iframe id='ripple-frame' name='ripple-frame' width='100%' height='100%' frameborder='0' scrolling='no' src='" + url + "'></iframe>");
 }
 
-LazyLoad.js(["http://code.jquery.com/jquery-1.4.2.min.js"], 
-	function () {
-		    fill_widget_iframe();
-	 });
-
+if (typeof jQuery == 'undefined') {
+	LazyLoad.js("http://code.jquery.com/jquery-1.4.2.min.js", 
+		function () {
+			    fill_widget_iframe();
+	  });	
+}else{
+     fill_widget_iframe();
+}
 
