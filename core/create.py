@@ -190,20 +190,32 @@ def campaign_page(req, chash="", camp_id=""):
     except:
         if "access_token" in req.session:
             del req.session['access_token']
+        if "base_domain" in req.session:
             del req.session['base_domain']
+        if "secret" in req.session:    
             del req.session['secret']
+        if "session_key" in req.session:
             del req.session['session_key']
+        if "sessionid" in req.session:
             del req.session['sessionid']
+        if "sig" in req.session:
             del req.session['sig']
+        if "uid" in req.session:
             del req.session['uid']
 
         if "access_token" in req.COOKIES:
             del req.COOKIES['access_token']
+        if "base_domain" in req.COOKIES:
             del req.COOKIES['base_domain']
+        if "secret" in req.COOKIES:
             del req.COOKIES['secret']
+        if "session_key" in req.COOKIES:
             del req.COOKIES['session_key']
+        if "sessionid" in req.COOKIES:
             del req.COOKIES['sessionid']
+        if "sig" in req.COOKIES:
             del req.COOKIES['sig']
+        if "uid" in req.COOKIES:
             del req.COOKIES['uid'] 
         del dict["fbuser"]
   

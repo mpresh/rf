@@ -1,7 +1,6 @@
 body {
 margin: 0;
 }
-
 #container
 {
 
@@ -52,8 +51,6 @@ margin: 0;
 #facebook-login-share, #twitter-login-share, #call2Act
 {
 	float: left;
-        #height: 45px;
-        #width: 110px;
 }
 .badge-button
 {
@@ -256,4 +253,35 @@ border:2px double #0074A0;
    text-align: center;
    margin-top: 30px;
    font-weight: bold;
+}
+
+/*** Character Count styles ***/	
+.chrcounter{
+	position:absolute;
+	right:16px;
+	top:80px;
+	font-size:16px;
+	font-weight:bold;
+	color:#ccc;
+	}
+.chrwarning{color:#600;}	
+.chrexceeded{color:#e00;}
+
+/*** Share button ***/
+div.share-button{
+	cursor: pointer;
+	width: 150px;
+	height: 45px;
+	background-image:url(../images/share.png);
+	background-repeat: no-repeat;
+	margin: auto;
+	margin-top: 36px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+.share-button p{
+	color: #fff;
+	font-weight: bold;
+	font-size: 30px;
+	line-height: 45px;
 }
