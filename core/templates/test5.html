@@ -1,3 +1,6 @@
+
+
+
 {% extends "site_base.html" %}
 
 	{% block  js_css_include %}
@@ -27,15 +30,18 @@
 
 {% block site-content %}
 
+
 <br/><br/><br/>
 
 
 <div id="widget-wrapper" class="create">
 
 <div id="widget-preview">
-   <div id="ripple-embed">{{campaign.id}}</div>
-   <script type="text/javascript" src="http://www.ripplefunction.com/site_media/javascript/embed-iframe.js"></script> 
+
+<div id="ripple-embed">1</div>
+<script type="text/javascript" src="http://www.ripplefunction.com/site_media/javascript/embed-iframe.js" ></script> 
 </div>
+
 
 <div id="widget-features">
     <ul>
@@ -84,32 +90,34 @@
 
 
 
+
 <script>
-//
-//  $("#getcode").text("<Get Embeddable Code>");
-//  
-// 
-//
-//
-//$("#getcode").click(function(){
-//    $("#code").val("<div id=\'ripple-embed\'>{{campaign.id}}<\/div><script type=\'text\/javascript\' src=\'http:\/\/www.ripplefunction.com\/site_media\/javascript\/embed-iframe.js\' \>\<\/script\>");
-//    
-//	  
-//
-//    $("#dialog").dialog({
-//        "width": 500,
-//        "height": 400,
-//     });
-//    
-//});
-//
-//
-//
-//
-//// message
-//$("#widget-message").cleditor({height: 120, width: "100%"});
-//
+
+  $("#getcode").text("<Get Embeddable Code>");
+  
+ 
+
+
+$("#getcode").click(function(){
+    $("#code").val("<div id=\'ripple-embed\'>{{campaign.id}}<\/div><script type=\'text\/javascript\' src=\'http:\/\/www.ripplefunction.com\/site_media\/javascript\/embed-iframe.js\' \>\<\/script\>");
+    
+	  
+
+    $("#dialog").dialog({
+        "width": 500,
+        "height": 400,
+     });
+    
+});
+
+
+
+
+// message
+$("#widget-message").cleditor({height: 120, width: "100%"});
+
 </script>
+
 
 
 {% endblock %}

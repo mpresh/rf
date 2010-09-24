@@ -208,7 +208,7 @@ def campaign_admin(req, chash=""):
     campaign_update_url = host + reverse("campaign_update", kwargs={'chash':c.chash})
     campaign_landing_url = host + reverse("campaign_page_id", kwargs={'camp_id':c.id})
     campaign_launch_url = host + reverse("campaign_launch", kwargs={'chash':c.chash})
-    campaign_widget_url = host + reverse("campaign_widget", kwargs={'chash':c.chash})
+    campaign_widget_url = host + reverse("campaign_widget_page", kwargs={'chash':c.chash})
 
     dict["admin_url"] = shorten(campaign_admin_url)
     dict["landing_url"] = shorten(campaign_landing_url)
@@ -303,7 +303,7 @@ def campaign_created(req):
             campaign_update_url = host + reverse("campaign_update", kwargs={'chash':c.chash})
             campaign_landing_url = host + reverse("campaign_page_id", kwargs={'camp_id':c.id})
             campaign_launch_url = host + reverse("campaign_launch", kwargs={'chash':c.chash})
-            campaign_widget_url = host + reverse("campaign_widget", kwargs={'chash':c.chash})
+            campaign_widget_url = host + reverse("campaign_widget_page", kwargs={'chash':c.chash})
 
             dict["admin_url"] = shorten(campaign_admin_url)
             dict["landing_url"] = shorten(campaign_landing_url)

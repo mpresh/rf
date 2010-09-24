@@ -19,6 +19,10 @@ import util
 from fauth import fauth_utils
 from create import *
 
+# iframe embed in django page
+def test5(req):
+    return render_to_response('test5.html', {})
+
 # iframe embed
 def test4(req):
     return render_to_response('test4.html', {})
