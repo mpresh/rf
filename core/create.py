@@ -38,19 +38,11 @@ def campaign_widget(req, camp_id="1"):
             dict["overlayTrue"] = True    
 
     # parent_url
-    print "WIDGET REQ", req
-    print "req.get.keys", req.GET.keys()
     if "parent_url" in req.GET:
         parent_url = req.GET["parent_url"]
         dict["parent_url"] = parent_url
         #parent_url = urlparse.unquote(parent_url)
         
-
-    if "parent_url" in req.GET:
-        parent_url = req.GET["parent_url"]
-        dict["parent_url"] = parent_url
-        #parent_url = urlparse.unquote(parent_url)
-
     try:
         campaign_id = int(req.GET["campaign"])
         campaign = Campaign.objects.get(id=campaign_id)
@@ -65,12 +57,6 @@ def campaign_widget(req, camp_id="1"):
         dict['user'] = user
     else:
         user = None
-    
-    # HACK: if the oauth cookie has expired, clean up the session
-    #try:
-    #    fbuser.num_friends()
-    #except:
-    #    del req.session['uid']
  
     req.session["redirect"] = reverse("facebook_login_test")
     host = "http://" + req.get_host()
@@ -141,6 +127,14 @@ def campaign_page(req, chash="", camp_id=""):
     dict = {}
     dict["campaign"] = c
     dict["fbappid"] = settings.FACEBOOK_APP_ID
+
+    req.session["redirect"] = reverse("facebook_login_test")
+    host = "http://" + req.get_host()
+    dict["host"] = host
+    dict["facebook_app_id"] = settings.FACEBOOK_APP_ID
+    dict["facebook_api"] = settings.FACEBOOK_API
+    dict["redirect_uri"] = host + reverse("facebook_login_callback")
+    dict["scope"] = "publish_stream"
     
 
     if "overlay" in req.GET:
@@ -176,48 +170,9 @@ def campaign_page(req, chash="", camp_id=""):
     if "uid" in req.session:
         fbuser = FBUser.objects.get(facebook_id=req.session["uid"])	
         dict['fbuser'] = fbuser
-    elif "uid" in req.COOKIES:
-        fauth_utils.sync_session_cookies(req)
-        fbuser = FBUser.objects.get(facebook_id=req.COOKIES["uid"])	
-        dict['fbuser'] = fbuser
     else:
         fbuser = None
         dict["fbuser"] = ""
-
-    # HACK: if the oauth cookie has expired, clean up the session
-    try:
-        fbuser.num_friends()
-    except:
-        if "access_token" in req.session:
-            del req.session['access_token']
-        if "base_domain" in req.session:
-            del req.session['base_domain']
-        if "secret" in req.session:    
-            del req.session['secret']
-        if "session_key" in req.session:
-            del req.session['session_key']
-        if "sessionid" in req.session:
-            del req.session['sessionid']
-        if "sig" in req.session:
-            del req.session['sig']
-        if "uid" in req.session:
-            del req.session['uid']
-
-        if "access_token" in req.COOKIES:
-            del req.COOKIES['access_token']
-        if "base_domain" in req.COOKIES:
-            del req.COOKIES['base_domain']
-        if "secret" in req.COOKIES:
-            del req.COOKIES['secret']
-        if "session_key" in req.COOKIES:
-            del req.COOKIES['session_key']
-        if "sessionid" in req.COOKIES:
-            del req.COOKIES['sessionid']
-        if "sig" in req.COOKIES:
-            del req.COOKIES['sig']
-        if "uid" in req.COOKIES:
-            del req.COOKIES['uid'] 
-        del dict["fbuser"]
   
     templates = ['campaign_page2.html', 'campaign_page.html']
     try:

@@ -164,20 +164,19 @@
 
 	<div id="divider">
 	    <div id ="logo"><img height="35px" src="{% url static 'images/rf-logo.png' %}"></div>
-	    {% if fbuser %}
-	    <div id ="floggedin">
-                <fb:profile-pic id="facebook-profile-image" height="30px" width="30px" uid={{fbuser.facebook_id}} linked="f\
-alse" >
+	    
+	    <div id ="floggedin" style="display:none">
+                <fb:profile-pic id="facebook-profile-image" height="30px" width="30px" uid={{fbuser.facebook_id}} linked="false" >
       </fb:profile-pic>
-                <a id="flogout" href="">logout</a>
+                <a id="flogout" href="#">logout</a>
 	    </div>
-	    {% endif %}
-	    {% if user %}
-	    <div id ="tloggedin">
+	    
+	    
+	    <div id ="tloggedin" style="display:none">
 	        <img id="twitter-profile-image" src="{{user.profile_pic}}" />
-                <a href="{% url tauth_logout %}">logout</a>
+                <a id="tlogout" href="#">logout</a>
 	    </div>
-	    {% endif %}
+	    
 	</div>
       <div id="divideBG"></div>
 
@@ -203,9 +202,12 @@ var parent_url = '{{parent_url}}';
 {% else %}
 var parent_url = '';
 {% endif%}
+
+
 {% if user %}
 var user = true;
 var user_id = '{{user.id}}';
+$("#tloggedin").show();
 {% else %}
 var user = false;
 var user_id = '';
@@ -214,6 +216,7 @@ var user_id = '';
 {% if fbuser %}
 var fbuser = true;
 var fbuser_id = '{{fbuser.id}}';
+$("#floggedin").show();
 {% else %}
 var fbuser = false;
 var fbuser_id = '';
@@ -297,38 +300,43 @@ $("#overlay-blogger-login").overlay({
 	expose: {
 		loadSpeed: 100,
 		color: '#666',
-		opacity: 0.8
+		opacity: 0.7
 	},
 	onLoad: function(event) {
-	    // Which page to start on?
+                // Which page to start on?
 		// if twitter user logged in, show twitter page
-		{% if user and overlayTwitter %}
-		pageOverlay(2, 'twitter');
-		{% else %} 	
+		if (user && overlayTwitter) {
+		    pageOverlay(2, 'twitter');
+		}
+                else {
 	
-		// if fbuser logged in
-		{% if fbuser and overlayFacebook %}
-		pageOverlay(2, 'facebook');
-		{% else %} 
+		    // if fbuser logged in
+		    if (fbuser && overlayFacebook) {
+		        pageOverlay(2, 'facebook');
+		    }
+                    else {
 	
-		// show first view with facebook and twitter login buttons
-		{% if not user and not fbuser %}
-		pageOverlay(1, '');
-		{% else %} 	
-	
-		// if fbuser logged in
-		{% if fbuser %}
-		pageOverlay(2, 'facebook');
-		{% else %} 	
-	
-		// if fbuser logged in
-		{% if user  %}
-		pageOverlay(2, 'twitter');
-		{% endif %}
-		{% endif %}
-		{% endif %}
-		{% endif %}
-		{% endif %}
+		        // show first view with facebook and twitter login buttons
+		        if (!user && !fbuser) {
+		            pageOverlay(1, '');
+		        }
+                        else {
+		        
+		            // if fbuser logged in
+		            if (fbuser) {
+		                pageOverlay(2, 'facebook');
+		            }
+                            else { 	
+		            
+		                // if fbuser logged in
+		                if (user) {
+		                pageOverlay(2, 'twitter');
+		                }
+		            }
+		        }
+		    }
+		}
+            
 		if (shareLink == 'facebook') {
 		    pageOverlay(2, 'facebook');
 		    shareLink = '';
@@ -470,10 +478,9 @@ function CheckLoginStatusTwitter() {
     	    dataType: "json", 
     	    data: {},
     	    success: function (data) {
-		    //alert(JSON.stringify(data));
+                   alert(JSON.stringify(data));
 		    if (data["status"] == "1") {
-    	               $("#div-twitter-logged-in").show();
-                       $("#div-twitter-logged-out").hide();	
+                       $("#tloggedin").show();
                        shareLink = 'twitter';
                        overlayType = "twitter";
                        $("#overlay-blogger-login").overlay().load();
@@ -501,15 +508,14 @@ $('#facebook-login').click(function(){
 function CheckLoginStatusFacebook() {
     if (signinWin.closed) {
 
-$.ajax({ 
+    $.ajax({ 
             url: ajax_check_facebook_logged_in,
     	    dataType: "json", 
     	    data: {},
     	    success: function (data) {
-	    //alert(JSON.stringify(data));
+	
                 if (data["status"] == "1") {
-                   $("#div-facebook-logged-in").show();
-                   $("#div-facebook-logged-out").hide();
+                   $("#floggedin").show();
                    shareLink = 'facebook';
                    overlayType = "facebook";
                    $("#overlay-blogger-login").overlay().load();
@@ -533,8 +539,9 @@ $('#flogout').click(function(){
 	           dataType: "json", 
 	           data: {},
 	           success: function (data) { 
-                       $("#div-facebook-logged-out").show();
-                       $("#div-facebook-logged-in").hide();
+                       $("#floggedin").hide();
+                       fbuser_id = '';
+                       fbuser = false;
                    },
 	           beforeSend: function() {
        
@@ -561,8 +568,7 @@ $('#tlogout').click(function(){
 	           success: function (data) {
                        user_id = '';
                        user = false;
-                       $("#div-twitter-logged-out").show();
-                       $("#div-twitter-logged-in").hide();    
+                       $("#tloggedin").hide();
                    },
 	           beforeSend: function() {
                  } 
