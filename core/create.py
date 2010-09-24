@@ -235,7 +235,7 @@ def campaign_launch(req, chash=""):
 
     return render_to_response('campaign_launch.html', dict)
 
-def campaign_widget(req, chash=""):
+def campaign_widget_page(req, chash=""):
     try:
         c = Campaign.objects.get(chash=chash)
     except:

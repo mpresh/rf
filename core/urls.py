@@ -70,7 +70,7 @@ urlpatterns = patterns('',
                        url(r'camp/(?P<chash>\w{8}\w+)/admin/$', 'views.campaign_admin', name='campaign_admin'),
                        url(r'camp/(?P<chash>\w{8}\w+)/update/$', 'views.campaign_update', name='campaign_update'),
                        url(r'camp/(?P<chash>\w{8}\w+)/launch/$', 'views.campaign_launch', name='campaign_launch'),
-                       url(r'camp/(?P<chash>\w{8}\w+)/widget/$', 'views.campaign_widget', name='campaign_widget'),
+                       url(r'camp/(?P<chash>\w{8}\w+)/widget/$', 'views.campaign_widget_page', name='campaign_widget_page'),
                        url(r'campaign_update_ajax/$', 'ajax_create.campaign_update_ajax', name='campaign_update_ajax'),
 
 
