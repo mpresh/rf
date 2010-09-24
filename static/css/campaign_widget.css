@@ -10,11 +10,11 @@
 
 #widget-preview {
    margin-bottom: 20px;
-   background-color: white;
-    width: 90%;
+   #background-color: white;
+    width: 70%;
     margin: auto;
     height: 45%;
-    border: 1px solid gray;
+    #border: 1px solid gray;
 }
 
 #widget-features {
@@ -49,13 +49,14 @@ button#getcode {
 
 textarea#code {
    width: 98%;
-   height: 97%%;
+   height: 97%;
    color: black;
 }
 
 textarea#widget-message {
    color: black;
    font-size: 13px;
+   margin:auto;
 }
 
 ul {
