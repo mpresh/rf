@@ -192,7 +192,7 @@ class Share(models.Model):
         else:
             from_facebook = str(self.from_user_facebook.id)
 
-        share_string = str(self.from_account_type) + str(self.created_at) + from_twitter + from_facebook
+        share_string = str(self.from_account_type) + str(self.created_at) + from_twitter + from_facebook + str(self.from_user_facebook) + str(self.from_user_twitter)
         shash = hashlib.sha1()
         shash.update(share_string)
 

@@ -60,7 +60,7 @@ def campaign_facebook_update(req, campaign_id=""):
                   parent_shash=parent_shash,
                   reach=fbuser.num_friends()
                   )
-
+    share.save()
     share.setHash()
     url = share.url(req, parent=parent_url)
     short_url = bitly.shorten(url)
