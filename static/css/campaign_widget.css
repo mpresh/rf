@@ -1,0 +1,71 @@
+#ripple-embed {
+	      margin:auto;
+	      margin-top: 13px;
+}
+
+#widget-wrapper {
+   background-color: #dddddd;
+   height: 600px;
+}
+
+#widget-preview {
+   margin-bottom: 20px;
+   background-color: white;
+    width: 90%;
+    margin: auto;
+    height: 45%;
+    border: 1px solid gray;
+}
+
+#widget-features {
+    background-color: white;
+    width: 90%;
+    height: 50%;
+    margin: auto;
+    border: 1px solid gray;
+    position: relative;
+    margin-top: 20px;
+}
+
+#widget {
+border: 1px solid black; 
+text-align: center;
+}
+
+div#widget-features input[type=text] {
+    color: black;
+}
+
+
+button#getcode {
+
+    /*set the div in the bottom right corner*/
+    position:absolute;
+    bottom:20px;
+    right:20px;
+    width:220px;
+
+}
+
+textarea#code {
+   width: 98%;
+   height: 97%%;
+   color: black;
+}
+
+textarea#widget-message {
+   color: black;
+   font-size: 13px;
+}
+
+ul {
+padding: 0;
+}
+
+div#widget-features li {
+margin: 10px 15px 10px 15px;
+}
+
+div#widget-features li:hover {
+background-color: #c9edf3;
+}

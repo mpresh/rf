@@ -21,7 +21,7 @@
 	<link type="text/css" href="{% url static 'css/jquery.cleditor.css' %}" rel="Stylesheet" />
 
  	<link rel="stylesheet" href="{% url static 'css/create.css' %}" type="text/css" />
- 	<link rel="stylesheet" href="{% url static 'css/campaign_launch.css' %}" type="text/css" />
+ 	<link rel="stylesheet" href="{% url static 'css/campaign_widget.css' %}" type="text/css" />
 
 
 
@@ -31,7 +31,7 @@
 
 	{% endblock %}
 
-{% block title %}Admin Console.{% endblock %}
+{% block title %}Widget{% endblock %}
 
 
 {% block site-content %}
@@ -41,20 +41,13 @@
 
 <div id="widget-wrapper" class="create">
 
+<div id="widget-preview">
+   <div id="ripple-embed">1</div>
+  <script type="text/javascript" src="http://www.ripplefunction.com/site_media/javascript/embed-iframe.js" ></script> 
+</div>
 
 <div id="widget-features">
 <ul>
-<li>
-    <label for="height">Height:&nbsp;&nbsp; </label>
-    <input type="text" value="35" size="3" name="widget-height" id="widget-height"/>&nbsp;px
-  <div style="width: 160px; float: right;" id="height-slider"></div>
-</li>
-<li>
-    <label for="width">Width:&nbsp;&nbsp; </label>
-    <input type="text" value="258" size="3" name="widget-width" id="widget-width"/>&nbsp;px
-  <div style="width: 160px; float: right;" id="width-slider"></div>
-</li>
-
 <li>
     <label for="widget-background-color">Background Color:&nbsp;&nbsp; </label>
     <input type="color" value="#d2f6d0" size="10" name="widget-background-color" id="widget-background-color"/>
@@ -86,9 +79,6 @@
 </ul>
 <button id="getcode"></button>
 </div>
-<div id="widget-preview">
-   <div id="widget"></div>
-   </div>
 </div>
 
 <div id="dialog" title="Embeddable Code" style="display:none;">

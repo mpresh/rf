@@ -104,3 +104,26 @@ div#ripple-badge {
 }
 
 
+.badge-button span
+{
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 30px;
+}
+
+
+#facebook-login-share span
+{
+	color: #3757A0;
+}
+
+#twitter-login-share span
+{
+	color: #36B7D9
+}
+
+.badge-button img{
+	width: 30px;
+	vertical-align: middle;
+	margin-right: 5px;
+}
