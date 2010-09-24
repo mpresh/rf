@@ -42,11 +42,6 @@ FB.getLoginStatus(function(response) {
 /////////// twitter login ////////////////
 $('#twitter-login').click(function(){
         var keyValuePairs = document.cookie.split(';');
-	//for(var i = 0; i < keyValuePairs.length; i++) {
-    	//	var name = keyValuePairs[i].substring(0, keyValuePairs[i].indexOf('='));
-        //        var value = keyValuePairs[i].substring(keyValuePairs[i].indexOf('=')+1);
-        //        alert(name + "   " + value);
-        //}
        signinWin = window.open(tauth_login_url + "?popup=true", "SignIn", "width=780,height=410");
        setTimeout(CheckLoginStatusTwitter, 2000);
        signinWin.focus();
@@ -155,12 +150,6 @@ $('#flogout').click(function(){
 });
 
 $('#tlogout').click(function(){
-        //var keyValuePairs = document.cookie.split(';');
-	//for(var i = 0; i < keyValuePairs.length; i++) {
-    	//	var name = keyValuePairs[i].substring(0, keyValuePairs[i].indexOf('='));
-        //        var value = keyValuePairs[i].substring(keyValuePairs[i].indexOf('=')+1);
-        //        alert(name + "   " + value);
-	//}
         $.ajax({ 
                    url: tauth_logout_url,
 	           dataType: "json", 
@@ -176,7 +165,6 @@ $('#tlogout').click(function(){
 
         }); 
 });
-
 
 function activateCopy() {
     ZeroClipboard.setMoviePath(clipboard_url ); 

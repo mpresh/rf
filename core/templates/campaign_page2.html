@@ -59,11 +59,11 @@
                   <script src="http://connect.facebook.net/en_US/all.js"></script>
 		  <div id="fb-root"></div>
                   {% if fbuser %}
-		      <button id="facebook-share" class="badge-button">
+		      <button id="facebook-share" class="badge-button" style="cursor: pointer;">
 		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
 		  {% else %}
-		      <button id="facebook-login" class="badge-button">
+		      <button id="facebook-login" class="badge-button" style="cursor: pointer;">
 		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
                   {% endif %}
@@ -71,12 +71,11 @@
 
 	     <div id="twitter-login-share">
                  {% if user %}
-		     <button id="twitter-share" class="badge-button">
+		     <button id="twitter-share" class="badge-button" style="cursor: pointer;">
 		           <img src="{% url static 'images/twitterShare_icon2.png' %}"/><span>Share</span>
 		     </button>
                  {% else %}
-                     <button onClick="location.href='{% url tauth_login %}?redirectArgs=overlayEQUALStwitter'" 
-		     class="badge-button" id="twitter-login">
+                     <button class="badge-button" id="twitter-login" style="cursor: pointer;">
 		         <img src="{% url static 'images/twitterShare_icon2.png' %}" /><span>Share</span>
 		     </button>
                  {% endif %}
@@ -193,6 +192,66 @@ alse" >
 // Global vars
 var contentView = 0;
 var shareLink = '';
+
+// Global vars
+var facebook_app_id = '{{facebook_app_id}}';
+var host = '{{host}}';
+var campaign_type = '{{campaign.campaign_type}}';
+
+{% if parent_url %}
+var parent_url = '{{parent_url}}';
+{% else %}
+var parent_url = '';
+{% endif%}
+{% if user %}
+var user = true;
+var user_id = '{{user.id}}';
+{% else %}
+var user = false;
+var user_id = '';
+{% endif %}
+
+{% if fbuser %}
+var fbuser = true;
+var fbuser_id = '{{fbuser.id}}';
+{% else %}
+var fbuser = false;
+var fbuser_id = '';
+{% endif %}
+
+{% if overlayTwitter %}
+var overlayTwitter = true;
+{% else %}
+var overlayTwitter = false;
+{% endif %}
+{% if overlayfacebook %}
+var overlayFacebook = true;
+{% else %}
+var overlayFacebook = false;
+{% endif %}
+
+var shash = '{{shash}}';
+
+var tauth_login_url = host + "{% url tauth_login %}" ;
+var facebook_sync_server_url = host + "{% url ajax_facebook_sync_server %}";
+var ajax_facebook_logout_url = host + "{% url ajax_facebook_logout %}";
+var tauth_logout_url = host + "{% url tauth_logout %}?popup=true";
+var clipboard_url = host + "{% url static 'javascript/ZeroClipboard.swf' %}";
+var facebook_update_id_url = host + "{% url campaign_facebook_update campaign_id=campaign.id %}";
+var campaign_tweet_invite_url = host + "{% url campaign_tweet_invite campaign_id=campaign.id %}"
+var campaign_going_twitter_url = host + "{% url campaign_going_twitter campaign_id=campaign.id %}";
+
+var ajax_check_twitter_logged_in = host + "{% url tauth_logged_in %}";
+var ajax_check_facebook_logged_in = host + "{% url fauth_logged_in %}";
+
+var facebook_api = "{{facebook_api}}";
+var redirect_uri = "{{redirect_uri}}";
+
+var scope = '{{scope}}';
+
+var code = '{{campaign.code}}';
+
+
 
 function refreshAttendee(limit)
 {
@@ -390,56 +449,126 @@ $("#facebook-feed-update").click(function(){
 });
 
 function activateCopy() {
-    ZeroClipboard.setMoviePath( "http://collectivevip.com{% url static 'javascript/ZeroClipboard.swf' %}" ); 
+    ZeroClipboard.setMoviePath( "http://ripplefunction.com{% url static 'javascript/ZeroClipboard.swf' %}" ); 
     var clip = new ZeroClipboard.Client();
     clip.setText( '{{campaign.code}}' );
     clip.glue( 'd_clip_button', 'd_clip_container' );
 }
 
+/////////// twitter login ////////////////
+$('#twitter-login').click(function(){
+        var keyValuePairs = document.cookie.split(';');
+       signinWin = window.open(tauth_login_url + "?popup=true", "SignIn", "width=780,height=410");
+       setTimeout(CheckLoginStatusTwitter, 2000);
+       signinWin.focus();
+       return false;
+});
+function CheckLoginStatusTwitter() {
+    if (signinWin.closed) {
+        $.ajax({ 
+            url: ajax_check_twitter_logged_in,
+    	    dataType: "json", 
+    	    data: {},
+    	    success: function (data) {
+		    //alert(JSON.stringify(data));
+		    if (data["status"] == "1") {
+    	               $("#div-twitter-logged-in").show();
+                       $("#div-twitter-logged-out").hide();	
+                       shareLink = 'twitter';
+                       overlayType = "twitter";
+                       $("#overlay-blogger-login").overlay().load();
+		    }
+		},			       
+    	         beforeSend: function() {
+                 } 
+    	
+    		
+    	    });
+    }
+   else {
+       setTimeout(CheckLoginStatusTwitter, 1000);
+   }
+}
+
+///////////// facebook login //////////////
 var requiredPerms  = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
 $('#facebook-login').click(function(){
-        facebook_login_click();
-	//FB.getLoginStatus(function(response) {
-	//alert("facebook login");
-	//
-	//	if (response.session) {
-	//		// logged in and connected user, someone you know
-	//		//alert("LOGGED IN");
-	//		FB.logout(function(response) { 
-        //                      facebook_login_click();
-	//		});
-        //        } else {
-        //                 //alert("logged out");
-        //                    facebook_login_click();
-        //        }
-	//
-        //});
+       signinWin = window.open("https://graph.facebook.com/oauth/authorize?client_id=" + facebook_api + "&redirect_uri=" + redirect_uri + "&display=popup&scope=" + scope, "SignIn", "width=780,height=410");
+       setTimeout(CheckLoginStatusFacebook, 2000);
+       signinWin.focus();
+       return false;
+});
+function CheckLoginStatusFacebook() {
+    if (signinWin.closed) {
 
+$.ajax({ 
+            url: ajax_check_facebook_logged_in,
+    	    dataType: "json", 
+    	    data: {},
+    	    success: function (data) {
+	    //alert(JSON.stringify(data));
+                if (data["status"] == "1") {
+                   $("#div-facebook-logged-in").show();
+                   $("#div-facebook-logged-out").hide();
+                   shareLink = 'facebook';
+                   overlayType = "facebook";
+                   $("#overlay-blogger-login").overlay().load();
+		}
+		},			       
+    	         beforeSend: function() {
+                 } 
+    	
+    		
+    	    });
+
+    
+    }
+    else setTimeout(CheckLoginStatusFacebook, 1000);
+}
+
+
+$('#flogout').click(function(){
+        $.ajax({ 
+                   url: ajax_facebook_logout_url,
+	           dataType: "json", 
+	           data: {},
+	           success: function (data) { 
+                       $("#div-facebook-logged-out").show();
+                       $("#div-facebook-logged-in").hide();
+                   },
+	           beforeSend: function() {
+       
+                       var options  = { path: '/', expires: -1 };
+	               $.cookie("uid", null, options);
+	               $.cookie("session_key", null, options);
+	               $.cookie("secret", null, options);
+	               $.cookie("expires", null, options);
+	               $.cookie("base_domain", null, options);
+	               $.cookie("access_token", null, options);
+	               $.cookie("sig", null, options);
+                       FB.logout();
+
+                 } 
+
+        }); 
 });
 
-$('#flogout').click(function() 
-{
-	var options  = { path: '/', expires: -1 };
-	$.cookie("uid", null, options);
-	$.cookie("session_key", null, options);
-	$.cookie("secret", null, options);
-	$.cookie("expires", null, options);
-	$.cookie("base_domain", null, options);
-	$.cookie("access_token", null, options);
-	$.cookie("sig", null, options);
+$('#tlogout').click(function(){
+        $.ajax({ 
+                   url: tauth_logout_url,
+	           dataType: "json", 
+	           data: {user_id: user_id},
+	           success: function (data) {
+                       user_id = '';
+                       user = false;
+                       $("#div-twitter-logged-out").show();
+                       $("#div-twitter-logged-in").hide();    
+                   },
+	           beforeSend: function() {
+                 } 
 
-	FB.getLoginStatus(function(response) {
-		if (response.session) {	
-			FB.logout(function(response) { 
-						window.location.href   = "{% url facebook_logout_callback %}";
-					});
-				}
-				else{
-					window.location.href  = "{% url facebook_logout_callback %}";
-				}
-	});
+        }); 
 });
-
 
 
 $("#invite_popup_close").bind('click', function() {
