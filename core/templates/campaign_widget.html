@@ -42,43 +42,43 @@
 <div id="widget-wrapper" class="create">
 
 <div id="widget-preview">
-   <div id="ripple-embed">1</div>
+   <div id="ripple-embed">{{campaign.id}}</div>
   <script type="text/javascript" src="http://www.ripplefunction.com/site_media/javascript/embed-iframe.js" ></script> 
 </div>
 
 <div id="widget-features">
-<ul>
-<li>
-    <label for="widget-background-color">Background Color:&nbsp;&nbsp; </label>
-    <input type="color" value="#d2f6d0" size="10" name="widget-background-color" id="widget-background-color"/>
-    <button id="hide-color" style="display:none;">Hide</button>
-    <div id="picker" style="display:none; border: 1px solid gray; text-alighn: center; padding-left: 50px;"></div>
-</li>
+    <ul>
+    <li>
+        <div style="float:left;">
+        <label for="widget-background-color">Background Color Top:&nbsp;&nbsp; </label>
+        <input type="color" value="#d2f6d0" size="10" name="widget-background-color" id="widget-background-color"/>
+        <button id="hide-color" style="display:none;">Hide</button>
+        <div id="picker" style="display:none; border: 1px solid gray; text-alighn: center; padding-left: 50px;"></div>
+        </div>
+        <div style="float:right;">
+        <label for="widget-background-color">Background Color Bottom:&nbsp;&nbsp; </label>
+        <input type="color" value="#d2f6d0" size="10" name="widget-background-color" id="widget-background-color"/>
+        <button id="hide-color" style="display:none;">Hide</button>
+        <div id="picker" style="display:none; border: 1px solid gray; text-alighn: center; padding-left: 50px;"></div>
+        </div>
+    </li>
+    
+    <li>
+        <label for="message">Message:&nbsp;&nbsp; </label>
+        <textarea cols=100 rows=6 id="widget-message">{{campaign.title}}</textarea>&nbsp;&nbsp;
+    </li>
 
-<li>
-    <label for="message">Message:&nbsp;&nbsp; </label>
-    <textarea cols=36 rows=6 id="widget-message">{{campaign.title}}</textarea>&nbsp;&nbsp;
-</li>
-<li>
-    <label for="widget-text-color">Text Color:&nbsp;&nbsp; </label>
-    <input type="color" value="black" size="10" name="widget-text-color" id="widget-text-color"/>
-    <button id="hide-color2" style="display:none;">Hide</button>
-    <div id="picker2" style="display:none; border: 1px solid gray; text-alighn: center; padding-left: 50px;"></div>
-</li>
-<li>
-    <label for="widget-text-size">Text Size:&nbsp;&nbsp; </label>
-    <input type="text" value="27" size="3" name="widget-text-size" id="widget-text-size"/>&nbsp;px
-  <div style="width: 160px; float: right;" id="text-size-slider"></div>
-<li></li>
 
-<li>
-   <label for="widget-background-image">Background Image &nbsp;&nbsp;</label>
-   <button id="widget-remove-img" style="display:none;">Remove Img</button>
-   <input name="widget-background-image" id="widget-background-image" type="file"> </input>
-</li>
-</ul>
-<button id="getcode"></button>
-</div>
+
+    
+    <li>
+       <label for="widget-background-image">Background Image &nbsp;&nbsp;</label>
+       <button id="widget-remove-img" style="display:none;">Remove Img</button>
+       <input name="widget-background-image" id="widget-background-image" type="file"> </input>
+    </li>
+    </ul>
+    <button id="getcode"></button>
+    </div>
 </div>
 
 <div id="dialog" title="Embeddable Code" style="display:none;">
@@ -87,11 +87,12 @@
 
 
 <div id="admin_console" class="create">
-Back To Admin Page: &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{admin_url}}">{{admin_url}}</a><br/>
+        Back To Admin Page: &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{admin_url}}">{{admin_url}}</a><br/>
 </div>
+
+
+
 <script>
-
-
 
   // background image
   $("#widget-remove-img").click(function() {
@@ -125,16 +126,16 @@ Back To Admin Page: &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{admin_url}}">{{admin_url}
 
 
   // height
-  $("#widget-height").keyup(function(){
-      $("#widget").height(parseInt($("#widget-height").val()))
-      $("#height-slider").slider("value", parseInt($("#widget-text-size").val()));
-  });
-
-  // width
-  $("#widget-width").keyup(function(){
-      $("#widget").width(parseInt($("#widget-width").val()))
-      $("#width-slider").slider("value", parseInt($("#widget-text-size").val()));
-  });
+  //$("#widget-height").keyup(function(){
+  //    $("#widget").height(parseInt($("#widget-height").val()))
+  //    $("#height-slider").slider("value", parseInt($("#widget-text-size").val()));
+  //});
+  //
+  //// width
+  //$("#widget-width").keyup(function(){
+  //    $("#widget").width(parseInt($("#widget-width").val()))
+  //    $("#width-slider").slider("value", parseInt($("#widget-text-size").val()));
+  //});
 
 
 
@@ -154,39 +155,32 @@ Back To Admin Page: &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{admin_url}}">{{admin_url}
   });
 
   // text color 
-  $('#hide-color2').click(function(){
-       $("#picker2").slideUp('slow');
-       $('#hide-color2').hide();
-  })
-  $('#picker2').farbtastic(function (color) {
-     $('#widget-text-color').val(color);
-     $("#widget").css({'color': $('#widget-text-color').val()});
-  });
-  
-  $('#widget-text-color').click(function(){
-        $("#picker2").slideDown('slow');
-        $('#hide-color2').show(); 
-  });
+  //$('#hide-color2').click(function(){
+  //     $("#picker2").slideUp('slow');
+  //     $('#hide-color2').hide();
+  //})
+  //$('#picker2').farbtastic(function (color) {
+  //   $('#widget-text-color').val(color);
+  //   $("#widget").css({'color': $('#widget-text-color').val()});
+  //});
+  //
+  //$('#widget-text-color').click(function(){
+  //      $("#picker2").slideDown('slow');
+  //      $('#hide-color2').show(); 
+  //});
+
 
 
 $("#getcode").click(function(){
-    $("#code").val("<a target='ripple' href='{{landing_url}}'><div style=\
-'width: " + $("#widget").width() + "px; \
-height: " + $("#widget").height() + "px; \
-color: " + $("#widget").css('color')+ "; \
-font-size: " + $("#widget").css('font-size')+ "px; \
-text-align: center; \
-border: 2px solid black; \
-background-color: " + $("#widget").css('background-color') + ";'> \
-background-image: " + $("#widget").css('background-image') + ";'> \
-" + $("#widget").text() + " \
-</div></a>");
+    $("#code").val("<div id=\'ripple-embed\'>{{campaign.id}}<\/div><script type=\'text\/javascript\' src=\'http:\/\/www.ripplefunction.com\/site_media\/javascript\/embed-iframe.js\' \>\<\/script\>");
+    alert("hello");
 
- $("#dialog").dialog({
+    $("#dialog").dialog({
         "width": 500,
         "height": 400,
      });
-});   
+   
+});
 
 // text size slider
 $("#text-size-slider").slider({value : $("#widget-text-size").val(),
@@ -225,7 +219,7 @@ $("#width-slider").slider({value : $("#widget-width").val(),
                        }});
 
 // message
-$("#widget-message").cleditor({height: 160, width: 360});
+$("#widget-message").cleditor({height: 120, width: "100%"});
 $("#widget").text($("#widget-message").html());
 
 
