@@ -40,35 +40,31 @@
 <div id="widget-features">
     <ul>
     <li>
-        <div style="float:left;">
-        <label for="widget-background-color">Background Color Top:&nbsp;&nbsp; </label>
-        <input type="color" value="#d2f6d0" size="10" name="widget-background-color" id="widget-background-color"/>
-        <button id="hide-color" style="display:none;">Hide</button>
-        <div id="picker" style="display:none; border: 1px solid gray; text-alighn: center; padding-left: 50px;"></div>
-        </div>
-        <div style="float:right;">
-        <label for="widget-background-color">Background Color Bottom:&nbsp;&nbsp; </label>
-        <input type="color" value="#d2f6d0" size="10" name="widget-background-color" id="widget-background-color"/>
-        <button id="hide-color" style="display:none;">Hide</button>
-        <div id="picker" style="display:none; border: 1px solid gray; text-alighn: center; padding-left: 50px;"></div>
-        </div>
-    </li>
-    
-    <li>
         <label for="message">Message:&nbsp;&nbsp; </label>
         <textarea id="widget-message">{{campaign.title}}</textarea>&nbsp;&nbsp;
     </li>
-
-
-
-    
     <li>
-       <label for="widget-background-image">Background Image &nbsp;&nbsp;</label>
-       <button id="widget-remove-img" style="display:none;">Remove Img</button>
-       <input name="widget-background-image" id="widget-background-image" type="file"> </input>
+        <div style="height:240px;">
+        <div style="float:left;">
+        <label for="widget-background-color-top">Background Color Top:&nbsp;&nbsp; </label>
+        <input type="color" value="#d2f6d0" size="10" name="widget-background-color-top" id="widget-background-color-top"/>
+        <button id="hide-color-top" style="display:none;">Hide</button>
+        <div id="picker-top" style="display:none;text-alighn: center; padding-left: 50px;"></div>
+        </div>
+
+        <div style="float:right;">
+        <label for="widget-background-color-bottom">Background Color Bottom:&nbsp;&nbsp; </label>
+        <input type="color" value="#d2f6d0" size="10" name="widget-background-color-bottom" id="widget-background-color-bottom"/>
+        <button id="hide-color-bottom" style="display:none;">Hide</button>
+        <div id="picker-bottom" style="display:none;border: text-alighn: center; padding-left: 50px;"></div>
+        </div>
+	</div>
     </li>
+
+
     </ul>
 
+    <button id="refresh-iframe">Update Widget</button>
     <button id="getcode"></button>
 </div>
 </div>
@@ -94,11 +90,9 @@
 $("#getcode").click(function(){
     $("#code").val("<div id=\'ripple-embed\'>{{campaign.id}}<\/div><script type=\'text\/javascript\' src=\'http:\/\/www.ripplefunction.com\/site_media\/javascript\/embed-iframe.js\' \>\<\/script\>");
     
-	  
-
     $("#dialog").dialog({
-        "width": 500,
-        "height": 400,
+        "width": 450,
+        "height": 200,
      });
     
 });
@@ -130,7 +124,42 @@ $("#widget-message").cleditor({height: 120,
                         "margin:4px; font:10pt Arial,Verdana; cursor:text"
 
 });
-//
+
+
+// background color TOP
+  $('#hide-color-top').click(function(){
+       $("#picker-top").slideUp('slow');
+       $('#hide-color-top').hide();
+  })
+  $('#picker-top').farbtastic(function (color) {
+     $('#widget-background-color-top').val(color);
+  });
+  
+  $('#widget-background-color-top').click(function(){
+        $("#picker-top").slideDown('slow');
+        $('#hide-color-top').show(); 
+  });
+
+// background color BOTTOM
+  $('#hide-color-bottom').click(function(){
+       $("#picker-bottom").slideUp('slow');
+       $('#hide-color-bottom').hide();
+  })
+  $('#picker-bottom').farbtastic(function (color) {
+     $('#widget-background-color-bottom').val(color);
+  });
+  
+  $('#widget-background-color-bottom').click(function(){
+        $("#picker-bottom").slideDown('slow');
+        $('#hide-color-bottom').show(); 
+  });
+
+
+// update idrame widget
+$("#refresh-iframe").click(function(){
+    $("#ripple-frame").attr("src", $("#ripple-frame").attr("src"));
+});
+
 </script>
 
 

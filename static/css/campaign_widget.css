@@ -5,7 +5,7 @@
 
 #widget-wrapper {
    background-color: #dddddd;
-   height: 600px;
+   height: 900px;
 }
 
 #widget-preview {
@@ -13,14 +13,14 @@
    #background-color: white;
     width: 70%;
     margin: auto;
-    height: 45%;
+    height: 30%;
     #border: 1px solid gray;
 }
 
 #widget-features {
     background-color: white;
     width: 90%;
-    height: 50%;
+    height: 65%;
     margin: auto;
     border: 1px solid gray;
     position: relative;
@@ -41,8 +41,18 @@ button#getcode {
 
     /*set the div in the bottom right corner*/
     position:absolute;
-    bottom:20px;
+    top:20px;
     right:20px;
+    width:220px;
+
+}
+
+button#refresh-iframe {
+
+    /*set the div in the bottom left corner*/
+    position:absolute;
+    top:20px;
+    left:20px;
     width:220px;
 
 }
@@ -61,6 +71,7 @@ textarea#widget-message {
 
 ul {
 padding: 0;
+margin-top: 50px;
 }
 
 div#widget-features li {
