@@ -19,6 +19,7 @@ import util
 from fauth import fauth_utils
 from pylib.bitly import *
 import urlparse
+import re
 
 def create_campaign(req):
     """ This is the default create campaign page."""
