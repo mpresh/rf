@@ -99,11 +99,11 @@ $("#getcode").click(function(){
 
 // message
 {% if html %}
-
 $("#widget-message").html("{{html}}");
 {% else %}
 $("#widget-message").html("<font size='7'><div id='badge-title'>{{campaign.title}}</div></font-size><div id='badge-subtitle'>{{campaign.message}}</div><div id='badge-action'>JUST BY <b>Sharing</b> with friends:</div>");
 {% endif %}
+
 
 $("#widget-message").cleditor({height: 120, 
                                width: "100%",
@@ -173,7 +173,7 @@ $("#refresh-iframe").click(function(){
                           $("#ripple-frame").attr("src", $("#ripple-frame").attr("src"));
                                },
     	           beforeSend: function() { 
-                          alert($("#widget-message").cleditor().attr("$area").html());
+                          alert("HTML TEXT " + $("#widget-message").html());
                  } 
     
     }); 
