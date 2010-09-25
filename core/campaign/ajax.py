@@ -103,3 +103,30 @@ def select_winners(req):
 
     print "Winners Dict", dict
     return HttpResponse(json.dumps(dict))    
+
+
+def ajax_update_widget(req):
+    print "ajax_update_widget", req
+    dict = {}
+    top = req.GET["headercolor"]
+    bottom = req.GET["footercolor"]
+    camp_id = int(req.GET["camp_id"])
+
+    print "here I am"
+    # check to see if there is a css file for widget of this campaign
+    destination_dir = os.path.join(settings.ROOT_PATH, 'static/css/widget/')
+    print "DEST", destination_dir
+    if not os.path.exists(destination_dir):
+        os.system("mkdir -p " + destination_dir)
+    print "a"
+    css_file = os.path.join(destination_dir, 'style_' + str(camp_id) + '.css')
+    print "b"
+    css_text = "div#badge-header {background-color: " + top + "}\n"
+    print "c"
+    css_text = css_text + "div#badge-footer {background-color: " + bottom + "}\n"
+    print "TEXT", css_text
+    print "CCFILE", css_file
+    open(css_file, "w+").write(css_text)
+        
+    
+    return HttpResponse(json.dumps(dict))    
