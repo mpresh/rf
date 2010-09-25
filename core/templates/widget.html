@@ -176,6 +176,12 @@ var overlayFacebook = true;
 var overlayFacebook = false;
 {% endif %}
 
+{% if css %}
+var css = true;
+{% else %}
+var css = false;
+{% endif %}
+
 var shash = '{{shash}}';
 
 var tauth_login_url = host + "{% url tauth_login %}" ;
@@ -197,7 +203,12 @@ var scope = '{{scope}}';
 
 var code = '{{campaign.code}}';
 
-LazyLoad.css(["/site_media/css/overlayA.css", "/site_media/css/cross-site-badge.css"],	
+var css_files = ["/site_media/css/overlayA.css", "/site_media/css/cross-site-badge.css"]; 
+if (css) {
+    css_files = ["/site_media/css/overlayA.css", "/site_media/css/cross-site-badge.css", "/site_media/css/widget/style_{{campaign.id}}.css"]; 
+}
+    																																																																																																																																																									      
+LazyLoad.css(css_files,	
      function() {
 
 		LazyLoad.js(["/site_media/javascript/jquery-1.4.2.min.js", 

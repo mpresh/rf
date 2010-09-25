@@ -51,6 +51,14 @@ def campaign_widget(req, camp_id="1"):
         campaign = Campaign.objects.get(id=camp_id)
         dict["campaign"] = campaign
 
+    # check to see if there is a css file for widget of this campaign
+    destination_dir = os.path.join(settings.ROOT_PATH, 'static/css/widget/')
+    if not os.path.exists(destination_dir):
+        os.system("mkdir -p " + destination_dir)
+    image_file = os.path.join(destination_dir, 'style_' + str(campaign.id) + '.css')
+    if os.path.exists(image_file):
+        dict['css'] = True
+
     # twitter user
     if "user_id" in req.session:
         user = User.objects.get(id=req.session["user_id"])	
