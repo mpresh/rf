@@ -99,9 +99,9 @@ $("#getcode").click(function(){
 
 // message
 {% if html %}
-$("#widget-message").html("{{html}}");
+$("#widget-message").val("{{html}}");
 {% else %}
-$("#widget-message").html("<font size='7'><div id='badge-title'>{{campaign.title}}</div></font-size><div id='badge-subtitle'>{{campaign.message}}</div><div id='badge-action'>JUST BY <b>Sharing</b> with friends:</div>");
+$("#widget-message").val("<font size='7'><div id='badge-title'>{{campaign.title}}</div></font-size><div id='badge-subtitle'>{{campaign.message}}</div><div id='badge-action'>JUST BY <b>Sharing</b> with friends:</div>");
 {% endif %}
 
 
@@ -168,12 +168,12 @@ $("#refresh-iframe").click(function(){
     	           data: {headercolor: $('#widget-background-color-top').val(), 
                           camp_id: '{{campaign.id}}',   
     		            footercolor: $('#widget-background-color-bottom').val(),
-                          htmlval: $("#widget-message").cleditor().attr("$area").html()},
+                          htmlval: $("#widget-message").val()},
     	           success: function (data) { 
                           $("#ripple-frame").attr("src", $("#ripple-frame").attr("src"));
                                },
     	           beforeSend: function() { 
-                          alert("HTML TEXT " + $("#widget-message").html());
+                          //alert("HTML TEXT " + $("#widget-message").val());
                  } 
     
     }); 
