@@ -161,21 +161,22 @@ $("#widget-message").cleditor({height: 120,
 
 // update idrame widget
 $("#refresh-iframe").click(function(){
+    //alert("cleditor val" + unescape($("#widget-message").cleditor().attr("$area").html()));
     $.ajax({ 
                    url: "{% url ajax_update_widget %}", 
-	           dataType: "json", 
-	           data: {headercolor: $('#widget-background-color-top').val(), 
+    	           dataType: "json", 
+    	           data: {headercolor: $('#widget-background-color-top').val(), 
                           camp_id: '{{campaign.id}}',   
-		          footercolor: $('#widget-background-color-bottom').val()},
-                          //htmlval: $("#widget-message").cleditor().select()},
-	           success: function (data) { 
+    		            footercolor: $('#widget-background-color-bottom').val()},
+                          htmlval: $("#widget-message").cleditor().attr("$area").html()},
+    	           success: function (data) { 
                           $("#ripple-frame").attr("src", $("#ripple-frame").attr("src"));
                                },
-	           beforeSend: function() { 
+    	           beforeSend: function() { 
                           //alert
                           //alert("cleditor val" + $("#widget-message").cleditor().html());
                  } 
-
+    
     }); 
 
 });
