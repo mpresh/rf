@@ -1,9 +1,15 @@
 
         <div id="ripple-badge" class="ripple-badge-overlay" style="height=100px;">
-	    <div id="badge-title">{{campaign.title}}</div>
-	    <div id="badge-subtitle">{{campaign.message}}</div>
-	    <div id="badge-action">JUST BY <b>Sharing</b> with friends:</div>
-
+        <div id="badge-header">
+	 {% if html %}
+            {{html}}
+         {% else %}
+            <br/>
+	    <font-size="6">{{campaign.title}}</font-size><br/><br/>
+	    <font-size="3">{{campaign.message}}</font-size><br/><br/>
+	    <font<font-size="4">JUST BY <b>Sharing</b> with friends:</font-size>
+         {% endif %}
+         </div>
          <div id="badge-footer">
 
 	    <div id="facebook-login-share">

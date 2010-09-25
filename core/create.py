@@ -55,9 +55,17 @@ def campaign_widget(req, camp_id="1"):
     destination_dir = os.path.join(settings.ROOT_PATH, 'static/css/widget/')
     if not os.path.exists(destination_dir):
         os.system("mkdir -p " + destination_dir)
-    image_file = os.path.join(destination_dir, 'style_' + str(campaign.id) + '.css')
-    if os.path.exists(image_file):
+    css_file = os.path.join(destination_dir, 'style_' + str(campaign.id) + '.css')
+    if os.path.exists(css_file):
         dict['css'] = True
+
+    # check to see if there is custom widget text
+    destination_dir = os.path.join(settings.ROOT_PATH, 'static/css/widget/text')
+    if not os.path.exists(destination_dir):
+        os.system("mkdir -p " + destination_dir)
+    text_file = os.path.join(destination_dir, 'text_' + str(campaign.id) + '.html')
+    if os.path.exists(text_file):
+        dict['html'] = open(text_file).read()
 
     # twitter user
     if "user_id" in req.session:
