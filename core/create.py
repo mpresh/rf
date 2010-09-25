@@ -253,17 +253,41 @@ def campaign_launch(req, chash=""):
 
 def campaign_widget_page(req, chash=""):
     try:
-        c = Campaign.objects.get(chash=chash)
+        campaign = Campaign.objects.get(chash=chash)
     except:
         return render_to_response('404.html', {})
 
     dict = {}
-    dict["campaign"] = c
+    dict["campaign"] = campaign
 
     host = "http://" + req.get_host()
     dict["host"] = host
-    campaign_admin_url = host + reverse("campaign_admin", kwargs={'chash':c.chash})
+    campaign_admin_url = host + reverse("campaign_admin", kwargs={'chash':campaign.chash})
     dict["admin_url"] = shorten(campaign_admin_url)
+
+    # check to see if there is a css file for widget of this campaign
+    dict["headercolor"] = "#F2F2F2"
+    dict["footercolor"] = "white"
+    destination_dir = os.path.join(settings.ROOT_PATH, 'static/css/widget/')
+    if not os.path.exists(destination_dir):
+        os.system("mkdir -p " + destination_dir)
+    css_file = os.path.join(destination_dir, 'style_' + str(campaign.id) + '.css')
+    if os.path.exists(css_file):
+        css = open(css_file).read()
+        mo = re.search("badge-header\s*?{background-color[:]\s*?([#0-9a-zA-Z]+)", css)
+        if mo:
+            dict["headercolor"] = mo.group(1)
+        mo = re.search("badge-footer\s*?{background-color[:]\s*?([#0-9a-zA-Z]+)", css)
+        if mo:
+            dict["footercolor"] = mo.group(1)
+
+    # check to see if there is custom widget text
+    destination_dir = os.path.join(settings.ROOT_PATH, 'static/css/widget/text')
+    if not os.path.exists(destination_dir):
+        os.system("mkdir -p " + destination_dir)
+    text_file = os.path.join(destination_dir, 'text_' + str(campaign.id) + '.html')
+    if os.path.exists(text_file):
+        dict['html'] = open(text_file).read()
 
     return render_to_response('campaign_widget.html', dict)
 

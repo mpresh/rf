@@ -47,14 +47,14 @@
         <div style="height:240px;">
         <div style="float:left;">
         <label for="widget-background-color-top">Background Color Top:&nbsp;&nbsp; </label>
-        <input type="color" value="#d2f6d0" size="10" name="widget-background-color-top" id="widget-background-color-top"/>
+        <input type="color" value="{{headercolor}}" size="10" name="widget-background-color-top" id="widget-background-color-top"/>
         <button id="hide-color-top" style="display:none;">Hide</button>
         <div id="picker-top" style="display:none;text-alighn: center; padding-left: 50px;"></div>
         </div>
 
         <div style="float:right;">
         <label for="widget-background-color-bottom">Background Color Bottom:&nbsp;&nbsp; </label>
-        <input type="color" value="#d2f6d0" size="10" name="widget-background-color-bottom" id="widget-background-color-bottom"/>
+        <input type="color" value="{{footercolor}}" size="10" name="widget-background-color-bottom" id="widget-background-color-bottom"/>
         <button id="hide-color-bottom" style="display:none;">Hide</button>
         <div id="picker-bottom" style="display:none;border: text-alighn: center; padding-left: 50px;"></div>
         </div>
@@ -101,7 +101,12 @@ $("#getcode").click(function(){
 
 
 // message
+{% if html %}
+$("#widget-message").html({{html}});
+{% else %}
 $("#widget-message").html("<font size='7'><div id='badge-title'>{{campaign.title}}</div></font-size><div id='badge-subtitle'>{{campaign.message}}</div><div id='badge-action'>JUST BY <b>Sharing</b> with friends:</div>");
+{% endif %}
+
 $("#widget-message").cleditor({height: 120, 
                                width: "100%",
                                fonts:        // font names in the font popup
