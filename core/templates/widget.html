@@ -207,7 +207,7 @@ var css_files = ["/site_media/css/overlayA.css", "/site_media/css/cross-site-bad
 if (css) {
     css_files = ["/site_media/css/overlayA.css", "/site_media/css/cross-site-badge.css", "/site_media/css/widget/style_{{campaign.id}}.css"]; 
 }
-    																																																																																																																																																									      
+
 LazyLoad.css(css_files,	
      function() {
 
@@ -215,14 +215,16 @@ LazyLoad.css(css_files,
 			      "/site_media/javascript/myjscript.js", 
 			      "/site_media/javascript/jquery.tools.min.js",
                               "http://connect.facebook.net/en_US/all.js",
-			      "/site_media/javascript/ZeroClipboard.js",																																																																																																																																																				      
-			      "/site_media/javascript/charCount.js",
+			      "/site_media/javascript/ZeroClipboard.js",
+                              "/site_media/javascript/charCount.js",
                               "/site_media/javascript/jquery.cookie.js",
 			      "/site_media/javascript/jquery.showLoading.js"
 			      ], function () {
                                  //alert("loading jsjs");
                                  LazyLoad.js(["/site_media/javascript/embed-js.js",
-                                 ], function() {});
+                                 ], function() {
+                                  
+                                   });
 			     });
 		 
 
