@@ -2,7 +2,9 @@
         <div id="ripple-badge" class="ripple-badge-overlay" style="height=100px;">
         <div id="badge-header">
 	 {% if html %}
+         {% autoescape off%}
             {{html}}
+         {% endautoescape %}
          {% else %}
             <br/>
 	    <font-size="6">{{campaign.title}}</font-size><br/><br/>
