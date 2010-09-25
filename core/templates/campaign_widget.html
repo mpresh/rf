@@ -64,7 +64,7 @@
 
     </ul>
 
-    <button id="refresh-iframe">Update Widget</button>
+    <button id="refresh-iframe">Update & Save Widget</button>
     <button id="getcode"></button>
 </div>
 </div>
@@ -81,7 +81,6 @@
 
 
 <script>
-
   $("#getcode").text("<Get Embeddable Code>");
   
  
@@ -98,11 +97,10 @@ $("#getcode").click(function(){
 });
 
 
-
-
 // message
 {% if html %}
-$("#widget-message").html({{html}});
+
+$("#widget-message").html("{{html}}");
 {% else %}
 $("#widget-message").html("<font size='7'><div id='badge-title'>{{campaign.title}}</div></font-size><div id='badge-subtitle'>{{campaign.message}}</div><div id='badge-action'>JUST BY <b>Sharing</b> with friends:</div>");
 {% endif %}
