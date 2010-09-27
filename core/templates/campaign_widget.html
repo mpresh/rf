@@ -99,7 +99,12 @@ $("#getcode").click(function(){
 
 // message
 {% if html %}
-$("#widget-message").val("{{html}}");
+
+
+$("#widget-message").val('{% autoescape off %}{{html}}{% endautoescape %}');
+
+
+
 {% else %}
 $("#widget-message").val("<font size='7'><div id='badge-title'>{{campaign.title}}</div></font-size><div id='badge-subtitle'>{{campaign.message}}</div><div id='badge-action'>JUST BY <b>Sharing</b> with friends:</div>");
 {% endif %}

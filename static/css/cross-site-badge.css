@@ -46,7 +46,6 @@ div#badge-subtitle {
 
 div#badge-action {
     font-size: 24px;
-    color: red;
 }
 
 div#badge-footer {
@@ -100,7 +99,6 @@ div#ripple-badge {
 	background-color: #F2F2F2;
 
 	font-size: 20px;
-	color: red;
 }
 
 .overlay-top p {
