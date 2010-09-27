@@ -7,9 +7,9 @@
          {% endautoescape %}
          {% else %}
             <br/>
-	    <font-size="6">{{campaign.title}}</font-size><br/><br/>
-	    <font-size="3">{{campaign.message}}</font-size><br/><br/>
-	    <font<font-size="4">JUST BY <b>Sharing</b> with friends:</font-size>
+	    <font size="5">{{campaign.title}}</font><br/><br/>
+	    <font size="3">{{campaign.message}}</font><br/><br/>
+	    <font color="#ff0000"><font size="4">JUST BY <b>Sharing</b> with friends:</font></font>
          {% endif %}
          </div>
          <div id="badge-footer">
@@ -36,7 +36,7 @@
 		      <button id="facebook-login" class="badge-button" style="cursor: pointer;">
 		           <img src="{{host}}{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
 		      </button>
-		      <span style="color: gray; font-size: 12px;">logged out</span>
+		      <span style="color: gray; font-size: 12px;"></span>
                     </div>
 	     </div>  
 
@@ -62,7 +62,7 @@
                      <button id="twitter-login" class="badge-button"  style="cursor: pointer;">
 		         <img src="{{host}}{% url static 'images/twitterShare_icon2.png' %}" /><span>Share</span>
 		     </button>
-		     <span style="color: gray; font-size: 12px;">logged out</span>
+		     <span style="color: gray; font-size: 12px;"></span>
 		  </div>
 
              </div>

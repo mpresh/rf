@@ -40,8 +40,8 @@
 <div id="widget-features">
     <ul>
     <li>
-        <label for="message">Message:&nbsp;&nbsp; </label>
-        <textarea id="widget-message"></textarea>&nbsp;&nbsp;
+        <label for="message">Design Widget Look and Feel&nbsp;&nbsp; </label>
+        <textarea id="widget-message" ></textarea>&nbsp;&nbsp;
     </li>
     <li>
         <div style="height:240px;">
@@ -100,17 +100,13 @@ $("#getcode").click(function(){
 // message
 {% if html %}
 
-
 $("#widget-message").val('{% autoescape off %}{{html}}{% endautoescape %}');
-
-
-
 {% else %}
-$("#widget-message").val("<font size='7'><div id='badge-title'>{{campaign.title}}</div></font-size><div id='badge-subtitle'>{{campaign.message}}</div><div id='badge-action'>JUST BY <b>Sharing</b> with friends:</div>");
+$("#widget-message").val('<font size="5">{{campaign.title}}</font><br/><br/><font size="3">{{campaign.message}}</font><br/><br/><font color="#ff0000"><font size="4">JUST BY <b>Sharing</b> with friends:</font></font>');
 {% endif %}
 
 
-$("#widget-message").cleditor({height: 120, 
+$("#widget-message").cleditor({height: 240, 
                                width: "100%",
                                fonts:        // font names in the font popup
                                      "Arial,Arial Black,Comic Sans MS,Courier New,Narrow,Garamond," +
