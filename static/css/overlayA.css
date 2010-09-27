@@ -1,10 +1,15 @@
+body {
+   margin: 0px auto;
+   text-align: center;
+}
+
 /*** overlay ***/
 .overlay-blogger{
 	display: none;
 	z-index: 100;
 	background-color: #fff;	 
 	width: 472px;
-	margin: auto;
+	margin: 0px auto;
 	border: 3px solid #ccc;
         -moz-border-radius: 12px; 
         -webkit-border-radius: 12px;
@@ -32,24 +37,29 @@
 	-webkit-border-top-left-radius: 10px;
 	-moz-border-radius-topright: 10px;
 	-webkit-border-top-right-radius: 10px;
+        position: relative;
+	text-align: left;
 	}
 
 .overlay-top p{
 	color: #fff;
 	font-weight: bold;
-	font-size: 16px;
+	font-size: 18px;
 	padding-left: 12px;
 	line-height: 40px
 }
 
 .overlay-blogger .close{ 	
+        position: absolute;
+        top: 0px;
+        right: 0px;
 	background-image:url(../images/close.png); 
 	cursor:pointer;
 	height:35px;
 	width: 35px;
 	margin: 3px 5px 0;
 	z-index: 100;
-	float: right;
+
 }
 
 /*** sub header ***/
@@ -57,12 +67,14 @@
 	background-image: url(../images/facebook-share-msg.png);
 	background-repeat: no-repeat;
 	width: 439px;
+	text-align: left;
 }
 
 #twitter-top-msg{
 	background-image: url(../images/twitter-share-msg.png);
 	background-repeat: no-repeat;
 	width: 439px;
+	text-align: left;
 }
 
 #facebook-top-msg, #twitter-top-msg{
@@ -84,8 +96,8 @@
 /*** Character Count styles ***/	
 .chrcounter{
 	position:absolute;
-	right:16px;
-	top:98px;
+        right: 15px;
+	bottom: 35px;
 	font-size:16px;
 	font-weight:bold;
 	color:#ccc;
@@ -95,7 +107,7 @@
 
 /*** textarea for message ***/
 .textarea-div{
-	margin: auto;
+	margin: 0px auto;
 	margin-top: 5px;
 	width: 439px;
 	height: 50px;
@@ -118,7 +130,8 @@ div.share-button{
 	height: 45px;
 	background-image:url(../images/share.png);
 	background-repeat: no-repeat;
-	margin: auto;
+
+	margin: 0px auto;
 	margin-top: 16px;
 	margin-bottom: 10px;
 	text-align: center;
@@ -138,7 +151,8 @@ div.share-button{
 #discount-code{
 	font-size: 32px;
 	padding: 14px 0px 0px 20px;
-	width: 60%; margin: auto;
+	width: 60%; 
+        margin: 0px auto;
 	text-align: center; 
 	border: 6px outset #0074A0;
 	padding-bottom: 10px; 
@@ -156,6 +170,6 @@ div.share-button{
 
 #d_clip_container{
 	width: 135px;
-	margin: auto;
+	margin: 0px auto;
 	padding: 5px 0px 10px 0px;
 }

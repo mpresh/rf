@@ -268,7 +268,8 @@ def campaign_widget_page(req, chash=""):
 
     # check to see if there is a css file for widget of this campaign
     dict["headercolor"] = "#F2F2F2"
-    dict["footercolor"] = "white"
+    dict["footercolor"] = "#FFFFFF"
+    dict["platformcolor"] = "#FFFFFF"
     destination_dir = os.path.join(settings.ROOT_PATH, 'static/css/widget/')
     if not os.path.exists(destination_dir):
         os.system("mkdir -p " + destination_dir)
@@ -281,6 +282,9 @@ def campaign_widget_page(req, chash=""):
         mo = re.search("badge-footer\s*?{background-color[:]\s*?([#0-9a-zA-Z]+)", css)
         if mo:
             dict["footercolor"] = mo.group(1)
+        mo = re.search("ripple-badge-wrapper\s*?{background-color[:]\s*?([#0-9a-zA-Z]+)", css)
+        if mo:
+            dict["platformcolor"] = mo.group(1)
 
     # check to see if there is custom widget text
     destination_dir = os.path.join(settings.ROOT_PATH, 'static/css/widget/text')

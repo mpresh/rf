@@ -44,17 +44,24 @@
         <textarea id="widget-message" ></textarea>&nbsp;&nbsp;
     </li>
     <li>
-        <div style="height:240px;">
+        <div style="height:200px;">
         <div style="float:left;">
-        <label for="widget-background-color-top">Background Color Top:&nbsp;&nbsp; </label>
-        <input type="color" value="{{headercolor}}" size="10" name="widget-background-color-top" id="widget-background-color-top"/>
+        <label for="widget-background-color-top">Color Top:&nbsp;&nbsp; </label>
+        <input type="color" value="{{headercolor}}" size="8" name="widget-background-color-top" id="widget-background-color-top"/>
         <button id="hide-color-top" style="display:none;">Hide</button>
         <div id="picker-top" style="display:none;text-alighn: center; padding-left: 50px;"></div>
         </div>
 
-        <div style="float:right;">
-        <label for="widget-background-color-bottom">Background Color Bottom:&nbsp;&nbsp; </label>
-        <input type="color" value="{{footercolor}}" size="10" name="widget-background-color-bottom" id="widget-background-color-bottom"/>
+        <div style="float:left; margin-left: 75px;">
+        <label for="widget-background-color-platform">Color Platform:&nbsp;&nbsp; </label>
+        <input type="color" value="{{platformcolor}}" size="8" name="widget-background-color-platform" id="widget-background-color-platform"/>
+        <button id="hide-color-platform" style="display:none;">Hide</button>
+        <div id="picker-platform" style="display:none;text-alighn: center; padding-left: 50px;"></div>
+        </div>
+
+        <div style="float:right; margin-right: 30px;">
+        <label for="widget-background-color-bottom">Color Bottom:&nbsp;&nbsp; </label>
+        <input type="color" value="{{footercolor}}" size="8" name="widget-background-color-bottom" id="widget-background-color-bottom"/>
         <button id="hide-color-bottom" style="display:none;">Hide</button>
         <div id="picker-bottom" style="display:none;border: text-alighn: center; padding-left: 50px;"></div>
         </div>
@@ -159,6 +166,21 @@ $("#widget-message").cleditor({height: 240,
         $('#hide-color-bottom').show(); 
   });
 
+// background color PLATFORM
+  $('#hide-color-platform').click(function(){
+       $("#picker-platform").slideUp('slow');
+       $('#hide-color-platform').hide();
+  })
+  $('#picker-platform').farbtastic(function (color) {
+     $('#widget-background-color-platform').val(color);
+  });
+  
+  $('#widget-background-color-platform').click(function(){
+        $("#picker-platform").slideDown('slow');
+        $('#hide-color-platform').show(); 
+  });
+
+
 
 // update idrame widget
 $("#refresh-iframe").click(function(){
@@ -169,6 +191,7 @@ $("#refresh-iframe").click(function(){
     	           data: {headercolor: $('#widget-background-color-top').val(), 
                           camp_id: '{{campaign.id}}',   
     		            footercolor: $('#widget-background-color-bottom').val(),
+                            platformcolor: $('#widget-background-color-platform').val(),
                           htmlval: $("#widget-message").val()},
     	           success: function (data) { 
                           $("#ripple-frame").attr("src", $("#ripple-frame").attr("src"));

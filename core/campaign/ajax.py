@@ -110,6 +110,7 @@ def ajax_update_widget(req):
     dict = {}
     top = req.GET["headercolor"]
     bottom = req.GET["footercolor"]
+    platform = req.GET["platformcolor"]
     camp_id = int(req.GET["camp_id"])
     html = req.GET["htmlval"]
 
@@ -123,6 +124,7 @@ def ajax_update_widget(req):
     css_file = os.path.join(destination_dir, 'style_' + str(camp_id) + '.css')
     css_text = "div#badge-header {background-color: " + top + "}\n"
     css_text = css_text + "div#badge-footer {background-color: " + bottom + "}\n"
+    css_text = css_text + "div#ripple-badge-wrapper {background-color: " + platform + "}\n"
     open(css_file, "w+").write(css_text)
 
     # check to see if there is custom widget text
