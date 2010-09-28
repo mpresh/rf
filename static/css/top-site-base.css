@@ -79,21 +79,20 @@ body{
 }
 
 #footer #copyright { 
-	width: 300px;
 	float: left; 
 	margin-left: 20%;
 	margin-top: 75px;
 }
 #footer #dets{ 
-	width: 300px;
 	float: right;
 	margin-right: 20%;
-	margin-top: 75px;
+	margin-top: 55px;
+	text-align: left;
 }
 #footer #dets a {
 	margin: 0px 5px 0px 5px;
-	color: #0074A0; 
 	text-decoration: none; 
+        color: #0074A0;		
 		
 }
 #footer #dets a:hover { 
@@ -104,5 +103,6 @@ body{
         position: relative;	
 	width: 100%;
 	margin: auto;
+	color: #0074A0;		
 
 }
