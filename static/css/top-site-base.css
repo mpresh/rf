@@ -72,10 +72,14 @@ body{
 	text-align: center;
 	margin: auto;
 	margin-top: 60px;	    
-	padding: 55px 20px; 
-        position: relative;   
+	#padding: 85px 20px; 
+        position: absolute;
+	bottom: 0px;
+	width: 100%;   
 	background-image: url(../images/look/footer-bg2.png);
 	background-repeat: repeat-x;
+	#background-color: red;
+	height: 200px;
 }
 
 
@@ -92,8 +96,8 @@ body{
 }
 #footer #dets a {
 	margin: 0px 5px 0px 5px;
-			color: #0074A0; 
-			text-decoration: none; 
+	color: #0074A0; 
+	text-decoration: none; 
 		
 }
 #footer #dets a:hover { 
@@ -102,8 +106,8 @@ body{
 
 #footer-container{
         position: relative;	
-	width: 980px;
+	width: 50%;
 	margin: auto;
-	padding-bottom: 10px;
+	margin-top: 90px;
 }
 
