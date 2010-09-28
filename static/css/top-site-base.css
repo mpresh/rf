@@ -73,7 +73,9 @@ body{
 	margin: auto;
 	margin-top: 60px;	    
 	padding: 55px 20px; 
-position: relative;   
+        position: relative;   
+	background-image: url(../images/look/footer-bg2.png);
+	background-repeat: repeat-x;
 }
 
 
