@@ -35,6 +35,7 @@ body{
 	float: left;
 	padding-left: 35px;
 	position: relative;
+	cursor: pointer;
 }
 #content
 {
@@ -81,12 +82,12 @@ body{
 #footer #copyright { 
 	float: left; 
 	margin-left: 20%;
-	margin-top: 75px;
+	margin-top: 95px;
 }
 #footer #dets{ 
 	float: right;
 	margin-right: 20%;
-	margin-top: 55px;
+	margin-top: 75px;
 	text-align: left;
 }
 #footer #dets a {
