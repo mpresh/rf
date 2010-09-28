@@ -6,25 +6,32 @@
  	<link rel="stylesheet" href="{% url static 'css/howitworks.css' %}" type="text/css" />
 	{% endblock %}
 
-{% block title %}About{% endblock %}
+{% block title %}How It Works{% endblock %}
 
 
 {% block site-content %}
 <div class="description">
 <h1>Convert Event Attendees into Evangelists. </h1>
-RippleFunction Creates, Manages, Tracks event promotions by Rewarding Tweets and Shares
-<br/>
-with Discounts, Raffle entries, VIP status at events, and other forms of incentives.
+<p>
+RippleFunction Creates, Manages, and Tracks event promotions by<br/>
+Rewarding Tweets and Shares with <br />
+Discounts, Raffle entries, VIP status at events, and other incentives.
+<img src="{%url static 'images/rewards.png'%}" />
+</p>
 
-<br/><br/><br/>
-RippleFunction provides analytics to track every step of the promotion.<br/>
-Top influencers. Top reach. Who clicked. How many baught. Who clicked. And more.
 
-<br/><br/><br/>
+<p>
 RippleFunction provides custom looking widgets that you can embed onto your site<br/>
 and still have all of the functionality to incentivise your attendees to promote your event.
+<img src="{%url static 'images/widget.png'%}" />
+</p>
 
-<br/><br/><br/>
+<p>
+RippleFunction provides analytics to track every step of the promotion.<br/>
+Top influencers. Top reach. Who clicked. Who baught. And more.
+<img src="{%url static 'images/analytics.png'%}" />
+</p>
+
 <br/><br/><br/>
 <a href="{% url create_campaign %}">Try it.</a> It takes less than a minute to create a promotion.
 

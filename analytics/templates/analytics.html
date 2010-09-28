@@ -5,7 +5,7 @@ Analytics
 {% endblock %}
 
 {% block  js_css_include %}
-<link rel="stylesheet" href="{% url static 'css/blueprint/screen.css' %}" type="text/css" />
+
 
 <!--[if lt IE 8]><link rel="stylesheet" href="{% url static 'css/blueprint/ie.css' %}" type="text/css" /><![endif]-->
 <link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text/css" />	
@@ -27,20 +27,20 @@ Analytics
 {% block site-content %}
 
 		<!-- Top Pic -->
-		<div id="top" class="span-24 last">
+		<div id="top">
 		        <!-- Title -->
-			<div class="span-8"><div id="title">{{campaign.title}}</div></div>
-			<div class="span-16 last">
-			     <div id="topSum"><h2>Reached <b>{{total_reach}}</b> people from <b>{{total_shares}}</b> shares</h2></div>			     
-			</div>
+			<div id="title">{{campaign.title}}</div>
+			<div id="topSum"><h2>Reached <b>{{total_reach}}</b> people from <b>{{total_shares}}</b> shares</h2></div>			     
+			
 
-			<!-- Nav bar -->
-			<div id="panelNav" class="span-24 last">
-				<div id="selectDiv" class="span-16">
-					<span>Campaign: </span><span id="selectCampaign">{{campaign.title}}</span>
-				</div>
-				<div id="dateDiv" class="span-8 last">
-				     <select id="chart-date-type">
+<!-- Nav bar -->
+<div id="panelNav">
+<div id="selectDiv">
+  <span>Campaign: </span><span id="selectCampaign">{{campaign.title}}</span>
+</div>
+				
+<div id="dateDiv">			
+        <select id="chart-date-type">
 	  <option selected="yes" value="days">Days</option>
 	 </select>
 	&nbsp;&nbsp;&nbsp;&nbsp;
@@ -85,27 +85,27 @@ Analytics
 	<button id="reload-bar-chart">Reload Date Distribution</button>
 
 	
-				</div>
-			<!-- Nav bar end-->
-			</div>
+        </div>
+<!-- Nav bar end-->
+</div>
 
 			<!-- Reach pic -->
-			<div id="topPic" class="span-24 last">
+			<div id="topPic">
 			     <div id="date_line_chart"></div>
 			</div>
 			<!-- End Reach-->
 
-			<div id="botPic" class="span-24 last">
+			<div id="botPic">
 			     <div id="botTitle">Breakdown of Sources</div>
 			    
 			     <!-- Column Pic -->
-			     <div id="botLeftPic" class="span-17">
+			     <div id="botLeftPic">
 			          <div id="date_column_chart"></div>  
 			     </div>
 			     <!-- End Column -->
 			    
 			     <!-- Pie Pic -->
-			     <div id="botRightPic" class="span-7 last">
+			     <div id="botRightPic">
 			          <div id="pie_sources"></div>      
 			     </div>
 			     <!-- End Pie -->
@@ -113,10 +113,9 @@ Analytics
 		<!--end top pic -->		
 		</div>
 		
-		<div id="mid" class="span-24 last">
-		<div id="influenceTitle">Top Influencers</div>
-		<!-- Influencers -->
-		<div class="span-14">
+		<div id="mid">
+		     <div id="influenceTitle">Top Influencers</div>
+		     <!-- Influencers -->
 		     <div id="midLeft">
 		          <div id="tableHeader">Sort By</div>
 			  <script src="http://connect.facebook.net/en_US/all.js"></script>
@@ -124,12 +123,12 @@ Analytics
 			  <div id="table_analytics_data"></div>
 	            </div>
 		<!-- end influencers -->
-		</div>
-		<div class="span-10 last"><div id="midRight"><= Select a user to see more information...</div></div>
+		
+		    <div id="midRight"><= Select a user to see more information...</div>
 		</div>
 
 			     
-	 <div id="stats" class="span-24 last">	
+	 <div id="stats">	
 	 <p id="total_fshares" title="Total number of Shares for this promotion on facebook.">Total Facebook Shares: &nbsp; {{total_facebook_shares}}</p>
    	 <p id="total_tshares" title="Total number of tweets for this promotion on twitter.">Total Twitter Shares: &nbsp; {{total_twitter_shares}}</p>
 	 <p id="total_freach" title="Total number of people to potentially see this <br/>share on facebook. (Total Facebook Impressions)">Total Facebook Reach: &nbsp; {{total_facebook_reach}}</p>
@@ -138,7 +137,7 @@ Analytics
 	 <p id="total_top_page_views" title="Total number the top level page has been clicked on. (Not shared or referred)">Top Level Page Views: &nbsp; {{campaign.page_views}}</p>
 	 </div>
     
-		<div class="span-24 last"><br/><br/><br/></div>
+	<div style="width: 100%;"><br/><br/><br/></div>
 
 	<script> 
 	      
