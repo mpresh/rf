@@ -3,16 +3,33 @@
 
 
 	{% block  js_css_include %}
- 	<link rel="stylesheet" href="{% url static 'css/about.css' %}" type="text/css" />
+ 	<link rel="stylesheet" href="{% url static 'css/howitworks.css' %}" type="text/css" />
 	{% endblock %}
 
 {% block title %}About{% endblock %}
 
 
 {% block site-content %}
-<div class="person">
-Convert Event Attendees into Evangelists. <br />
-RippleFunction Creates, Manages, Tracks event promotions by Rewarding Tweets and Shares<br/>
-with Social Rewards.
+<div class="description">
+<h1>Convert Event Attendees into Evangelists. </h1>
+RippleFunction Creates, Manages, Tracks event promotions by Rewarding Tweets and Shares
+<br/>
+with Discounts, Raffle entries, VIP status at events, and other forms of incentives.
+
+<br/><br/><br/>
+RippleFunction provides analytics to track every step of the promotion.<br/>
+Top influencers. Top reach. Who clicked. How many baught. Who clicked. And more.
+
+<br/><br/><br/>
+RippleFunction provides custom looking widgets that you can embed onto your site<br/>
+and still have all of the functionality to incentivise your attendees to promote your event.
+
+<br/><br/><br/>
+<br/><br/><br/>
+<a href="{% url create_campaign %}">Try it.</a> It takes less than a minute to create a promotion.
+
+
+
+
 </div>
 {% endblock %}
