@@ -12,8 +12,9 @@ body{
 }
 
 #container {
-    position:relative;
-   /* min-height:100%; 
+    position: relative;
+    
+    min-height: 100%;
     _height:100%;/*  /* for IE6 as it doesnt understand min-height */
 }
 
@@ -40,7 +41,7 @@ body{
 	position: relative;
 	width: 980px;
 	margin: auto;
-	padding-bottom: 10px;
+	padding-bottom: 200px;
 }
 
 #header-container{
@@ -53,7 +54,6 @@ body{
 #header #links
 {
 	float: right;
-	#color: #581e92;
 	width: 300px;
 	text-align: right;
 	padding: 12px 40px 0px 12px;
@@ -70,27 +70,25 @@ body{
 #footer {
         font-size: 16px;
 	text-align: center;
-	margin: auto;
-	margin-top: 60px;	    
-        position: absolute;
-	bottom: 0px;
 	width: 100%;   
 	background-image: url(../images/look/footer-bg2.png);
 	background-repeat: repeat-x;
 	height: 200px;
+	margin-top: -200px;
+	position: relative;
 }
-
 
 #footer #copyright { 
-	position: relative;
 	width: 300px;
 	float: left; 
+	margin-left: 20%;
+	margin-top: 75px;
 }
 #footer #dets{ 
-	position: relative;
 	width: 300px;
 	float: right;
-	text-align: right;
+	margin-right: 20%;
+	margin-top: 75px;
 }
 #footer #dets a {
 	margin: 0px 5px 0px 5px;
@@ -104,8 +102,7 @@ body{
 
 #footer-container{
         position: relative;	
-	width: 50%;
+	width: 100%;
 	margin: auto;
-	margin-top: 90px;
-}
 
+}
