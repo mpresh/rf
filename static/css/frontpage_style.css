@@ -23,4 +23,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 			text-align: center; 
 		}
 		
-		
+		#social-plugin {
+		   margin-top: 40px;
+                   text-align: center;
+                }
