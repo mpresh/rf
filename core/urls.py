@@ -1,10 +1,6 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 
-#from views import *
-#from fauth.facebook_auth import *
-#from tauth.views import login
-
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -35,6 +31,7 @@ urlpatterns = patterns('',
                        url(r'^',  include('fauth.urls')),
                        url(r'^',  include('tauth.urls')),
                        url(r'^',  include('campaign.urls')),
+                       url(r'^',  include('pos.urls')),
 
                        ### miscellaneous
                        url(r'^map/?$', 'views.map', name='map'),

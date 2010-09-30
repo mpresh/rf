@@ -6,6 +6,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 BITLY_API="R_ea72b3fc1102ce7c8285e11b6bd2b11c"
+EVENTBRITE_API="ZmQ3NWQ4YjE3OTQ5"
 
 AUTHENTICATION_BACKENDS = (
     'backends.twitteroauth.TwitterBackend',
@@ -81,6 +82,8 @@ INSTALLED_APPS = (
     'core.campaign',
     'django_extensions',
     'south',
+    'core.pos',
+    'core.pos.brite',
 )
 
 
