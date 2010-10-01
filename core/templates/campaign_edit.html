@@ -55,6 +55,7 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<label for="percent">Percent Discount: 
 				</label> <input type="text" value="{{campaign.percent}}" size="5" name="percent" class="required digits" id="discount_percent"/>
+
 				<div id="discount-code-msg"><br/>To create new discount code <button id="create_discount" type="button">Click Here</button>&nbsp;&nbsp;&nbsp;<span id="discount-success-message"></span></div>
             			<br/><span id="discount-error-message"></span>
                                 <div id="discount-code-create">
@@ -116,7 +117,7 @@
 			</li>
 			<li id="li-discount-url">
 				<label for="url_redeem">Redeem discount URL (url user should go to, after share, inorder to register): </label> 
-				<input type="text" value="{{campaign.url_redeem}}" size="60" name="url_redeem" />
+				<input type="text" value="{{campaign.url_redeem}}" size="60" name="url_redeem" id="redeem_url" />
 			</li>
 			<li id="li-twitter-fan">
 				<label for="twitter">Twitter Account Follow: </label> 
@@ -169,6 +170,30 @@ Back To Admin Page: &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{admin_url}}">{{admin_url}
 </div>
 
 <script>
+
+// check if this is eventbrite
+if ($('#redeem_url').val().search('eventbrite') == -1) {
+    $('#discount-code-msg').hide();
+}
+
+$('#redeem_url').keyup(function(){
+
+    if ($('#redeem_url').val().search('eventbrite') == -1) {
+        $('#discount-code-msg').hide();
+        $('#discount-code-create').hide();
+        $("#discount-success-message").html("");
+        $("#discount-error-message").html("");
+    }
+    else {
+        $('#discount-code-msg').show();
+        $("#discount-success-message").html("");
+        $("#discount-error-message").html("");
+        $('#discount-code-create').hide();
+    }
+
+});
+
+	      
 
           {% if campaign.url_redeem %}
             $("#prize-remove-image").show();
@@ -312,6 +337,8 @@ if ('{{campaign.campaign_type}}' == 'raffle'){
            $('#discount-code-create').show();	    
 
        });
+
+       
 
        $('#discount-code-create').hide();	    
        $("#discount-error-message").hide();
