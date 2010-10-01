@@ -137,7 +137,7 @@ $('#raffle-selection').cycle({
   
      //$("#campaign_url").keyup(handle_url_key);
      //$("#campaign_url").keydown(handle_url_key);
-     //$("#campaign_url").keyup(function() {handle_url_key($(this).val())});
+     $("#campaign_url").keyup(function() {handle_url_key($(this).val())});
 
 function handle_url_key(url){
                 var values = {};
@@ -152,16 +152,16 @@ function handle_url_key(url){
      			data: values, 
      		success: function(data){
                             if (data.url != "") {
-                                $("#preview").show();
-                                 url_full = url_base + "?url=" + data.url;
+                                 //$("#preview").show();
+                                 //url_full = url_base + "?url=" + data.url;
                                  //alert("bbb" + url_full);
-                                 $("#preview").show();
-                                 $("#iframe_preview").attr("src", url_full);
+                                 //$("#preview").show();
+                                 //$("#iframe_preview").attr("src", url_full);
                                  $("#create-button").removeAttr("disabled");
                             }
                             else {
                                 $("#create-button").attr("disabled", "disabled");
-                                $("#preview").hide();
+                                //$("#preview").hide();
                             }
      					},
      		beforeSend: function() {
