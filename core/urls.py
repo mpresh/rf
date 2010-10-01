@@ -52,6 +52,7 @@ urlpatterns = patterns('',
                        url(r'user_details/(?P<user_id>\d+)/$', 'views.user_details', name='user_details'),
                        url(r'about/$', 'views.about', name='about'),
                        url(r'contact/$', 'views.contact', name='contact'),
+                       url(r'jobs/$', 'views.jobs', name='jobs'),
                        url(r'howitworks/$', 'views.howitworks', name='howitworks'),
                        url(r'list/$', 'views.event_list', name='event_list'),
 

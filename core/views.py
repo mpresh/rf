@@ -42,6 +42,9 @@ def test(req):
 def about(req):
     return render_to_response('about.html', {})
 
+def jobs(req):
+    return render_to_response('jobs.html', {})
+
 def contact(req):
     return render_to_response('contact.html', {})
 

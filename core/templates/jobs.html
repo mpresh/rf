@@ -1,0 +1,23 @@
+{% extends "site_base.html" %}
+
+
+
+	{% block  js_css_include %}
+ 	<link rel="stylesheet" href="{% url static 'css/about.css' %}" type="text/css" />
+	{% endblock %}
+
+
+{% block title %}About{% endblock %}
+
+
+{% block site-content %}
+<div class="person">
+<div class="content"><a target="job" href="http://www.startuply.com/Jobs/Technical_Co_Founder_2782_1.aspx">Technical Co-Founder Opening in Boston</a></div>
+</div>
+
+
+<div style="margin: 100px 0px 0px 100px; width: 90%;">
+<h1>RippleFunction is a proud Capital Factory Company!</h1>
+<a target="capfac"href="http://www.capitalfactory.com"><img style="margin-left: 40%; " height="70px" src="{% url static '/images/cf_logo.jpg'%}" /></a>
+</div>
+{% endblock %}
