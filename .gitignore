@@ -11,3 +11,4 @@ core/templates/event_templates/*
 static/images/campaign/*
 static/images/campaign_logos/*
 static/css/widget/*
+.cache/*

@@ -30,9 +30,9 @@ def create_discount(req):
     api = eventbrite.API(settings.EVENTBRITE_API, cache='.cache')
     try:
         discount = api.call('discount_new', user=username, password=password, percent_off=percent, code=code, event_id=eventid)
-        print discount
+        dict["data"] = discount
     except Exception, e:
-        print "there was a fail", e
+        dict["data"] = e
     
     return HttpResponse(json.dumps(dict))
 

@@ -17,8 +17,10 @@
 	<link rel="stylesheet" href="{% url static 'css/jquery.ptTimeSelect.css' %}" type="text/css" >	
 	<link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="Stylesheet" />
 
+
  	<link rel="stylesheet" href="{% url static 'css/campaign_admin.css' %}" type="text/css" />
  	<link rel="stylesheet" href="{% url static 'css/create.css' %}" type="text/css" />
+ 	<link rel="stylesheet" href="{% url static 'css/campaign_edit.css' %}" type="text/css" />
 	{% endblock %}
 
 {% block title %}Admin Console (Edit).{% endblock %}
@@ -41,7 +43,9 @@
 				<label for="title">Promotion Title: 
 				</label> <input type="text" size="70" value="{{campaign.title}}" name="title" class="required" />
 			</li>
+                        
 			<li id="li-from-name">
+
 				<label for="from_name">Discount From (Name/Organization): 
 				</label> <input type="text" value="{{campaign.from_name}}" name="from_name" class="required" />
 			</li>
@@ -51,10 +55,10 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<label for="percent">Percent Discount: 
 				</label> <input type="text" value="{{campaign.percent}}" size="5" name="percent" class="required digits" id="discount_percent"/>
-				<div id="discount-code-msg"><br/>To create new discount code <button id="create_discount" type="button">Click Here</button> </div>
-			
+				<div id="discount-code-msg"><br/>To create new discount code <button id="create_discount" type="button">Click Here</button>&nbsp;&nbsp;&nbsp;<span id="discount-success-message"></span></div>
+            			<br/><span id="discount-error-message"></span>
                                 <div id="discount-code-create">
-                                <br/><br/>
+                                <br/><br />
 				<label for="eventid">Event ID: 
 				</label> <input type="text" value="" size="10" name="eventid" id="eventid" />
                         &nbsp;&nbsp;
@@ -63,7 +67,9 @@
 			&nbsp;&nbsp;
 				<label for="password">Password: 
 				</label> <input type="password" value="" size="12" name="password" id="pos_password"/>
-				<br/><br/><button type="button" id="submit_discount">Submit Discount Code</button>
+				<br/><br/><button type="button" id="submit_discount">Create Discount Code</button>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                Use existing code: <button id="hide-discount-create">Hide Creation</button> 
 				</div>
 			</li>
 
@@ -93,6 +99,8 @@
 			</li>
 
 			<li>
+                         <br/>
+
 				<label for="campaign_message">Landing Page Subtitle Text: </label> &nbsp;&nbsp;&nbsp;
 				<textarea rows="1" cols="40"  name="campaign_message">{{campaign.message}}</textarea>
 			</li>
@@ -102,6 +110,7 @@
 				<textarea rows="2" cols="40"  name="campaign_message_share">{{campaign.message_share}}</textarea>
 			</li>
 			 <li>
+
 				<label for="url">URL to be shown on landing page (page with all the event detail information): </label> 
 				<input type="text" value="{{campaign.url}}" size="60" name="url" />
 			</li>
@@ -249,7 +258,6 @@ if ('{{campaign.campaign_type}}' == 'raffle'){
 			type: "POST",
 			data: values, 
 		success: function(data){
-                        //alert("suceess");
                         $("#update-campaign").showLoading(
                                               {'afterShow': function(){ 
                                                             setTimeout( "window.location.href = '{% url campaign_admin chash=campaign.chash %}'", 10 );
@@ -306,6 +314,12 @@ if ('{{campaign.campaign_type}}' == 'raffle'){
        });
 
        $('#discount-code-create').hide();	    
+       $("#discount-error-message").hide();
+
+       $('#hide-discount-create').click(function(){
+           $('#discount-code-msg').show();	    
+           $('#discount-code-create').hide();	    
+       });	   
 
        $('#submit_discount').click(function(){
              $.ajax({
@@ -318,15 +332,26 @@ if ('{{campaign.campaign_type}}' == 'raffle'){
                                percent: $('#discount_percent').val(),
                                eventid: $('#eventid').val()}, 
 		   success: function(data){
-                       alert("hi after");
-	               $('#discount-code-create').hide();
-                       $('#discount-code-msg').show();	    
+	               data = data.data        
+                       if ('process' in data && 'status' in data.process && data.process.status == 'OK'){
+                       	   $("#discount-success-message").html("Discount code created succesfully.");
+	                   setTimeout('$("#discount-success-message").html("")', 5000); 
+                           $("#discount-error-message").html("");
+	                   $('#discount-code-create').hide();
+                           $('#discount-code-msg').show();	    
+	               } else if ('error' in data) {
+                       	   $("#discount-error-message").show();
+	                   var s = JSON.stringify(data.error.error_message.replace(/["]/gi,""));
+                           $("#discount-error-message").html("<br/>" + s);
+                       }
                   },
 		  beforeSend: function() {
 	               
 		   }
 	      });  
        });
+
+
 
 </script>
 

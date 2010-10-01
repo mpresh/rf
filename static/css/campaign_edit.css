@@ -1,0 +1,12 @@
+span#discount-error-message {
+    color: red;
+}
+
+span#discount-success-message {
+    color: blue;
+}
+
+div.create li {
+   margin-top: 40px;
+}
+
