@@ -52,14 +52,14 @@
         <div id="picker-top" style="display:none;text-alighn: center; padding-left: 50px;"></div>
         </div>
 
-        <div style="float:left; margin-left: 75px;">
+        <div style="float:left; margin-left: 65px;">
         <label for="widget-background-color-platform">Color Background:&nbsp;&nbsp; </label>
         <input type="color" value="{{platformcolor}}" size="8" name="widget-background-color-platform" id="widget-background-color-platform"/>
         <button id="hide-color-platform" style="display:none;">Hide</button>
         <div id="picker-platform" style="display:none;text-alighn: center; padding-left: 50px;"></div>
         </div>
 
-        <div style="float:right; margin-right: 30px;">
+        <div style="float:right; margin-right: 20px;">
         <label for="widget-background-color-bottom">Color Bottom:&nbsp;&nbsp; </label>
         <input type="color" value="{{footercolor}}" size="8" name="widget-background-color-bottom" id="widget-background-color-bottom"/>
         <button id="hide-color-bottom" style="display:none;">Hide</button>
@@ -149,6 +149,11 @@ $("#widget-message").cleditor({height: 240,
   });
   
   $('#widget-background-color-top').click(function(){
+       $("#picker-bottom").hide();
+       $('#hide-color-bottom').hide();
+       $('#hide-color-platform').hide();
+       $("#picker-platform").hide();
+
         $("#picker-top").slideDown('slow');
         $('#hide-color-top').show(); 
   });
@@ -163,6 +168,10 @@ $("#widget-message").cleditor({height: 240,
   });
   
   $('#widget-background-color-bottom').click(function(){
+        $("#picker-top").hide();
+        $("#picker-platform").hide();
+       $('#hide-color-top').hide();
+       $('#hide-color-platform').hide();
         $("#picker-bottom").slideDown('slow');
         $('#hide-color-bottom').show(); 
   });
@@ -177,6 +186,10 @@ $("#widget-message").cleditor({height: 240,
   });
   
   $('#widget-background-color-platform').click(function(){
+        $("#picker-top").hide();
+        $("#picker-bottom").hide();
+       $('#hide-color-bottom').hide();
+       $('#hide-color-top').hide();
         $("#picker-platform").slideDown('slow');
         $('#hide-color-platform').show(); 
   });
