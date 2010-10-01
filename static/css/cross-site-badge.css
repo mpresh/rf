@@ -57,6 +57,7 @@ div#badge-footer {
    left: 0px;
    -webkit-border-radius: 0px 0px 10px 10px;
    -moz-border-radius: 0px 0px 10px 10px;
+   text-align: center;
 }
 div#badge-header {
    width: 100%;

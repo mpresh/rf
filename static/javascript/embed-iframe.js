@@ -4,6 +4,7 @@ function fill_widget_iframe() {
     //alert("filling widget with iframe in embed-iframe.js file");
     $("#ripple-embed").css({"height": "248px",
 		"width": "487px",
+                "margin": "auto",
                 //"background-color": "red"
 		});
     var campaign_id = $("#ripple-embed").text();
