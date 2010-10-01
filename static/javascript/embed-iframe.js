@@ -2,9 +2,9 @@ LazyLoad=function(){var f=document,g,b={},e={css:[],js:[]},a;function j(l,k){var
 
 function fill_widget_iframe() {
     //alert("filling widget with iframe in embed-iframe.js file");
-    $("#ripple-embed").css({"height": "248px",
+    $("#ripple-embed").css({"height": "250px",
 		"width": "487px",
-                "margin": "auto",
+                "margin": "auto"
                 //"background-color": "red"
 		});
     var campaign_id = $("#ripple-embed").text();
