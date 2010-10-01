@@ -132,8 +132,8 @@ def ajax_update_widget(req):
     if not os.path.exists(destination_dir):
         os.system("mkdir -p " + destination_dir)
     text_file = os.path.join(destination_dir, 'text_' + str(camp_id) + '.html')
-    if os.path.exists(text_file):
-        open(text_file, "w+").write(html)
+    
+    open(text_file, "w+").write(html)
         
     
     return HttpResponse(json.dumps(dict))    
