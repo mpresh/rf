@@ -342,7 +342,8 @@ def campaign_created(req):
         try:
             c = Campaign.objects.get(chash=req.GET["chash"])
             dict["campaign"] = c
-            
+            return HttpResponseRedirect(reverse('campaign_admin', kwargs={'chash':req.GET['chash']}))
+
             campaign_admin_url = host + reverse("campaign_admin", kwargs={'chash':c.chash})
             campaign_analytics_url = host + reverse("campaign_analytics", kwargs={'chash':c.chash})
             campaign_update_url = host + reverse("campaign_update", kwargs={'chash':c.chash})
