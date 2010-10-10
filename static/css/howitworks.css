@@ -13,10 +13,11 @@
     -webkit-border-bottom-right-radius: 20px;
     
     border: 2px solid #CCC;
-    -moz-box-shadow: 10px 10px 10px #999;
-   -webkit-box-shadow: 10px 10px 10px #999;		
-   margin-bottom: 30px;
+    -moz-box-shadow: 5px 5px 5px #999;
+   -webkit-box-shadow: 5px 5px 5px #999;		
+
    margin-top: 20px;
+   background-color: white;
 }
 
 
@@ -33,4 +34,8 @@
 
 .description img {
 	     padding: 10px;
+}
+
+#howitworks-wrapper {
+background-color: #EAEAEA;
 }

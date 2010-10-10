@@ -9,13 +9,22 @@ body {
 	line-height: 18px; 
 	color: #000; 
         font-family:Constantina,Georgia,'Nimbus Roman No9 L',serif;
+
 }
 
-#frontpage-header {
-    margin: 10px; 
-    text-align:center; 
-    font-size: 30px; 
-    color: #922020; 
+#frontpage-header-div {
+       padding: 30px;
+       background-color: #272932;
+       border: 2px solid black;
+       -moz-border-radius: 8px;
+       -webkit-border-radius: 8px; 
+       margin: 10px; 
+       text-align:center; 
+       font-size: 35px; 
+       color: #3C8AAE; 
+       width: 80%;
+       margin: auto;
+       font-weight: 700;
 }
 
 #container #content-front { 
@@ -37,12 +46,15 @@ body {
 }
 
 div#ripple-widget-sample {
+           -moz-border-radius: 8px;
+     	   -webkit-border-radius: 8px; 
            font-size: 25px;
            margin: auto;
            margin: 40px;
 	   padding: 20px;
            text-align: center;
-	   border: 1px solid black;
+	   border: 2px solid black;
 	   color: #922020;
 	   background-color: #272932;
+	   margin-top: 90px;
 }

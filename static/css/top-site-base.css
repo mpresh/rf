@@ -16,6 +16,7 @@ body{
     
     min-height: 100%;
     _height:100%;/*  /* for IE6 as it doesnt understand min-height */
+	background-color: #EAEAEA;
 }
 
 #main, #header
@@ -43,6 +44,7 @@ body{
 	width: 980px;
 	margin: auto;
 	padding-bottom: 200px;
+	background-color: white;
 }
 
 #header-container{
