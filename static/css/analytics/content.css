@@ -1,4 +1,9 @@
 
+body {
+        font-family:Constantina,Georgia,'Nimbus Roman No9 L',serif;
+	text-align: center;
+}
+
 	/* Name of site */
 #title{
 	color:#581E92;
@@ -6,10 +11,11 @@
 	font-weight:normal;
 	margin-bottom: 10px;
 	width: 33%;
+	padding: 20px;
 }
 /* div that contains the impression, breakdown, and pie charts */
 #top {
-	margin: 0 10px 0 10px;
+	margin: 0 10px 0 0px;
 	width: 100%;
 }
 #topSum {
@@ -90,7 +96,7 @@ table.google-visualization-table-table * {padding: 0px;}
 
 /* Influencer Table */
 #mid {
-	margin: 10px;
+	margin: 10px 0px 10px 0px;
 	padding: 0px;
 	background-color: #f2f0f0;
 	border: solid 1px #ccc;
@@ -210,10 +216,10 @@ tr.oddTableRow {}
 #stats {
         background-color: #fff;
 	border: 1px solid #ccc;
-	margin: 20px 20px 20px 0px;
+	margin: 20px 0px 20px 0px;
         font-size: 14px;
 	font-weight: bold;
-	padding: 10px;
+	padding: 0px;
 	width: 100%;
 }
 
