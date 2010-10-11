@@ -200,6 +200,7 @@ def create_campaign(req):
         )
 
     c.save()
+    print "CAMPAIGN CREATE", c.page_views
 
     c.campaign_type = req.POST['campaign_type']
     c.save()
