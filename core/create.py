@@ -166,6 +166,7 @@ def campaign_page(req, chash="", camp_id=""):
     if "shash" in req.GET:
         dict["shash"] = req.GET["shash"]
         share = Share.objects.get(shash=dict["shash"])
+        print "AAAA SHASH", share.page_views
         share.page_views = share.page_views + 1
         share.save()
         c.page_views_total = c.page_views_total + 1
@@ -173,6 +174,7 @@ def campaign_page(req, chash="", camp_id=""):
         dict["shash"] = ""
         c.page_views = c.page_views + 1
         c.page_views_total = c.page_views_total + 1
+        print "NO SHASH", c.page_views, c.page_views_total
 
     c.save()
 
