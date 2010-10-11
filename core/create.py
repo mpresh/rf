@@ -238,7 +238,13 @@ def campaign_admin(req, chash=""):
     dict["launch_url"] = shorten(campaign_launch_url)
     dict["widget_url"] = shorten(campaign_widget_url)
 
-    return render_to_response('campaign_admin.html', dict)
+    templates = ['campaign_admin.html', 'campaign_admin2.html']
+    try:
+        template = templates[int(req.GET["t"])]
+    except:
+        template = 'campaign_admin.html'
+
+    return render_to_response(template, dict)
 
 def campaign_launch(req, chash=""):
     try:
