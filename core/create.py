@@ -133,6 +133,7 @@ def campaign_badge(req, camp_id="1"):
 
 def campaign_page(req, chash="", camp_id=""):
     req.session["redirect"] = req.get_full_path()
+    print "REQUEST IS", req
     try:
         if chash:
             c = Campaign.objects.get(chash=chash)
@@ -162,6 +163,7 @@ def campaign_page(req, chash="", camp_id=""):
             dict["overlayTwitter"] = True    
         elif req.GET["overlay"] == "true":
             dict["overlayTrue"] = True    
+
 
     if "shash" in req.GET:
         dict["shash"] = req.GET["shash"]
