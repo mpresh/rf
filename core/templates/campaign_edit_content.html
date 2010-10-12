@@ -253,7 +253,7 @@ $("#li-facebook-fan").hide();
                          //window.location.href = "{% url campaign_admin chash=campaign.chash %}";
 					},
 		beforeSend: function() {
-                    $("#update-campaign").showLoading();
+                    $("#update-campaign").showLoading({'afterShow': function(){ setTimeout( "jQuery('#update-campaign').hideLoading()", 2000 );}});
 		}
 	});
     });
