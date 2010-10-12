@@ -390,8 +390,8 @@ def analytics_data(req):
     column_list.append({"id" : "followers", "label" : "Followers", "type" : "number"})
     column_list.append({"id" : "reach", "label" : "Reach", "type" : "number"})
     column_list.append({"id" : "num_shares", "label" : "Shares", "type" : "number"})
-    column_list.append({"id" : "child_num_retweets", "label" : "Child<br/>Re-Shares", "type" : "number"})
-    column_list.append({"id" : "total_num_retweets", "label" : "Total<br/>Re-Shares", "type" : "number"})
+    column_list.append({"id" : "child_num_retweets", "label" : "Re-Shares (Friend)", "type" : "number"})
+    column_list.append({"id" : "total_num_retweets", "label" : "Re-Shares (Total)", "type" : "number"})
     column_list.append({"id" : "network", "label" : "Network", "type" : "string"})
     column_list.append({"id" : "clicks", "label" : "Clicks", "type" : "number"})
 
