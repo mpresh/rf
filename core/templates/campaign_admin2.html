@@ -25,7 +25,7 @@
   <li><a href="#first">Landing Page</a></li>
   <li><a href="#second">Edit</a></li>
   <li><a href="#third">Widget</a></li>
-  <li><a href="#third">Analytics</a></li>
+  <li><a id="analytics_click" href="#third">Analytics</a></li>
 </ul>
 
 <!-- tab "panes" -->
@@ -33,7 +33,7 @@
   <div><iframe src ="{{landing_url}}" width="100%" height="1200"></iframe></div>
   <div><iframe src ="{{update_url}}" width="100%" height="1200"></iframe></div>
   <div><iframe src ="{{widget_url}}" width="100%" height="1200"></iframe></div>
-  <div><iframe src ="{{analytics_url}}" width="100%" height="1200"></iframe></div>
+  <div><iframe id="analytics_iframe" src ="{{analytics_url}}" width="100%" height="1200"></iframe></div>
 </div>
 </div>
 
@@ -68,6 +68,11 @@ Email Details To Self
 
 <script>
 $("ul.tabs").tabs("div.panes > div");
+
+$("#analytics_click").click(function(){
+alert("lo");   
+$("analytics_iframe").attr("src", "{{analytics_url}}");
+});
 
 
 // show pick winners if raffle
