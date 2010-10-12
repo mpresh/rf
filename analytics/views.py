@@ -62,8 +62,19 @@ def analytics(req):
             dict["user"] = user
         except Exception:
             pass
+
+    template = "analytics.html"
+
+    try:
+        if req.GET["type"] == "raw":
+            (prefix, suffix) = template.split(".")
+            template = prefix + "_raw" + "." + suffix
+            dict["raw"] = True
+    except:
+        template = 'analytics.html'
+
         
-    return render_to_response('analytics.html', dict)
+    return render_to_response(template, dict)
 
 
 def analytics_chash(req, chash=""):
@@ -110,5 +121,16 @@ def analytics_chash(req, chash=""):
             dict["user"] = user
         except Exception:
             pass
+
+
+    template = "analytics.html"
+
+    try:
+        if req.GET["type"] == "raw":
+            (prefix, suffix) = template.split(".")
+            template = prefix + "_raw" + "." + suffix
+            dict["raw"] = True
+    except:
+        template = 'analytics.html'
         
-    return render_to_response('analytics.html', dict)
+    return render_to_response(template, dict)

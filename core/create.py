@@ -224,25 +224,34 @@ def campaign_admin(req, chash=""):
     dict["host"] = host
     dict["campaign"] = c
 
-    campaign_admin_url = host + reverse("campaign_admin", kwargs={'chash':c.chash})
-    campaign_analytics_url = host + reverse("campaign_analytics", kwargs={'chash':c.chash})
-    campaign_update_url = host + reverse("campaign_update", kwargs={'chash':c.chash})
-    campaign_landing_url = host + reverse("campaign_page_id", kwargs={'camp_id':c.id})
-    campaign_launch_url = host + reverse("campaign_launch", kwargs={'chash':c.chash})
-    campaign_widget_url = host + reverse("campaign_widget_page", kwargs={'chash':c.chash})
+    templates = ['campaign_admin.html', 'campaign_admin2.html']
+    try:
+        template = templates[int(req.GET["t"])]
+    except:
+        template = 'campaign_admin.html'
 
+    if template == "campaign_admin2.html":
+        campaign_admin_url = host + reverse("campaign_admin", kwargs={'chash':c.chash}) + "?type=raw"
+        campaign_analytics_url = host + reverse("campaign_analytics", kwargs={'chash':c.chash}) + "?type=raw"
+        campaign_update_url = host + reverse("campaign_update", kwargs={'chash':c.chash}) + "?type=raw"
+        campaign_landing_url = host + reverse("campaign_page_id", kwargs={'camp_id':c.id}) + "?type=raw"
+        campaign_launch_url = host + reverse("campaign_launch", kwargs={'chash':c.chash}) + "?type=raw"
+        campaign_widget_url = host + reverse("campaign_widget_page", kwargs={'chash':c.chash}) + "?type=raw"
+    else:
+        campaign_admin_url = host + reverse("campaign_admin", kwargs={'chash':c.chash})
+        campaign_analytics_url = host + reverse("campaign_analytics", kwargs={'chash':c.chash})
+        campaign_update_url = host + reverse("campaign_update", kwargs={'chash':c.chash})
+        campaign_landing_url = host + reverse("campaign_page_id", kwargs={'camp_id':c.id})
+        campaign_launch_url = host + reverse("campaign_launch", kwargs={'chash':c.chash})
+        campaign_widget_url = host + reverse("campaign_widget_page", kwargs={'chash':c.chash})
+
+    print "HERE I AM", campaign_update_url
     dict["admin_url"] = shorten(campaign_admin_url)
     dict["landing_url"] = shorten(campaign_landing_url)
     dict["analytics_url"] = shorten(campaign_analytics_url)
     dict["update_url"] = shorten(campaign_update_url)
     dict["launch_url"] = shorten(campaign_launch_url)
     dict["widget_url"] = shorten(campaign_widget_url)
-
-    templates = ['campaign_admin.html', 'campaign_admin2.html']
-    try:
-        template = templates[int(req.GET["t"])]
-    except:
-        template = 'campaign_admin.html'
 
     return render_to_response(template, dict)
 
@@ -304,7 +313,16 @@ def campaign_widget_page(req, chash=""):
     if os.path.exists(text_file):
         dict['html'] = open(text_file).read()
 
-    return render_to_response('campaign_widget.html', dict)
+    template = "campaign_widget.html"
+    try:
+        if req.GET["type"] == "raw":
+            (prefix, suffix) = template.split(".")
+            template = prefix + "_raw" + "." + suffix
+            dict["raw"] = True
+    except:
+        template = 'campaign_widget.html'
+
+    return render_to_response(template, dict)
 
 
 def campaign_update(req, chash=""):
@@ -340,7 +358,21 @@ def campaign_update(req, chash=""):
     for attr_obj in c.attributes.all():
         dict[attr_obj.name] = True;
 
-    return render_to_response('campaign_edit.html', dict)
+    templates = ['campaign_edit.html']
+    try:
+        template = templates[int(req.GET["t"])]
+    except:
+        template = 'campaign_edit.html'
+        
+    try:
+        if req.GET["type"] == "raw":
+            (prefix, suffix) = template.split(".")
+            template = prefix + "_raw" + "." + suffix
+            dict["raw"] = True
+    except:
+        template = 'campaign_edit.html'
+
+    return render_to_response(template, dict)
 
 def campaign_created(req):
     #req.session["redirect"] = req.get_full_path()
