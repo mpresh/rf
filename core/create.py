@@ -224,11 +224,11 @@ def campaign_admin(req, chash=""):
     dict["host"] = host
     dict["campaign"] = c
 
-    templates = ['campaign_admin.html', 'campaign_admin2.html']
+    templates = ['campaign_admin2.html', 'campaign_admin.html']
     try:
         template = templates[int(req.GET["t"])]
     except:
-        template = 'campaign_admin.html'
+        template = 'campaign_admin2.html'
 
     if template == "campaign_admin2.html":
         campaign_admin_url = host + reverse("campaign_admin", kwargs={'chash':c.chash}) + "?type=raw"
