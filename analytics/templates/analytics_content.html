@@ -202,7 +202,7 @@
 				success: function(data) {
 					var json_data = new google.visualization.DataTable(data.data, 0.5);
 					data_table.draw(json_data, 
-					     {width:250, height:200,
+					     {height:200,
 					     is3D: true});
 				},
 				beforeSend: function() {
@@ -222,7 +222,7 @@
 				success: function(data) {
 					var json_data = new google.visualization.DataTable(data.data, 0.5);
 					data_table.draw(json_data,
-			           	     {width:710, height:200,
+			           	     {width: 610, height:200,
 			            	      //hAxis: {title: data.range_type_label, titleColor: "red"}
 					});
 				},
@@ -246,7 +246,7 @@
 					data_table.draw(json_data,
 	                                {allowHtml : true,
 			           	title : "Total Reach", 
-			            	width:950, height:200,
+			            	height:200,
 			            	//hAxis: {title: data.range_type_label, titleColor: "red"}
 					displayLegendValues : false
 					});
