@@ -58,6 +58,10 @@ div#admin_console2 {
     margin-top: 0px;
 }
 
+.panes iframe {
+   border: 0px solid black;
+}
+
 /* Raffle Select Winners */
 div#winners button {
     height:40px; 
