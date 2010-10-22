@@ -39,6 +39,27 @@ body {
 	-webkit-box-shadow: 0 0 60px 0px #000;
 	text-align: center; 
 }
+
+#container #tryit-div { 
+	margin: auto;
+	padding: 18px 20px; 
+	width: 545px;
+	background: #ddd; 
+	border-radius: 5px; 
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px; 
+	-moz-box-shadow:0 0 60px 0px #000; 
+	-webkit-box-shadow: 0 0 60px 0px #000;
+	text-align: center;
+	font-size: 26px;
+	font-weight: 600;
+        color: #3C8AAE;  
+	cursor: pointer;
+	height: 60px;
+	width: 380px;
+}
+
+
 		
 #social-plugin {
         margin-top: 40px;
