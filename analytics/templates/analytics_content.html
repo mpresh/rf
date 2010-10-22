@@ -115,161 +115,157 @@
 </div>
 
 	<script> 
-	      
-             $('#stats p').tooltip();
-	  
-	      //$("#date_column_chart").showLoading({'afterShow': function(){ setTimeout( "jQuery('#date_column_chart').hideLoading()", 2000 );}});
-	      //$("#midRight").showLoading({'afterShow': function(){ setTimeout( "jQuery('#midRight').hideLoading()", 2000 );}});         
+	    $('#stats p').tooltip();
+
+              //$("#date_column_chart").showLoading({'afterShow': function(){ setTimeout( "jQuery('#date_column_chart').hideLoading()", 2000 );}});
+              //$("#midRight").showLoading({'afterShow': function(){ setTimeout( "jQuery('#midRight').hideLoading()", 2000 );}});
               //$("#date_line_chart").showLoading({'addClass': 'loading-indicator-bars',
               //                                   'afterShow': function(){ setTimeout( "jQuery('#date_line_chart').hideLoading()", 2000 );}});
 
-	      FB.init({appId: '{{fbappid}}', status: true, cookie: true, xfbml: true});
-	      google.load("visualization", "1", {packages:["table", "piechart", "corechart"]});
-	      google.setOnLoadCallback(drawGraphs);
+              FB.init({appId: '{{fbappid}}', status: true, cookie: true, xfbml: true});
+              google.load("visualization", "1", {packages:["table", "piechart", "corechart"]});
+              google.setOnLoadCallback(drawGraphs);
 
-	      function drawTable() {
-	           var cssClassNames = {
-		        'headerRow': 'headerRow',
-			'tableRow': 'tableRow',
+              function drawTable() {
+                   var cssClassNames = {
+                        'headerRow': 'headerRow',
+                        'tableRow': 'tableRow',
 			'oddTableRow': 'oddTableRow',
 			'selectedTableRow': 'selectedTableRow',
-			'hoverTableRow': 'hoverTableRow',
+                        'hoverTableRow': 'hoverTableRow',
 			'headerCell': 'headerCell',
-			'tableCell': 'tableCell',
-			'rowNumberCell': 'rowNumCell'
-		   };
-		   var data_table = new google.visualization.Table(document.getElementById('table_analytics_data'));
-		   $.ajax({
-		        url: '{% url analytics_data %}?campaign={{campaign.id}}', 
-			     data: {},
-	                     dataType: "json", 
-			     success: function(data) {
-			          var json_data = new google.visualization.DataTable(data.data, 0.5);
-				  json_data.sort({column: 3, desc: true})
-                                  var formatter = new google.visualization.PatternFormat('{0} <span class=\"lightLink\">(more)</span>');
-                                  formatter.format(json_data, [1]);
-				  var formatter = new google.visualization.PatternFormat('<p class=\"light\">reach</p>{0}');
-                                  formatter.format(json_data, [4]);
-				  var formatter = new google.visualization.PatternFormat('<p class=\"light\">shares</p>{0}');
-                                  formatter.format(json_data, [7]);
-                                  var formatter = new google.visualization.PatternFormat('<p class=\"light\">shares</p>{0}');
-                                  formatter.format(json_data, [6]);
-                                  var formatter = new google.visualization.PatternFormat('<p class=\"light\">clicks</p>{0}');
-                                  formatter.format(json_data, [9]);
+                        'tableCell': 'tableCell',
+                        'rowNumberCell': 'rowNumCell'
+                   };
+                   var data_table = new google.visualization.Table(document.getElementById('table_analytics_data'));
+                   $.ajax({
+                        url: '{% url analytics_data %}?campaign={{campaign.id}}',
+                             data: {},
+                             dataType: "json",
+                             success: function(data) {
+	     	          var json_data = new google.visualization.DataTable(data.data, 0.5);
+	     		  json_data.sort({column: 3, desc: true})
+                               var formatter = new google.visualization.PatternFormat('{0} <span class=\"lightLink\">(more)</span>');
+                               formatter.format(json_data, [1]);
+	     		  var formatter = new google.visualization.PatternFormat('<p class=\"light\">reach</p>{0}');
+                               formatter.format(json_data, [4]);
+	     		  var formatter = new google.visualization.PatternFormat('<p class=\"light\">shares</p>{0}');
+                               formatter.format(json_data, [7]);
+                               var formatter = new google.visualization.PatternFormat('<p class=\"light\">shares</p>{0}');
+                               formatter.format(json_data, [6]);
+                               var formatter = new google.visualization.PatternFormat('<p class=\"light\">clicks</p>{0}');
+                               formatter.format(json_data, [9]);
+	     
+	     		  var view = new google.visualization.DataView(json_data);
+	     		  view.hideColumns([2,3,8]);
+	     		  // Render Table
+	     		  var options = {};
+	     		  options['page'] = 'enable';
+	     		  options['pageSize'] = 10;
+	     		  options['allowHtml'] = true;
+	     		  options['cssClassNames'] = cssClassNames;
+	     		  data_table.draw(view, options);
+	     		  data_table.draw(view, options);
+	     
+	     		  // Setup Listener
+	     		  google.visualization.events.addListener(data_table, 'select', function() {
+	     		       var row = data_table.getSelection()[0].row;
+	     		       showUserData(json_data.getValue(row, 0),
+	     		                    json_data.getValue(row, 1),
+	     		  		    json_data.getValue(row, 2),
+	     		  		    json_data.getValue(row, 3),
+	     		  		    json_data.getValue(row, 4),
+	     		  		    json_data.getValue(row, 5),
+	     		  		    json_data.getValue(row, 6),
+	     		  		    json_data.getValue(row, 7),
+	     		  		    json_data.getValue(row, 8)
+	     		       );
+	     	          });
+                               jQuery('#midRight').hideLoading();
+                               jQuery('#date_column_chart').hideLoading();
+	     	     },
+	     	     beforeSend: function() {
+                              $("#midRight").showLoading();         
+                              $("#date_column_chart").showLoading();
+                          }
+	     	}); 
+	     
+	     }
+	     
+	     function drawPie(range_type, range_duration) {
+	     	var data_table = new google.visualization.PieChart(document.getElementById('pie_sources'));
+	     	$.ajax({
+	     		url: '{% url analytics_sources_pie %}?range_type=' + range_type + '&range_duration=' + range_duration + '&campaign={{campaign.id}}', 
+	     		dataType: "json",
+	     		data: {},
+	     		success: function(data) {
+	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
+	     			data_table.draw(json_data, 
+	     			     {width: 230, height:200, 
+	     			     is3D: true});
+	     		},
+	     		beforeSend: function() {
+	     
+	     		}
+	     	});		
+	     }
 
-				  var view = new google.visualization.DataView(json_data);
-				  view.hideColumns([2,3,8]);
-				  // Render Table
-				  var options = {};
-				  options['page'] = 'enable';
-				  options['pageSize'] = 10;
-				  options['allowHtml'] = true;
-				  options['cssClassNames'] = cssClassNames;
-				  data_table.draw(view, options);
-				  data_table.draw(view, options);
+	     function drawDateColumnShare(range_type, range_duration){
+	     
+	     	// Create and draw the visualization.
+	     	var data_table = new google.visualization.ColumnChart(document.getElementById('date_column_chart'));
+	     	$.ajax({
+	     		url: '{% url analytics_date_range_shares %}?range_type=' + range_type + '&range_duration=' + range_duration + '&campaign={{campaign.id}}', 
+	     		dataType: "json",
+	     		data: {},
+	     		success: function(data) {
+	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
+	     			data_table.draw(json_data, {width: 610, height:200});
+	     		},
+	     		beforeSend: function() {
+	     
+	     		}
+	     	});
+	     }
+	     
 
-				  // Setup Listener
-				  google.visualization.events.addListener(data_table, 'select', function() {
-				       var row = data_table.getSelection()[0].row;
-				       showUserData(json_data.getValue(row, 0),
-				                    json_data.getValue(row, 1),
-				  		    json_data.getValue(row, 2),
-				  		    json_data.getValue(row, 3),
-				  		    json_data.getValue(row, 4),
-				  		    json_data.getValue(row, 5),
-				  		    json_data.getValue(row, 6),
-				  		    json_data.getValue(row, 7),
-				  		    json_data.getValue(row, 8)
-				       );
-			          });
-                                  jQuery('#midRight').hideLoading();
-                                  jQuery('#date_column_chart').hideLoading();
-			     },
-			     beforeSend: function() {
-                                 $("#midRight").showLoading();         
-                                 $("#date_column_chart").showLoading();
-                             }
-			}); 
+                function drawDateLineReach(range_type, range_duration){
 
-		}
+                        // Create and draw the visualization.
+                        var data_table = new google.visualization.LineChart(document.getElementById('date_line_chart'));
+                        $.ajax({
+                                url: '{% url analytics_date_range_reach %}?range_type=' + range_type + '&range_duration=' + range_duration + '&campaign={{campaign.id}}',
+                                dataType: "json",
+                                data: {},
+                                success: function(data) {
+                                        var json_data = new google.visualization.DataTable(data.data, 0.5);
+                                        data_table.draw(json_data,
+                                        {allowHtml : true,
+                                        title : "Total Reach",
+                                        width: 700, height:200,
+                                        //hAxis: {title: data.range_type_label, titleColor: "red"}
+                                        displayLegendValues : false
+                                        });
+                                },
+                                beforeSend: function() {
 
-		function drawPie(range_type, range_duration) {
-			var data_table = new google.visualization.PieChart(document.getElementById('pie_sources'));
-			$.ajax({
-				url: '{% url analytics_sources_pie %}?range_type=' + range_type + '&range_duration=' + range_duration + '&campaign={{campaign.id}}', 
-				dataType: "json",
-				data: {},
-				success: function(data) {
-					var json_data = new google.visualization.DataTable(data.data, 0.5);
-					data_table.draw(json_data, 
-					     {height:200,
-					     is3D: true});
-				},
-				beforeSend: function() {
+                                }
+                        });
+			}
 
-				}
-			});		
-		}
-
-		function drawDateColumnShare(range_type, range_duration){
-
-	  		// Create and draw the visualization.
-	  		var data_table = new google.visualization.ColumnChart(document.getElementById('date_column_chart'));
-			$.ajax({
-				url: '{% url analytics_date_range_shares %}?range_type=' + range_type + '&range_duration=' + range_duration + '&campaign={{campaign.id}}', 
-				dataType: "json",
-				data: {},
-				success: function(data) {
-					var json_data = new google.visualization.DataTable(data.data, 0.5);
-					data_table.draw(json_data,
-			           	     {width: 610, height:200,
-			            	      //hAxis: {title: data.range_type_label, titleColor: "red"}
-					});
-				},
-				beforeSend: function() {
-
-				}
-			});
-		}
-
-		function drawDateLineReach(range_type, range_duration){
-
-	  		// Create and draw the visualization.
-	  		var data_table = new google.visualization.LineChart(document.getElementById('date_line_chart'));
-			$.ajax({
-				url: '{% url analytics_date_range_reach %}?range_type=' + range_type + '&range_duration=' + range_duration + '&campaign={{campaign.id}}', 
-				dataType: "json",
-				data: {},
-				success: function(data) {
-				        var json_data = new google.visualization.DataTable(data.data, 0.5);
-
-					data_table.draw(json_data,
-	                                {allowHtml : true,
-			           	title : "Total Reach", 
-			            	height:200,
-			            	//hAxis: {title: data.range_type_label, titleColor: "red"}
-					displayLegendValues : false
-					});
-				},
-				beforeSend: function() {
-
-				}
-			});
-		}
-
-
-		function drawGraphs() {
-			drawTable();	                
-			drawPie($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
-			drawDateColumnShare($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
-			drawDateLineReach($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
-		}
-
-		$('#reload-bar-chart').click(function(){
-			drawPie($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
-			drawDateColumnShare($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
-			drawDateLineReach($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
-		});
+	     
+	     function drawGraphs() {
+	     	drawTable();	                
+	     	drawPie($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
+	     	drawDateColumnShare($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
+	     	drawDateLineReach($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
+	     }
+	     
+	     $('#reload-bar-chart').click(function(){
+	     	drawPie($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
+	     	drawDateColumnShare($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
+	     	drawDateLineReach($('#chart-date-type :selected').val(), $('#chart-date-distribution :selected').val());
+	     });
 
 		function showUserData(pic, name, link, followers, reach, shares, reshares, totalShares, network) {
 		        var html_str = "";
