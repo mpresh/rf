@@ -27,11 +27,11 @@ div#create-event label {
 
 
 div.create {
+    
     padding: 20px;		  
     text-align: left;
     width: 90%;
     background-color: white;
-    #background-color: #eee;
     margin: auto;
     border: 2px solid #CCC;
 

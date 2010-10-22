@@ -1,3 +1,7 @@
+body {
+        text-align: center;
+}
+
 span#discount-error-message {
     color: red;
 }
