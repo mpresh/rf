@@ -43,9 +43,7 @@ div#admin_console li{
 div#admin_console2 {
     
     text-align: left;
-    width: 140%;
     margin: auto;
-    margin-left: -20%;
 
     -moz-border-radius-topleft: 20px;
     -webkit-border-top-left-radius: 20px;
