@@ -17,7 +17,11 @@
 <div id="admin_console2">
 <div id="admin-header">
 <h1>Admin Console</h1>
-<h4 style="text-align:center;">Promotion Type - {{campaign.campaign_type}}</h4>
+<div id="admin-info">
+<h4>Promotion Type - {{campaign.campaign_type}}</h4>
+<h4>Landing URL - <a target="landing_page" href="{{landing_url}}">{{landing_url}}</a></h4>
+<h4>Created At - {{campaign.created_at}}</h4>
+</div>
 </div>
 <br/><br/><br/>
 

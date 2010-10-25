@@ -17,6 +17,17 @@ div#admin-header {
    -webkit-border-radius: 8px; 
 }
 
+div#admin-info {
+   background-color: white;
+   width: 60%; 
+   padding: 20px;
+   margin: auto;
+   margin-top: 20px;
+   text-align: left;
+}
+
+
+
 div#admin_console {
     padding: 20px;			  
     text-align: left;
