@@ -43,11 +43,14 @@
 <img src='{% url static 'images/discounts/discount5.jpeg'%}'/>
   </div>
   <div id="make-selection">
-                                Incentive:
-				<select name="campaign_type" id="campaign_type">
+                                <h1>Incentive</h1>
+				<!--<select name="campaign_type" id="campaign_type">
                                              <option value="discount" selected><- Discounts</option>
 					     <option value="raffle">Giveaways -></option>
-				</select>
+				</select>-->
+				<br/><br />
+                                <input type="radio" name="campaign_type" value="discount" checked/> <-- Discount<br /><br/>
+                                <input type="radio" name="campaign_type" value="raffle" /> Giveaway -->
 
   </div>
 </div>
@@ -94,7 +97,7 @@ $('#raffle-selection').cycle({
      function create() {
            var values = {};
                 values["url"] = $('#campaign_url').val();
-                values["campaign_type"] = $('#campaign_type').val();
+                values["campaign_type"] = $("input[@name='campaign_calue']:checked").val();
 		$.ajax({
      		url: '{% url create_campaign_ajax %}', 
      			dataType: "json",

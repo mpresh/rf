@@ -254,14 +254,13 @@ div#discount-selection {
     width: 47%%;
 }
 
-
-
 div#make-selection {
     background-color: white;
     width: 43%;
     float: right;
     padding: 10px;
     height: 180px;
+    text-align: center;
 }
 div#raffle-selection {
     background-color: white;
