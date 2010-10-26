@@ -12,6 +12,12 @@
 {% block description %}Event marketing admin console which allows for the event promoter to change settings, preview landing page, create and modify widget, and view analytics.{% endblock %}
 
 {% block site-content %}
+<!--<button rel="#info-overlay" id="launch-info-overlay" type="button"></button>-->
+
+<div class="admin_overlay" id="info-overlay">
+
+</div>
+
 <br/><br/><br/>
 
 <div id="admin_console2">
@@ -71,6 +77,12 @@ Email Details To Self
 </div>
 
 <script>
+
+$(document).ready(function(){
+   $("#info-overlay").overlay();
+   //$("#info-overlay").overlay().load();
+});
+
 $("ul.tabs").tabs("div.panes > div");
 
 $("#analytics_click").click(function(){
