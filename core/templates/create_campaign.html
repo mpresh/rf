@@ -30,7 +30,7 @@
 <h1>Create Promotion</h1>
 <h4><font style="font-weight: bold; font-size: 20px; color: gray;">To Start:</font> Enter a URL for what you would like to promote</h4>	
     	 	<input type="text" value="URL to be Rippled goes here." name="campaign_url" id="campaign_url"></input>
-		<button id="create-button" disabled="true">CREATE</button>
+		<button id="create-button">CREATE</button>
 </div>
 
 <div id="campaign-choice-wrapper">
@@ -139,7 +139,7 @@ $('#raffle-selection').cycle({
   
      //$("#campaign_url").keyup(handle_url_key);
      //$("#campaign_url").keydown(handle_url_key);
-     $("#campaign_url").keyup(function() {handle_url_key($(this).val())});
+     //$("#campaign_url").keyup(function() {handle_url_key($(this).val())});
 
 function handle_url_key(url){
                 var values = {};
