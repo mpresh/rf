@@ -129,33 +129,36 @@
 
         <div id="badge">
 	    <div id="callMsg">{{campaign.message}}</div>
-	    <span id="call2Act"><h2>JUST BY <b>Sharing</b> with friends:</h2></span>
-	    <div id="facebook-login-share">
-                  <script src="http://connect.facebook.net/en_US/all.js"></script>
-		  <div id="fb-root"></div>
+	          <div id="badge-bottom">
+	               <span id="call2Act"><h2>JUST BY <b>Sharing</b> with friends:</h2></span>
+	               <div id="facebook-login-share">
+                           <script src="http://connect.facebook.net/en_US/all.js"></script>
+	        	  <div id="fb-root"></div>
+                      
+	        	      <button id="facebook-share" class="badge-button" style="cursor: pointer;" style="display:none;">
+	        	           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
+	        	      </button>
+	        	  
+	        	      <button id="facebook-login" class="badge-button" style="cursor: pointer;" style="display:none;">
+	        	           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
+	        	      </button>
+                        </div>
                   
-		      <button id="facebook-share" class="badge-button" style="cursor: pointer;" style="display:none;">
-		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
-		      </button>
-		  
-		      <button id="facebook-login" class="badge-button" style="cursor: pointer;" style="display:none;">
-		           <img src="{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
-		      </button>
-                  
-	     </div>  
+	         
 
-	     <div id="twitter-login-share">
-                 
-		     <button id="twitter-share" class="badge-button" style="cursor: pointer;" style="display:none;">
-		           <img src="{% url static 'images/twitterShare_icon2.png' %}"/><span>Share</span>
-		     </button>
-                 
-                     <button class="badge-button" id="twitter-login" style="cursor: pointer;" style="display:none;">
-		         <img src="{% url static 'images/twitterShare_icon2.png' %}" /><span>Share</span>
-		     </button>
-                 
-             </div>
-
+	             <div id="twitter-login-share">
+                         
+	        	     <button id="twitter-share" class="badge-button" style="cursor: pointer;" style="display:none;">
+	        	           <img src="{% url static 'images/twitterShare_icon2.png' %}"/><span>Share</span>
+	        	     </button>
+                         
+                             <button class="badge-button" id="twitter-login" style="cursor: pointer;" style="display:none;">
+	        	         <img src="{% url static 'images/twitterShare_icon2.png' %}" /><span>Share</span>
+	        	     </button>
+                         
+                     </div>
+               </div> 
+ 
 	</div> <!-- badge -->
 
 </div>
