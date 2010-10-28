@@ -18,23 +18,40 @@ import datetime
 from pylib import bitly
 import sys
 from smtplib import SMTP
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 import re
 
 def send_details_email(req):
-    content = req.POST["content"]
+    print "here I am"
+    admin_url = req.POST["admin_url"]
+    landing_url = req.POST["landing_url"]
     chash = req.POST["chash"]
     email = req.POST["email_address"]
 
-    content = re.sub(r'<.*?>', '',content) 
-    content = content.replace("&nbsp;", "") 
+    print "here"
+    msg = MIMEMultipart()
+    print "hellop"
+
+    content = "Admin URL: " + admin_url + "\n"
+    content += "Landing Page URL: " + landing_url
+    msg = MIMEText(content)
+    print "no"
+
+    msg['Subject'] = "Campaign Details"
+    msg["From"] = "RippleFunction<info@ripplefunction.com>"
+    msg['To'] = email
+
+    
     from_addr = 'info@ripplefunction.com'
     to_addrs = [email]
+    print "do I get here"
 
     try:
         s = SMTP()
         s.connect('smtp.webfaction.com')
         s.login('mpresh','1564f867')
-        s.sendmail(from_addr, to_addrs, content)
+        s.sendmail(from_addr, to_addrs, msg.as_string())
         return HttpResponse(json.dumps({"status":200} ))    
     except:
         return HttpResponse(json.dumps({"status":500} ))    

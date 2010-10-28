@@ -207,7 +207,8 @@ if ($("#winners-wrapper").is(":hidden")) {
 
           var values = {};
           values["email_address"] = $("#email_address").val();
-          values["content"] = $("#admin_console").html();
+          values["admin_url"] = '{{admin_url}}';
+          values["landing_url"] = '{{landing_url}}';
           values["chash"] = "{{campaign.chash}}";
 
           $.ajax({
