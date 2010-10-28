@@ -29,6 +29,80 @@
            <div id="campaign-title">{{campaign.title}}</div>
 <div id="main">
 
+<div id="overlay-blogger-login" class="overlay-blogger">
+
+	    <div id="overlay-div-content2-facebook" >
+                    <div class="overlay-top">
+                        {%ifequal campaign.campaign_type "discount" %}
+                        <p>Discounts Are Better When You Share Them</p>
+                         {% else %}  
+                        <p>Share and win, it's that simple</p>
+                        {% endifequal %}
+                    </div>
+                    <div id="facebook-top-msg">
+                         {%ifequal campaign.campaign_type "discount" %}
+                         <p>Share to Reveal Discount</p>
+                         {% else %}  
+                         <p>Share to enter contest</p>
+                        {% endifequal %}
+	    	</div>
+	    
+	    	<div class="textarea-div">
+	    	     <textarea id="overlay-textarea-facebook">{{campaign.message_share}}</textarea>
+	    	</div>
+	    	<div id="facebook-feed-update" class="share-button"><p>Share</p></div>
+	    </div>
+	
+	    <div id="overlay-div-content2-twitter">
+	    	<div class="overlay-top">
+                        {%ifequal campaign.campaign_type "discount" %}
+                        <p>Discounts Are Better When You Share Them</p>
+                        {% else %}  
+                        <p>Share and win, it's that simple</p>
+                        {% endifequal %}
+                    </div>
+                    
+                    <div id="twitter-top-msg">
+                        {%ifequal campaign.campaign_type "discount" %}
+                        <p>Share to Reveal Discount</p>
+                        {% else %}  
+                        <p>Share to enter contest</p>
+                        {% endifequal %}
+	    	</div>
+	    
+	    	<div class="textarea-div">
+	    	     <textarea id="overlay-textarea-twitter" >{{campaign.message_share}}</textarea>
+	    	</div>
+	    	<div id="twitter-feed-update" class="share-button"><p>Share</p></div>
+	    </div>
+
+	    <div id="overlay-div-content3" >
+	    	<div class="overlay-top">
+                        {%ifequal campaign.campaign_type "discount" %}
+                        <p>Discount Code</p>
+                        {% else %}
+                        <p>Successfully Entered Contest</p>
+                        {% endifequal %}
+                    </div>
+	    
+                    {%ifequal campaign.campaign_type "discount" %}
+	    
+	    	<div id="code-msg">Thanks for sharing.<BR> Here is your discount code:</div>
+	    	<div id="code">
+	    	    <p id="discount-code">{{campaign.code}}</p>
+	    	    <!--<div id="d_clip_container" style="position:relative">
+	    	        <button type="button" id="d_clip_button">Copy to Clipboard</button>
+	    	    </div>-->
+	    	    <br/><span>Redeem Here:</span><br/><a href="{{campaign.url_redeem}}">{{campaign.url_redeem}}</a></font></div>
+	    	{% else %}
+                    <div id="code-msg">Thanks for sharing.<BR> You have entered raffle:</div>
+                    <img style="margin: 20px;" id="img-prize" src="{{campaign.url_redeem}}" />
+	    
+                    {% endifequal %}
+	    </div>
+
+        </div>
+
 
       <div id="container">
 
@@ -83,83 +157,6 @@
              </div>
 
 	</div> <!-- badge -->
-
-
-
-	<div id="overlay-blogger-login" class="overlay-blogger">
-
-	<div id="overlay-div-content2-facebook" >
-                <div class="overlay-top">
-                    {%ifequal campaign.campaign_type "discount" %}
-                    <p>Discounts Are Better When You Share Them</p>
-                     {% else %}  
-                    <p>Share and win, it's that simple</p>
-                    {% endifequal %}
-                </div>
-                <div id="facebook-top-msg">
-                     {%ifequal campaign.campaign_type "discount" %}
-                     <p>Share to Reveal Discount</p>
-                     {% else %}  
-                     <p>Share to enter contest</p>
-                    {% endifequal %}
-		</div>
-
-		<div class="textarea-div">
-		     <textarea id="overlay-textarea-facebook">{{campaign.message_share}}</textarea>
-		</div>
-		<div id="facebook-feed-update" class="share-button"><p>Share</p></div>
-	</div>
-	
-	<div id="overlay-div-content2-twitter">
-		<div class="overlay-top">
-                    {%ifequal campaign.campaign_type "discount" %}
-                    <p>Discounts Are Better When You Share Them</p>
-                    {% else %}  
-                    <p>Share and win, it's that simple</p>
-                    {% endifequal %}
-                </div>
-                
-                <div id="twitter-top-msg">
-                    {%ifequal campaign.campaign_type "discount" %}
-                    <p>Share to Reveal Discount</p>
-                    {% else %}  
-                    <p>Share to enter contest</p>
-                    {% endifequal %}
-		</div>
-
-		<div class="textarea-div">
-		     <textarea id="overlay-textarea-twitter" >{{campaign.message_share}}</textarea>
-		</div>
-		<div id="twitter-feed-update" class="share-button"><p>Share</p></div>
-	</div>
-
-	<div id="overlay-div-content3" >
-		<div class="overlay-top">
-                    {%ifequal campaign.campaign_type "discount" %}
-                    <p>Discount Code</p>
-                    {% else %}
-                    <p>Successfully Entered Contest</p>
-                    {% endifequal %}
-                </div>
-
-                {%ifequal campaign.campaign_type "discount" %}
-
-		<div id="code-msg">Thanks for sharing.<BR> Here is your discount code:</div>
-		<div id="code">
-		    <p id="discount-code">{{campaign.code}}</p>
-		    <!--<div id="d_clip_container" style="position:relative">
-		        <button type="button" id="d_clip_button">Copy to Clipboard</button>
-		    </div>-->
-		    <br/><span>Redeem Here:</span><br/><a href="{{campaign.url_redeem}}">{{campaign.url_redeem}}</a></font></div>
-		{% else %}
-                <div id="code-msg">Thanks for sharing.<BR> You have entered raffle:</div>
-                <img style="margin: 20px;" id="img-prize" src="{{campaign.url_redeem}}" />
-
-                {% endifequal %}
-	</div>
-
-</div>
-
 
 </div>
 
@@ -303,7 +300,7 @@ $("#overlay-blogger-login").overlay({
 	expose: {
 		loadSpeed: 100,
 		color: '#666',
-		opacity: 0.7
+		opacity: 0.2
 	},
 	onLoad: function(event) {
                 // Which page to start on?
@@ -350,8 +347,8 @@ $("#overlay-blogger-login").overlay({
 		}
 
 	},
-	top: 170,
-	left: 220
+	top: 170
+	//left: 220
 });
 
 function pageOverlay(page, type){
