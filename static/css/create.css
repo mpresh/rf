@@ -71,13 +71,13 @@ font-size: 40px;
 }
 
 #email_address {
-font-size: 25px;
-width: 500px;
+font-size: 20px;
+width: 300px;
 }
 
 button#email-button {
-font-size: 20px;
-height: 40px;		     		    
+font-size: 16px;
+height: 26px;		     		    
 }
 
 #campaign_url {

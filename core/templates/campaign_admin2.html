@@ -24,9 +24,13 @@
 <div id="admin-header">
 <h1>Admin Console</h1>
 <div id="admin-info">
-<h4>Promotion Type - {{campaign.campaign_type}}</h4>
-<h4>Landing URL - <a target="landing_page" href="{{landing_url}}">{{landing_url}}</a></h4>
-<h4>Created At - {{campaign.created_at}}</h4>
+<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Promotion Type - {{campaign.campaign_type}}</h4>
+<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Landing URL - <a target="landing_page" href="{{landing_url}}">{{landing_url}}</a></h4>
+<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Created At - {{campaign.created_at}}</h4>
+<div id="email-admin-details">
+<input type="text" id="email_address" value="your email address"/> &nbsp;&nbsp;&nbsp;&nbsp;
+<button id="email-button"> Email Details To Self</button>
+</div>
 </div>
 </div>
 <br/><br/><br/>
@@ -47,14 +51,6 @@
 </div>
 </div>
 
-
-
-<div id="email-admin-details" class="create">
-<input type="text" id="email_address" value="name@sampledomain.com"/>
-<button id="email-button">
-Email Details To Self
-</button>
-</div>
 
 <div id="winners" class="create" style="text-align:center; display: none;">
   <h2>Pick Raffle Winners:<button style="" id="winners-button">Click Here</button></h2>
