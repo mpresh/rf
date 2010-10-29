@@ -51,7 +51,7 @@ MIDDLEWARE_CLASSES = (
     'middleware.domains.SubdomainMiddleware',
 )
 
-ROOT_URLCONF = 'demo.urls'
+ROOT_URLCONF = 'rf.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
