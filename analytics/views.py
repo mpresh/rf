@@ -9,12 +9,12 @@ from core.tauth.models import *
 from core.campaign.models import Campaign
 
 def analytics(req):
-    dict = {}
-    dict["fbappid"] = settings.FACEBOOK_APP_ID
+    data_tallies = {}
+    data_tallies["fbappid"] = settings.FACEBOOK_APP_ID
     #req.session["redirect"] = req.get_full_path()
 
     shares = Share.objects.all()
-    dict["total_shares"] = len(shares)
+    data_tallies["total_shares"] = len(shares)
     total_facebook_shares = 0
     total_twitter_shares = 0
     total_twitter_reach = 0
@@ -30,19 +30,19 @@ def analytics(req):
             if not share.parent_shash:
                 total_twitter_reach = total_twitter_reach + share.totalReach()
     
-    dict["total_facebook_shares"] = total_facebook_shares
-    dict["total_twitter_shares"] = total_twitter_shares
-    dict["total_facebook_reach"] = total_facebook_reach
-    dict["total_twitter_reach"] = total_twitter_reach
-    dict["total_reach"] = total_twitter_reach + total_facebook_reach
+    data_tallies["total_facebook_shares"] = total_facebook_shares
+    data_tallies["total_twitter_shares"] = total_twitter_shares
+    data_tallies["total_facebook_reach"] = total_facebook_reach
+    data_tallies["total_twitter_reach"] = total_twitter_reach
+    data_tallies["total_reach"] = total_twitter_reach + total_facebook_reach
 
 
     if "event" in req.GET:
         try:
             event = Event.objects.get(id=req.GET["event"])
-            dict["event"] = event
+            data_tallies["event"] = event
             shares = Share.objects.filter(event=event.id)
-            dict["shares"] = shares
+            data_tallies["shares"] = shares
         except Exception:
             return render_to_response('404.html', {})
 
@@ -50,16 +50,16 @@ def analytics(req):
         try:
             camp = Campain.objects.get(chash=req.GET["chash"])
             event = camp.events.all()[0]
-            dict["event"] = event
+            data_tallies["event"] = event
             shares = Share.objects.filter(event=event.id)
-            dict["shares"] = shares
+            data_tallies["shares"] = shares
         except Exception:
             return render_to_response('404.html', {})
 
     if "user_id" in req.session:
         try:
             user = User.objects.get(id=req.GET["user_id"])
-            dict["user"] = user
+            data_tallies["user"] = user
         except Exception:
             pass
 
@@ -69,29 +69,29 @@ def analytics(req):
         if req.GET["type"] == "raw":
             (prefix, suffix) = template.split(".")
             template = prefix + "_raw" + "." + suffix
-            dict["raw"] = True
+            data_tallies["raw"] = True
     except:
         template = 'analytics.html'
 
         
-    return render_to_response(template, dict)
+    return render_to_response(template, data_tallies)
 
 
 def analytics_chash(req, chash=""):
-    dict = {}
-    dict["fbappid"] = settings.FACEBOOK_APP_ID
+    data_tallies = {}
+    data_tallies["fbappid"] = settings.FACEBOOK_APP_ID
     #req.session["redirect"] = req.get_full_path()
 
 
     try:
         c = Campaign.objects.get(chash=chash)
         shares = Share.objects.filter(campaign=c.id) 
-        dict["shares"] = shares
-        dict["campaign"] = c
+        data_tallies["shares"] = shares
+        data_tallies["campaign"] = c
     except Exception:
         return render_to_response('404.html', {})
 
-    dict["total_shares"] = len(shares)
+    data_tallies["total_shares"] = len(shares)
     total_facebook_shares = 0
     total_twitter_shares = 0
     total_twitter_reach = 0
@@ -108,17 +108,17 @@ def analytics_chash(req, chash=""):
                 total_twitter_reach = total_twitter_reach + share.totalReach()
     
 
-    dict["total_facebook_shares"] = total_facebook_shares
-    dict["total_twitter_shares"] = total_twitter_shares
-    dict["total_facebook_reach"] = total_facebook_reach
-    dict["total_twitter_reach"] = total_twitter_reach
-    dict["total_reach"] = total_twitter_reach + total_facebook_reach
+    data_tallies["total_facebook_shares"] = total_facebook_shares
+    data_tallies["total_twitter_shares"] = total_twitter_shares
+    data_tallies["total_facebook_reach"] = total_facebook_reach
+    data_tallies["total_twitter_reach"] = total_twitter_reach
+    data_tallies["total_reach"] = total_twitter_reach + total_facebook_reach
 
 
     if "user_id" in req.session:
         try:
             user = User.objects.get(id=req.GET["user_id"])
-            dict["user"] = user
+            data_tallies["user"] = user
         except Exception:
             pass
 
@@ -129,8 +129,8 @@ def analytics_chash(req, chash=""):
         if req.GET["type"] == "raw":
             (prefix, suffix) = template.split(".")
             template = prefix + "_raw" + "." + suffix
-            dict["raw"] = True
+            data_tallies["raw"] = True
     except:
         template = 'analytics.html'
         
-    return render_to_response(template, dict)
+    return render_to_response(template, data_tallies)

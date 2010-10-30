@@ -13,16 +13,28 @@ import subprocess
 #
 # User-specific variables
 #
-RFROOT = '/home/daniel/ripplefunction/src/rf'
+# Remember to also set these environment variables in your shell
+# rc like so:
+#  export RFROOT = /home/daniel/ripplefunction
+#  export RFBIN  = $RFROOT/src/bin
+#  export RFSRC  = $RFROOT/src
+#  export PATH=$PATH:$RFBIN
+ENVIRON = dict()
+
+def get_new_env():
+    new_env = os.environ.copy()
+    new_env.update(ENVIRON)
+    return new_env
 
 #
 # Commands functions
 #
 def start_server(args):
+    new_env = get_new_env()
     start_cmd = shlex.split('python %s/manage.py runserver' 
-                            # FIX: use $RFROOT inline above instead 
+                            # FIX: use $RFSRC inline above instead 
                             #      of string substitution.
-                            % os.environ.get('RFROOT'))
+                            % new_env.get('RFSRC'))
     subprocess.Popen(start_cmd, env = os.environ)
 
 def stop_server(args):
@@ -30,11 +42,11 @@ def stop_server(args):
     subprocess.Popen(stop_cmd, env = os.environ)
 
 def configure_env(args):
-    new_env = os.environ
-    # Set environment variables in this section
-    new_env['RFROOT'] = RFROOT
+    new_env = get_new_env()
+    os.execve(new_env.get('SHELL'), ('-',), new_env)
 
-    os.execve(os.environ['SHELL'], ('-',), new_env)
+def commit_and_push(args):
+    pass
 
 def webfaction_login(args):
     pass
@@ -44,7 +56,8 @@ def webfaction_login(args):
 #
 commands = { 'start': ('Starts rf django server', start_server),
              'stop': ('Stops rf django server', stop_server),
-             'configure': ('Configures environment variables', configure_env), }
+             'configure': ('Configures environment variables', configure_env),
+             }
 
 #
 # Main
@@ -59,4 +72,7 @@ if __name__ == '__main__':
         for cmd, desc_func in commands.items():
             print "\t%s - %s" % (cmd, desc_func[0])
     else:
-        main(sys.argv[1:])
+        try:
+            main(sys.argv[1:])
+        except KeyError, ex:
+            print "No such option %s" % str(ex)
