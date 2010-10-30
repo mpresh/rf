@@ -1,0 +1,62 @@
+#!/usr/bin/env python
+
+##
+## rf utility script
+## Daniel Matysiak <daniel@ripplefunction.com>
+##
+
+import os
+import shlex
+import sys
+import subprocess
+
+#
+# User-specific variables
+#
+RFROOT = '/home/daniel/ripplefunction/src/rf'
+
+#
+# Commands functions
+#
+def start_server(args):
+    start_cmd = shlex.split('python %s/manage.py runserver' 
+                            # FIX: use $RFROOT inline above instead 
+                            #      of string substitution.
+                            % os.environ.get('RFROOT'))
+    subprocess.Popen(start_cmd, env = os.environ)
+
+def stop_server(args):
+    stop_cmd = shlex.split('pkill -f "python.*manage.py"')
+    subprocess.Popen(stop_cmd, env = os.environ)
+
+def configure_env(args):
+    new_env = os.environ
+    # Set environment variables in this section
+    new_env['RFROOT'] = RFROOT
+
+    os.execve(os.environ['SHELL'], ('-',), new_env)
+
+def webfaction_login(args):
+    pass
+
+#
+# List of commands
+#
+commands = { 'start': ('Starts rf django server', start_server),
+             'stop': ('Stops rf django server', stop_server),
+             'configure': ('Configures environment variables', configure_env), }
+
+#
+# Main
+#
+def main(params):
+    _, command_fn = commands[params[0]]
+    command_fn(params[1:])
+
+if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        print "rf utility command usage:"
+        for cmd, desc_func in commands.items():
+            print "\t%s - %s" % (cmd, desc_func[0])
+    else:
+        main(sys.argv[1:])
