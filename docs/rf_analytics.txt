@@ -1,0 +1,86 @@
+Analytics
+=========
+
+
+Definitions and data
+--------------------
+
+Primary data
+~~~~~~~~~~~~
+
+* Impressions
+
+  A metric of the number of views; the audience size.  If user A has 300
+  friends on facebook, then the impression count for his share is 300. This is
+  a userful lower bound for the number of people who've purchased tickets
+  through ripplefunction.
+
+* Responses (clicks)
+
+  The number of people who've responded to and clicked on a link promoted
+  through facebook/twitter. This is a useful upper bound on the number of
+  tickets purchased through ripplefunction.
+
+* Reach
+
+  The number of unique people the message is delivered to. Impressions is a
+  better metric because multiple exposures to the same destination website or
+  event page are not necessarily accompanied by exposure to the same status
+  post/tweet message and link.
+
+Secondary and derived data
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Reshares
+
+  If user B clicks on a link posted by user A, and then also reposts or
+  retweets, this is called a reshare.  This is a good indicator of how many
+  actual purchases were made through ripplefunction promotion.
+
+  Reshares are also useful for guaging how viral the promotion is on twitter
+  and facebook. ``Virality'' metrics include depth (of the reshare tree; number
+  of reshares) and breath (per user is impressions and clicks; w.r.t. reshares,
+  a metric of the spread per generation in the reshare tree, with originating
+  user at the root).
+
+* Total impressions w.r.t. originating user
+
+  The total number of nodes in the reshare tree.
+
+* Total responses w.r.t. originating user
+
+  The total number of clicks in the reshare tree.
+
+* Total reach w.r.t. originating user
+
+  The number of unique users reached w.r.t.  originating user.
+
+
+Other terms
+-----------
+
+* Originating user
+
+  And originating user is a user who has shared an event without
+  resharing. That is, he is the first person to have shared from a widget or
+  landing page. The number is, like many metrics above, not air tight and
+  completely disjoint from other metrics, but likely accurate.
+
+
+Tree
+----
+
+For historical tracking of data, ripplefunction could track not only the counts
+above, but the actual paths of the reshare tree. This would be useful only if
+the tree contains data which is useful but not captured through a number, and
+if there are doubts about having exhaustively extracted all useful data from
+the tree. Both are likely to be true. Storage is the only resource constraint
+that arouses concern.
+
+
+Interesting data and point to consider
+--------------------------------------
+
+* Identify "strong" nodes and subtrees in the tree
+  - Find ways to encourage and maintain strong promoters
+
