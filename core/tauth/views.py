@@ -1,19 +1,21 @@
-from django.shortcuts import render_to_response
+import re
+import urllib
+import urlparse
+
 from django.http import HttpResponseRedirect, HttpResponseServerError, HttpResponse
-from django.core.urlresolvers import reverse
+from django.shortcuts import render_to_response
+from django.utils.functional import lazy
+import simplejson as json
+
 from pylib import oauth
 from pylib.lazy import reverse
+from pylib.util import handle_redirect_string
+
 from utils import *
 from models import User
 from events.models import Event
 from campaign.models import Campaign
 from decorators import wants_user, needs_user
-import simplejson as json
-import urllib
-from django.utils.functional import lazy
-from pylib.util import handle_redirect_string
-import re
-import urlparse
 
 reverse_lazy = lazy(reverse, unicode)
 

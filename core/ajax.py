@@ -54,6 +54,7 @@ def event_add_user(req):
         user.events_going.add(Event.objects.get(id=req.POST["event_id"]))
         dict = {}
         dict["status"] = "ok"
+        # BUG: attendees_list is undefined
         return HttpResponse(json.dumps(attendees_list))
     
     dict["status"] = "error"
@@ -96,7 +97,7 @@ def event_friend_attendees(req, event_id=""):
     event = Event.objects.get(id=event_id)
     user = User.objects.get(id=req.session["user_id"])	
 
-    user_frineds_list = user.get_friend_list()
+    user_friends_list = user.get_friend_list()
     
     event_friend_attendees = []
 
@@ -115,11 +116,13 @@ def event_friend_not_attendees(req, event_id=""):
     if "user_id" not in req.session:
         dict["status"] = "error"
         dict["message"] = "User must be authenticated!"
+        # BUG: attendees_list is undefined
         return HttpResponse(json.dumps(attendees_list))
     
     if not event_id:
         dict["status"] = "error"
         dict["message"] = "must provide event_id"
+        # BUG: attendees_list is undefined
         return HttpResponse(json.dumps(attendees_list))
 
     event = Event.objects.get(id=event_id)

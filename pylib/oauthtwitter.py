@@ -13,6 +13,7 @@ Requires:
 __author__ = "Hameedullah Khan <hameed@hameedkhan.net>"
 __version__ = "0.2"
 
+import time
 
 from twitter import Api, User
 

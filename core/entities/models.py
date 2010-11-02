@@ -1,11 +1,13 @@
-from django.db import models
-from pylib import oauth
-import re, httplib, simplejson
-from core.tauth.models import User
-from core.fauth.models import FBUser
 import re
 import hashlib
+import httplib
+import simplejson
 
+from django.db import models
+
+from pylib import oauth
+from core.tauth.models import User
+from core.fauth.models import FBUser
 
 class AttributeType(models.Model):
     name = models.CharField(max_length=100, default="STRING")

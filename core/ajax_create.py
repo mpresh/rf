@@ -165,6 +165,7 @@ def _create_event(campaign, req):
         os.mzkdir(os.path.join(settings.ROOT_PATH, 'static/images/events'))
         
     if image:
+        # BUG: user is undefined
         os.rename(os.path.join(settings.ROOT_PATH, 'static/images/tmp/' + str(user.id) + '_' + image),
                   os.path.join(settings.ROOT_PATH, 'static/images/event_logos/' + str(e.id)))
     else:

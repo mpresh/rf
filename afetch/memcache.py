@@ -1110,7 +1110,8 @@ if __name__ == "__main__":
                 print "OK"
                 return 1
             else:
-                print "FAIL"; failures = failures + 1
+                print "FAIL"
+                failures = failures + 1
                 return 0
 
 

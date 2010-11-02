@@ -121,6 +121,7 @@ def get_twitter_user_info(**kwargs):
     kwargs["start"] = time.time()
     d = twitter.Twitter(consumer=consumer(), 
                         token=token(data["oauth_token"],
+                                    # BUG: info_user is undefined
                                     data["oauth_token_secret"])).show_user(info_user)
     d.addCallback(gotUser)
     d.addErrback(gotError)
