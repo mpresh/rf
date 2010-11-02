@@ -30,20 +30,42 @@ def get_new_env():
 # Commands functions
 #
 def start_server(args):
+    """Starts rf django server"""
     new_env = get_new_env()
     start_cmd = shlex.split('python %s/manage.py runserver' 
                             # FIX: use $RFSRC inline above instead 
                             #      of string substitution.
                             % new_env.get('RFSRC'))
-    subprocess.Popen(start_cmd, env = os.environ)
+    p = subprocess.Popen(start_cmd, env = new_env)
 
 def stop_server(args):
+    """Stops rf django server"""
+    new_env = get_new_env()
     stop_cmd = shlex.split('pkill -f "python.*manage.py"')
-    subprocess.Popen(stop_cmd, env = os.environ)
+    subprocess.Popen(stop_cmd, env = new_env)
 
 def configure_env(args):
+    """Configures environment variables"""
     new_env = get_new_env()
     os.execve(new_env.get('SHELL'), ('-',), new_env)
+
+def search_code(args):
+    """Searches code for given string"""
+    new_env = get_new_env()
+    search_cmd = shlex.split('grep -R %s %s' 
+                             # FIX: use $RFSRC inline above instead 
+                             #      of string substitution.
+                             % (args[0], new_env.get('RFSRC')))
+    subprocess.Popen(search_cmd, env = os.environ)
+
+def deflake(args):
+    """Runs a simple source checker on code"""
+    new_env = get_new_env()
+    deflake_cmd = shlex.split('pyflakes %s' 
+                              # FIX: use $RFSRC inline above instead 
+                              #      of string substitution.
+                              % new_env.get('RFSRC'))
+    subprocess.Popen(deflake_cmd, env = os.environ)
 
 def commit_and_push(args):
     pass
@@ -54,23 +76,25 @@ def webfaction_login(args):
 #
 # List of commands
 #
-commands = { 'start': ('Starts rf django server', start_server),
-             'stop': ('Stops rf django server', stop_server),
-             'configure': ('Configures environment variables', configure_env),
+commands = { 'start': start_server,
+             'stop': stop_server,
+             'configure': configure_env,
+             'find': search_code,
+             'deflake': deflake,
              }
 
 #
 # Main
 #
 def main(params):
-    _, command_fn = commands[params[0]]
+    command_fn = commands[params[0]]
     command_fn(params[1:])
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         print "rf utility command usage:"
-        for cmd, desc_func in commands.items():
-            print "\t%s - %s" % (cmd, desc_func[0])
+        for cmd, func in commands.items():
+            print "\t%s - %s" % (cmd, func.__doc__)
     else:
         try:
             main(sys.argv[1:])
