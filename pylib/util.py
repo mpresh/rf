@@ -1,3 +1,5 @@
+from django.shortcuts import render_to_response
+
 # random utility functions
 def handle_redirect_string(redirect_url, redirect_args_string):
     redirect_url = redirect_url.replace("fb_xd_fragment", "")
@@ -29,8 +31,14 @@ def handle_redirect_string(redirect_url, redirect_args_string):
     for key in args_dict.keys():
         query_args_dict[key] = args_dict[key]
 
-    query_args_list = ["%s=%s" % (key, query_args_dict[key]) for key in query_args_dict.keys()]
+    query_args_list = ["%s=%s" % (key, query_args_dict[key]) 
+                       for key in query_args_dict.keys()]
     redirect = url + "?" + "&".join(query_args_list)
 
     print "REDIRECT STRING RETURNING", redirect
     return redirect
+
+def render_template(template, **template_variables):
+    """ Wrapper which makes rendering templates nicer."""
+    return render_to_response(template, template_variables)
+

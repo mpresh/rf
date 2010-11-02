@@ -8,6 +8,8 @@ from core.fauth.models import *
 from core.tauth.models import *
 from core.campaign.models import Campaign
 
+from pylib.util import render_template
+
 def analytics(req):
     data_tallies = {}
     data_tallies["fbappid"] = settings.FACEBOOK_APP_ID
@@ -44,7 +46,7 @@ def analytics(req):
             shares = Share.objects.filter(event=event.id)
             data_tallies["shares"] = shares
         except Exception:
-            return render_to_response('404.html', {})
+            return render_template('404.html')
 
     if "chash" in req.GET:
         try:
@@ -54,7 +56,7 @@ def analytics(req):
             shares = Share.objects.filter(event=event.id)
             data_tallies["shares"] = shares
         except Exception:
-            return render_to_response('404.html', {})
+            return render_template('404.html')
 
     if "user_id" in req.session:
         try:
@@ -74,7 +76,7 @@ def analytics(req):
         template = 'analytics.html'
 
         
-    return render_to_response(template, data_tallies)
+    return render_template(template, **data_tallies)
 
 
 def analytics_chash(req, chash=""):
@@ -89,7 +91,7 @@ def analytics_chash(req, chash=""):
         data_tallies["shares"] = shares
         data_tallies["campaign"] = c
     except Exception:
-        return render_to_response('404.html', {})
+        return render_template('404.html')
 
     data_tallies["total_shares"] = len(shares)
     total_facebook_shares = 0
@@ -133,4 +135,4 @@ def analytics_chash(req, chash=""):
     except:
         template = 'analytics.html'
         
-    return render_to_response(template, data_tallies)
+    return render_template(template, **data_tallies)

@@ -78,9 +78,12 @@ the tree. Both are likely to be true. Storage is the only resource constraint
 that arouses concern.
 
 
-Interesting data and point to consider
---------------------------------------
+Interesting data and points to consider
+---------------------------------------
 
 * Identify "strong" nodes and subtrees in the tree
   - Find ways to encourage and maintain strong promoters
 
+* Find heuristic ways to guage competitor market share
+  and influence
+  - Find ways to encroach on their piece of the pie
