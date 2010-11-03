@@ -15,8 +15,12 @@ Primary data
 
 * Responses (clicks)
 
-  The number of people who've responded to and clicked. This is a useful upper 
-  bound on the number of tickets purchased through ripplefunction. 
+  The number of people who've responded, i.e. clicked. This number can be
+  interpreted as a working lower bound on the number of tickets purchased
+  through ripplefunction. Obviously not all who click will purchase a ticket,
+  and few will probably purchase a ticket without resharing to receive a
+  discount, but it is likely to provide a reasonable indication of at least how
+  many purchases were made because of our widget. A strict lower bound is zero.
 
 * Reach
 
@@ -31,8 +35,10 @@ Secondary and derived data
 * Reshares
 
   If user B clicks on a link posted by user A, and then also reposts or
-  retweets, this is called a reshare.  This is a good indicator of how many
-  actual purchases were made through ripplefunction promotion.
+  retweets, this is called a reshare.  This can be interpreted as a good
+  estimate of how many actual purchases were made through ripplefunction
+  promotion, or a reasonable upper bound (a strict upper bound is the number of
+  tickets purchased online, a number to which we don't have access).
 
   Reshares are also useful for guaging how viral the promotion is on twitter
   and facebook. ``Virality'' metrics include depth (of the reshare tree; number
@@ -61,7 +67,10 @@ Other terms
   And originating user is a user who has shared an event without
   resharing. That is, he is the first person to have shared from a widget or
   landing page. The number is, like many metrics above, not air tight and
-  completely disjoint from other metrics, but likely accurate.
+  completely disjoint from other metrics, but likely accurate. For example,
+  since promotional codes remain fixed at the moment, it is possible for people
+  to share the promotional code among themselves without the knowledge of
+  ripplefunction.
 
 
 Tree
@@ -84,3 +93,7 @@ Interesting data and points to consider
 * Find heuristic ways to guage competitor market share
   and influence
   - Find ways to encroach on their piece of the pie
+
+* Learn what kind of events a particular user tends to prefer. This can be
+  useful for informing clients of particular user characteristics. Since we
+  have access to facebook, we can make use of profile information as well.
