@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1" />
+    <meta http-equiv="Content-Language" content="en-us" />
+
+    <script type="text/javascript" src="{% url static 'javascript/jquery-1.4.2.min.js' %}" ></script>
+    <script type="text/javascript" src="{% url static 'javascript/myjscript.js' %}" ></script>
+    <script type="text/javascript" src="{% url static 'javascript/jquery.validate.js' %}" ></script>
+    <script type="text/javascript" src="{% url static 'javascript/jquery.tools.min.js' %}" ></script>
+
+    <script type="text/javascript" src="{% url static 'javascript/jquery.cookie.js' %}" ></script>
+    <script type="text/javascript" src="{% url static 'javascript/charCount.js' %}" ></script>
+    <script type="text/javascript" src="{% url static 'javascript/jquery.showLoading.js' %}" ></script>	
+    <script type="text/javascript" src="{% url static 'javascript/ZeroClipboard.js' %}" ></script>	
+
+    <link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text/css" />	
+    <link rel="stylesheet" href="{% url static 'css/blueprint/typography.css' %}" type="text/css" />	
+    <link rel="stylesheet" href="{% url static 'css/overlayA.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% url static 'css/bar.css' %}" type="text/css" />
+
+
+    <title>Event Promotions - Viral Incentive Referrals Tool - {{campaign.title}}</title>
+    <meta name="description=" content="A deal landing page for Marketing and promoting your event by providing an incentive to attendees to share on facebook and twitter in return for discounts and other rewards.">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+
+	<script type="text/javascript">
+		$(document).ready(
+				//auto fix iframe height
+				function(){
+					var has_iframe = $("#external-site").size();
+
+					var resize_iframe = function(){
+						var toolbar_height = 35;
+						var document_height = $(window).height();
+						var iframe_height = document_height - toolbar_height;
+						$('#external-site').height(iframe_height);
+					};
+										
+					if (has_iframe){
+						$(window).resize(
+							function(){
+								resize_iframe();
+							}
+						);
+						resize_iframe();
+					}
+				}
+			);
+	</script>
+</head>
+<body>
+	<!-- Ripple Function Bar -->
+	<div id="bar">
+		<div id="content">
+			<span id="copy-text">Instant <strong>10% off your ticket</strong> just for sharing!</span>
+			<span id="buttons">
+				<a href="#" id="twitter"></a>
+				<a href="#" id="facebook"></a>
+			</span>
+		</div>
+	</div>
+	<div id="shadow"></div>
+	
+	<!-- External Site -->
+	<iframe src="http://bigdesignconference.com/" id="external-site" frameborder="0" scrolling="auto"></iframe>
+</body>
+</html>

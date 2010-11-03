@@ -154,7 +154,7 @@ def campaign_page(req, chash="", camp_id=""):
         fbuser = None
         dict["fbuser"] = ""
   
-    templates = ['campaign_page2.html', 'campaign_page.html']
+    templates = ['campaign_page2.html', 'campaign_page.html', 'campaign_page_bar.html']
     try:
         template = templates[int(req.GET["t"])]
     except:

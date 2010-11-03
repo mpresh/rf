@@ -1,0 +1,52 @@
+	body {
+		font-family:'Helvetica Neue','Helvetica','Arial',sans-serif;
+		font-size:13px;
+		color:#333;
+		background:url("../images/bar/gradient.png") repeat-x;
+		text-align:right;
+	}
+	#shadow {
+		background:url("../images/bar/shadow.png") repeat-x;
+		height:6px;
+		left:0;
+		position:absolute;
+		right:0;
+		top:35px;
+		z-index:201;
+	}
+	a {
+		outline: none;
+	}
+	a#twitter, a#facebook {
+		width:55px;
+		height:20px;
+		background:url("../images/bar/twitter.png") no-repeat top;
+		margin-right:2px;
+		cursor:default;
+		margin-left:10px;
+		float:right;
+	} 
+	a#facebook {
+		width:64px;
+		background:url("../images/bar/facebook.png") no-repeat top;
+		cursor:pointer;
+	}
+	a#twitter:hover{
+		background-position:center;
+	} 
+	a#twitter:active, a#facebook:active{
+		background-position:bottom;
+	}
+	#external-site {
+		height:100%;
+		left:0;
+		margin:0;
+		overflow-x:hidden;
+		overflow-y:auto;
+		padding:0;
+		position:absolute;
+		right:0;
+		top:35px;
+		width:100%;
+		z-index:200;
+	}
