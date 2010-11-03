@@ -87,3 +87,7 @@ Interesting data and points to consider
 * Find heuristic ways to guage competitor market share
   and influence
   - Find ways to encroach on their piece of the pie
+
+* Learn what kind of events a particular user tends to prefer. This can be
+  useful for informing clients of particular user characteristics. Since we
+  have access to facebook, we can make use of profile information as well.
