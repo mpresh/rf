@@ -90,47 +90,6 @@ def campaign_widget(req, camp_id="1"):
     print "WIDGET DICT", dict
     return render_to_response('widget.html', dict)    
 
-def campaign_badge(req, camp_id="1"):
-    campaign = Campaign.objects.get(id=camp_id)
-    dict = {"campaign":campaign}
-
-    if "overlay" in req.GET:
-        dict["overlay"] = True
-        if req.GET["overlay"] == "facebook":
-            dict["overlayFacebook"] = True
-        elif req.GET["overlay"] == "twitter":
-            dict["overlayTwitter"] = True    
-        elif req.GET["overlay"] == "true":
-            dict["overlayTrue"] = True    
-
-    # twitter user
-    if "user_id" in req.session:
-        user = User.objects.get(id=req.session["user_id"])	
-        dict['user'] = user
-    else:
-        user = None
-    
-    # HACK: if the oauth cookie has expired, clean up the session
-    #try:
-    #    fbuser.num_friends()
-    #except:
-    #    del req.session['uid']
- 
-    req.session["redirect"] = reverse("facebook_login_test")
-    host = "http://" + req.get_host()
-    dict["host"] = host
-    dict["facebook_app_id"] = settings.FACEBOOK_APP_ID
-    dict["facebook_api"] = settings.FACEBOOK_API
-    dict["redirect_uri"] = host + reverse("facebook_login_callback")
-    dict["scope"] = "publish_stream"
-
-    if "uid" in req.session:
-        fbuser = FBUser.objects.get(facebook_id=req.session["uid"])
-        dict["fbuser"] = fbuser
-
-    print "BADGE DICT", dict
-    return render_to_response('badge.html', dict)    
-
 def campaign_page(req, chash="", camp_id=""):
     req.session["redirect"] = req.get_full_path()
     print "REQUEST IS", req

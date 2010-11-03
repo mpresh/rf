@@ -42,7 +42,6 @@ urlpatterns = patterns('',
                        url(r'^test5/?$', 'views.test5', name='test5'),
 
                        # widget stuff
-                       url(r'camp/badge/(?P<camp_id>\w+)/$', 'views.campaign_badge', name='badge_id'),
                        url(r'camp/widget/(?P<camp_id>\w+)/$', 'views.campaign_widget', name='widget_id'),
                        url(r'camp/badge/$', 'views.campaign_badge', name='badge'),
                        url(r'camp/widget/$', 'views.campaign_widget', name='widget'),
