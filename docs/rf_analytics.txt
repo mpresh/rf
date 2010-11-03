@@ -97,3 +97,6 @@ Interesting data and points to consider
 * Learn what kind of events a particular user tends to prefer. This can be
   useful for informing clients of particular user characteristics. Since we
   have access to facebook, we can make use of profile information as well.
+
+* We can use top promoter data as well as the number of friends a person has
+  provide a greater reward for promoting. 
