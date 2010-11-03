@@ -13,13 +13,16 @@ Primary data
   A metric of the number of views; the audience size.  If user A has 300
   friends on facebook, then the impression count for his share is 300. This is
   a userful lower bound for the number of people who've purchased tickets
-  through ripplefunction.
+  through ripplefunction. 
+  [FIXME: Not sure how this is a lower bound for number of purchased tickets.]
 
 * Responses (clicks)
 
   The number of people who've responded to and clicked on a link promoted
   through facebook/twitter. This is a useful upper bound on the number of
-  tickets purchased through ripplefunction.
+  tickets purchased through ripplefunction. 
+  [FIXME: I think there is a confusion here between Clicks and Reshares. 
+  A click does not mean you shared.]
 
 * Reach
 
@@ -27,6 +30,7 @@ Primary data
   better metric because multiple exposures to the same destination website or
   event page are not necessarily accompanied by exposure to the same status
   post/tweet message and link.
+  [FIXME: Last part confusing. Reach vs Impressions, lets chat about it.]
 
 Secondary and derived data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -59,7 +63,7 @@ Secondary and derived data
 Other terms
 -----------
 
-* Originating user
+* Originating user(s)
 
   And originating user is a user who has shared an event without
   resharing. That is, he is the first person to have shared from a widget or
