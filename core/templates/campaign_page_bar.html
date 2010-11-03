@@ -134,13 +134,13 @@
 	<!-- Ripple Function Bar -->
 	<div id="bar">
 		<div id="content">
-			<span id="copy-text">Instant <strong>10% off your ticket</strong> just for sharing!</span>
-			<span id="buttons">
+			<div id="copy-text">Instant <strong>10% off your ticket</strong> just for sharing!</div>
+			<div id="buttons">
 				<button id="twitter-login"></button>
 				<button id="facebook-login"></button>
                                 <button id="twitter-share"></button>
 				<button id="facebook-share"></button>
-			</span>
+			</div>
 		</div>
 	</div>
 	<div id="shadow"></div>
@@ -217,7 +217,7 @@ var scope = '{{scope}}';
 
 var code = '{{campaign.code}}';
 
-$("#external-site").showLoading({'afterShow': function(){ setTimeout( "jQuery('#external-site').hideLoading()", 5000 );}});         
+//$("#external-site").showLoading({'afterShow': function(){ setTimeout( "jQuery('#external-site').hideLoading()", 5000 );}});         
 
 $("#overlay-blogger-login").overlay({
 	expose: {

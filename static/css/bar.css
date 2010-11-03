@@ -1,6 +1,6 @@
 	body {
 		font-family:'Helvetica Neue','Helvetica','Arial',sans-serif;
-		font-size:13px;
+		font-size:15px;
 		color:#333;
 		background:url("../images/bar/gradient.png") repeat-x;
 		text-align:right;
@@ -18,24 +18,25 @@
 		outline: none;
 	}
 	button#twitter-login, button#twitter-share {
-		width:64px;
+		width:58px;
 		height:23px;
 		background:url("../images/bar/twitter.png") no-repeat top;
 		margin-right:2px;
 		cursor:pointer;
 		margin-left:10px;
 		float:right;
+                margin-top: 0px;
 	} 
 	button#facebook-login, button#facebook-share {
-		width:64px;
+		width:62px;
 		height: 23px;
 		background:url("../images/bar/facebook.png") no-repeat top;
 		cursor:pointer;
 	}
-	a#twitter:hover {
+	button#twitter-login:hover, button#twitter-share:hover {
 		background-position:center;
 	} 
-	a#twitter-login:active, a#facebook-login:active{
+	button#twitter-login:active, button#facebook-login:active, button#twitter-share:active, button#facebook-share:active{
 		background-position:bottom;
 	}
 	#external-site {
@@ -51,3 +52,22 @@
 		width:100%;
 		z-index:200;
 	}
+
+
+	#content {
+	    margin-top: 5px;
+	    margin-right: 30px;
+	    width: 450px;
+	    margin-left: 50%;
+	    #margin: auto;
+        }
+	#copy-text {
+	   margin-right: 15px;
+	   #margin-top: 6px;
+	   float: left;
+	}
+
+	#buttons {
+	   float: right;
+	   #margin-top: 5px;
+        }
