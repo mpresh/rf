@@ -18,8 +18,8 @@
 		outline: none;
 	}
 	button#twitter-login, button#twitter-share {
-		width:58px;
-		height:23px;
+		width:60px;
+		height:25px;
 		background:url("../images/bar/twitter.png") no-repeat top;
 		margin-right:2px;
 		cursor:pointer;
@@ -29,7 +29,7 @@
 	} 
 	button#facebook-login, button#facebook-share {
 		width:62px;
-		height: 23px;
+		height: 25px;
 		background:url("../images/bar/facebook.png") no-repeat top;
 		cursor:pointer;
 	}
