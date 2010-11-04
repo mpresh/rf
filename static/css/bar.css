@@ -1,6 +1,6 @@
 	body {
 		font-family:'Helvetica Neue','Helvetica','Arial',sans-serif;
-		font-size:14px;
+		font-size:13px;
 		color:#333;
 		background:url("../images/bar/gradient.png") repeat-x;
 		text-align:right;
@@ -21,7 +21,7 @@
 	#logo {
 	    float: left;
 	    margin-top: 4px;
-	    padding-left: 30px;
+	    margin-left: 10px;
         }
 	#logo img {
 	    height: 28px;
@@ -29,19 +29,22 @@
 
         #content {
 	    margin-top: 5px;
-	    margin-right: 30px;
-	    width: 450px;
-	    margin-left: 50%;
+	    margin-right: 10px;
+	    width: 80%;	    
 	    float: right;
+	    text-align: right;
         }
+
 	#copy-text {
-	   margin-right: 15px;
 	   margin-top: 6px;
-	   float: left;
+	   right: 100px;
+	   position: absolute;
+	   right: 170px;
 	}
 
 	#buttons {
 	   float: right;
+	   width: 140px;
         }
 
 	button#twitter-login, button#twitter-share {
