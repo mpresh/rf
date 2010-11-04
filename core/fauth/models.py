@@ -1,17 +1,12 @@
 from django.db import models
-from pylib import oauth
-import re, httplib
 import simplejson as json
 
-import urllib, httplib
-import time
-import sys
 import os
-import socket
-import re
+import sys
+import urllib
+
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")))
-import settings
 
 class FBUser(models.Model):
     	username = models.CharField(max_length=80, default="")

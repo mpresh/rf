@@ -1,32 +1,24 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
-from django.core.urlresolvers import reverse
-from events.models import Event, Share
-from tauth.models import User
-from fauth.models import FBUser
+import datetime
+import os
+import shutil
+import urllib
+
+from smtplib import SMTP
+
+import simplejson as json
+from django.http import HttpResponse
+from django.conf import settings
+
 from campaign.models import Campaign
 from campaign.models import CampaignAttr
-from django.conf import settings
-import simplejson as json
-import urllib
-import os
-import hashlib
-import base64
-import shutil
-import socket
-import datetime
-from pylib import bitly
-import sys
-from smtplib import SMTP
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-import re
+from events.models import Event
 
 def send_details_email(req):
     print "here I am"
     admin_url = req.POST["admin_url"]
     landing_url = req.POST["landing_url"]
-    chash = req.POST["chash"]
     email = req.POST["email_address"]
 
     print "here"
@@ -134,11 +126,6 @@ def _create_event(campaign, req):
     image = req.POST["event_image"]
     elat = req.POST["event_lat"]
     elng = req.POST["event_lng"]
-    code = req.POST["code"]
-    percent = req.POST["percent"]
-    from_name = req.POST["from_name"]
-    subdomain = req.POST["subdomain"]
-    pemail = req.POST["person_email"]
         
     start_dt = datetime.datetime.strptime(start_date.strip() + " " + start_time.strip(), 
                                           "%m/%d/%Y %I:%M %p")
@@ -209,9 +196,6 @@ def create_campaign(req):
     if not campaign_url.startswith("http://"):
         campaign_url = "http://" + campaign_url
 
-    start_dt = datetime.datetime.now()
-    end_dt = datetime.datetime.now()
-
     c = Campaign(
         url=campaign_url,
         url_redeem=campaign_url,
@@ -244,7 +228,6 @@ def create_campaign_original(req):
     end_time = req.POST["promotion_time_end"]
     from_name = req.POST["from_name"]
     message = req.POST["campaign_message"]
-    pemail = req.POST["person_email"]
     subdomain = req.POST["subdomain"]
     url = req.POST["url_redeem"]
 

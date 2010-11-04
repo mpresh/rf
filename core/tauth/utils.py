@@ -31,7 +31,6 @@ def oauth_request(
 	http_method='GET'
 ):
 
-	c = consumer()
 	req = oauth.OAuthRequest.from_consumer_and_token(
 		consumer(), token=token, http_url=url,
 		parameters=parameters, http_method=http_method
@@ -41,7 +40,6 @@ def oauth_request(
 
 def oauth_response(req):
 	url = req.to_url()
-	parameters = req.parameters
 	conn = connection()
 	conn.request(req.http_method, url)
 	return connection().getresponse().read()

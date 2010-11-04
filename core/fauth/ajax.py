@@ -1,23 +1,14 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
-from django.core.urlresolvers import reverse
-from django.core.exceptions import ObjectDoesNotExist
-from events.models import Event, Share
-from tauth.models import User
-from models import FBUser
-from campaign.models import Campaign
-from django.conf import settings
-import simplejson as json
 import urllib
-import os
-import hashlib
-import base64
-import shutil
-import socket
-import datetime
-import util
-from pylib import bitly
 import urlparse
+
+from django.http import HttpResponse
+import simplejson as json
+
+from campaign.models import Campaign
+from events.models import Share
+from models import FBUser
+from pylib import bitly
+
 
 def campaign_facebook_update(req, campaign_id=""):
     """ Send feed update to facebook from user share. """

@@ -1,22 +1,11 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
-from django.core.urlresolvers import reverse
-from events.models import Event, Share
-from tauth.models import User
-from campaign.models import Campaign
-from django.conf import settings
-
-import simplejson as json
-import urllib
-import os
-import hashlib
-import base64
-import shutil
-import socket
-import datetime
-from pylib import bitly, eventbrite
-
 import urlparse
+
+from django.conf import settings
+from django.http import HttpResponse
+import simplejson as json
+
+from pylib import eventbrite
+
 
 def create_discount(req):
     dict = {}

@@ -1,13 +1,10 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
-from django.core.urlresolvers import *
 from django.conf import settings
+from django.core.urlresolvers import *
 
+from core.campaign.models import Campaign
 from core.events.models import *
 from core.fauth.models import *
 from core.tauth.models import *
-from core.campaign.models import Campaign
-
 from pylib.util import render_template
 
 def analytics(req):

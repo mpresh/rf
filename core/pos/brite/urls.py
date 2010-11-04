@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from django.conf import settings
+
 
 urlpatterns = patterns('',
                        url(r'ajax/eventBrite/discount_list/?$', 'pos.brite.ajax.discount_list', name='ajax_eventbrite_discountlist'),

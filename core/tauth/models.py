@@ -1,16 +1,17 @@
 from django.db import models
-from pylib import oauth
-import re, httplib
 import simplejson as json
+
+from pylib import oauth
 from utils import *
-import urllib
-import time
-import sys
+
 import os
+import re
 import socket
+import sys
+import urllib
+
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")))
-import settings
 
 class User(models.Model):
 	username = models.CharField(max_length=40, default="")

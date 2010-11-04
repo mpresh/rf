@@ -1,8 +1,7 @@
 import re
-import urllib
 import urlparse
 
-from django.http import HttpResponseRedirect, HttpResponseServerError, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.utils.functional import lazy
 import simplejson as json
@@ -13,7 +12,6 @@ from pylib.util import handle_redirect_string
 
 from utils import *
 from models import User
-from events.models import Event
 from campaign.models import Campaign
 from decorators import wants_user, needs_user
 
@@ -45,7 +43,6 @@ def tauth_info(req):
 			'errors': errors
 		})
 	
-	user = User.objects.get(username=req.user.username)
 	return render_to_response('info.html', {'user': req.user})
 
 

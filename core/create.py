@@ -1,25 +1,18 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
-from django.core.urlresolvers import reverse
-from django.core.exceptions import ObjectDoesNotExist
-from events.models import Event, Share
-from tauth.models import User
-from fauth.models import FBUser
-from campaign.models import Campaign
-from django.conf import settings
-import simplejson as json
-import urllib
-import os
-import hashlib
-import base64
-import shutil
-import socket
 import datetime
-import util
-from fauth import fauth_utils
-from pylib.bitly import *
-import urlparse
+import os
 import re
+
+from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response
+from django.core.urlresolvers import reverse
+from django.conf import settings
+
+from campaign.models import Campaign
+from events.models import Share
+from fauth.models import FBUser
+from pylib.bitly import *
+from tauth.models import User
+
 
 def create_campaign(req):
     """ This is the default create campaign page."""

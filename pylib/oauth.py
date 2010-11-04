@@ -402,7 +402,6 @@ class OAuthServer(object):
             token = self._get_token(oauth_request, 'request')
         except OAuthError:
             # No token required for the initial token request.
-            version = self._get_version(oauth_request)
             consumer = self._get_consumer(oauth_request)
             try:
                 callback = self.get_callback(oauth_request)
@@ -418,7 +417,6 @@ class OAuthServer(object):
         """Processes an access_token request and returns the
         access token on success.
         """
-        version = self._get_version(oauth_request)
         consumer = self._get_consumer(oauth_request)
         try:
             verifier = self._get_verifier(oauth_request)
@@ -433,7 +431,6 @@ class OAuthServer(object):
     def verify_request(self, oauth_request):
         """Verifies an api call and checks all the parameters."""
         # -> consumer and token
-        version = self._get_version(oauth_request)
         consumer = self._get_consumer(oauth_request)
         # Get the access token.
         token = self._get_token(oauth_request, 'access')
@@ -515,7 +512,6 @@ class OAuthServer(object):
                 oauth_request, consumer, token)
             raise OAuthError('Invalid signature. Expected signature base '
                 'string: %s' % base)
-        built = signature_method.build_signature(oauth_request, consumer, token)
 
     def _check_timestamp(self, timestamp):
         """Verify that timestamp is recentish."""
