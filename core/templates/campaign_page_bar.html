@@ -167,11 +167,11 @@ var campaign_type = '{{campaign.campaign_type}}';
 {% if user %}
 var user = true;
 var user_id = '{{user.id}}';
-setTimeout("$('#twitter-share').slideDown()", 1200);
+setTimeout("$('#twitter-share').slideDown(300)", 1200);
 $('#twitter-login').hide();
 $("#tloggedin").show();
 {% else %}
-setTimeout("$('#twitter-login').slideDown()", 1200);
+setTimeout("$('#twitter-login').slideDown(300)", 1200);
 $('#twitter-share').hide();
 var user = false;
 var user_id = '';
@@ -180,13 +180,13 @@ var user_id = '';
 {% if fbuser %}
 var fbuser = true;
 var fbuser_id = '{{fbuser.id}}';
-setTimeout("$('#facebook-share').slideDown()", 1200);
+setTimeout("$('#facebook-share').slideDown(300)", 1200);
 $('#facebook-login').hide();
 $("#floggedin").show();
 {% else %}
 var fbuser = false;
 var fbuser_id = '';
-setTimeout("$('#facebook-login').slideDown()", 1200);
+setTimeout("$('#facebook-login').slideDown(300)", 1200);
 $('#facebook-share').hide();
 {% endif %}
 
@@ -535,10 +535,10 @@ function resizeIframe() {
 
 $(document).ready(function(){
     //setTimeout($('#copy-text').animate({'right': '170px'}, 2300, function(){}), 3000);
-    setTimeout("$('#bar').animate({'height': '35px'}, 1300, function(){})", 300);		       
-    //setTimeout("$('#shadow').animate({'top': '35px'}, 1300, function(){})", 300);
+    setTimeout("$('#bar').animate({'height': '35px'}, 1000, function(){})", 300);		       
+    //setTimeout("$('#shadow').animate({'top': '35px'}, 1000, function(){})", 300);
     setTimeout("$('#shadow').show()", 800)		       
-    setTimeout("$('#external-site').animate({'top': '35px'}, 1300, function(){})", 300);
+    setTimeout("$('#external-site').animate({'top': '35px'}, 1000, function(){})", 300);
 
     setTimeout("$('#logo img').show(); $('#logo img').animate({'opacity':'1', 'filter': 'alpha(opacity=100)'}, 2000, function(){})", 1200);
     setTimeout("$('#copy-text').animate({'opacity':'1', 'filter': 'alpha(opacity=100)'}, 1500, function(){})", 1200);
