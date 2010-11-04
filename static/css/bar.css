@@ -5,6 +5,7 @@
 #		background:url("../images/bar/gradient.png") repeat-x;
 #		text-align:right;
 #		position: relative;		
+               overflow-y:hidden;
 	}
 	
 	#bar {
