@@ -1,5 +1,4 @@
 from django.conf.urls.defaults import *
-from django.conf import settings
 
 urlpatterns = patterns('',
                        #url(r'facebook_callback/$', 'facebook_auth.facebook_server_callback', name='facebook_callback'),

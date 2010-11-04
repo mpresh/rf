@@ -7,7 +7,6 @@ def handle_redirect_string(redirect_url, redirect_args_string):
 
     print "HANDLE_REDIRECT_STRING", redirect_url, redirect_args_string
     redirectargs_list = redirect_args_string.split("AND")
-    redirect_string = ""
     args_dict = {}
     for param in redirectargs_list:
         (key, value) = param.split("EQUALS")

@@ -1,19 +1,17 @@
 # set up environment
-import sys
+from datetime import datetime, timedelta
+from optparse import OptionParser
 import os
+import sys
+
 sys.path.append("..")
 os.environ["DJANGO_SETTINGS_MODULE"] = "settings"
 
-from django.db import models
 from core.tauth.models import User
 from core.fauth.models import FBUser
 from core.campaign.models import Campaign
 from core.events.models import Share
 
-from optparse import OptionParser
-
-from datetime import datetime, timedelta
-import random
 
 def parse_options():
     parser = OptionParser()

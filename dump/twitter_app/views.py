@@ -1,4 +1,4 @@
-import oauth, httplib, time, datetime
+import oauth, httplib
 
 try:
     import simplejson
@@ -69,7 +69,6 @@ def friend_list(request):
     if auth:
         # Load the credidentials from Twitter into JSON
         creds = simplejson.loads(auth)
-        name = creds.get('name', creds['screen_name']) # Get the name
         
         # Get number of friends. The API only returns 100 results per page,
         # so we might need to divide the queries up.

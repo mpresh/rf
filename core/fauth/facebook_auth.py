@@ -1,21 +1,13 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
-from django.core.urlresolvers import reverse
-from django.core.exceptions import ObjectDoesNotExist
-from events.models import Event
-from tauth.models import User
-from models import FBUser
-from django.conf import settings
-import simplejson as json
 import urllib
-import os
-import hashlib
-import base64
-import shutil
-import socket
-import datetime
-import util
+
+from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render_to_response
+import simplejson as json
+
 import fauth_utils
+from models import FBUser
 from pylib.util import handle_redirect_string
 
 def facebook_login_callback(req):
@@ -72,7 +64,6 @@ def facebook_callback(req):
     for s in req.session.keys():
         print "SESSION", s, req.session[s]
 
-    cookies = req.GET;
     fauth_utils.sync_session_cookies(req)
 
     for s in req.session.keys():
@@ -97,7 +88,6 @@ def facebook_callback_ajax(req):
     for s in req.session.keys():
         print "SESSION", s, req.session[s]
 
-    cookies = req.GET;
     print "hello world"
     fauth_utils.sync_session_cookies(req)
 

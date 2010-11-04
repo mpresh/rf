@@ -6,6 +6,7 @@
 ##
 
 import os
+import commands
 import shlex
 import sys
 import subprocess
@@ -21,13 +22,14 @@ import subprocess
 #  export PATH=$PATH:$RFBIN
 ENVIRON = dict()
 
-def get_new_env():
+def get_new_env(**new_vars):
     new_env = os.environ.copy()
     new_env.update(ENVIRON)
+    new_env.update(new_vars)
     return new_env
 
 #
-# Commands functions
+# Option functions
 #
 def start_server(args):
     """Starts rf django server"""
@@ -43,6 +45,18 @@ def stop_server(args):
     new_env = get_new_env()
     stop_cmd = shlex.split('pkill -f "python.*manage.py"')
     subprocess.Popen(stop_cmd, env = new_env)
+
+def status_server(args):
+    """Status of rf django server"""
+    out = int(commands.getoutput('pgrep -f "python.*manage.py" -c'))
+    if out > 1:
+        print
+        print "running (%s)" % (out - 1,)
+        print
+    else:
+        print
+        print "stopped (%s)" % (out - 1,)
+        print
 
 def configure_env(args):
     """Configures environment variables"""
@@ -74,26 +88,27 @@ def webfaction_login(args):
     pass
 
 #
-# List of commands
+# List of options
 #
-commands = { 'start': start_server,
-             'stop': stop_server,
-             'configure': configure_env,
-             'find': search_code,
-             'deflake': deflake,
-             }
+options = { 'start': start_server,
+            'stop': stop_server,
+            'status': status_server,
+            'configure': configure_env,
+            'find': search_code,
+            'deflake': deflake,
+            }
 
 #
 # Main
 #
 def main(params):
-    command_fn = commands[params[0]]
-    command_fn(params[1:])
+    option_fn = options[params[0]]
+    option_fn(params[1:])
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         print "rf utility command usage:"
-        for cmd, func in commands.items():
+        for cmd, func in options.items():
             print "\t%s - %s" % (cmd, func.__doc__)
     else:
         try:

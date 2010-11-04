@@ -1,13 +1,14 @@
+import hashlib
+import re
+import urlparse
+import urllib
+
 from django.db import models
-from pylib import oauth
-import re, httplib, simplejson
+
 from core.tauth.models import User
 from core.fauth.models import FBUser
 from core.campaign.models import Campaign
-import re
-import hashlib
-import urlparse
-import urllib
+
 
 class Event(models.Model):
     name = models.CharField(max_length=200)

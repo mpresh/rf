@@ -1,6 +1,5 @@
-import oauth
 from django.conf import settings
-
+import oauth
 
 signature_method = oauth.OAuthSignatureMethod_HMAC_SHA1()
 
@@ -82,6 +81,7 @@ def update_status(consumer, connection, access_token, status):
     """Update twitter status, i.e., post a tweet"""
     oauth_request = request_oauth_resource(consumer,
                                            TWITTER_UPDATE_STATUS,
+                                           #BUG: undefined ^
                                            access_token,
                                            {'status': status},
                                            http_method='POST')

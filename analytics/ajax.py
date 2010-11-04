@@ -1,14 +1,13 @@
+from datetime import datetime, timedelta
+
+from django.http import HttpResponse
 import simplejson as json
 
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render_to_response, get_object_or_404
-
+from campaign.models import Campaign
 from events.models import *
 from fauth.models import *
 from tauth.models import *
-from campaign.models import Campaign
 
-from datetime import datetime, timedelta
 
 def analytics_date_range_reach(req):
     """Return data organized by date range."""
