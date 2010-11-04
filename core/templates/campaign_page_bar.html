@@ -533,9 +533,11 @@ function resizeIframe() {
 //document.getElementById('ifm').onload=resizeIframe;
 //window.onresize = resizeIframe;
 
-//$(document).ready(
-//    $('#bar').animate({heigh: 35px});
-//);
+$(document).ready(function(){
+    $('#copy-text').animate({'font-size': '20px'}, 800, function(){
+        $('#copy-text').animate({'font-size': '16px'}, 500, function(){});
+    });
+});
 
 </script>
 <script type="text/javascript" src="{% url static 'javascript/jquery.animate-shadow.js' %}" ></script>
