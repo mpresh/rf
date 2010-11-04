@@ -29,8 +29,9 @@
 		height:6px;
 		left:0;
 		right:0;
-		top: -3px;
+		top: 35px;
 		z-index:201;
+		display: none;
 	}
 	a {
 		outline: none;
