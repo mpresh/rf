@@ -146,8 +146,9 @@
 				<button id="facebook-share"></button>
 			</div>
 		</div>
-	</div>
-	<div id="shadow"></div>
+         <div id="shadow"></div>	
+         </div>
+	
 	
 	<!-- External Site -->
 	<iframe src="{{campaign.url}}" id="external-site" frameborder="0" scrolling="auto"></iframe>
@@ -531,6 +532,10 @@ function resizeIframe() {
 }
 //document.getElementById('ifm').onload=resizeIframe;
 //window.onresize = resizeIframe;
+
+//$(document).ready(
+//    $('#bar').animate({heigh: 35px});
+//);
 
 </script>
 <script type="text/javascript" src="{% url static 'javascript/jquery.animate-shadow.js' %}" ></script>
