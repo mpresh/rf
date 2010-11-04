@@ -222,7 +222,7 @@ var scope = '{{scope}}';
 
 var code = '{{campaign.code}}';
 
-//$("#external-site").showLoading({'afterShow': function(){ setTimeout( "jQuery('#external-site').hideLoading()", 5000 );}});         
+$("#external-site").showLoading({'afterShow': function(){ setTimeout( "jQuery('#external-site').hideLoading()", 5000 );}});         
 
 $("#overlay-blogger-login").overlay({
 	expose: {
@@ -535,13 +535,13 @@ function resizeIframe() {
 
 $(document).ready(function(){
     //setTimeout($('#copy-text').animate({'right': '170px'}, 2300, function(){}), 3000);
-    setTimeout("$('#bar').animate({'height': '35px'}, 1200, function(){})", 300);		       
+    //setTimeout("$('#bar').animate({'height': '35px'}, 1200, function(){})", 300);		       
     //setTimeout("$('#shadow').animate({'top': '35px'}, 1200, function(){})", 300);
-    setTimeout("$('#shadow').show()", 800)		       
-    setTimeout("$('#external-site').animate({'top': '35px'}, 1200, function(){})", 300);
+    //setTimeout("$('#shadow').show()", 800)		       
+    //setTimeout("$('#external-site').animate({'top': '35px'}, 1200, function(){})", 300);
 
-    setTimeout("$('#logo img').show(); $('#logo img').animate({'opacity':'1', 'filter': 'alpha(opacity=100)'}, 2000, function(){})", 1200);
-    setTimeout("$('#copy-text').animate({'opacity':'1', 'filter': 'alpha(opacity=100)'}, 1500, function(){})", 1200);
+    //setTimeout("$('#logo img').show(); $('#logo img').animate({'opacity':'1', 'filter': 'alpha(opacity=100)'}, 2000, function(){})", 1200);
+    //setTimeout("$('#copy-text').animate({'opacity':'1', 'filter': 'alpha(opacity=100)'}, 1500, function(){})", 1200);
 });
 
 
