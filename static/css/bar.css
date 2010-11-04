@@ -29,7 +29,7 @@
 		height:6px;
 		left:0;
 		right:0;
-		top: 35px;
+		top: 6px;
 		z-index:201;
 	}
 	a {
@@ -43,6 +43,8 @@
         }
 	#logo img {
 	    height: 28px;
+	    opacity: 0;
+	    filter:alpha(opacity=0);
         }
 
         #content {
@@ -96,7 +98,7 @@
 		padding:0;
 		position:absolute;
 		right:0;
-		top:35px;
+		top:0px;
 		width:100%;
 		z-index:200;
 	}
