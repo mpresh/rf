@@ -534,12 +534,13 @@ function resizeIframe() {
 //window.onresize = resizeIframe;
 
 $(document).ready(function(){
-    //setTimeout($('#copy-text').animate({'font-size': '18px'}, 2000, function(){}), 1000);
-    $("#bar").animate({'height': '35px'}, 1600, function(){});		       
+    setTimeout($('#copy-text').animate({'right': '170px'}, 2300, function(){}), 3000);
+    setTimeout($("#bar").animate({'height': '35px'}, 1300, function(){}), 2000);		       
     setTimeout($("#logo img").animate({'opacity':'1', 
-                                       'filter': 'alpha(opacity-100)'}, 2000, function(){}), 1000);
-    $("#shadow").animate({'top': '35px'}, 1650, function(){});
-    $("#external-site").animate({'top': '35px'}, 1600, function(){});
+                                       'filter': 'alpha(opacity=100)'}, 
+                                        1300, function(){}), 1000);
+    setTimeout($("#shadow").animate({'top': '35px'}, 1300, function(){}), 2000);
+    setTimeout($("#external-site").animate({'top': '35px'}, 1300, function(){}), 2000);
 });
 
 
