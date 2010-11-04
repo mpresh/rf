@@ -41,11 +41,11 @@
 	    float: left;
 	    margin-top: 4px;
 	    margin-left: 10px;
+	
         }
 	#logo img {
 	    height: 28px;
-	    opacity: 0;
-	    filter:alpha(opacity=0);
+            display: none;
         }
 
         #content {
@@ -78,12 +78,14 @@
 		margin-left:10px;
 		float:right;
                 margin-top: 0px;
+		display: none;
 	} 
 	button#facebook-login, button#facebook-share {
 		width:62px;
 		height: 24px;
 		background:url("../images/bar/facebook.png") no-repeat top;
 		cursor:pointer;
+		display: none;
 	}
 	button#twitter-login:hover, button#twitter-share:hover {
 		background-position:center;
