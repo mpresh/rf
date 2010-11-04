@@ -10,21 +10,21 @@
 				</label> <input type="text" value="{{campaign.subdomain}}" size="5" name="subdomain" />
 			</li>
 		         <li>
-				<label for="title">Promotion Title: 
-				</label> <input type="text" size="70" value="{{campaign.title}}" name="title" class="required" />
+				<label for="title">Promotion Message: </label> <br />
+				<b>Instant</b>&nbsp;&nbsp;&nbsp;<input type="text" size="45" value="{{campaign.title}}" name="title" class="required" />&nbsp;&nbsp;&nbsp;<b>just by sharing!</b>
 			</li>
                         
 			<li id="li-from-name">
 
-				<label for="from_name">Discount From (Name/Organization): 
-				</label> <input type="text" value="{{campaign.from_name}}" name="from_name" class="required" />
+				<label for="from_name">Discount From (Name/Organization): </label> <br/>
+				<input type="text" value="{{campaign.from_name}}" name="from_name" class="required" />
 			</li>
 			<li id="li-discount-code">
-				<label for="code">Discount Code: 
-				</label> <input type="text" value="{{campaign.code}}" name="code" class="required" id="discount_code"/>
+				<label for="code">Discount Code: </label> <br/>
+				<input type="text" size="60" value="{{campaign.code}}" name="code" class="required" id="discount_code"/>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<label for="percent">Percent Discount: 
-				</label> <input type="text" value="{{campaign.percent}}" size="5" name="percent" class="required digits" id="discount_percent"/>
+				<br/> <br/><label for="percent">Percent Discount: </label> <br/>
+				<input type="text" value="{{campaign.percent}}" size="60" name="percent" class="required digits" id="discount_percent"/>
 
 				<div id="discount-code-msg"><br/>To create new discount code <button id="create_discount" type="button">Click Here</button>&nbsp;&nbsp;&nbsp;<span id="discount-success-message"></span></div>
             			<br/><span id="discount-error-message"></span>
@@ -72,21 +72,21 @@
 			<li>
                          <br/>
 
-				<label for="campaign_message">Landing Page Subtitle Text: </label> &nbsp;&nbsp;&nbsp;
-				<textarea rows="1" cols="40"  name="campaign_message">{{campaign.message}}</textarea>
+				<label for="campaign_message">Landing Page Subtitle Text: </label> <br/>
+				<textarea rows="1" cols="60"  name="campaign_message">{{campaign.message}}</textarea>
 			</li>
 
 			 <li>
-				<label for="campaign_message_share">Share Text: </label> &nbsp;&nbsp;&nbsp;
-				<textarea rows="2" cols="40"  name="campaign_message_share">{{campaign.message_share}}</textarea>
+				<label for="campaign_message_share">Message to be Shared: </label> <br/>
+				<textarea rows="2" cols="60"  name="campaign_message_share">{{campaign.message_share}}</textarea>
 			</li>
 			 <li>
 
-				<label for="url">URL to be shown on landing page (page with all the event detail information): </label> 
+				<label for="url">URL to be shown on landing page: </label> 
 				<input type="text" value="{{campaign.url}}" size="60" name="url" />
 			</li>
 			<li id="li-discount-url">
-				<label for="url_redeem">Redeem discount URL (url user should go to, after share, inorder to register): </label> 
+				<label for="url_redeem">URL to redeem discount and register: </label> 
 				<input type="text" value="{{campaign.url_redeem}}" size="60" name="url_redeem" id="redeem_url" />
 			</li>
 			<li id="li-twitter-fan">
@@ -210,10 +210,10 @@ if ('{{campaign.campaign_type}}' == 'discount'){
 ///////////////////////////////////////////////
 if ('{{campaign.campaign_type}}' == 'raffle'){
     $("#li-discount-code").hide();
-    $("#li-from-name").hide();
     $("#li-discount-url").hide();
 }
 ////////////////////////////////////////////////
+$("#li-from-name").hide();
 $("#li-people-num").hide();
 $("#li-dates-start").hide();
 $("#li-dates-end").hide();
