@@ -167,11 +167,11 @@ var campaign_type = '{{campaign.campaign_type}}';
 {% if user %}
 var user = true;
 var user_id = '{{user.id}}';
-setTimeout("$('#twitter-share').show('300')", 1000);
+setTimeout("$('#twitter-share').slideDown()", 1200);
 $('#twitter-login').hide();
 $("#tloggedin").show();
 {% else %}
-setTimeout("$('#twitter-login').show('300')", 1000);
+setTimeout("$('#twitter-login').slideDown()", 1200);
 $('#twitter-share').hide();
 var user = false;
 var user_id = '';
@@ -180,13 +180,13 @@ var user_id = '';
 {% if fbuser %}
 var fbuser = true;
 var fbuser_id = '{{fbuser.id}}';
-setTimeout("$('#facebook-share').show('300')", 1000);
+setTimeout("$('#facebook-share').slideDown()", 1200);
 $('#facebook-login').hide();
 $("#floggedin").show();
 {% else %}
 var fbuser = false;
 var fbuser_id = '';
-setTimeout("$('#facebook-login').show('300')", 1000);
+setTimeout("$('#facebook-login').slideDown()", 1200);
 $('#facebook-share').hide();
 {% endif %}
 
