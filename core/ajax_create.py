@@ -198,14 +198,18 @@ def create_campaign(req):
 
     if req.POST['campaign_type'] == 'raffle':
         template_val = 0
+        campaign_url_val = "http://i.bnet.com/blogs/verizon-prepping-the-ipad.jpg"
     elif req.POST['campaign_type'] == 'discount':
+        campaign_url_val = campaign_url
         template_val = 2
     else:
         template_val = 0
+        campaign_url_val = campaign_url
+    
 
     c = Campaign(
         url=campaign_url,
-        url_redeem=campaign_url,
+        url_redeem=campaign_url_val,
         template=template_val
         )
 
