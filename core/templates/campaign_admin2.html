@@ -67,9 +67,9 @@
 </div>
 <br/>
 <ul class="tabs">
-  <li id="tabs-edit"><a href="#first">Edit</a></li>
+  <li id="tabs-edit"><a id="edit_click" href="#first">Edit</a></li>
   <li id="tabs-landing"><a id="landing_click" href="#second">Landing Page</a></li>
-  <li id="tabs-widget"><a href="#third">Widget</a></li>
+  <li id="tabs-widget"><a id="widget_click" href="#third">Widget</a></li>
   <li id="tabs-analytics"><a id="analytics_click" href="#third">Analytics</a></li>
 </ul>
 
@@ -260,6 +260,7 @@ $('#radio_landing').change(function(){
        $('#tabs-edit').show();
        $('#landing-instructions').show();
        $('#widget-instructions').hide();
+       $('#edit_click').trigger('click');       
 });
 $('#radio_widget').change(function(){
        $('#tabs-widget').show();
@@ -267,6 +268,7 @@ $('#radio_widget').change(function(){
        $('#tabs-edit').hide();
        $('#landing-instructions').hide();
        $('#widget-instructions').show();
+       $('#widget_click').trigger('click');       
 });
 </script>
 
