@@ -19,7 +19,7 @@ ul.tabs li {
 /* link inside the tab. uses a background image */
 ul.tabs a { 
 	background: url(/site_media/images/tabs/blue.png) no-repeat -420px 0;
-	font-size:14px;
+	font-size:16px;
 	font-weight: 600;
 	display:block;
 	height: 30px;  

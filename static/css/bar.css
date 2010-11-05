@@ -1,25 +1,18 @@
 	body {
-#		font-family:'Helvetica Neue','Helvetica','Arial',sans-serif;
-#		font-size:13px;
-		#color:#333;
-#		background:url("../images/bar/gradient.png") repeat-x;
-#		text-align:right;
-#		position: relative;		
+               overflow-y:hidden;
 	}
 	
 	#bar {
 	        position: absolute;
-		height: 0px;
 		left: 0;
 		right: 0;
 		top: 0;
                 font-family:'Helvetica Neue','Helvetica','Arial',sans-serif;
-		height: 100px;
-		font-size:13px;
+		height: 35px;
+		font-size:18px;
 		color:#333;
 		background:url("../images/bar/gradient.png") repeat-x;
 		text-align:right;
-	        #display: none;
 		z-index: 201;
         }	
 
@@ -40,6 +33,7 @@
 	    float: left;
 	    margin-top: 4px;
 	    margin-left: 10px;
+	
         }
 	#logo img {
 	    height: 28px;
@@ -54,10 +48,10 @@
         }
 
 	#copy-text {
-	   margin-top: 6px;
-	   right: 100px;
+	   margin-top: 2px;
 	   position: absolute;
 	   right: 170px;
+	   color: #CA0002;
 	}
 
 	#buttons {
@@ -74,12 +68,14 @@
 		margin-left:10px;
 		float:right;
                 margin-top: 0px;
+		display: none;
 	} 
 	button#facebook-login, button#facebook-share {
 		width:62px;
 		height: 24px;
 		background:url("../images/bar/facebook.png") no-repeat top;
 		cursor:pointer;
+		display: none;
 	}
 	button#twitter-login:hover, button#twitter-share:hover {
 		background-position:center;
@@ -96,7 +92,7 @@
 		padding:0;
 		position:absolute;
 		right:0;
-		top:35px;
+		top:44px;
 		width:100%;
 		z-index:200;
 	}

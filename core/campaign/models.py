@@ -28,6 +28,7 @@ class Campaign(models.Model):
     facebook_fan_page = models.CharField(max_length=300, default="RippleFunction", null=True)
     page_views = models.IntegerField(default="0", null=False)
     page_views_total = models.IntegerField(default="0", null=False)
+    template = models.IntegerField(default="0", null=True)
 
     interested_twitter = models.ManyToManyField(User, related_name="campaign_interested")
     interested_facebook = models.ManyToManyField(FBUser, related_name="campaign_interested")

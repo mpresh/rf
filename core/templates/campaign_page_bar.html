@@ -34,7 +34,7 @@
 					var has_iframe = $("#external-site").size();
 
 					var resize_iframe = function(){
-						var toolbar_height = 35;
+						var toolbar_height = 44;
 						var document_height = $(window).height();
 						var iframe_height = document_height - toolbar_height;
 						$('#external-site').height(iframe_height);
@@ -167,11 +167,11 @@ var campaign_type = '{{campaign.campaign_type}}';
 {% if user %}
 var user = true;
 var user_id = '{{user.id}}';
-$('#twitter-share').show();
+setTimeout("$('#twitter-share').show()", 1200);
 $('#twitter-login').hide();
 $("#tloggedin").show();
 {% else %}
-$('#twitter-login').show();
+setTimeout("$('#twitter-login').show()", 1300);
 $('#twitter-share').hide();
 var user = false;
 var user_id = '';
@@ -180,13 +180,13 @@ var user_id = '';
 {% if fbuser %}
 var fbuser = true;
 var fbuser_id = '{{fbuser.id}}';
-$('#facebook-share').show();
+setTimeout("$('#facebook-share').show()", 1300);
 $('#facebook-login').hide();
 $("#floggedin").show();
 {% else %}
 var fbuser = false;
 var fbuser_id = '';
-$('#facebook-login').show();
+setTimeout("$('#facebook-login').show()", 1300);
 $('#facebook-share').hide();
 {% endif %}
 
@@ -211,7 +211,6 @@ var clipboard_url = host + "{% url static 'javascript/ZeroClipboard.swf' %}";
 var facebook_update_id_url = host + "{% url campaign_facebook_update campaign_id=campaign.id %}";
 var campaign_tweet_invite_url = host + "{% url campaign_tweet_invite campaign_id=campaign.id %}"
 var campaign_going_twitter_url = host + "{% url campaign_going_twitter campaign_id=campaign.id %}";
-
 var ajax_check_twitter_logged_in = host + "{% url tauth_logged_in %}";
 var ajax_check_facebook_logged_in = host + "{% url fauth_logged_in %}";
 
@@ -222,7 +221,7 @@ var scope = '{{scope}}';
 
 var code = '{{campaign.code}}';
 
-//$("#external-site").showLoading({'afterShow': function(){ setTimeout( "jQuery('#external-site').hideLoading()", 5000 );}});         
+$("#external-site").showLoading({'afterShow': function(){ setTimeout( "jQuery('#external-site').hideLoading()", 5000 );}});         
 
 $("#overlay-blogger-login").overlay({
 	expose: {
@@ -329,7 +328,6 @@ $('#twitter-share').click(function(){
 {% endif %}
 
 FB.init({appId: '{{fbappid}}', status: true, cookie: true, xfbml: true});
-
 $("#twitter-feed-update").click(function() { 
         // Show discount page
         pageOverlay(3, '');
@@ -453,7 +451,6 @@ function CheckLoginStatusFacebook() {
     else setTimeout(CheckLoginStatusFacebook, 1000);
 }
 
-
 $('#flogout').click(function(){
         $.ajax({ 
                    url: ajax_facebook_logout_url,
@@ -523,6 +520,7 @@ $("#overlay-textarea-facebook").charCount();
 function pageY(elem) {
     return elem.offsetParent ? (elem.offsetTop + pageY(elem.offsetParent)) : elem.offsetTop;
 }
+
 var buffer = 30; //scroll bar buffer
 function resizeIframe() {
     var height = document.documentElement.clientHeight;
@@ -533,13 +531,19 @@ function resizeIframe() {
 //document.getElementById('ifm').onload=resizeIframe;
 //window.onresize = resizeIframe;
 
-//$(document).ready(
-//    $('#bar').animate({heigh: 35px});
-//);
+$(document).ready(function(){
+    //setTimeout($('#copy-text').animate({'right': '170px'}, 2300, function(){}), 3000);
+    //setTimeout("$('#bar').animate({'height': '35px'}, 1200, function(){})", 300);		       
+    //setTimeout("$('#shadow').animate({'top': '35px'}, 1200, function(){})", 300);
+    //setTimeout("$('#shadow').show()", 800)		       
+    //setTimeout("$('#external-site').animate({'top': '35px'}, 1200, function(){})", 300);
+
+    //setTimeout("$('#logo img').show(); $('#logo img').animate({'opacity':'1', 'filter': 'alpha(opacity=100)'}, 2000, function(){})", 1200);
+    //setTimeout("$('#copy-text').animate({'opacity':'1', 'filter': 'alpha(opacity=100)'}, 1500, function(){})", 1200);
+});
 
 </script>
 <script type="text/javascript" src="{% url static 'javascript/jquery.animate-shadow.js' %}" ></script>
-
 
 </body>
 </html>

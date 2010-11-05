@@ -1,5 +1,6 @@
 body {
         text-align: center;
+	overflow-y: hidden;
 }
 
 span#discount-error-message {
@@ -14,3 +15,8 @@ div.create li {
    margin-top: 40px;
 }
 
+label {
+      font-size: 20px;
+      margin-bottom: 10px;
+      font-weight: bold;
+}
