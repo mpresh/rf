@@ -10,8 +10,14 @@
 				</label> <input type="text" value="{{campaign.subdomain}}" size="5" name="subdomain" />
 			</li>
 		         <li>
+
+			       {% ifequal campaign.template '2' %}
 				<label for="title">Promotion Message: </label> <br />
 				<b>Instant</b>&nbsp;&nbsp;&nbsp;<input type="text" size="60" value="{{campaign.title}}" name="title" class="required" />&nbsp;&nbsp;&nbsp;<b>just by sharing!</b>
+			       {% else %}
+                                <label for="title">Campaign Heading: </label> <br />
+				<input type="text" size="70" value="{{campaign.title}}" name="title" class="required" />
+			       {% endifequal %}
 			</li>
                         
 			<li id="li-from-name">
@@ -73,7 +79,7 @@
 			<li id="li-subtitle">
                          <br/>
 
-				<label for="campaign_message">Landing Page Subtitle Text: </label> <br/>
+				<label for="campaign_message">Subtitle Text: </label> <br/>
 				<textarea rows="1" cols="52"  name="campaign_message">{{campaign.message}}</textarea>
 			</li>
 

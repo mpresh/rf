@@ -196,10 +196,17 @@ def create_campaign(req):
     if not campaign_url.startswith("http://"):
         campaign_url = "http://" + campaign_url
 
+    if req.POST['campaign_type'] == 'raffle':
+        template_val = 0
+    elif req.POST['campaign_type'] == 'discount':
+        template_val = 2
+    else:
+        template_val = 0
+
     c = Campaign(
         url=campaign_url,
         url_redeem=campaign_url,
-        template=2
+        template=template_val
         )
 
     c.save()
