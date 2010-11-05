@@ -69,7 +69,7 @@
 				</label> <input type="text" value="{{campaign.max_people}}" size="5" name="max_people" class="required digits" />
 			</li>
 
-			<li>
+			<li id="li-subtitle">
                          <br/>
 
 				<label for="campaign_message">Landing Page Subtitle Text: </label> <br/>
@@ -212,6 +212,12 @@ if ('{{campaign.campaign_type}}' == 'raffle'){
     $("#li-discount-code").hide();
     $("#li-discount-url").hide();
 }
+
+////////////////////////////////////////////////
+if ('{{campaign.template}}' == '2'){
+    $("#li-subtitle").hide();
+}
+
 ////////////////////////////////////////////////
 $("#li-from-name").hide();
 $("#li-people-num").hide();

@@ -199,6 +199,7 @@ def create_campaign(req):
     c = Campaign(
         url=campaign_url,
         url_redeem=campaign_url,
+        template=2
         )
 
     c.save()
