@@ -28,6 +28,14 @@ div#display-radio {
     font-weight: bold;
 }
 
+div#landing-instructions, div#widget-instructions {
+    font-size: 18px;
+    font-weight: bold;
+    #margin-left: 10%;
+    display: none;
+    background-color: white;
+}
+
 div#admin-info {
    background-color: white;
    width: 80%; 
