@@ -1,6 +1,8 @@
+from django.http import HttpResponse
 from django.shortcuts import render_to_response
+import simplejson
 
-# random utility functions
+# Utility functions
 def handle_redirect_string(redirect_url, redirect_args_string):
     redirect_url = redirect_url.replace("fb_xd_fragment", "")
     redirect_args_string = redirect_args_string.replace("fb_xd_fragment", "")
@@ -41,3 +43,6 @@ def render_template(template, **template_variables):
     """ Wrapper which makes rendering templates nicer."""
     return render_to_response(template, template_variables)
 
+def json_response(**keys):
+    """ Render error json. """
+    return HttpResponse(simplejson.dumps(keys))
