@@ -22,7 +22,8 @@
 			<li id="li-discount-code">
 				<label for="code">Discount Code: </label> <br/>
 				<input type="text" size="70" value="{{campaign.code}}" name="code" class="required" id="discount_code"/>
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</li>
+			<li id="li-percent-discount">
 				<br/> <br/><label for="percent">Percent Discount: </label> <br/>
 				<input type="text" value="{{campaign.percent}}" size="70" name="percent" class="required digits" id="discount_percent"/>
 
@@ -219,6 +220,7 @@ if ('{{campaign.template}}' == '2'){
 }
 
 ////////////////////////////////////////////////
+$("#li-percent-discount").hide();
 $("#li-from-name").hide();
 $("#li-people-num").hide();
 $("#li-dates-start").hide();
