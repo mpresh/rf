@@ -11,7 +11,7 @@
 			</li>
 		         <li>
 				<label for="title">Promotion Message: </label> <br />
-				<b>Instant</b>&nbsp;&nbsp;&nbsp;<input type="text" size="45" value="{{campaign.title}}" name="title" class="required" />&nbsp;&nbsp;&nbsp;<b>just by sharing!</b>
+				<b>Instant</b>&nbsp;&nbsp;&nbsp;<input type="text" size="60" value="{{campaign.title}}" name="title" class="required" />&nbsp;&nbsp;&nbsp;<b>just by sharing!</b>
 			</li>
                         
 			<li id="li-from-name">
@@ -21,10 +21,10 @@
 			</li>
 			<li id="li-discount-code">
 				<label for="code">Discount Code: </label> <br/>
-				<input type="text" size="60" value="{{campaign.code}}" name="code" class="required" id="discount_code"/>
+				<input type="text" size="70" value="{{campaign.code}}" name="code" class="required" id="discount_code"/>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<br/> <br/><label for="percent">Percent Discount: </label> <br/>
-				<input type="text" value="{{campaign.percent}}" size="60" name="percent" class="required digits" id="discount_percent"/>
+				<input type="text" value="{{campaign.percent}}" size="70" name="percent" class="required digits" id="discount_percent"/>
 
 				<div id="discount-code-msg"><br/>To create new discount code <button id="create_discount" type="button">Click Here</button>&nbsp;&nbsp;&nbsp;<span id="discount-success-message"></span></div>
             			<br/><span id="discount-error-message"></span>
@@ -73,29 +73,29 @@
                          <br/>
 
 				<label for="campaign_message">Landing Page Subtitle Text: </label> <br/>
-				<textarea rows="1" cols="60"  name="campaign_message">{{campaign.message}}</textarea>
+				<textarea rows="1" cols="52"  name="campaign_message">{{campaign.message}}</textarea>
 			</li>
 
 			 <li>
 				<label for="campaign_message_share">Message to be Shared: </label> <br/>
-				<textarea rows="2" cols="60"  name="campaign_message_share">{{campaign.message_share}}</textarea>
+				<textarea rows="2" cols="52"  name="campaign_message_share">{{campaign.message_share}}</textarea>
 			</li>
 			 <li>
 
 				<label for="url">URL to be shown on landing page: </label> 
-				<input type="text" value="{{campaign.url}}" size="60" name="url" />
+				<input type="text" value="{{campaign.url}}" size="70" name="url" />
 			</li>
 			<li id="li-discount-url">
 				<label for="url_redeem">URL to redeem discount and register: </label> 
-				<input type="text" value="{{campaign.url_redeem}}" size="60" name="url_redeem" id="redeem_url" />
+				<input type="text" value="{{campaign.url_redeem}}" size="70" name="url_redeem" id="redeem_url" />
 			</li>
 			<li id="li-twitter-fan">
 				<label for="twitter">Twitter Account Follow: </label> 
-				<input type="text" value="{{campaign.twitter_account}}" size="60" name="twitter_account" />
+				<input type="text" value="{{campaign.twitter_account}}" size="70" name="twitter_account" />
 			</li>
 			<li id="li-facebook-fan">
 	 			<label for="facebook_fan">Facebook Fan: </label> 
-				<input type="text" value="{{campaign.facebook_fan_page}}" size="60" name="facebook_fan" />
+				<input type="text" value="{{campaign.facebook_fan_page}}" size="70" name="facebook_fan" />
 			</li>
                         <li id="li-prize-image">
  			<label for="prize-wrapper">Image of Prize:</label>
