@@ -33,13 +33,20 @@
 </div>
 </div>
 </div>
-<br/><br/><br/>
+<br/><br/>
+
+<div id="display-radio">
+<input type="radio" name="display_type" id="radio_landing" value="landing" checked/> Landing Page
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" name="display_type" id="radio_widget" value="widget" /> Widget
+</div>
+<br/><br/>
 
 <ul class="tabs">
-  <li><a href="#first">Edit</a></li>
-  <li><a id="landing_click" href="#second">Landing Page</a></li>
-  <li><a href="#third">Widget</a></li>
-  <li><a id="analytics_click" href="#third">Analytics</a></li>
+  <li id="tabs-edit"><a href="#first">Edit</a></li>
+  <li id="tabs-landing"><a id="landing_click" href="#second">Landing Page</a></li>
+  <li id="tabs-widget"><a href="#third">Widget</a></li>
+  <li id="tabs-analytics"><a id="analytics_click" href="#third">Analytics</a></li>
 </ul>
 
 <!-- tab "panes" -->
@@ -220,6 +227,18 @@ if ($("#winners-wrapper").is(":hidden")) {
                 });
 
     });
+
+$('#tabs-widget').hide();
+$('#radio_landing').change(function(){
+       $('#tabs-widget').hide();
+       $('#tabs-landing').show();
+       $('#tabs-edit').show();
+});
+$('#radio_widget').change(function(){
+       $('#tabs-widget').show();
+       $('#tabs-landing').hide();
+       $('#tabs-edit').hide();
+});
 </script>
 
 {% endblock %}
