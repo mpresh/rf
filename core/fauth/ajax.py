@@ -44,6 +44,7 @@ def campaign_facebook_update(req, campaign_id=""):
         parent_url = None
         
     c=Campaign.objects.get(id=campaign_id)
+
     share = Share(message=msg,
                   campaign=c,
                   from_user_facebook=fbuser,
@@ -52,6 +53,7 @@ def campaign_facebook_update(req, campaign_id=""):
                   parent_shash=parent_shash,
                   reach=fbuser.num_friends()
                   )
+
     share.save()
     share.setHash()
     url = share.url(req, parent=parent_url)
@@ -62,7 +64,6 @@ def campaign_facebook_update(req, campaign_id=""):
     share.save()
     fbuser.feed(message=msg)
     fbuser.campaign_interested.add(c.id)    
-
     dict = {}
     dict["status"] = "ok!"
     dict["url"] = short_url

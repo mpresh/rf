@@ -2,7 +2,6 @@
 $(".hiding").hide();
 $(".showing").show();
 
-
 // Global vars
 var contentView = 0;
 var shareLink = '';
@@ -76,7 +75,7 @@ function CheckLoginStatusTwitter() {
 
 ///////////// facebook login //////////////
 $('#facebook-login').click(function(){
-	alert("https://graph.facebook.com/oauth/authorize?client_id=" + facebook_api + "&redirect_uri=" + redirect_uri + "&display=popup&scope=" + scope, "SignIn", "width=780,height=410");
+	//alert("https://graph.facebook.com/oauth/authorize?client_id=" + facebook_api + "&redirect_uri=" + redirect_uri + "&display=popup&scope=" + scope, "SignIn", "width=780,height=410");
        signinWin = window.open("https://graph.facebook.com/oauth/authorize?client_id=" + facebook_api + "&redirect_uri=" + redirect_uri + "&display=popup&scope=" + scope, "SignIn", "width=780,height=410");
        setTimeout(CheckLoginStatusFacebook, 2000);
        signinWin.focus();

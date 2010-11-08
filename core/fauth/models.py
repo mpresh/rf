@@ -4,7 +4,7 @@ import simplejson as json
 import os
 import sys
 import urllib
-
+import httplib
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")))
 
@@ -25,7 +25,6 @@ class FBUser(models.Model):
 		return "http://graph.facebook.com/%s/picture" % (self.facebook_id)
 
         def friends(self):
-		print "grabbing friends data"
 		data = urllib.urlopen("https://graph.facebook.com/" + 
 				      str(self.facebook_id) + "/friends" 
 				      "?access_token=" + self.access_token).read()
@@ -37,9 +36,6 @@ class FBUser(models.Model):
 				      str(self.facebook_id) + "/friends"
                 		      "?access_token=" + self.access_token).read()
 		data_dict = json.loads(data)
-		print "URL", "https://graph.facebook.com/" + str(self.facebook_id) + "/friends?access_token=" + self.access_token
-		print "self.access_token", self.access_token
-                print "DATA", data_dict
 		return len(data_dict['data'])
 
 	def num_friends_post(self):
@@ -54,11 +50,9 @@ class FBUser(models.Model):
                 data = response.read()
 		data_dict = json.loads(data)
 		
-                print "DATA", data_dict
 		return len(data_dict['data'])
 
 	def feed(self, to="me", message="Testing."):
-		print "self.access_token", self.access_token
 		self.access_token = self.access_token.replace("%7C", "|")
 		params = urllib.urlencode({'access_token' : self.access_token,
 					   'message' : message})
@@ -66,15 +60,12 @@ class FBUser(models.Model):
 			  "Host": "graph.facebook.com",
 			  "Accept": "*/*"
 			  }
-		print "PARAMS", params
+
 		conn = httplib.HTTPSConnection("graph.facebook.com")
 		conn.request("POST", "/" + str(to) + "/feed", params, headers) 
 		response = conn.getresponse()
-		print "RESPONSE FEED", response.status, response.reason
 		data = response.read()
 		conn.close()
-		print "DATA IS", data
-	
 
 	def message(self, to="713879", message="Testing.", subject="subject"):
 		self.access_token = self.access_token.replace("%7C", "|")
