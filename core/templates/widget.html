@@ -18,12 +18,13 @@
 		  <div id="fb-root"></div>
            
                     {% if fbuser %}
-                    <div id="div-facebook-logged-in" class="showing"
+                    <div id="div-facebook-logged-in" class="showing">
                     {% else  %}
                     <div id="div-facebook-logged-in" class="hiding">
                     {% endif %}
 		      <button id="facebook-share" class="badge-button" style="cursor: pointer;">
-		           <img src="{{host}}{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
+		           <img src="{{host}}{% url static 'images/facebookShare_icon2.png' %}"/>
+			   <span>Share</span>
 		      </button>
                       <a id="flogout" style="cursor: pointer; color: gray; font-size: 12px;">logout</a>
                     </div>
