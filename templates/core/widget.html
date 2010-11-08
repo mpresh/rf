@@ -1,0 +1,243 @@
+     <div id="ripple-badge-wrapper"> 
+        <div id="ripple-badge" class="ripple-badge-overlay">
+        <div id="badge-header">
+	 {% if html %}
+         {% autoescape off %}
+            {{html}}
+         {% endautoescape %}
+         {% else %}
+            <br/>
+	    <font size="5">{{campaign.title}}</font><br/><br/>
+	    <font size="3">{{campaign.message}}</font><br/><br/>
+	    <font color="#ff0000"><font size="4">JUST BY <b>Sharing</b> with friends:</font></font>
+         {% endif %}
+         </div>
+         <div id="badge-footer">
+
+	    <div id="facebook-login-share">
+		  <div id="fb-root"></div>
+           
+                    {% if fbuser %}
+                    <div id="div-facebook-logged-in" class="showing"
+                    {% else  %}
+                    <div id="div-facebook-logged-in" class="hiding">
+                    {% endif %}
+		      <button id="facebook-share" class="badge-button" style="cursor: pointer;">
+		           <img src="{{host}}{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
+		      </button>
+                      <a id="flogout" style="cursor: pointer; color: gray; font-size: 12px;">logout</a>
+                    </div>
+
+                    {% if fbuser %}
+                    <div id="div-facebook-logged-out" class="hiding">
+                    {% else %}
+                    <div id="div-facebook-logged-out" class="showing">
+                    {% endif %}
+		      <button id="facebook-login" class="badge-button" style="cursor: pointer;">
+		           <img src="{{host}}{% url static 'images/facebookShare_icon2.png' %}"/><span>Share</span>
+		      </button>
+		      <span style="color: gray; font-size: 12px;"></span>
+                    </div>
+	     </div>  
+
+	     <div id="twitter-login-share">
+
+
+                         {% if user %}
+                   <div id="div-twitter-logged-in" class="showing">
+		        {% else %}
+                   <div id="div-twitter-logged-in" class="hiding">
+		        {% endif %}
+
+		     <button id="twitter-share" class="badge-button" style="cursor: pointer;">
+		           <img src="{{host}}{% url static 'images/twitterShare_icon2.png' %}"/><span>Share</span>
+		     </button>
+                      <a id="tlogout" style="cursor: pointer; color: gray; font-size: 12px;">logout</a>
+		  </div>
+                  	{% if user %}
+		  <div id="div-twitter-logged-out" class="hiding">
+		        {% else %}
+		  <div id="div-twitter-logged-out" class="showing">
+		        {% endif %}
+                     <button id="twitter-login" class="badge-button"  style="cursor: pointer;">
+		         <img src="{{host}}{% url static 'images/twitterShare_icon2.png' %}" /><span>Share</span>
+		     </button>
+		     <span style="color: gray; font-size: 12px;"></span>
+		  </div>
+
+             </div>
+	 </div><!-- badge footer-->
+	</div> <!-- badge -->
+       </div>
+
+	<div id="overlay-blogger-login" class="overlay-blogger">
+
+	    <div id="overlay-div-content2-facebook" >
+                <div class="overlay-top">
+                    {%ifequal campaign.campaign_type "discount" %}
+                    <p>Discounts Are Better When You Share Them</p>
+                     {% else %}  
+                    <p>Share and win, it's that simple</p>
+                    {% endifequal %}
+                </div>
+                <div id="facebook-top-msg">
+                     {%ifequal campaign.campaign_type "discount" %}
+                     <p>Share to Reveal Discount</p>
+                     {% else %}  
+                     <p>Share to enter contest</p>
+                    {% endifequal %}
+		</div>
+
+		<div class="textarea-div">
+		     <textarea id="overlay-textarea-facebook">{{campaign.message_share}}</textarea>
+		</div>
+		<div id="facebook-feed-update" class="share-button"><p>Share</p></div>
+	    </div><!-- end overlay-div-content2-facebook -->
+	
+	    <div id="overlay-div-content2-twitter">
+		<div class="overlay-top">
+                    {%ifequal campaign.campaign_type "discount" %}
+                    <p>Discounts Are Better When You Share Them</p>
+                    {% else %}  
+                    <p>Share and win, it's that simple</p>
+                    {% endifequal %}
+                </div>
+                
+                <div id="twitter-top-msg">
+                    {%ifequal campaign.campaign_type "discount" %}
+                    <p>Share to Reveal Discount</p>
+                    {% else %}  
+                    <p>Share to enter contest</p>
+                    {% endifequal %}
+		</div>
+
+		<div class="textarea-div">
+		     <textarea id="overlay-textarea-twitter" >{{campaign.message_share}}</textarea>
+		</div>
+		<div id="twitter-feed-update" class="share-button"><p>Share</p></div>
+	    </div> <!-- end overlay-div-content2-twitter -->
+
+	    <div id="overlay-div-content3" >
+		<div class="overlay-top">
+                    {%ifequal campaign.campaign_type "discount" %}
+                    <p>Discount Code</p>
+                    {% else %}
+                    <p>Successfully Entered Contest</p>
+                    {% endifequal %}
+                </div>
+
+                {%ifequal campaign.campaign_type "discount" %}
+
+		<div id="code-msg">Thanks for sharing.<BR> Here is your discount code:</div>
+		<div id="code">
+		    <p id="discount-code">{{campaign.code}}</p>
+                     <br/>
+		    <!--<div id="d_clip_container" style="position:relative">
+		        <button type="button" id="d_clip_button">Copy to Clipboard</button>
+		    </div>-->
+		    <span>Redeem Here:</span><a href="{{campaign.url_redeem}}">{{campaign.url_redeem}}</a></font></div>
+		{% else %}
+                <div id="code-msg">Thanks for sharing.<BR> You have entered raffle:</div>
+                <img style="margin: 20px;" id="img-prize" src="{{campaign.url_redeem}}" />
+
+                {% endifequal %}
+	    </div><!-- end overlay-div-content3 -->
+         </div><!-- end overlay-blogger -->
+
+
+<script>
+LazyLoad=function(){var f=document,g,b={},e={css:[],js:[]},a;function j(l,k){var m=f.createElement(l),d;for(d in k){if(k.hasOwnProperty(d)){m.setAttribute(d,k[d])}}return m}function h(d){var l=b[d];if(!l){return}var m=l.callback,k=l.urls;k.shift();if(!k.length){if(m){m.call(l.scope||window,l.obj)}b[d]=null;if(e[d].length){i(d)}}}function c(){if(a){return}var k=navigator.userAgent,l=parseFloat,d;a={gecko:0,ie:0,opera:0,webkit:0};d=k.match(/AppleWebKit\/(\S*)/);if(d&&d[1]){a.webkit=l(d[1])}else{d=k.match(/MSIE\s([^;]*)/);if(d&&d[1]){a.ie=l(d[1])}else{if((/Gecko\/(\S*)/).test(k)){a.gecko=1;d=k.match(/rv:([^\s\)]*)/);if(d&&d[1]){a.gecko=l(d[1])}}else{if(d=k.match(/Opera\/(\S*)/)){a.opera=l(d[1])}}}}}function i(r,q,s,m,t){var n,o,l,k,d;c();if(q){q=q.constructor===Array?q:[q];if(r==="css"||a.gecko||a.opera){e[r].push({urls:[].concat(q),callback:s,obj:m,scope:t})}else{for(n=0,o=q.length;n<o;++n){e[r].push({urls:[q[n]],callback:n===o-1?s:null,obj:m,scope:t})}}}if(b[r]||!(k=b[r]=e[r].shift())){return}g=g||f.getElementsByTagName("head")[0];q=k.urls;for(n=0,o=q.length;n<o;++n){d=q[n];if(r==="css"){l=j("link",{href:d,rel:"stylesheet",type:"text/css"})}else{l=j("script",{src:d})}if(a.ie){l.onreadystatechange=function(){var p=this.readyState;if(p==="loaded"||p==="complete"){this.onreadystatechange=null;h(r)}}}else{if(r==="css"&&(a.gecko||a.webkit)){setTimeout(function(){h(r)},50*o)}else{l.onload=l.onerror=function(){h(r)}}}g.appendChild(l)}}return{css:function(l,m,k,d){i("css",l,m,k,d)},js:function(l,m,k,d){i("js",l,m,k,d)}}}();
+
+// Global vars
+var facebook_app_id = '{{facebook_app_id}}';
+var host = '{{host}}';
+var campaign_type = '{{campaign.campaign_type}}';
+
+{% if parent_url %}
+var parent_url = '{{parent_url}}';
+{% else %}
+var parent_url = '';
+{% endif%}
+{% if user %}
+var user = true;
+var user_id = '{{user.id}}';
+{% else %}
+var user = false;
+var user_id = '';
+{% endif %}
+
+{% if fbuser %}
+var fbuser = true;
+var fbuser_id = '{{fbuser.id}}';
+{% else %}
+var fbuser = false;
+var fbuser_id = '';
+{% endif %}
+
+{% if overlayTwitter %}
+var overlayTwitter = true;
+{% else %}
+var overlayTwitter = false;
+{% endif %}
+{% if overlayfacebook %}
+var overlayFacebook = true;
+{% else %}
+var overlayFacebook = false;
+{% endif %}
+
+{% if css %}
+var css = true;
+{% else %}
+var css = false;
+{% endif %}
+
+var shash = '{{shash}}';
+
+var tauth_login_url = host + "{% url tauth_login %}" ;
+var facebook_sync_server_url = host + "{% url ajax_facebook_sync_server %}";
+var ajax_facebook_logout_url = host + "{% url ajax_facebook_logout %}";
+var tauth_logout_url = host + "{% url tauth_logout %}?popup=true";
+var clipboard_url = host + "{% url static 'javascript/ZeroClipboard.swf' %}";
+var facebook_update_id_url = host + "{% url campaign_facebook_update campaign_id=campaign.id %}";
+var campaign_tweet_invite_url = host + "{% url campaign_tweet_invite campaign_id=campaign.id %}"
+var campaign_going_twitter_url = host + "{% url campaign_going_twitter campaign_id=campaign.id %}";
+
+var ajax_check_twitter_logged_in = host + "{% url tauth_logged_in %}";
+var ajax_check_facebook_logged_in = host + "{% url fauth_logged_in %}";
+
+var facebook_api = "{{facebook_api}}";
+var redirect_uri = "{{redirect_uri}}";
+
+var scope = '{{scope}}';
+
+var code = '{{campaign.code}}';
+
+var css_files = ["/site_media/css/overlayA.css", "/site_media/css/cross-site-badge.css"]; 
+if (css) {
+    css_files = ["/site_media/css/overlayA.css", "/site_media/css/cross-site-badge.css", "/site_media/css/widget/style_{{campaign.id}}.css"]; 
+}
+
+LazyLoad.css(css_files,	
+     function() {
+
+		LazyLoad.js(["/site_media/javascript/jquery-1.4.2.min.js", 
+			      "/site_media/javascript/myjscript.js", 
+			      "/site_media/javascript/jquery.tools.min.js",
+                              "http://connect.facebook.net/en_US/all.js",
+			      "/site_media/javascript/ZeroClipboard.js",
+                              "/site_media/javascript/charCount.js",
+                              "/site_media/javascript/jquery.cookie.js",
+			      "/site_media/javascript/jquery.showLoading.js"
+			      ], function () {
+                                 //alert("loading jsjs");
+                                 LazyLoad.js(["/site_media/javascript/embed-js.js",
+                                 ], function() {
+                                  
+                                   });
+			     });
+		 
+
+	     });
+
+</script>
+

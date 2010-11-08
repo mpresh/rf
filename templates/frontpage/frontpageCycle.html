@@ -1,0 +1,60 @@
+{% extends "site_base.html" %}
+
+{% block title %}Ripple Function{% endblock %}
+
+{% block  js_css_include %}
+<script type="text/javascript" src="{% url static 'javascript/jquery.cycle.all.min.js' %}"> </script>
+{% endblock %} 
+
+
+
+
+
+
+{% block site-content %}
+<script>
+$('#front-view').cycle({ 
+    fx:     'scrollHorz', 
+    pager: '.slidenav',
+    next: '.nextslide',
+    prev: '.prevslide', 
+    timeout: 6000, 
+    next:   '#front-view', 
+    pause:   4,
+    delay: 400,
+    speed: 600
+});
+
+</script>
+
+<div id="slide-wrapper">
+<div id="front-view">
+ <div class="first"><a href="/about/customers.html"><img src='{% url static 'images/frontpage/front1.jpg'%}'/></a><span class="bottom">Description goes here.</span></div>
+ <div><a href="/about/customers.html"><img src='{% url static 'images/frontpage/front2.jpg'%}'/></a><span class="bottom">Description goes here.</span></div>
+ <div><a href="/about/customers.html"><img src='{% url static 'images/frontpage/front3.jpg'%}'/></a><span class="bottom">Description goes here.</span></div>
+  </div>
+<div class="slidenav"></div>
+</div>
+
+<style>
+div#front-view {height: 300px;width: 900px; padding: 18px 20px; background: #ddd; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; -moz-box-shadow:0 0 60px 0px #000; -webkit-box-shadow: 0 0 60px 0px #000; margin-top: 100px; position: relative;}
+
+div#front-view a {margin: auto;}
+div#front-view img {height: 250px; width: 750px; margin: 20px 20px 20px 20px;}
+div.slidenav {position: absolute;right: 100px;top: 228px;z-index: 20;}
+    div.slidenav a:link, div.slidenav a:visited, div.slidenav a:active {display:inline; float:left; margin:0 8px 0 0; height:22px; width:22px; text-align:center; line-height:22px; font-size:10px; color:#999; background-image:url(/site_media/images/bg_numbers-new.png);}
+    div.slidenav a:hover {color:#666;} 
+    div.slidenav a.activeSlide {font-weight:bold; color:#333;}
+
+div#front-view span {position: absolute; font: 10px/15px Arial, Helvetica, sans-serif; padding: 10px 33px; width: 384px; background-color: #000; filter: alpha(opacity=70); -moz-opacity: 0.7;-khtml-opacity: 0.7; opacity: 0.7;color: #fff;}
+
+.top {top: 0;left: 0;}
+
+.bottom {bottom: 20px;left: 20px;}
+
+.left {top: 0;left: 0; width: 110px;height: 280px;}
+
+.right {right: 0;bottom: 0;width: 90px;height: 290px;}
+
+</style>
+{% endblock %} 

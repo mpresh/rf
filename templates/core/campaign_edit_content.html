@@ -1,0 +1,359 @@
+<br />
+<div id="update-campaign" class="create">
+	<h1>Edit Campaign</h1>
+<h4 style="text-align:center;">Promotion Type - {{campaign.campaign_type}}</h4>
+	<form id="update-campaign-form" action="" method="post">	
+
+		<ul>		
+                        <li id="li-subdomain">
+				<label for="subdomain">Subdomain: 
+				</label> <input type="text" value="{{campaign.subdomain}}" size="5" name="subdomain" />
+			</li>
+		         <li>
+
+			       {% ifequal campaign.template 2 %}
+				<label for="title">Promotion Message: </label> <br />
+				<b>Instant</b>&nbsp;&nbsp;&nbsp;<input type="text" size="60" value="{{campaign.title}}" name="title" class="required" />&nbsp;&nbsp;&nbsp;<b>just by sharing!</b>
+			       {% else %}
+                                <label for="title">Campaign Heading: </label> <br />
+				<input type="text" size="70" value="{{campaign.title}}" name="title" class="required" />
+			       {% endifequal %}
+			</li>
+                        
+			<li id="li-from-name">
+
+				<label for="from_name">Discount From (Name/Organization): </label> <br/>
+				<input type="text" value="{{campaign.from_name}}" name="from_name" class="required" />
+			</li>
+			<li id="li-discount-code">
+				<label for="code">Discount Code: </label> <br/>
+				<input type="text" size="70" value="{{campaign.code}}" name="code" class="required" id="discount_code"/>
+			</li>
+			<li id="li-percent-discount">
+				<br/> <br/><label for="percent">Percent Discount: </label> <br/>
+				<input type="text" value="{{campaign.percent}}" size="70" name="percent" class="required digits" id="discount_percent"/>
+
+				<div id="discount-code-msg"><br/>To create new discount code <button id="create_discount" type="button">Click Here</button>&nbsp;&nbsp;&nbsp;<span id="discount-success-message"></span></div>
+            			<br/><span id="discount-error-message"></span>
+                                <div id="discount-code-create">
+                                <br/><br />
+				<label for="eventid">Event ID: 
+				</label> <input type="text" value="" size="10" name="eventid" id="eventid" />
+                        &nbsp;&nbsp;
+				<label for="username">Username: 
+				</label> <input type="text" value="" size="12" name="username" id="pos_username" />
+			&nbsp;&nbsp;
+				<label for="password">Password: 
+				</label> <input type="password" value="" size="12" name="password" id="pos_password"/>
+				<br/><br/><button type="button" id="submit_discount">Create Discount Code</button>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                Use existing code: <button id="hide-discount-create">Hide Creation</button> 
+				</div>
+			</li>
+
+			<li id="li-dates-start">
+				<label for="promotion_date_start">Promotion Start Date: </label> 
+				<input type="text" name="promotion_date_start" size="12" id="promotion_date_start" value="{{start_date_label}}" class="required" />
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<label for="promotion_time_start">Time: </label> 
+				<input type="text" name="promotion_time_start" size="8" id="promotion_time_start" value="{{start_time_label}}" class="required"/>
+			</li>
+
+			<li id="li-dates-end">
+				<label for="promotion_date_end">Promotion End Date: </label> 
+				<input type="text" name="promotion_date_end" size="12" id="promotion_date_end" value="{{end_date_label}}" class="required" />
+				&nbsp;&nbsp;&nbsp;&nbsp;          
+				<label for="promotion_time_end">Time: </label> 
+                                <input type="text" name="promotion_time_end" size="8" id="promotion_time_end" value="{{end_time_label}}" class="required"/>
+
+			</li>
+
+			<li id="li-people-num">
+				<label for="min_people">Minimum People: 
+				</label> <input type="text" value="{{campaign.min_people}}" size="5" name="min_people" class="required digits"/>
+			        &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+				<label for="max_people">Maximum People: 
+				</label> <input type="text" value="{{campaign.max_people}}" size="5" name="max_people" class="required digits" />
+			</li>
+
+			<li id="li-subtitle">
+                         <br/>
+
+				<label for="campaign_message">Subtitle Text: </label> <br/>
+				<textarea rows="1" cols="52"  name="campaign_message">{{campaign.message}}</textarea>
+			</li>
+
+			 <li>
+				<label for="campaign_message_share">Message to be Shared: </label> <br/>
+				<textarea rows="2" cols="52"  name="campaign_message_share">{{campaign.message_share}}</textarea>
+			</li>
+			 <li>
+
+				<label for="url">URL to be shown on landing page: </label> 
+				<input type="text" value="{{campaign.url}}" size="70" name="url" />
+			</li>
+			<li id="li-discount-url">
+				<label for="url_redeem">URL to redeem discount and register: </label> 
+				<input type="text" value="{{campaign.url_redeem}}" size="70" name="url_redeem" id="redeem_url" />
+			</li>
+			<li id="li-twitter-fan">
+				<label for="twitter">Twitter Account Follow: </label> 
+				<input type="text" value="{{campaign.twitter_account}}" size="70" name="twitter_account" />
+			</li>
+			<li id="li-facebook-fan">
+	 			<label for="facebook_fan">Facebook Fan: </label> 
+				<input type="text" value="{{campaign.facebook_fan_page}}" size="70" name="facebook_fan" />
+			</li>
+                        <li id="li-prize-image">
+ 			<label for="prize-wrapper">Image of Prize:</label>
+                                   <div id="prize-wrapper" style="height: 250px; width: 60%; position: relative;">
+				    <div style="float: left; width: 30%;"><br/><br /><input name="prize-image" id="prize-image" type="file"> </input> <br/><br/>OR <br /><br /> <button type="button" id="choose-img-url">Choose Url of Image</button><br/><br/>
+				    <div id="choose-img-http" style="display:none;"><input type="text" size="15" name="url-img-input" id="url-img-input" /><br/><button type="button" id="select-url-img-input">Select</button></div>
+                                    </div>
+
+				    <div style="float: right; background-color: #eeeeee; border: 2px solid black; height: 246px; width: 250px; text-align: center;" id="prize-image-preview">
+
+				    {% if campaign.url_redeem %}  
+                                    <img id='img-img-preview' style='width: 100%; height: 246px;' src='{{campaign.url_redeem}}'/>
+                                    {% else %}
+                                    <br/><br/><br/><br/>Image Preview
+                                    {% endif %}
+                                    </div>
+                                 
+
+				    <button type="button" id="prize-remove-image" style="position: absolute; right: 0px; bottom: 0px; display: none;">Remove Image</button>
+                                  </div>
+			</li>
+
+                         <li>
+				Campaign Created At:  {{campaign.created_at}}
+			</li>
+
+		</ul>
+		<br />
+
+	    
+
+	</form>
+<button id="update-campaign-button" style="width:200px; height: 40px; font-size: 20px;">UPDATE</button>	
+</div>
+
+<script>
+// check if this is eventbrite
+if ($('#redeem_url').val().search('eventbrite') == -1) {
+    $('#discount-code-msg').hide();
+}
+
+$('#redeem_url').keyup(function(){
+
+    if ($('#redeem_url').val().search('eventbrite') == -1) {
+        $('#discount-code-msg').hide();
+        $('#discount-code-create').hide();
+        $("#discount-success-message").html("");
+        $("#discount-error-message").html("");
+    }
+    else {
+        $('#discount-code-msg').show();
+        $("#discount-success-message").html("");
+        $("#discount-error-message").html("");
+        $('#discount-code-create').hide();
+    }
+
+});
+
+	      
+
+          {% if campaign.url_redeem %}
+            $("#prize-remove-image").show();
+            $("#prize-remove-image").click(function() {
+            $("#prize-image-preview").html("<br/><br/><br/><br/>Image Preview<img id='img-img-preview' src='' />");
+            $("#prize-remove-imageg").hide();
+            }); 
+          {% endif %}
+                                    
+
+
+// file upload
+$('#choose-img-url').click(function() {
+$("#choose-img-http").slideDown();
+});
+
+$('#select-url-img-input').click(function(){
+             var strLen = $('#url-img-input').val().length; 	  
+             var myStr = $('#url-img-input').val();
+             if ($('#url-img-input').val().charAt(strLen - 1) == '/') {
+                 myStr = $('#url-img-input').val().slice(0, strLen-1);
+             }
+             $('#url-img-input').val(myStr);
+
+             $("#prize-image-preview").html("<img id='img-img-preview' style='width: 100%; height: 246px;' src=" + myStr + " />");
+             $("#prize-remove-image").show();
+$("#prize-remove-image").click(function() {
+            $("#prize-image-preview").html("<br/><br/><br/><br/>Image Preview<img id='img-img-preview' src='' />");
+            $("#prize-remove-image").hide();
+});
+});
+
+
+$("#prize-image").change(function() {
+            var url = "{{host}}{%url static 'images/campaign/logos/prize/'%}{{campaign.id}}";
+            
+            ajaxFileUpload("prize-image", function() {
+                    $("#prize-image-preview").html("<img id='img-img-preview' style='width: 100%; height: 246px;' src=" + url + " />");
+                    $("#prize-remove-image").show();
+$("#prize-remove-image").click(function() {
+            $("#prize-image-preview").html("<br/><br/><br/><br/>Image Preview<img id='img-img-preview' src='' />");
+            $("#prize-remove-image").hide();
+});
+                }, 
+                {{campaign.id}}, "prize");
+  });
+
+////////////////////////////////////////////////
+if ('{{campaign.campaign_type}}' == 'discount'){
+   $('#li-prize-image').hide();
+}
+
+///////////////////////////////////////////////
+if ('{{campaign.campaign_type}}' == 'raffle'){
+    $("#li-discount-code").hide();
+    $("#li-discount-url").hide();
+}
+
+////////////////////////////////////////////////
+if ('{{campaign.template}}' == '2'){
+    $("#li-subtitle").hide();
+}
+
+////////////////////////////////////////////////
+$("#li-percent-discount").hide();
+$("#li-from-name").hide();
+$("#li-people-num").hide();
+$("#li-dates-start").hide();
+$("#li-dates-end").hide();
+$("#li-subdomain").hide();
+$("#li-twitter-fan").hide();
+$("#li-facebook-fan").hide();
+////////////////////////////////////////////////
+
+  $("#update-campaign-form").validate();
+
+
+     $('#update-campaign-button').click(function() {
+		var $inputs = $('#update-campaign-form :input');
+
+		// not sure if you wanted this, but I thought I'd add it.
+		// get an associative array of just the values.
+		var values = {};
+		$inputs.each(function() {
+		        values[this.name] = $(this).val();
+		});
+            if ('{{campaign.campaign_type}}' == 'raffle'){
+                values["url_redeem"] = $("#img-img-preview").attr("src");
+            }
+
+		$.ajax({
+			url: '{% url campaign_update_ajax %}?chash={{campaign.chash}}', 
+			dataType: "json",
+			type: "POST",
+			data: values, 
+		success: function(data){
+                        $("#update-campaign").showLoading(
+                                              {'afterShow': function(){ 
+                                                            //setTimeout( "window.location.href = '{% url campaign_admin chash=campaign.chash %}'", 10 );
+                                                                      }
+                                              }
+                                              );
+                         //window.location.href = "{% url campaign_admin chash=campaign.chash %}";
+					},
+		beforeSend: function() {
+                    $("#update-campaign").showLoading({'afterShow': function(){ setTimeout( "jQuery('#update-campaign').hideLoading()", 2000 );}});
+		}
+	});
+    });
+
+
+
+	$('#promotion_date_start').datepicker({ 
+                changeMonth: true,
+                changeYear: true,
+		buttonImageOnly: false,
+		buttonImage: "{% url static 'images/calendar.png' %}",
+		showOn: 'both',
+		onSelect: function(dateText, inst) {
+			if ($.trim($('#promotion_date_end').val()) == ""){
+				$('#promotion_date_end').val(dateText);
+			}
+		}
+	});
+
+	$('#promotion_date_end').datepicker({ 
+                changeMonth: true,
+                changeYear: true,
+                buttonImageOnly: false,
+		buttonImage: "{% url static 'images/calendar.png' %}",
+		showOn: 'both'
+	});
+	
+        $("#promotion_time_end").timePicker({
+		show24Hours: false,
+		separator: ':',
+		step: 15
+	});
+	$("#promotion_time_start").timePicker({
+		show24Hours: false,
+		separator: ':',
+		step: 15
+	});
+
+
+       $('#create_discount').click(function() {
+           $('#discount-code-msg').hide();	    
+           $('#discount-code-create').show();	    
+
+       });
+
+       
+
+       $('#discount-code-create').hide();	    
+       $("#discount-error-message").hide();
+
+       $('#hide-discount-create').click(function(){
+           $('#discount-code-msg').show();	    
+           $('#discount-code-create').hide();	    
+       });	   
+
+       $('#submit_discount').click(function(){
+             $.ajax({
+			url: '{% url ajax_eventbrite_create_discount %}', 
+			dataType: "json",
+			type: "POST",
+			data: {username : $('#pos_username').val(),
+	                       password : $('#pos_password').val(),
+                               code : $('#discount_code').val(),
+                               percent: $('#discount_percent').val(),
+                               eventid: $('#eventid').val()}, 
+		   success: function(data){
+	               data = data.data        
+                       if ('process' in data && 'status' in data.process && data.process.status == 'OK'){
+                       	   $("#discount-success-message").html("Discount code created succesfully.");
+	                   setTimeout('$("#discount-success-message").html("")', 5000); 
+                           $("#discount-error-message").html("");
+	                   $('#discount-code-create').hide();
+                           $('#discount-code-msg').show();	    
+	               } else if ('error' in data) {
+                       	   $("#discount-error-message").show();
+	                   var s = JSON.stringify(data.error.error_message.replace(/["]/gi,""));
+                           $("#discount-error-message").html("<br/>" + s);
+                       }
+                  },
+		  beforeSend: function() {
+	               
+		   }
+	      });  
+       });
+
+
+
+</script>
+

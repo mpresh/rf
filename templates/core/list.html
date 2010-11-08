@@ -1,0 +1,28 @@
+{% extends "site_base.html" %}
+
+{% block title %}Browse Promotions{% endblock %}
+
+{% block site-content %}
+  
+<h1>List of Promotions.</h1>
+<br/>
+  
+    {% for camp in campaigns %}
+
+        
+	  <a target="landing {{campaign.title}}" href='{% url campaign_page_id camp_id=camp.id%}'>{{camp.title }}</a> <br />
+	    Campaign Id: {{ camp.id }} <br />
+	    Start Time: {{camp.start_date_time}} <br />
+            Type: {{camp.campaign_type}} <br />
+            Created At: {{camp.created_at}} <br />
+ 	    URL: {{camp.url}} <br />
+
+	  <a target="admin {{campaign.title}}" href={%url campaign_admin chash=camp.chash %}>details</a> <br />
+	
+    <br /><br/>
+	{% endfor %}
+  
+    
+
+{% endblock %}
+

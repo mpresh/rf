@@ -1,0 +1,191 @@
+
+<br/>
+
+
+<div id="widget-wrapper" class="create">
+
+<div id="widget-preview">
+   <div id="ripple-embed">{{campaign.id}}</div>
+   <script type="text/javascript" src="http://www.ripplefunction.com/site_media/javascript/embed-iframe.js"></script>
+</div>
+
+<h2>Design Widget Below </h2>
+<div id="widget-features">
+    <ul>
+    <li>
+        <textarea id="widget-message" ></textarea>&nbsp;&nbsp;
+    </li>
+    <li>
+        <div style="height:200px;">
+        <div style="float:left;">
+        <label for="widget-background-color-top">Color Top:&nbsp;&nbsp; </label>
+        <input type="color" value="{{headercolor}}" size="8" name="widget-background-color-top" id="widget-background-color-top"/>
+        <button id="hide-color-top" style="display:none;">Hide</button>
+        <div id="picker-top" style="display:none;text-alighn: center; padding-left: 50px;"></div>
+        </div>
+
+        <div style="float:left; margin-left: 65px;">
+        <label for="widget-background-color-platform">Color Background:&nbsp;&nbsp; </label>
+        <input type="color" value="{{platformcolor}}" size="8" name="widget-background-color-platform" id="widget-background-color-platform"/>
+        <button id="hide-color-platform" style="display:none;">Hide</button>
+        <div id="picker-platform" style="display:none;text-alighn: center; padding-left: 50px;"></div>
+        </div>
+
+        <div style="float:right; margin-right: 20px;">
+        <label for="widget-background-color-bottom">Color Bottom:&nbsp;&nbsp; </label>
+        <input type="color" value="{{footercolor}}" size="8" name="widget-background-color-bottom" id="widget-background-color-bottom"/>
+        <button id="hide-color-bottom" style="display:none;">Hide</button>
+        <div id="picker-bottom" style="display:none;border: text-alighn: center; padding-left: 50px;"></div>
+        </div>
+	</div>
+    </li>
+
+
+    </ul>
+
+    <button id="refresh-iframe">Update & Save Widget</button>
+    <button id="getcode"></button>
+</div>
+</div>
+
+<div id="dialog" title="Embeddable Code" style="display:none;">
+  <textarea id="code"></textarea>
+</div>
+
+
+
+
+<script>
+
+  $("#getcode").text("Embeddable Code");
+  
+ 
+
+
+$("#getcode").click(function(){
+    $("#code").val("<div id=\'ripple-embed\'>{{campaign.id}}<\/div><script type=\'text\/javascript\' src=\'http:\/\/www.ripplefunction.com\/site_media\/javascript\/embed-iframe.js\' \>\<\/script\>");
+    
+    $("#dialog").dialog({
+        "width": 450,
+        "height": 200
+     });
+    
+});
+
+
+// message
+{% if html %}
+
+$("#widget-message").val('{% autoescape off %}{{html}}{% endautoescape %}');
+{% else %}
+$("#widget-message").val('<br/><div align="center"><font size="5">{{campaign.title}}</font><br/><br/><font size="3">{{campaign.message}}</font><br/><br/><font color="#ff0000"><font size="4">JUST BY <b>Sharing</b> with friends:</font></font></div>');
+{% endif %}
+
+
+$("#widget-message").cleditor({height: 240, 
+                               width: "100%",
+                               fonts:        // font names in the font popup
+                                     "Arial,Arial Black,Comic Sans MS,Courier New,Narrow,Garamond," +
+                                     "Georgia,Impact,Sans Serif,Serif,Tahoma,Trebuchet MS,Verdana",
+                               sizes:        // sizes in the font size popup
+                                     "1,2,3,4,5,6,7",
+                               controls:     // controls to add to the toolbar
+                                     "bold italic underline strikethrough | font size style | color highlight removeformat | bullets numbering | outdent " +
+                        "indent | alignleft center alignright justify | undo redo | rule image link | html",
+                               colors:       // colors in the color popup
+                        "FFF FCC FC9 FF9 FFC 9F9 9FF CFF CCF FCF " +
+                        "CCC F66 F96 FF6 FF3 6F9 3FF 6FF 99F F9F " +
+                        "BBB F00 F90 FC6 FF0 3F3 6CC 3CF 66C C6C " +
+                        "999 C00 F60 FC3 FC0 3C0 0CC 36F 63F C3C " +
+                        "666 900 C60 C93 990 090 399 33F 60C 939 " +
+                        "333 600 930 963 660 060 366 009 339 636 " +
+                        "000 300 630 633 330 030 033 006 309 303",  
+                             docCSSFile:   // CSS file used to style the document contained within the editor.
+                        "", 
+                         bodyStyle:    // style to assign to document body contained within the editor
+                        "margin:4px; font:10pt Arial,Verdana; cursor:text"
+
+});
+
+
+// background color TOP
+  $('#hide-color-top').click(function(){
+       $("#picker-top").slideUp('slow');
+       $('#hide-color-top').hide();
+  })
+  $('#picker-top').farbtastic(function (color) {
+     $('#widget-background-color-top').val(color);
+  });
+  
+  $('#widget-background-color-top').click(function(){
+       $("#picker-bottom").hide();
+       $('#hide-color-bottom').hide();
+       $('#hide-color-platform').hide();
+       $("#picker-platform").hide();
+
+        $("#picker-top").slideDown('slow');
+        $('#hide-color-top').show(); 
+  });
+
+// background color BOTTOM
+  $('#hide-color-bottom').click(function(){
+       $("#picker-bottom").slideUp('slow');
+       $('#hide-color-bottom').hide();
+  })
+  $('#picker-bottom').farbtastic(function (color) {
+     $('#widget-background-color-bottom').val(color);
+  });
+  
+  $('#widget-background-color-bottom').click(function(){
+        $("#picker-top").hide();
+        $("#picker-platform").hide();
+       $('#hide-color-top').hide();
+       $('#hide-color-platform').hide();
+        $("#picker-bottom").slideDown('slow');
+        $('#hide-color-bottom').show(); 
+  });
+
+// background color PLATFORM
+  $('#hide-color-platform').click(function(){
+       $("#picker-platform").slideUp('slow');
+       $('#hide-color-platform').hide();
+  })
+  $('#picker-platform').farbtastic(function (color) {
+     $('#widget-background-color-platform').val(color);
+  });
+  
+  $('#widget-background-color-platform').click(function(){
+        $("#picker-top").hide();
+        $("#picker-bottom").hide();
+       $('#hide-color-bottom').hide();
+       $('#hide-color-top').hide();
+        $("#picker-platform").slideDown('slow');
+        $('#hide-color-platform').show(); 
+  });
+
+
+
+// update idrame widget
+$("#refresh-iframe").click(function(){
+    //alert("cleditor val" + unescape($("#widget-message").cleditor().attr("$area").html()));
+    $.ajax({ 
+                   url: "{% url ajax_update_widget %}", 
+    	           dataType: "json", 
+    	           data: {headercolor: $('#widget-background-color-top').val(), 
+                          camp_id: '{{campaign.id}}',   
+    		            footercolor: $('#widget-background-color-bottom').val(),
+                            platformcolor: $('#widget-background-color-platform').val(),
+                          htmlval: $("#widget-message").val()},
+    	           success: function (data) { 
+                          $("#ripple-frame").attr("src", $("#ripple-frame").attr("src"));
+                               },
+    	           beforeSend: function() { 
+                          //alert("HTML TEXT " + $("#widget-message").val());
+                 } 
+    
+    }); 
+
+});
+
+</script>
+

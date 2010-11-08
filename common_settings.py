@@ -57,14 +57,12 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(ROOT_PATH, 'core/templates'),
-    os.path.join(ROOT_PATH, 'core/templates/event_templates'),
-    os.path.join(ROOT_PATH, 'core/tauth/templates'),
-    os.path.join(ROOT_PATH, 'frontpage/templates'),
-    os.path.join(ROOT_PATH, 'analytics/templates'),
-    os.path.join(ROOT_PATH, 'core/entities/templates'),
-    os.path.join(ROOT_PATH, 'core/campaign/templates'),
-    os.path.join(ROOT_PATH, 'core/fauth/templates'),
+    os.path.join(ROOT_PATH, 'templates/core'),
+    os.path.join(ROOT_PATH, 'templates/entities'),
+    os.path.join(ROOT_PATH, 'templates/fauth'),
+    os.path.join(ROOT_PATH, 'templates/tauth'),
+    os.path.join(ROOT_PATH, 'templates/frontpage'),
+    os.path.join(ROOT_PATH, 'templates/analytics'),
 )
 
 INSTALLED_APPS = (

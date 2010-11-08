@@ -1,0 +1,488 @@
+{% extends "site_base.html" %}
+
+{% block  js_css_include %}
+	<!--<script type="text/javascript" src="{% url static 'javascript/jquery-ui-1.8.1.custom.js' %}"></script>-->
+
+        <script type="text/javascript" src="{% url static 'javascript/jquery.cookie.js' %}" ></script>
+        <script type="text/javascript" src="{% url static 'javascript/charCount.js' %}" ></script>
+        <script type="text/javascript" src="{% url static 'javascript/jquery.showLoading.js' %}" ></script>	
+        <!-- <script type="text/javascript" src="{% url static 'javascript/overlay.js' %}" ></script>-->
+        <!--<script type="text/javascript" src="{% url static 'javascript/toolbox.expose.js' %}" ></script>-->
+
+        <!--	<link type="text/css" href="{% url static 'css/jquery-ui-1.8.1.custom.css' %}" rel="stylesheet" />-->
+       <link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text/css" />	
+        <link rel="stylesheet" href="{% url static 'css/overlay.css' %}" type="text/css" />
+ 	<link rel="stylesheet" href="{% url static 'css/style.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% url static 'css/2stylez.css' %}" type="text/css" />
+	<link rel="stylesheet" href="{% url static 'css/2home.css' %}" type="text/css" />  
+
+
+ 
+{% endblock %} 
+
+{% block title %}Event Promotions - Viral Incentive Referrals Tool - {{campaign.title}}{% endblock %}
+{% block description %}A deal landing page for Marketing and promoting your event by providing an incentive to attendees to share on facebook and twitter in return for discounts and other rewards.{% endblock %}
+
+{% block site-content %}
+
+<h1><font style="color:#003366;">{{campaign.title}}<font></h1>
+<h2><font style="font-size:25px; padding-left: 200px; color: #000033;"><u>{{campaign.message}}</u></font></h2>
+<br /><br /><br />
+
+
+
+<div id="badge" rel="#overlay-blogger-login">
+<!--<div id="badge" onmouseover="$('#badge').stop().animate({shadow: '0 0 30px #44f'}, 'fast')" onmouseout="$('#badge').stop().animate({shadow: '3px 3px 10px #000'}, 'fast')" rel="#overlay-blogger-login">-->
+<br/><font style="color: #0074A0; font-size: 34px;">CLICK HERE </font><br/>
+<font style="font-size: 50px;">Get <b>{{campaign.percent}}% </b>Discount </font><br/>
+<br/><font style="font-size: 32px; font-weight: bold; color: black;">JUST BY</font><font style="color: black; font-size: 25px;"> telling your friends.</font>
+</div>
+
+<div id="overlay-blogger-login" class="overlay-blogger">
+	<div id="overlay-div-content1">
+		<div class="overlay-top">
+			<img src="{% url static 'images/step1-msg.png' %}">
+		</div>
+
+		<div id="pick-msg">{% block custom-message %} To get your discount, share this offer with your friends on Facebook or Twitter, Choose one:{% endblock %}</div>
+		<div class="overlay-bot">
+			<div id="previous-grey"><img src="{% url static 'images/previous-grey.png' %}"></div>
+			<div id="invite-progress"><img src="{% url static 'images/step1.png' %}"></div>
+			<div id="next-grey"><img src="{% url static 'images/next-grey.png' %}"></div>
+		</div>
+		<BR /><BR />
+
+		<div id="overlay-div-facebook-login">
+			<script src="http://connect.facebook.net/en_US/all.js"></script>
+			
+			<div id="fb-root"></div>
+			{% if fbuser %}
+			<br/><font style="color:blue; font-size: 20px; font-weight: bold;">Facebook</font><br/>
+			<fb:profile-pic id="facebook-profile-image" height="45px" width="45px" uid={{fbuser.facebook_id}} linked="false" ></fb:profile-pic> 
+			<br/>
+			<div class="logoutnow" href="" style="text-decoration:underline;"><font style="font-size: 11px; color: blue;">logout</font></div>
+			{% else %}
+			<img id="facebook-login" src="{% url static 'images/facebook-button.png' %}"/>
+			{% endif %}
+		</div>
+
+		<div id="overlay-div-twitter-login">
+
+			{% if user %}
+			<br/><font style="color:green; font-size: 20px; font-weight: bold;">Twitter</font><br />
+			<img id="twitter-profile-image" src="{{user.profile_pic}}" />
+			<br/>
+			<a href="{% url tauth_logout %}?redirectArgs=overlayEQUALStrue" style="text-decoration:underline; font-size: 11px; color: green;">logout</a>
+			{% else %}
+			<a href="{% url tauth_login %}?redirectArgs=overlayEQUALStwitter"><img id="twitter-login" src="{% url static 'images/twitter-button.png' %}" /></a><br/><br/>
+			{% endif %}
+		</div>
+
+	</div>
+
+	<div id="overlay-div-content2-facebook" >
+		<div class="overlay-top">
+			<img src="{% url static 'images/step2-msg.png' %} ">
+		</div>
+		<div class="overlay-bot">
+			<div id="previous" class="previous"><img src="{% url static 'images/previous.png' %}"></div>
+			<div id="invite-progress"><img src="{% url static 'images/step2.png' %}"></div>
+			{%if fbuser %}
+			<!--<img id="facebook-feed-update" src="{%url static 'images/facebook-sinvite.png' %}">-->
+			<!--FB Back Button-->
+			<!--<div id="facebook-div-back"><img src="{% url static 'images/back.png' %}" id="facebook-back"></div>-->
+			<div id="facebook-div-feed-update"><img src="{% url static 'images/share.png' %}" id="facebook-feed-update"></div>
+			{% endif %}
+		</div>
+		<div id="facebook-top-msg">
+			<img src="{% url static 'images/facebook-share-msg.png' %}">
+		</div>
+		<textarea id="overlay-textarea-facebook">{{campaign.message_share}}</textarea>
+	</div>
+	
+	<div id="overlay-div-content2-twitter">
+		<div class="overlay-top">
+			<img src="{% url static 'images/step2-msg.png' %}">  
+		</div>
+		<div class="overlay-bot">
+			<div id="previous" class="previous"><img src="{% url static 'images/previous.png' %}"></div>
+			<div id="invite-progress"><img src="{% url static 'images/step2.png' %}"></div>
+			<div id="twitter-div-feed-update"><img src="{% url static 'images/share.png' %}" id="twitter-feed-update"></div>
+		</div>
+		<div id="twitter-top-msg">
+			<img src="{% url static 'images/twitter-share-msg.png' %}">
+		</div>
+		<textarea id="overlay-textarea-twitter" >{{campaign.message_share}}</textarea>
+	</div>
+	<div id="overlay-div-content3" >
+
+		<div class="overlay-top"><img src="{% url static 'images/step3-msg.png' %}">  
+
+		</div>
+		<div class="overlay-bot">
+			<div id="previous" class="previous">
+				<img src="{% url static 'images/previous.png' %}">
+			</div>
+			<div id="invite-progress"><ul><img src="{% url static 'images/step3.png' %}"></div>
+			<div id="okay"><img src="{% url static 'images/done.png' %}"></div>
+		</div>
+		
+			<BR />
+			<div id="code-msg">Thanks! You've shared your discount with your friends.<BR>
+			Here’s your discount code:
+			</div>      	
+			
+			<div id="code"><p style="width: 60%; margin: auto;text-align: center; border: 6px outset #0074A0; padding-bottom: 10px; ">{{campaign.code}}</p><br/>
+			  <font style="font-size:18px;">&nbsp;&nbsp;&nbsp;Redeem Here: &nbsp;<a href="{{campaign.url_redeem}}">{{campaign.url_redeem}}</a></font></div>
+
+	</div>
+
+</div>
+
+<div id="attendees">
+	<div id="msg">Interested Guests</div>
+
+
+	<br/><br/>
+	<div id="attendees_thumbs">
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		{% for attendee in attendees %} 
+
+		<a href="">
+			<img src="{{attendee.profile_pic}}" /> 
+		</a>
+		&nbsp;
+
+		{% endfor %}
+	</div>
+
+</div>
+
+</div>
+
+
+
+
+<div id="ifra">
+
+<iframe id="ifm" src ="{{campaign.url}}" frameborder="0" width="100%" scrolling="auto">
+  <p>Your browser does not support iframes.</p>
+</iframe>
+
+</div>
+
+<script>
+
+function refreshAttendee()
+{
+	var attendee_list = "&nbsp;&nbsp;&nbsp;&nbsp; ";
+	$.getJSON('{% url attendees_list campaign_id=campaign.id %}', function(data){
+		$.each(data, function(index, attendee) {
+                        if (attendee[3] == "facebook") {
+			attendee_list += '<a target="facebook_' + attendee[2] + '" href="http://www.facebook.com/profile.php?id=' +  attendee[2]  + '"><img height="44px" style="margin-bottom: 5px; border: 3px solid blue;" src= "'+attendee[0]+'"></a>&nbsp&nbsp&nbsp;';
+                        }
+                        else {
+                        attendee_list += '<a target="twitter_' + attendee[2] + '" href="http://twitter.com/' +  attendee[2]  + '"><img height="44px" style="margin-bottom: 5px; border: 3px solid green;" src= "'+attendee[0]+'"></a>&nbsp&nbsp&nbsp;';
+                        } 
+			if ((index+1) % 7==0 && index != 0)
+			{
+				attendee_list +="<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+			}
+		});
+		$('#attendees_thumbs').html(attendee_list);
+	});
+}
+
+refreshAttendee();
+
+$("#ifra").showLoading({'afterShow': function(){ setTimeout( "jQuery('#ifra').hideLoading()", 5000 );}});         
+
+
+$("#badge").click(function(){
+	$("#badge").overlay().load();
+});       
+
+var contentView = 0;
+
+//alert("test");
+
+$("#badge").overlay({
+//	expose: {
+//		loadSpeed: 200,
+//		color: 'gray'
+//		opacity: 0.1
+//	},
+	onLoad: function(event) {
+//alert("called");
+		// if twitter user logged in, show twitter page
+		{% if user and overlayTwitter %}
+		contentView = 2;
+		$('#overlay-div-content1').hide(); 
+		$('#overlay-div-content2-facebook').hide(); 
+		$('#overlay-div-content2-twitter').show();
+		$('#overlay-div-content3').hide();
+		{% else %} 	
+	
+		// if fbuser logged in
+		{% if fbuser and overlayFacebook %}
+		contentView = 2;
+		$('#overlay-div-content1').hide(); 
+		$('#overlay-div-content2-facebook').show(); 
+		$('#overlay-div-content2-twitter').hide();
+		$('#overlay-div-content3').hide();	
+		{% else %} 
+	
+		// show first view with facebook and twitter login buttons
+		{% if not user and not fbuser %}
+		contentView = 1;
+		$('#overlay-div-content1').show(); 
+		$('#overlay-div-content2-facebook').hide(); 
+		$('#overlay-div-content2-twitter').hide();
+		$('#overlay-div-content3').hide();
+		{% else %} 	
+	
+		// if fbuser logged in
+		{% if fbuser %}
+		contentView = 2;
+		$('#overlay-div-content1').hide(); 
+		$('#overlay-div-content2-facebook').show(); 
+		$('#overlay-div-content2-twitter').hide();
+		$('#overlay-div-content3').hide();	
+		{% else %} 	
+	
+		// if fbuser logged in
+		{% if user  %}
+		contentView = 2;
+		$('#overlay-div-content1').hide(); 
+		$('#overlay-div-content2-facebook').hide(); 
+		$('#overlay-div-content2-twitter').show();
+		$('#overlay-div-content3').hide();
+	
+		{% endif %}
+		{% endif %}
+		{% endif %}
+		{% endif %}
+		{% endif %}
+	},
+	top: 170,
+	left: 220
+});
+
+
+// $("#badge").overlay({
+//	expose: {
+//		loadSpeed: 200,
+//		color: 'gray',
+//		opacity: 0.8
+//	},
+//	onLoad: function(event) {
+//        alert("called");
+//	},
+//	top: 170,
+//});
+
+
+$('#facebook-profile-image').click(function(){
+	contentView = 2;
+	$('#overlay-div-content1').hide(); 
+	$('#overlay-div-content2-facebook').show(); 
+	$('#overlay-div-content2-twitter').hide();
+	$('#overlay-div-content3').hide();
+});
+
+
+$('#twitter-profile-image').click(function(){
+	contentView = 2;
+	$('#overlay-div-content1').hide(); 
+	$('#overlay-div-content2-facebook').hide(); 
+	$('#overlay-div-content2-twitter').show();
+	$('#overlay-div-content3').hide();
+});
+
+
+$('.previous').click(function(){
+	if (contentView == 2){
+
+		contentView = 1;
+		$('#overlay-div-content1').show();  
+		$('#overlay-div-content2-facebook').hide(); 
+		$('#overlay-div-content2-twitter').hide();
+		$('#overlay-div-content3').hide();
+
+	}
+	else if (contentView == 3) {
+		{% if user %}
+		contentView = 2;
+		$('#overlay-div-content1').hide(); 
+		$('#overlay-div-content2-facebook').hide(); 
+		$('#overlay-div-content2-twitter').show();
+		$('#overlay-div-content3').hide();
+		{% else %} 	
+
+		// if fbuser logged in
+		{% if fbuser %}
+		contentView = 2;
+		$('#overlay-div-content1').hide(); 
+		$('#overlay-div-content2-facebook').show(); 
+		$('#overlay-div-content2-twitter').hide();
+		$('#overlay-div-content3').hide();	
+		{% endif %}
+		{% endif %}
+	}
+});
+
+{% if overlay or overlayTrue or overlayFacebook or overlayTwitter%}
+$("#badge").overlay().load();
+{% endif %}
+
+FB.init({appId: '{{fbappid}}', status: true, cookie: true, xfbml: true});
+
+$("#twitter-feed-update").click(function() { 
+	contentView = 3;
+
+	$('#overlay-div-content1').hide(); 
+	$('#overlay-div-content2-facebook').hide(); 
+	$('#overlay-div-content2-twitter').hide(); 
+	$('#overlay-div-content3').show();
+
+	$.ajax({ 
+                   url: "{% url campaign_tweet_invite campaign_id=campaign.id %}", 
+	           dataType: "json", 
+	           data: {message: $("#overlay-textarea-twitter").val(), 
+		   shash: "{{shash}}"},
+	           success: function (data) { $.get('{% url campaign_going_twitter campaign_id=campaign.id %}', 
+	                                  function(data) { refreshAttendee(); }); },
+	           beforeSend: function() { 
+                         $("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
+                 } 
+
+    }); 
+});
+
+
+
+
+$("#facebook-feed-update").click(function(){
+	contentView = 3;
+	$('#overlay-div-content1').hide(); 
+	$('#overlay-div-content2-facebook').hide();	 
+	$('#overlay-div-content2-twitter').hide();
+	$('#overlay-div-content3').show();
+
+	$.ajax({
+		url: '{% url campaign_facebook_update campaign_id=campaign.id %}', 
+		dataType: "json",
+		data: {message: $("#overlay-textarea-facebook").val(), shash: "{{shash}}" },
+
+		success: function(data){
+                  refreshAttendee();
+		},
+		beforeSend: function() {
+                $("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
+		}
+	});   
+
+});
+
+$("#status_button").click(function(){
+	FB.getLoginStatus(function(response) {
+		//alert("HAHA" + response + inspect(response));
+		if (response.session) {
+			// logged in and connected user, someone you know
+			//alert("logged in ");
+		} else {
+			// no user session available, someone you dont know
+			//alert("logged out");
+		}
+	});
+});
+
+
+
+
+
+var requiredPerms  = ['email','user_about_me','user_birthday','user_website', 'publish_stream'];
+$('#facebook-login').click(function(){
+        facebook_login_click();
+	//FB.getLoginStatus(function(response) {
+	//alert("facebook login");
+	//
+	//	if (response.session) {
+	//		// logged in and connected user, someone you know
+	//		//alert("LOGGED IN");
+	//		FB.logout(function(response) { 
+        //                      facebook_login_click();
+	//		});
+        //        } else {
+        //                 //alert("logged out");
+        //                    facebook_login_click();
+        //        }
+	//
+        //});
+
+});
+
+$('.logoutnow').click(function() 
+{
+	var options  = { path: '/', expires: -1 };
+	$.cookie("uid", null, options);
+	$.cookie("session_key", null, options);
+	$.cookie("secret", null, options);
+	$.cookie("expires", null, options);
+	$.cookie("base_domain", null, options);
+	$.cookie("access_token", null, options);
+	$.cookie("sig", null, options);
+
+	FB.getLoginStatus(function(response) {
+		if (response.session) {	
+			FB.logout(function(response) { 
+						window.location.href   = "{% url facebook_logout_callback %}?redirectArgs=overlayEQUALStrue";
+					});
+				}
+				else{
+					window.location.href  = "{% url facebook_logout_callback %}?redirectArgs=overlayEQUALStrue";
+				}
+	});
+});
+
+
+
+$("#invite_popup_close").bind('click', function() {
+	$('#invite_popup').hide();
+	$('#tweet_msg').html("");
+	ajax_loader_image();
+});
+
+$("#okay").click(function(){
+	$("#badge").overlay().close();
+});
+
+
+//default usage
+$("#overlay-textarea-twitter").charCount();
+({
+	allowed: 80,		
+	warning: 20
+});
+$("#overlay-textarea-facebook").charCount();
+({
+	allowed: 80,		
+	warning: 20
+});
+
+function pageY(elem) {
+    return elem.offsetParent ? (elem.offsetTop + pageY(elem.offsetParent)) : elem.offsetTop;
+}
+var buffer = 30; //scroll bar buffer
+function resizeIframe() {
+    var height = document.documentElement.clientHeight;
+    height -= pageY(document.getElementById('ifra'))+ buffer ;
+    height = (height < 0) ? 0 : height;
+    document.getElementById('ifra').style.height = height + 'px';
+}
+//document.getElementById('ifm').onload=resizeIframe;
+//window.onresize = resizeIframe;
+
+</script>
+<script type="text/javascript" src="{% url static 'javascript/jquery.animate-shadow.js' %}" ></script>
+{% endblock %}

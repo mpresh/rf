@@ -1,3 +1,5 @@
+import os
+
 from django.conf import settings
 from django.core.urlresolvers import *
 
@@ -6,6 +8,7 @@ from core.events.models import *
 from core.fauth.models import *
 from core.tauth.models import *
 from pylib.util import render_template
+
 
 def analytics(req):
     data_tallies = {}
@@ -63,15 +66,10 @@ def analytics(req):
             pass
 
     template = "analytics.html"
-
-    try:
-        if req.GET["type"] == "raw":
-            (prefix, suffix) = template.split(".")
-            template = prefix + "_raw" + "." + suffix
-            data_tallies["raw"] = True
-    except:
-        template = 'analytics.html'
-
+    if req.GET["type"] == "raw":
+        (prefix, suffix) = template.split(".")
+        template = prefix + "_raw" + "." + suffix
+        data_tallies["raw"] = True
         
     return render_template(template, **data_tallies)
 
@@ -123,13 +121,9 @@ def analytics_chash(req, chash=""):
 
 
     template = "analytics.html"
-
-    try:
-        if req.GET["type"] == "raw":
-            (prefix, suffix) = template.split(".")
-            template = prefix + "_raw" + "." + suffix
-            data_tallies["raw"] = True
-    except:
-        template = 'analytics.html'
+    if req.GET["type"] == "raw":
+        (prefix, suffix) = template.split(".")
+        template = prefix + "_raw" + "." + suffix
+        data_tallies["raw"] = True
         
     return render_template(template, **data_tallies)

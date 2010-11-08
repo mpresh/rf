@@ -1,0 +1,15 @@
+{% extends "site_base.html" %}
+
+	{% block  js_css_include %}
+        {% include "campaign_widget_jsinclude.html" %}
+	{% endblock %}
+
+{% block title %}Event Promotion Widget{% endblock %}
+{% block description %}Widget to embed on your site that will promote your event by rewarding people for sharing on facebook and twitter.{% endblock %}
+
+
+{% block site-content %}
+{% include "campaign_widget_content.html" %}
+{% endblock %}
+
+
