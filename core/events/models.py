@@ -66,7 +66,7 @@ class Share(models.Model):
     event = models.ForeignKey(Event, related_name="invites", null=True)
     campaign = models.ForeignKey(Campaign, related_name="shares", null=True)
     from_invite = models.ForeignKey('self', related_name="child_invites", default=None, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, auto_now=True)
     url_full = models.URLField(default="", null=True)
     url_short = models.URLField(default="", null=True)
     shash = models.CharField(max_length=100, default="", null=True)
