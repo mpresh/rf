@@ -1,0 +1,4 @@
+#! /bin/bash
+
+echo "password is 1564f867";
+ssh mpresh@174.121.79.154 /home/mpresh/scripts/restart_stage.sh;
