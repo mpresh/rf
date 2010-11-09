@@ -2,7 +2,7 @@
 # Django settings for demo project.
 
 import os
-.from common_settings import *
+from common_settings import *
 
 SESSION_COOKIE_DOMAIN = ".demo.com"
 
