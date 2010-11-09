@@ -66,10 +66,19 @@ def configure_env(args):
 def search_code(args):
     """Searches code for given string"""
     new_env = get_new_env()
-    search_cmd = shlex.split('grep -R %s %s' 
+    search_cmd = shlex.split('grep -R -e %s %s' 
                              # FIX: use $RFSRC inline above instead 
                              #      of string substitution.
                              % (args[0], new_env.get('RFSRC')))
+    subprocess.Popen(search_cmd, env = os.environ)
+
+def find_file(args):
+    """Searches for file"""
+    new_env = get_new_env()
+    search_cmd = shlex.split('find %s -name "%s"' 
+                             # FIX: use $RFSRC inline above instead 
+                             #      of string substitution.
+                             % (new_env.get('RFSRC'), args[0]))
     subprocess.Popen(search_cmd, env = os.environ)
 
 def deflake(args):
@@ -94,7 +103,8 @@ options = { 'start': start_server,
             'stop': stop_server,
             'status': status_server,
             'configure': configure_env,
-            'find': search_code,
+            'search': search_code,
+            'find': find_file,
             'deflake': deflake,
             }
 
