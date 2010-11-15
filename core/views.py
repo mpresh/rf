@@ -6,6 +6,8 @@ from create import *
 from events.models import Event
 from tauth.models import User
 
+from django.contrib.auth.decorators import login_required
+
 # iframe embed in django page
 def test5(req):
     return render_to_response('test5.html', {})
@@ -38,6 +40,7 @@ def contact(req):
 def howitworks(req):
     return render_to_response('howitworks.html', {})
 
+@login_required
 def event_list(req):
     #req.session["redirect"] = req.get_full_path()  
     all_campaigns = Campaign.objects.all()

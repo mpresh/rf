@@ -85,3 +85,4 @@ INSTALLED_APPS = (
 )
 
 
+LOGIN_URL = "/admin"
