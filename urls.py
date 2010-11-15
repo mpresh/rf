@@ -13,6 +13,8 @@ urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^site_media/(?P<path>.*)$', 'django.views.static.serve',
                            {'document_root': settings.MEDIA_ROOT}, name="static"),
+                       url(r'^admin/media/(?P<path>.*)$', 'django.views.static.serve',
+                           {'document_root': settings.ADMIN_MEDIA_ROOT}, name="admin_static"),
                        url(r'^manage/',  include('core.entities.urls')),
                        (r'^accounts/login/$', 'django.contrib.auth.views.login'),
 )
