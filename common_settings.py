@@ -50,6 +50,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'middleware.domains.SubdomainMiddleware',
+    #'middleware.login.SiteLogin',
 )
 
 ROOT_URLCONF = 'rf.urls'
