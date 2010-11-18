@@ -3,9 +3,9 @@ from django.shortcuts import render_to_response
 
 from campaign.models import Campaign
 from create import *
-from events.models import Event
+from events.models import Event, Share
 from tauth.models import User
-import datetime
+from datetime import datetime, timedelta
 
 from django.contrib.auth.decorators import login_required
 
@@ -43,9 +43,43 @@ def howitworks(req):
 
 @login_required
 def event_data(req):
-    current_date = datetime.datetime.strftime(datetime.datetime.now(), "%m/%d/%Y")
-    start_date = "01/01/2010"
-    return render_to_response('data.html', {'start': start_date, "current": current_date})
+    now = datetime.now()
+
+    dict_vals = {}
+    dict_vals['current'] = datetime.strftime(datetime.now(), "%m/%d/%Y")
+    dict_vals['start'] = "01/01/2010"
+
+    shares = Share.objects.all()
+    dict_vals["total_shares"] = shares.count()
+    
+    day = now - timedelta(days=1)
+    dict_vals["total_shares_last_day"] = shares.exclude(created_at__lte=day).count()
+
+    week = now - timedelta(days=7)
+    dict_vals["total_shares_last_week"] = shares.exclude(created_at__lte=week).count()
+
+    month = now - timedelta(days=30)
+    dict_vals["total_shares_last_month"] = shares.exclude(created_at__lte=month).count()
+
+
+    campaigns = Campaign.objects.all()
+    dict_vals["total_campaignscreated"] = campaigns.count()
+
+    day = now - timedelta(days=1)
+    dict_vals["total_campaignscreated_last_day"] = campaigns.exclude(created_at__lte=week).count()
+
+    week = now - timedelta(days=7)
+    dict_vals["total_campaignscreated_last_week"] = campaigns.exclude(created_at__lte=week).count()
+
+    month = now - timedelta(days=30)
+    dict_vals["total_campaignscreated_last_month"] = campaigns.exclude(created_at__lte=month).count()
+
+    dict_vals['all'] = "01/01/2010"
+    dict_vals['day'] = str(day.month) + "/" + str(day.day) + "/" + str(day.year)
+    dict_vals['week'] = str(week.month) + "/" + str(week.day) + "/" + str(week.year)
+    dict_vals['month'] = str(month.month) + "/" + str(month.day) + "/" + str(month.year)
+
+    return render_to_response('data.html', dict_vals)
 
 
 @login_required

@@ -57,9 +57,19 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
 <div id="accordion">
   <h3><a id="total_shares" href="#">Total Shares</a></h3>
   <div id="data-content-totalshares" class="data-content">
+
+    <ul>
+      <li id="li-shares-day">Last 24 hours: {{total_shares_last_day}}</li>
+      <li id="li-shares-week">Last Week: {{total_shares_last_week}}</li>
+      <li id="li-shares-month">Last Month: {{total_shares_last_month}}</li>
+      <li id="li-shares-all">All Time: {{total_shares}}</li>
+    </ul>
+      
+
     <div class="dates">  
       <p>From: <input type="text" value="{{start}}" id="datepicker_start_totalshares"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       To: <input type="text"  value="{{current}}" id="datepicker_end_totalshares">
+
       <button id="total_shares_refresh">Refresh</button>
       </p>
       
@@ -68,12 +78,27 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
     
     <div id="line-chart-totalshares"></div>
     <div id="pie-chart-totalshares"></div>
+    <select id="share-chart-date-type">
+	  <option value="minutes">Minutes</option>
+          <option value="hours">Hours</option>
+	  <option selected="yes" value="days">Days</option>
+          <option value="weeks">Weeks</option>
+          <option value="months">Months</option>
+	  <option value="years">Years</option>
+	</select>
 
   </div> <!-- end data-content -->
 
 
   <h3 ><a id="campaigns_created" href="#">Campaigns Created</a></h3>
   <div id="data-content-campaignscreated" class="data-content">
+    <ul>
+      <li id="li-campaignscreated-day">Last 24 hours: {{total_campaignscreated_last_day}}</li>
+      <li id="li-campaignscreated-week">Last Week: {{total_campaignscreated_last_week}}</li>
+      <li id="li-campaignscreated-month">Last Month: {{total_campaignscreated_last_month}}</li>
+      <li id="li-campaignscreated-all">All Time: {{total_campaignscreated}}</li>
+    </ul>
+
      <div class="dates">  
       <p>From: <input type="text" value="{{start}}" id="datepicker_start_campaigns_created"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       To: <input type="text" value="{{current}}" id="datepicker_end_campaigns_created">
@@ -83,6 +108,14 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
   
     <div id="line-chart-campaignscreated"></div>
     <div id="pie-chart-campaignscreated"></div>
+      <select id="campaignscreated-chart-date-type">
+	  <option value="minutes">Minutes</option>
+          <option value="hours">Hours</option>
+	  <option selected="yes" value="days">Days</option>
+          <option value="weeks">Weeks</option>
+          <option value="months">Months</option>
+	  <option value="years">Years</option>
+	</select>
 
   </div> <!-- end data-content -->
 
@@ -121,7 +154,9 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
 	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
 	     			data_table.draw(json_data, 
 	     			     {width: 340,   
-	     			     is3D: true});
+	     			     is3D: true,
+                                     pieSliceText: 'value',
+                                     colors:['green','blue']});
 	     		},
 	     		beforeSend: function() {
 	                    if (show_loading) {
@@ -141,8 +176,11 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
 	     		success: function(data) {
 	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
 	     			data_table.draw(json_data, 
-	     			     {width: 340, height: 200,   
-	     			     is3D: true});
+	     			     {title: "",
+                                     width: 340, height: 200,   
+	     			     is3D: true,
+                                     pieSliceText: 'value',
+	                             colors:['orange','red']});
 	     		},
 	     		beforeSend: function() {
 	                    if (show_loading) {
@@ -153,7 +191,29 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
 	     	});		
 	     }
 
-            
+             function drawLineShares(start, end, show_loading) {
+	     	var data_table = new google.visualization.LineChart(document.getElementById('line-chart-totalshares'));
+	     	$.ajax({
+	     		url: '{% url internal_analytics_totalshares_pie %}?start=' + start + '&end=' + end, 
+	     		dataType: "json",
+	     		data: {},
+	     		success: function(data) {
+	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
+	     			data_table.draw(json_data, 
+	     			     {title: "Shares Over Time",
+	                             width: 340,   
+	     			     is3D: true,
+                                     pieSliceText: 'value',
+                                     colors:['green','blue']});
+	     		},
+	     		beforeSend: function() {
+	                    if (show_loading) {
+                                $("#line-chart-totalshares").showLoading({'afterShow': function(){ setTimeout( "jQuery('#line-chart-totalshares').hideLoading()", 500 );}});         
+                            }
+	     		}
+
+	     	});		
+	     }
 
               google.load("visualization", "1", {packages:["table", "piechart", "corechart"]});
               google.setOnLoadCallback(drawGraphs);
@@ -174,6 +234,49 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
 
              $('#campaigns_created_refresh').click(function(){
 	        drawPieCampaignsCreated($('#datepicker_start_campaigns_created').val(), $('#datepicker_end_campaigns_created').val(), true);
+             });
+
+	     // choose default dates to graph
+	     $('#li-shares-day').click(function(){
+	         $("#datepicker_start_totalshares").val('{{day}}');
+	         $('#total_shares_refresh').trigger('click');
+             });
+
+	     $('#li-shares-week').click(function(){
+	         $("#datepicker_start_totalshares").val('{{week}}');
+	         $('#total_shares_refresh').trigger('click');
+             });
+	     
+	     $('#li-shares-month').click(function(){
+	         $("#datepicker_start_totalshares").val('{{month}}');
+	         $('#total_shares_refresh').trigger('click');
+             });
+
+             $('#li-shares-all').click(function(){
+	         $("#datepicker_start_totalshares").val('{{all}}');
+	         $('#total_shares_refresh').trigger('click');
+             });
+
+
+
+	     $('#li-campaignscreated-day').click(function(){
+	         $("#datepicker_start_campaigns_created").val('{{day}}');
+	         $('#campaigns_created_refresh').trigger('click');
+             });
+
+	     $('#li-campaignscreated-week').click(function(){
+	         $("#datepicker_start_campaigns_created").val('{{week}}');
+	         $('#campaigns_created_refresh').trigger('click');
+             });
+	     
+	     $('#li-campaignscreated-month').click(function(){
+	         $("#datepicker_start_campaigns_created").val('{{month}}');
+	         $('#campaigns_created_refresh').trigger('click');
+             });
+
+             $('#li-campaignscreated-all').click(function(){
+	         $("#datepicker_start_campaigns_created").val('{{all}}');
+	         $('#campaigns_created_refresh').trigger('click');
              });
 
 </script>

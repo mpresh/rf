@@ -8,4 +8,4 @@ class SiteLogin:
             if request.POST:
                 return login(request)
             else:
-                return HttpResponseRedirect('/admin/?next=%s' % request.path)
+                return HttpResponseRedirect('%s' % request.path)

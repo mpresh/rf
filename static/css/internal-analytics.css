@@ -1,5 +1,5 @@
 .data-content {
-height: 250px;
+height: 350px;
 background-color: white;
 margin: auto;
 padding: 0;
@@ -29,4 +29,32 @@ h3 a{
 
 button {
        float: right;
+       cursor: pointer;
+}
+
+ul {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+li {
+list-style-type:none; 
+display: inline;
+padding: 5px 20px 5px 20px;
+border-right: 1px solid black;
+}
+li:last-child {
+border-right: 0px solid black;
+}
+
+li:hover {
+    background-color: #cccccc;
+    cursor: pointer;
+}
+
+#share-chart-date-type, #campaignscreated-chart-date-type {
+	background-color: red;
+	margin-top: 10px;
+
 }
