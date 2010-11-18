@@ -111,3 +111,10 @@ def analytics_campaignscreated_pie(req):
     return HttpResponse(json.dumps(dict_vals))
 
 
+def analytics_totalshares_line(req):
+    dict_vals = {}
+    return HttpResponse(json.dumps(dict_vals))
+    
+def analytics_campaignscreated_line(req):
+    dict_vals = {}
+    return HttpResponse(json.dumps(dict_vals))

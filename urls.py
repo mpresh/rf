@@ -177,6 +177,13 @@ urlpatterns += patterns('',
                         url(r'ajax/internal_analytics_campaignscreated_pie$', 
                             'internal_analytics.ajax.analytics_campaignscreated_pie', 
                             name='internal_analytics_campaignscreated_pie'),
+                        url(r'ajax/internal_analytics_totalshares_line$', 
+                            'internal_analytics.ajax.analytics_totalshares_line', 
+                            name='internal_analytics_totalshares_line'),
+                        url(r'ajax/internal_analytics_campaignscreated_line$', 
+                            'internal_analytics.ajax.analytics_campaignscreated_line', 
+                            name='internal_analytics_campaignscreated_line'),
+
                         )
 
 #
