@@ -1,0 +1,32 @@
+.data-content {
+height: 250px;
+background-color: white;
+margin: auto;
+padding: 0;
+overflow: hidden;
+}
+
+h3 a{
+   font-weight: bold;
+}
+
+.dates {
+    margin-bottom: 20px;
+}
+
+#line-chart-totalshares, #line-chart-campaignscreated, #line-chart-campaignsmodified {
+	width: 60%;
+	border: 1px solid black;
+	height: 200px;
+	float: left;
+}
+
+#pie-chart-totalshares, #pie-chart-campaignscreated, #pie-chart-campaignsmodified {
+	border: 1px solid black;
+	height: 200px;
+	float: right;
+}
+
+button {
+       float: right;
+}

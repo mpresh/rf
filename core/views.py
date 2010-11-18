@@ -5,6 +5,7 @@ from campaign.models import Campaign
 from create import *
 from events.models import Event
 from tauth.models import User
+import datetime
 
 from django.contrib.auth.decorators import login_required
 
@@ -41,14 +42,15 @@ def howitworks(req):
     return render_to_response('howitworks.html', {})
 
 @login_required
-def event_list(req):
-    #req.session["redirect"] = req.get_full_path()  
-    all_campaigns = Campaign.objects.all()
-    if "user_id" in req.session:
-        user = User.objects.get(id=req.session["user_id"])
-        return render_to_response('list.html', {"campaigns":all_campaigns,
-                                                "user" : user})
+def event_data(req):
+    current_date = datetime.datetime.strftime(datetime.datetime.now(), "%m/%d/%Y")
+    start_date = "01/01/2010"
+    return render_to_response('data.html', {'start': start_date, "current": current_date})
 
+
+@login_required
+def event_list(req):
+    all_campaigns = Campaign.objects.all()
     return render_to_response('list.html', {"campaigns":all_campaigns})
     
 def event_details(req, event_id=""):

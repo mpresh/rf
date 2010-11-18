@@ -97,7 +97,6 @@ urlpatterns += patterns('',
                         url(r'contact/$', 'views.contact', name='contact'),
                         url(r'jobs/$', 'views.jobs', name='jobs'),
                         url(r'howitworks/$', 'views.howitworks', name='howitworks'),
-                        url(r'list/$', 'views.event_list', name='event_list'),
                         
                         url(r'create_campaign/$', 
                             'views.create_campaign', 
@@ -161,6 +160,23 @@ urlpatterns += patterns('',
                         url(r'^googlehostedservice.html/?$', 
                             'frontpage.views.googlehostedservice', 
                             name='googlehostedservice'),
+                        )
+
+
+#
+# Internal Analytics
+#
+urlpatterns += patterns('',
+                        url(r'data/$', 'views.event_data', name='event_data'),
+                        url(r'list/$', 'views.event_list', name='event_list'),
+                        
+                        ### internal analytics ajax calls to retreive data
+                        url(r'ajax/internal_analytics_totalshares_pie$', 
+                            'internal_analytics.ajax.analytics_totalshares_pie', 
+                            name='internal_analytics_totalshares_pie'),
+                        url(r'ajax/internal_analytics_campaignscreated_pie$', 
+                            'internal_analytics.ajax.analytics_campaignscreated_pie', 
+                            name='internal_analytics_campaignscreated_pie'),
                         )
 
 #

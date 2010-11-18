@@ -65,6 +65,7 @@ TEMPLATE_DIRS = (
     os.path.join(ROOT_PATH, 'templates/tauth'),
     os.path.join(ROOT_PATH, 'templates/frontpage'),
     os.path.join(ROOT_PATH, 'templates/analytics'),
+    os.path.join(ROOT_PATH, 'templates/internal_analytics'),
 )
 
 INSTALLED_APPS = (

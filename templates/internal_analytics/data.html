@@ -1,0 +1,184 @@
+{% extends "site_base.html" %}
+
+{% block title %}Internal Analytics{% endblock %}
+
+	{% block  js_css_include %}
+            <script type="text/javascript" src="{% url static 'javascript/jquery-ui-1.8.1.custom.js' %}"></script>
+            <script type="text/javascript" src="{% url static 'javascript/jquery.ui.datepicker.js' %}"></script>
+            <link rel="stylesheet" href="{% url static 'css/showLoading.css' %}" type="text/css" />	
+            <script type="text/javascript" src="{% url static 'javascript/jquery.showLoading.js' %}" ></script>	        
+            <link rel="stylesheet" href="{% url static 'css/jquery-ui-1.8.6.custom.css' %}" type="text/css" />  
+            <link rel="stylesheet" href="{% url static 'css/internal-analytics.css' %}" type="text/css" />  
+            <script src="http://www.google.com/jsapi" type="text/javascript"></script> 
+	{% endblock %}
+
+
+{% block site-content %}
+<script>
+  $(function() {
+  $( "#accordion" ).accordion({
+      collapsible: true,
+      autoHeight: false
+  });
+
+$("#datepicker_start_totalshares").datepicker({ gotoCurrent: true,
+                                              showOn: "button",
+                                              buttonImage: "{% url static 'images/calendar.png' %}",
+                                              buttonImageOnly: true });
+$("#datepicker_end_totalshares").datepicker({ gotoCurrent: true, 
+                                              showOn: "button",
+                                              buttonImage: "{% url static 'images/calendar.png' %}",
+                                              buttonImageOnly: true});
+$("#datepicker_start_campaigns_created").datepicker({ gotoCurrent: true,
+                                              showOn: "button",
+                                              buttonImage: "{% url static 'images/calendar.png' %}",
+                                              buttonImageOnly: true });
+$("#datepicker_end_campaigns_created").datepicker({ gotoCurrent: true,
+                                              showOn: "button",
+                                              buttonImage: "{% url static 'images/calendar.png' %}",
+                                              buttonImageOnly: true });
+$("#datepicker_start_campaigns_modified").datepicker({ gotoCurrent: true,
+                                              showOn: "button",
+                                              buttonImage: "{% url static 'images/calendar.png' %}",
+                                              buttonImageOnly: true });
+$("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
+                                              showOn: "button",
+                                              buttonImage: "{% url static 'images/calendar.png' %}",
+                                              buttonImageOnly: true });
+  });
+
+
+</script>
+
+
+
+<div class="demo">
+
+<div id="accordion">
+  <h3><a id="total_shares" href="#">Total Shares</a></h3>
+  <div id="data-content-totalshares" class="data-content">
+    <div class="dates">  
+      <p>From: <input type="text" value="{{start}}" id="datepicker_start_totalshares"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      To: <input type="text"  value="{{current}}" id="datepicker_end_totalshares">
+      <button id="total_shares_refresh">Refresh</button>
+      </p>
+      
+    </div>
+
+    
+    <div id="line-chart-totalshares"></div>
+    <div id="pie-chart-totalshares"></div>
+
+  </div> <!-- end data-content -->
+
+
+  <h3 ><a id="campaigns_created" href="#">Campaigns Created</a></h3>
+  <div id="data-content-campaignscreated" class="data-content">
+     <div class="dates">  
+      <p>From: <input type="text" value="{{start}}" id="datepicker_start_campaigns_created"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      To: <input type="text" value="{{current}}" id="datepicker_end_campaigns_created">
+      <button id="campaigns_created_refresh">Refresh</button>
+      </p>
+    </div>
+  
+    <div id="line-chart-campaignscreated"></div>
+    <div id="pie-chart-campaignscreated"></div>
+
+  </div> <!-- end data-content -->
+
+  <h3><a id="campaigns_modified" href="#">Campaigns Modified</a></h3>
+  <div id="data-content-campaigns-modified" class="data-content">
+    <div class="dates">  
+      <p>From: <input type="text" value="{{start}}" id="datepicker_start_campaigns_modified"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      To: <input type="text" value="{{current}}" id="datepicker_end_campaigns_modified">
+      <button id="campaigns_modified_refresh">Refresh</button>
+      </p>
+    </div>    
+
+    <div id="line-chart-campaignsmodified"></div>
+    <div id="pie-chart-campaignsmodified"></div>
+
+  </div> <!-- end data-content -->
+
+  <h3><a href="#">Section 4</a></h3>
+  <div class="data-content">
+    
+    </div>
+</div>
+
+</div>
+
+
+<script>
+
+             function drawPieShares(start, end, show_loading) {
+	     	var data_table = new google.visualization.PieChart(document.getElementById('pie-chart-totalshares'));
+	     	$.ajax({
+	     		url: '{% url internal_analytics_totalshares_pie %}?start=' + start + '&end=' + end, 
+	     		dataType: "json",
+	     		data: {},
+	     		success: function(data) {
+	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
+	     			data_table.draw(json_data, 
+	     			     {width: 340,   
+	     			     is3D: true});
+	     		},
+	     		beforeSend: function() {
+	                    if (show_loading) {
+                                $("#pie-chart-totalshares").showLoading({'afterShow': function(){ setTimeout( "jQuery('#pie-chart-totalshares').hideLoading()", 500 );}});         
+                            }
+	     		}
+
+	     	});		
+	     }
+
+	     function drawPieCampaignsCreated(start, end, show_loading) {
+	     	var data_table = new google.visualization.PieChart(document.getElementById('pie-chart-campaignscreated'));
+	     	$.ajax({
+	     		url: '{% url internal_analytics_campaignscreated_pie %}?start=' + start + '&end=' + end, 
+	     		dataType: "json",
+	     		data: {},
+	     		success: function(data) {
+	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
+	     			data_table.draw(json_data, 
+	     			     {width: 340, height: 200,   
+	     			     is3D: true});
+	     		},
+	     		beforeSend: function() {
+	                    if (show_loading) {
+                                $("#pie-chart-campaignscreated").showLoading({'afterShow': function(){ setTimeout( "jQuery('#pie-chart-campaignscreated').hideLoading()", 500 );}});         
+                            }
+	     
+	     		}
+	     	});		
+	     }
+
+            
+
+              google.load("visualization", "1", {packages:["table", "piechart", "corechart"]});
+              google.setOnLoadCallback(drawGraphs);
+
+
+             function drawGraphs() {
+	     	drawPieShares($('#datepicker_start_totalshares').val(), $('#datepicker_end_totalshares').val(), false);
+	        drawPieCampaignsCreated($('#datepicker_start_campaigns_created').val(), $('#datepicker_end_campaigns_created').val(), false);
+	        //drawPieCampaignsModified($('#datepicker_start_campaigns_modified').val(), $('#datepicker_end_campaigns_modified').val());
+	     }
+
+
+
+	     // refresh buttons click
+	     $('#total_shares_refresh').click(function(){
+	     	drawPieShares($('#datepicker_start_totalshares').val(), $('#datepicker_end_totalshares').val(), true);
+             });
+
+             $('#campaigns_created_refresh').click(function(){
+	        drawPieCampaignsCreated($('#datepicker_start_campaigns_created').val(), $('#datepicker_end_campaigns_created').val(), true);
+             });
+
+</script>
+
+
+  
+{% endblock %}
+
