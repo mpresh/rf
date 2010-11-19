@@ -78,14 +78,14 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
     
     <div id="line-chart-totalshares"></div>
     <div id="pie-chart-totalshares"></div>
-    <select id="share-chart-date-type">
+    <!--<select id="share-chart-date-type">
 	  <option value="minutes">Minutes</option>
           <option value="hours">Hours</option>
 	  <option selected="yes" value="days">Days</option>
           <option value="weeks">Weeks</option>
           <option value="months">Months</option>
 	  <option value="years">Years</option>
-	</select>
+	</select>-->
 
   </div> <!-- end data-content -->
 
@@ -108,14 +108,14 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
   
     <div id="line-chart-campaignscreated"></div>
     <div id="pie-chart-campaignscreated"></div>
-      <select id="campaignscreated-chart-date-type">
+      <!--<select id="campaignscreated-chart-date-type">
 	  <option value="minutes">Minutes</option>
           <option value="hours">Hours</option>
 	  <option selected="yes" value="days">Days</option>
           <option value="weeks">Weeks</option>
           <option value="months">Months</option>
 	  <option value="years">Years</option>
-	</select>
+	</select>-->
 
   </div> <!-- end data-content -->
 
@@ -204,7 +204,7 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
 	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
 	     			data_table.draw(json_data, 
 	     			     {title: "Shares Over Time",
-	                             width: 340,   
+	                             width: 540,   
 	                             fontSize: 14,
 	     			     is3D: true,
                                      pieSliceText: 'value',
@@ -229,7 +229,7 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
 	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
 	     			data_table.draw(json_data, 
 	     			     {title: "Shares Over Time",
-	                             width: 340,   
+	                             width: 540, height: 200,   
 	                             fontSize: 14,
 	     			     is3D: true,
                                      pieSliceText: 'value',
@@ -255,7 +255,6 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
 	        drawLineShares($('#datepicker_start_totalshares').val(), $('#datepicker_end_totalshares').val(), false, $('#share-chart-date-type :selected').text());
 	        drawLineCreated($('#datepicker_start_campaigns_created').val(), $('#datepicker_end_campaigns_created').val(), false, $('#campaignscreated-chart-date-type :selected').text());
 	     }
-
 
 
 	     // refresh buttons click

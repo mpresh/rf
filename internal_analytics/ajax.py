@@ -113,8 +113,131 @@ def analytics_campaignscreated_pie(req):
 
 def analytics_totalshares_line(req):
     dict_vals = {}
+
+    date_regex = "\d\d/\d\d/\d\d\d\d"
+    try:
+        mo = re.match(date_regex, req.GET['end'])
+        if mo != None:
+            (month, day, year) = req.GET['end'].split('/')
+            end = datetime(int(year),int(month),int(day))
+        end
+    except:
+        today = datetime.now()
+        end = datetime(today.year,today.month,today.day)    
+
+    end = end + timedelta(days=1)
+
+    try:
+        mo = re.match(date_regex, req.GET['start'])
+        if mo != None:
+            (month, day, year) = req.GET['start'].split('/')
+            start = datetime(int(year),int(month),int(day))
+        start
+    except:
+        start = datetime('2010','01','01')
+
+    shares = Share.objects.all()
+    shares = shares.exclude(created_at__gte=end)
+    shares = shares.exclude(created_at__lte=start)
+
+    data = {}
+    column_list = []
+    column_list.append({"id" : "range_type", "label" : "Time", "type" : "string"})
+    column_list.append({"id" : "twitter", "label" : "Twitter", "type" : "number"})
+    column_list.append({"id" : "facebook", "label" : "Facebook", "type" : "number"})
+    data["cols"] = column_list
+
+    td = end - start
+    diff_seconds = (td.microseconds + (td.seconds + td.days * 24 * 3600) * 10**6) / 10**6 
+
+    inc_diff = diff_seconds / 20
+    temp_end = start
+    temp_start = start
+
+    rows_list = []
+    for incr in range(0, 20):
+        temp_shares = shares.exclude(created_at__lte=temp_start)
+        temp_end = temp_start + timedelta(seconds=inc_diff)
+        
+        temp_shares = temp_shares.exclude(created_at__gte=temp_end)
+        temp_start = temp_end
+        temp_shares_facebook = temp_shares.filter(from_account_type="F").count()
+        temp_shares_twitter = temp_shares.filter(from_account_type="T").count()
+
+        rows_list.append({"c" : [{"v" : str(temp_start.month) + "/" + str(temp_start.day)},
+                                 {"v" : temp_shares_facebook},
+                                 {"v" : temp_shares_twitter}]
+                         })
+
+        
+    data["rows"] = rows_list
+    dict_vals["status"] = 200
+    dict_vals["data"] = data
+    print "AAA", dict_vals
     return HttpResponse(json.dumps(dict_vals))
     
 def analytics_campaignscreated_line(req):
+
     dict_vals = {}
+
+    date_regex = "\d\d/\d\d/\d\d\d\d"
+    try:
+        mo = re.match(date_regex, req.GET['end'])
+        if mo != None:
+            (month, day, year) = req.GET['end'].split('/')
+            end = datetime(int(year),int(month),int(day))
+        end
+    except:
+        today = datetime.now()
+        end = datetime(today.year,today.month,today.day)    
+
+    end = end + timedelta(days=1)
+
+    try:
+        mo = re.match(date_regex, req.GET['start'])
+        if mo != None:
+            (month, day, year) = req.GET['start'].split('/')
+            start = datetime(int(year),int(month),int(day))
+        start
+    except:
+        start = datetime('2010','01','01')
+
+    campaigns = Campaign.objects.all()
+    campaigns = campaigns.exclude(created_at__gte=end)
+    campaigns = campaigns.exclude(created_at__lte=start)
+
+    data = {}
+    column_list = []
+    column_list.append({"id" : "range_type", "label" : "Time", "type" : "string"})
+    column_list.append({"id" : "twitter", "label" : "Raffle", "type" : "number"})
+    column_list.append({"id" : "facebook", "label" : "Discount", "type" : "number"})
+    data["cols"] = column_list
+
+    td = end - start
+    diff_seconds = (td.microseconds + (td.seconds + td.days * 24 * 3600) * 10**6) / 10**6 
+
+    inc_diff = diff_seconds / 20
+    temp_end = start
+    temp_start = start
+
+    rows_list = []
+
+    for incr in range(0, 20):
+        temp_camps = campaigns.exclude(created_at__lte=temp_start)
+        temp_end = temp_start + timedelta(seconds=inc_diff)
+        temp_camps = temp_camps.exclude(created_at__gte=temp_end)
+        temp_start = temp_end
+        temp_camps_raffle = temp_camps.filter(campaign_type="raffle").count()
+        temp_camps_discount = temp_camps.filter(campaign_type="discount").count()
+
+        rows_list.append({"c" : [{"v" : str(temp_start.month) + "/" + str(temp_start.day)},
+                                 {"v" : temp_camps_raffle},
+                                 {"v" : temp_camps_discount}]
+                         })
+
+        
+    data["rows"] = rows_list
+    dict_vals["status"] = 200
+    dict_vals["data"] = data
+    print "AAA", dict_vals
     return HttpResponse(json.dumps(dict_vals))
