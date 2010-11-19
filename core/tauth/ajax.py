@@ -4,7 +4,7 @@ import simplejson as json
 
 from models import User
 from pylib.lazy import reverse
-from utils import *
+from pylib.util import *
 
 reverse_lazy = lazy(reverse, unicode)
 

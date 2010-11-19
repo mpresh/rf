@@ -6,9 +6,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
 import simplejson as json
 
-import fauth_utils
 from models import FBUser
 from pylib.util import handle_redirect_string
+from pylib.util import sync_session_cookies_v2
 
 def facebook_login_callback(req):
     print "facebook login callback"
@@ -64,7 +64,7 @@ def facebook_callback(req):
     for s in req.session.keys():
         print "SESSION", s, req.session[s]
 
-    fauth_utils.sync_session_cookies(req)
+    fauth_utils.sync_session_cookies_v2(req)
 
     for s in req.session.keys():
         print "SESSION", s, req.session[s]
@@ -89,7 +89,7 @@ def facebook_callback_ajax(req):
         print "SESSION", s, req.session[s]
 
     print "hello world"
-    fauth_utils.sync_session_cookies(req)
+    fauth_utils.sync_session_cookies_v2(req)
 
     for s in req.session.keys():
         print "SESSION", s, req.session[s]
