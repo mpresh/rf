@@ -8,6 +8,8 @@ from events.models import *
 from fauth.models import *
 from tauth.models import *
 
+import analytics_util
+
 def analytics_totalshares_pie(req):
     """Return json for DataTable pie Format totals."""
 
@@ -55,7 +57,6 @@ def analytics_totalshares_pie(req):
 
     dict_vals["status"] = 200
     dict_vals["data"] = data
-    print "Returning DICT", dict_vals
     return HttpResponse(json.dumps(dict_vals))
 
 
@@ -107,12 +108,12 @@ def analytics_campaignscreated_pie(req):
 
     dict_vals["status"] = 200
     dict_vals["data"] = data
-    print "Returning DICT", dict_vals
     return HttpResponse(json.dumps(dict_vals))
 
 
 def analytics_totalshares_line(req):
     dict_vals = {}
+    SPLITS = 10
 
     date_regex = "\d\d/\d\d/\d\d\d\d"
     try:
@@ -150,21 +151,25 @@ def analytics_totalshares_line(req):
     td = end - start
     diff_seconds = (td.microseconds + (td.seconds + td.days * 24 * 3600) * 10**6) / 10**6 
 
-    inc_diff = diff_seconds / 20
+    inc_diff = diff_seconds / SPLITS
     temp_end = start
     temp_start = start
 
     rows_list = []
-    for incr in range(0, 20):
+    for incr in range(0, SPLITS):
         temp_shares = shares.exclude(created_at__lte=temp_start)
         temp_end = temp_start + timedelta(seconds=inc_diff)
         
         temp_shares = temp_shares.exclude(created_at__gte=temp_end)
+
+        label = analytics_util.getChartLabel(temp_start, temp_end, SPLITS, start, end)
+
         temp_start = temp_end
         temp_shares_facebook = temp_shares.filter(from_account_type="F").count()
         temp_shares_twitter = temp_shares.filter(from_account_type="T").count()
+        
 
-        rows_list.append({"c" : [{"v" : str(temp_start.month) + "/" + str(temp_start.day)},
+        rows_list.append({"c" : [{"v" : label},
                                  {"v" : temp_shares_facebook},
                                  {"v" : temp_shares_twitter}]
                          })
@@ -173,12 +178,12 @@ def analytics_totalshares_line(req):
     data["rows"] = rows_list
     dict_vals["status"] = 200
     dict_vals["data"] = data
-    print "AAA", dict_vals
     return HttpResponse(json.dumps(dict_vals))
     
 def analytics_campaignscreated_line(req):
 
     dict_vals = {}
+    SPLITS = 10
 
     date_regex = "\d\d/\d\d/\d\d\d\d"
     try:
@@ -216,21 +221,24 @@ def analytics_campaignscreated_line(req):
     td = end - start
     diff_seconds = (td.microseconds + (td.seconds + td.days * 24 * 3600) * 10**6) / 10**6 
 
-    inc_diff = diff_seconds / 20
+    inc_diff = diff_seconds / SPLITS
     temp_end = start
     temp_start = start
 
     rows_list = []
 
-    for incr in range(0, 20):
+    for incr in range(0, SPLITS):
         temp_camps = campaigns.exclude(created_at__lte=temp_start)
         temp_end = temp_start + timedelta(seconds=inc_diff)
         temp_camps = temp_camps.exclude(created_at__gte=temp_end)
+
+        label = analytics_util.getChartLabel(temp_start, temp_end, SPLITS, start, end)
+
         temp_start = temp_end
         temp_camps_raffle = temp_camps.filter(campaign_type="raffle").count()
         temp_camps_discount = temp_camps.filter(campaign_type="discount").count()
 
-        rows_list.append({"c" : [{"v" : str(temp_start.month) + "/" + str(temp_start.day)},
+        rows_list.append({"c" : [{"v" : label},
                                  {"v" : temp_camps_raffle},
                                  {"v" : temp_camps_discount}]
                          })
@@ -239,5 +247,4 @@ def analytics_campaignscreated_line(req):
     data["rows"] = rows_list
     dict_vals["status"] = 200
     dict_vals["data"] = data
-    print "AAA", dict_vals
     return HttpResponse(json.dumps(dict_vals))
