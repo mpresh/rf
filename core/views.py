@@ -44,6 +44,7 @@ def howitworks(req):
 @login_required
 def event_data(req):
     now = datetime.now()
+    now = datetime(now.year, now.month, now.day)
 
     dict_vals = {}
     dict_vals['current'] = datetime.strftime(datetime.now(), "%m/%d/%Y")
