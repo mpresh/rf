@@ -14,14 +14,14 @@ h3 a{
     margin-bottom: 20px;
 }
 
-#line-chart-totalshares, #line-chart-campaignscreated, #line-chart-campaignsmodified {
+#line-chart-totalshares, #line-chart-totalreach, #line-chart-campaignscreated, #line-chart-campaignsmodified {
 	width: 60%;
 	border: 1px solid black;
 	height: 200px;
 	float: left;
 }
 
-#pie-chart-totalshares, #pie-chart-campaignscreated, #pie-chart-campaignsmodified {
+#pie-chart-totalshares, #pie-chart-totalreach, #pie-chart-campaignscreated, #pie-chart-campaignsmodified {
 	border: 1px solid black;
 	height: 200px;
 	float: right;
@@ -53,8 +53,3 @@ li:hover {
     cursor: pointer;
 }
 
-#share-chart-date-type, #campaignscreated-chart-date-type {
-	background-color: red;
-	margin-top: 10px;
-
-}

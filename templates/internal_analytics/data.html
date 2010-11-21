@@ -29,6 +29,14 @@ $("#datepicker_end_totalshares").datepicker({ gotoCurrent: true,
                                               showOn: "button",
                                               buttonImage: "{% url static 'images/calendar.png' %}",
                                               buttonImageOnly: true});
+$("#datepicker_start_totalreach").datepicker({ gotoCurrent: true,
+                                              showOn: "button",
+                                              buttonImage: "{% url static 'images/calendar.png' %}",
+                                              buttonImageOnly: true });
+$("#datepicker_end_totalreach").datepicker({ gotoCurrent: true, 
+                                              showOn: "button",
+                                              buttonImage: "{% url static 'images/calendar.png' %}",
+                                              buttonImageOnly: true});
 $("#datepicker_start_campaigns_created").datepicker({ gotoCurrent: true,
                                               showOn: "button",
                                               buttonImage: "{% url static 'images/calendar.png' %}",
@@ -78,17 +86,33 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
     
     <div id="line-chart-totalshares"></div>
     <div id="pie-chart-totalshares"></div>
-    <!--<select id="share-chart-date-type">
-	  <option value="minutes">Minutes</option>
-          <option value="hours">Hours</option>
-	  <option selected="yes" value="days">Days</option>
-          <option value="weeks">Weeks</option>
-          <option value="months">Months</option>
-	  <option value="years">Years</option>
-	</select>-->
 
   </div> <!-- end data-content -->
 
+  <h3><a id="total_reach" href="#">Total Reach</a></h3>
+  <div id="data-content-totalreach" class="data-content">
+
+    <ul>
+      <li id="li-reach-day">Last 24 hours</li>
+      <li id="li-reach-week">Last Week</li>
+      <li id="li-reach-month">Last Month</li>
+      <li id="li-reach-all">All Time</li>
+    </ul>
+      
+
+    <div class="dates">  
+      <p>From: <input type="text" value="{{start}}" id="datepicker_start_totalreach"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      To: <input type="text"  value="{{current}}" id="datepicker_end_totalreach">
+
+      <button id="total_reach_refresh">Refresh</button>
+      </p>
+      
+    </div>
+
+    
+    <div id="line-chart-totalreach"></div>
+    <div id="pie-chart-totalreach"></div>
+  </div> <!-- end data-content -->
 
   <h3 ><a id="campaigns_created" href="#">Campaigns Created</a></h3>
   <div id="data-content-campaignscreated" class="data-content">
@@ -108,14 +132,6 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
   
     <div id="line-chart-campaignscreated"></div>
     <div id="pie-chart-campaignscreated"></div>
-      <!--<select id="campaignscreated-chart-date-type">
-	  <option value="minutes">Minutes</option>
-          <option value="hours">Hours</option>
-	  <option selected="yes" value="days">Days</option>
-          <option value="weeks">Weeks</option>
-          <option value="months">Months</option>
-	  <option value="years">Years</option>
-	</select>-->
 
   </div> <!-- end data-content -->
 
@@ -169,6 +185,31 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
 	     	});		
 	     }
 
+	     function drawPieReach(start, end, show_loading) {
+	     	var data_table = new google.visualization.PieChart(document.getElementById('pie-chart-totalreach'));
+	     	$.ajax({
+	     		url: '{% url internal_analytics_totalreach_pie %}?start=' + start + '&end=' + end, 
+	     		dataType: "json",
+	     		data: {},
+	     		success: function(data) {
+	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
+	     			data_table.draw(json_data, 
+	     			     {title: "Facebook vs Twitter",
+                                     width: 340, height: 200,
+	                             fontSize: 14,
+	     			     is3D: true,
+                                     pieSliceText: 'value',
+                                     colors:['green','blue']});
+	     		},
+	     		beforeSend: function() {
+	                    if (show_loading) {
+                                $("#pie-chart-totalreach").showLoading({'afterShow': function(){ setTimeout( "jQuery('#pie-chart-totalreach').hideLoading()", 500 );}});         
+                            }
+	     		}
+
+	     	});		
+	     }
+
 	     function drawPieCampaignsCreated(start, end, show_loading) {
 	     	var data_table = new google.visualization.PieChart(document.getElementById('pie-chart-campaignscreated'));
 	     	$.ajax({
@@ -194,7 +235,8 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
 	     	});		
 	     }
 
-             function drawLineShares(start, end, show_loading, range_duration) {
+             function drawLineShares(start, end, show_loading) {
+	        var range_duration = "";
 	     	var data_table = new google.visualization.LineChart(document.getElementById('line-chart-totalshares'));
 	     	$.ajax({
 	     		url: '{% url internal_analytics_totalshares_line %}?start=' + start + '&end=' + end + '&range_duration=' + range_duration, 
@@ -219,7 +261,34 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
 	     	});		
 	     }
 
-             function drawLineCreated(start, end, show_loading, range_duration) {
+	     function drawLineReach(start, end, show_loading) {
+	        var range_duration = "";
+	     	var data_table = new google.visualization.LineChart(document.getElementById('line-chart-totalreach'));
+	     	$.ajax({
+	     		url: '{% url internal_analytics_totalreach_line %}?start=' + start + '&end=' + end + '&range_duration=' + range_duration, 
+	     		dataType: "json",
+	     		data: {},
+	     		success: function(data) {
+	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
+	     			data_table.draw(json_data, 
+	     			     {title: "Reach Over Time",
+	                             width: 540, height: 200,  
+	                             fontSize: 14,
+	     			     is3D: true,
+                                     pieSliceText: 'value',
+                                     colors:['green','blue']});
+	     		},
+	     		beforeSend: function() {
+	                    if (show_loading) {
+                                $("#line-chart-totalreach").showLoading({'afterShow': function(){ setTimeout( "jQuery('#line-chart-totalreach').hideLoading()", 500 );}});         
+                            }
+	     		}
+	     
+	     	});		
+	     }
+
+             function drawLineCreated(start, end, show_loading) {
+	        var range_duration = "";
 	     	var data_table = new google.visualization.LineChart(document.getElementById('line-chart-campaignscreated'));
 	     	$.ajax({
 	     		url: '{% url internal_analytics_campaignscreated_line %}?start=' + start + '&end=' + end + '&range_duration=' + range_duration, 
@@ -250,22 +319,30 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
 
              function drawGraphs() {
 	     	drawPieShares($('#datepicker_start_totalshares').val(), $('#datepicker_end_totalshares').val(), false);
-	        drawPieCampaignsCreated($('#datepicker_start_campaigns_created').val(), $('#datepicker_end_campaigns_created').val(), false);
+	        drawLineShares($('#datepicker_start_totalshares').val(), $('#datepicker_end_totalshares').val(), false);
 
-	        drawLineShares($('#datepicker_start_totalshares').val(), $('#datepicker_end_totalshares').val(), false, $('#share-chart-date-type :selected').text());
-	        drawLineCreated($('#datepicker_start_campaigns_created').val(), $('#datepicker_end_campaigns_created').val(), false, $('#campaignscreated-chart-date-type :selected').text());
+	     	drawPieReach($('#datepicker_start_totalreach').val(), $('#datepicker_end_totalreach').val(), false);
+	        drawLineReach($('#datepicker_start_totalreach').val(), $('#datepicker_end_totalreach').val(), false);
+
+	        drawPieCampaignsCreated($('#datepicker_start_campaigns_created').val(), $('#datepicker_end_campaigns_created').val(), false);
+	        drawLineCreated($('#datepicker_start_campaigns_created').val(), $('#datepicker_end_campaigns_created').val(), false);
 	     }
 
 
 	     // refresh buttons click
 	     $('#total_shares_refresh').click(function(){
 	     	drawPieShares($('#datepicker_start_totalshares').val(), $('#datepicker_end_totalshares').val(), true);
-	        drawLineShares($('#datepicker_start_totalshares').val(), $('#datepicker_end_totalshares').val(), true, $('#share-chart-date-type:selected').text());
+	        drawLineShares($('#datepicker_start_totalshares').val(), $('#datepicker_end_totalshares').val(), true);
+             });
+
+	     $('#total_reach_refresh').click(function(){
+	     	drawPieReach($('#datepicker_start_totalreach').val(), $('#datepicker_end_totalreach').val(), true);
+	        drawLineReach($('#datepicker_start_totalreach').val(), $('#datepicker_end_totalreach').val(), true);
              });
 
              $('#campaigns_created_refresh').click(function(){
 	        drawPieCampaignsCreated($('#datepicker_start_campaigns_created').val(), $('#datepicker_end_campaigns_created').val(), true);
-	        drawLineCreated($('#datepicker_start_campaigns_created').val(), $('#datepicker_end_campaigns_created').val(), true, $('#campaignscreated-chart-date-type :selected').text());
+	        drawLineCreated($('#datepicker_start_campaigns_created').val(), $('#datepicker_end_campaigns_created').val(), true);
              });
 
 	     // choose default dates to graph
@@ -290,7 +367,29 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
              });
 
 
+             // total reach
+	     $('#li-reach-day').click(function(){
+	         $("#datepicker_start_totalreach").val('{{day}}');
+	         $('#total_reach_refresh').trigger('click');
+             });
 
+	     $('#li-reach-week').click(function(){
+	         $("#datepicker_start_totalreach").val('{{week}}');
+	         $('#total_reach_refresh').trigger('click');
+             });
+	     
+	     $('#li-reach-month').click(function(){
+	         $("#datepicker_start_totalreach").val('{{month}}');
+	         $('#total_reach_refresh').trigger('click');
+             });
+
+             $('#li-reach-all').click(function(){
+	         $("#datepicker_start_totalreach").val('{{all}}');
+	         $('#total_reach_refresh').trigger('click');
+             });
+
+
+             // campaigns created
 	     $('#li-campaignscreated-day').click(function(){
 	         $("#datepicker_start_campaigns_created").val('{{day}}');
 	         $('#campaigns_created_refresh').trigger('click');
