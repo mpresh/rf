@@ -27,6 +27,13 @@ h3 a{
 	float: right;
 }
 
+#bar-chart-clicksreshares {
+	width: 100%;
+	border: 1px solid black;
+	height: 200px;
+	float: left;
+}
+
 button {
        float: right;
        cursor: pointer;
@@ -53,3 +60,6 @@ li:hover {
     cursor: pointer;
 }
 
+select {
+    margin-left: 40px;
+}

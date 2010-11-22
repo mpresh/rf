@@ -383,3 +383,115 @@ def analytics_campaignscreated_line(req):
     dict_vals["status"] = 200
     dict_vals["data"] = data
     return HttpResponse(json.dumps(dict_vals))
+
+def analytics_clicks_reshares_bar(req):
+
+    dict_vals = {}
+    SPLITS = 10
+
+    date_regex = "\d\d/\d\d/\d\d\d\d"
+    try:
+        mo = re.match(date_regex, req.GET['end'])
+        if mo != None:
+            (month, day, year) = req.GET['end'].split('/')
+            end = datetime(int(year),int(month),int(day))
+        end
+    except:
+        today = datetime.now()
+        end = datetime(today.year,today.month,today.day)    
+
+    end = end + timedelta(days=1)
+
+    try:
+        mo = re.match(date_regex, req.GET['start'])
+        if mo != None:
+            (month, day, year) = req.GET['start'].split('/')
+            start = datetime(int(year),int(month),int(day))
+        start
+    except:
+        start = datetime('2010','01','01')
+
+    try:
+        data_type = req.GET['data_type']
+    except:
+        data_type = "total"
+
+    shares = Share.objects.all()
+    shares = shares.exclude(created_at__gte=end)
+    shares = shares.exclude(created_at__lte=start)
+
+    data = {}
+    column_list = []
+    column_list.append({"id" : "range_type", "label" : "Time", "type" : "string"})
+    column_list.append({"id" : "shares", "label" : "Shares", "type" : "number"})
+    column_list.append({"id" : "clicks", "label" : "Clicks", "type" : "number"})
+    column_list.append({"id" : "reshares", "label" : "Reshares", "type" : "number"})
+    data["cols"] = column_list
+
+    td = end - start
+    diff_seconds = (td.microseconds + (td.seconds + td.days * 24 * 3600) * 10**6) / 10**6 
+
+    inc_diff = diff_seconds / SPLITS
+    temp_end = start
+    temp_start = start
+
+    rows_list = []
+    for incr in range(0, SPLITS):
+        temp_shares = shares.exclude(created_at__lte=temp_start)
+        temp_end = temp_start + timedelta(seconds=inc_diff)
+
+        temp_shares = temp_shares.exclude(created_at__gte=temp_end)
+
+        label = analytics_util.getChartLabel(temp_start, temp_end, SPLITS, start, end)
+
+        temp_start = temp_end
+
+        temp_shares_facebook = temp_shares.filter(from_account_type="F")
+        temp_shares_facebook_reach = 0
+        temp_shares_facebook_clicks = 0
+        temp_shares_facebook_count = temp_shares_facebook.count()
+
+        temp_reshares_facebook = 0
+        for share in temp_shares_facebook:
+            temp_shares_facebook_reach += share.reach
+            temp_shares_facebook_clicks += share.page_views
+            temp_reshares_facebook += share.children().count()
+
+        temp_shares_twitter = temp_shares.filter(from_account_type="T")
+        temp_shares_twitter_reach = 0
+        temp_shares_twitter_clicks = 0
+        temp_shares_twitter_count = temp_shares_twitter.count()
+
+        temp_reshares_twitter = 0
+        for share in temp_shares_twitter:
+            temp_shares_twitter_reach += share.reach
+            temp_shares_twitter_clicks += share.page_views
+            temp_reshares_twitter += share.children().count()
+
+        if data_type == "total":
+            reach = temp_shares_twitter_reach + temp_shares_facebook_reach
+            clicks = temp_shares_twitter_clicks + temp_shares_facebook_clicks
+            shares_count = temp_shares_twitter_count + temp_shares_facebook_count
+            reshares = temp_reshares_twitter + temp_reshares_facebook
+        elif data_type == "twitter":
+            reach = temp_shares_twitter_reach
+            clicks = temp_shares_twitter_clicks
+            shares_count = temp_shares_twitter_count
+            reshares = temp_reshares_twitter
+        else:
+            reach = temp_shares_facebook_reach
+            clicks = temp_shares_facebook_clicks
+            shares_count = temp_shares_facebook_count
+            reshares = temp_reshares_facebook
+
+        rows_list.append({"c" : [{"v" : label},
+                                 {"v" : shares_count},
+                                 {"v" : clicks},
+                                 {"v" : reshares}]
+                         })
+
+        
+    data["rows"] = rows_list
+    dict_vals["status"] = 200
+    dict_vals["data"] = data
+    return HttpResponse(json.dumps(dict_vals))

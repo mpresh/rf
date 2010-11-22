@@ -189,6 +189,9 @@ urlpatterns += patterns('',
                         url(r'ajax/internal_analytics_campaignscreated_line$', 
                             'internal_analytics.ajax.analytics_campaignscreated_line', 
                             name='internal_analytics_campaignscreated_line'),
+                        url(r'ajax/internal_analytics_clicks_reshares_bar$', 
+                            'internal_analytics.ajax.analytics_clicks_reshares_bar', 
+                            name='internal_analytics_clicks_reshares_bar'),
 
                         )
 
