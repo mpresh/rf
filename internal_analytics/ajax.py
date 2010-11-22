@@ -416,6 +416,11 @@ def analytics_clicks_reshares_bar(req):
     except:
         data_type = "total"
 
+    try:
+        abs_per = req.GET['abs_per']
+    except:
+        abs_per = "absolute"
+
     shares = Share.objects.all()
     shares = shares.exclude(created_at__gte=end)
     shares = shares.exclude(created_at__lte=start)
@@ -423,9 +428,12 @@ def analytics_clicks_reshares_bar(req):
     data = {}
     column_list = []
     column_list.append({"id" : "range_type", "label" : "Time", "type" : "string"})
-    column_list.append({"id" : "shares", "label" : "Shares", "type" : "number"})
-    column_list.append({"id" : "clicks", "label" : "Clicks", "type" : "number"})
-    column_list.append({"id" : "reshares", "label" : "Reshares", "type" : "number"})
+    if abs_per == "absolute":
+        column_list.append({"id" : "shares", "label" : "Shares", "type" : "number"})
+        column_list.append({"id" : "clicks", "label" : "Clicks", "type" : "number"})
+        column_list.append({"id" : "reshares", "label" : "Reshares", "type" : "number"})
+    else:
+        column_list.append({"id" : "clicks_percent", "label" : "Clicks_percent", "type" : "number"})
     data["cols"] = column_list
 
     td = end - start
@@ -463,31 +471,58 @@ def analytics_clicks_reshares_bar(req):
         temp_shares_twitter_count = temp_shares_twitter.count()
 
         temp_reshares_twitter = 0
+        
+        print "heeey"
         for share in temp_shares_twitter:
             temp_shares_twitter_reach += share.reach
             temp_shares_twitter_clicks += share.page_views
             temp_reshares_twitter += share.children().count()
+        print "laal", data_type
 
         if data_type == "total":
             reach = temp_shares_twitter_reach + temp_shares_facebook_reach
             clicks = temp_shares_twitter_clicks + temp_shares_facebook_clicks
             shares_count = temp_shares_twitter_count + temp_shares_facebook_count
             reshares = temp_reshares_twitter + temp_reshares_facebook
+            
+            if clicks == 0:
+                clicks_percentage = 0
+            else:
+                clicks_percentage = clicks / (reach * 1.0) 
+            print "clicks", clicks
+
         elif data_type == "twitter":
             reach = temp_shares_twitter_reach
             clicks = temp_shares_twitter_clicks
             shares_count = temp_shares_twitter_count
             reshares = temp_reshares_twitter
+
+            if clicks == 0:
+                clicks_percentage = 0
+            else:
+                clicks_percentage = clicks / (reach * 1.0) 
         else:
             reach = temp_shares_facebook_reach
             clicks = temp_shares_facebook_clicks
             shares_count = temp_shares_facebook_count
             reshares = temp_reshares_facebook
 
-        rows_list.append({"c" : [{"v" : label},
-                                 {"v" : shares_count},
-                                 {"v" : clicks},
-                                 {"v" : reshares}]
+            if clicks == 0:
+                clicks_percentage = 0
+            else:
+                clicks_percentage = clicks / (reach * 1.0)
+    
+
+        print "abs_per", abs_per
+        if abs_per == "absolute":
+            rows_list.append({"c" : [{"v" : label},
+                                     {"v" : shares_count},
+                                     {"v" : clicks},
+                                     {"v" : reshares}]
+                         })
+        else:
+            rows_list.append({"c" : [{"v" : label},
+                                     {"v" : clicks_percentage}]
                          })
 
         

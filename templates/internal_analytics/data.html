@@ -142,6 +142,13 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
       <li id="li-clicks-reshares-week">Last Week</li>
       <li id="li-clicks-reshares-month">Last Month</li>
       <li id="li-clicks-reshares-all">All Time</li>
+      <li>
+    
+    <select id="clicks_reshares_percent_absolute">
+	<option selected="yes" value="absolute">Absolute</option>
+	<option value="percent">Percent</option>
+    </select>
+    </li>
     </ul>
 
     <div class="dates">  
@@ -327,9 +334,11 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 	     function drawBarClicksReshares(start, end, show_loading) {
 	        var range_duration = "";
 	        var data_type = $("#clicks_reshares_data_type :selected").val();
+	        var abs_per = $("#clicks_reshares_percent_absolute :selected").val();
+	     
 	     	var data_table = new google.visualization.ColumnChart(document.getElementById('bar-chart-clicksreshares'));
 	     	$.ajax({
-	     		url: '{% url internal_analytics_clicks_reshares_bar %}?start=' + start + '&end=' + end + '&range_duration=' + range_duration + '&data_type=' + data_type, 
+	     		url: '{% url internal_analytics_clicks_reshares_bar %}?start=' + start + '&end=' + end + '&range_duration=' + range_duration + '&data_type=' + data_type + '&abs_per=' + abs_per, 
 	     		dataType: "json",
 	     		data: {},
 	     		success: function(data) {
@@ -393,6 +402,10 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 	         $('#clicks_reshares_refresh').trigger('click');
 	     });
 
+
+	     $("#clicks_reshares_percent_absolute").change(function(){
+	         $('#clicks_reshares_refresh').trigger('click');
+	     });
 
 	     // total shares
 	     $('#li-shares-day').click(function(){
