@@ -138,8 +138,8 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
   <h3><a id="clicksreshares" href="#">Clicks/Reshares</a></h3>
   <div id="data-content-clicksreshares" class="data-content">
     <ul>
-      <li id="li-clicks-reshares--day">Last 24 hours</li>
-      <li id="li-clicks-reshares--week">Last Week</li>
+      <li id="li-clicks-reshares-day">Last 24 hours</li>
+      <li id="li-clicks-reshares-week">Last Week</li>
       <li id="li-clicks-reshares-month">Last Month</li>
       <li id="li-clicks-reshares-all">All Time</li>
     </ul>
@@ -460,23 +460,23 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
              });
 
 	     // clicks/reshares impressions
-	     $('#li-clicks_reshares-day').click(function(){
-	         $("#datepicker_start_clicks_reshares").val('{{day}}');
+	     $('#li-clicks-reshares-day').click(function(){
+	         $("#datepicker_start_clicksreshares").val('{{day}}');
 	         $('#clicks_reshares_refresh').trigger('click');
              });
 
-	     $('#li-clicks_reshares-week').click(function(){
-	         $("#datepicker_start_clicks_reshares").val('{{week}}');
+	     $('#li-clicks-reshares-week').click(function(){
+	         $("#datepicker_start_clicksreshares").val('{{week}}');
 	         $('#clicks_reshares_refresh').trigger('click');
              });
 	     
 	     $('#li-clicks-reshares-month').click(function(){
-	         $("#datepicker_start_clicks_reshares").val('{{month}}');
+	         $("#datepicker_start_clicksreshares").val('{{month}}');
 	         $('#clicks_reshares_refresh').trigger('click');
              });
 
              $('#li-clicks-reshares-all').click(function(){
-	         $("#datepicker_start_clicks_reshares").val('{{all}}');
+	         $("#datepicker_start_clicksreshares").val('{{all}}');
 	         $('#clicks_reshares_refresh').trigger('click');
              });
 
