@@ -45,11 +45,11 @@ $("#datepicker_end_campaigns_created").datepicker({ gotoCurrent: true,
                                               showOn: "button",
                                               buttonImage: "{% url static 'images/calendar.png' %}",
                                               buttonImageOnly: true });
-$("#datepicker_start_campaigns_modified").datepicker({ gotoCurrent: true,
+$("#datepicker_start_clicksreach").datepicker({ gotoCurrent: true,
                                               showOn: "button",
                                               buttonImage: "{% url static 'images/calendar.png' %}",
                                               buttonImageOnly: true });
-$("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
+$("#datepicker_end_clicksreach").datepicker({ gotoCurrent: true,
                                               showOn: "button",
                                               buttonImage: "{% url static 'images/calendar.png' %}",
                                               buttonImageOnly: true });
@@ -135,17 +135,16 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
 
   </div> <!-- end data-content -->
 
-  <h3><a id="campaigns_modified" href="#">Clicks/Page Views</a></h3>
-  <div id="data-content-campaigns-modified" class="data-content">
+  <h3><a id="clicksreach" href="#">Clicks/Reach</a></h3>
+  <div id="data-content-clicksreach" class="data-content">
     <div class="dates">  
-      <p>From: <input type="text" value="{{start}}" id="datepicker_start_campaigns_modified"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      To: <input type="text" value="{{current}}" id="datepicker_end_campaigns_modified">
-      <button id="campaigns_modified_refresh">Refresh</button>
+      <p>From: <input type="text" value="{{start}}" id="datepicker_start_clicksreach"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      To: <input type="text" value="{{current}}" id="datepicker_end_clicksreach">
+      <button id="campaigns_clicksreach_refresh">Refresh</button>
       </p>
     </div>    
 
-    <div id="line-chart-campaignsmodified"></div>
-    <div id="pie-chart-campaignsmodified"></div>
+    <div id="bar-chart-clicksreach"></div>
 
   </div> <!-- end data-content -->
 
@@ -326,6 +325,8 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
 
 	        drawPieCampaignsCreated($('#datepicker_start_campaigns_created').val(), $('#datepicker_end_campaigns_created').val(), false);
 	        drawLineCreated($('#datepicker_start_campaigns_created').val(), $('#datepicker_end_campaigns_created').val(), false);
+
+	        drawBarClicksReshares($('#datepicker_start_clicksreshares').val(), $('#datepicker_end_clicksreshares').val(), false);
 	     }
 
 
@@ -345,7 +346,12 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
 	        drawLineCreated($('#datepicker_start_campaigns_created').val(), $('#datepicker_end_campaigns_created').val(), true);
              });
 
-	     // choose default dates to graph
+	     $('#total_clicks_reshares_refresh').click(function(){
+	     	drawPieReach($('#datepicker_start_clicksreshares').val(), $('#datepicker_end_clicksreshares').val(), true);
+	        drawLineReach($('#datepicker_start_clicksreshares').val(), $('#datepicker_end_clicksreshares').val(), true);
+             });
+
+	     // total shares
 	     $('#li-shares-day').click(function(){
 	         $("#datepicker_start_totalshares").val('{{day}}');
 	         $('#total_shares_refresh').trigger('click');
@@ -408,6 +414,27 @@ $("#datepicker_end_campaigns_modified").datepicker({ gotoCurrent: true,
              $('#li-campaignscreated-all').click(function(){
 	         $("#datepicker_start_campaigns_created").val('{{all}}');
 	         $('#campaigns_created_refresh').trigger('click');
+             });
+
+	     // clicks/reshares impressions
+	     $('#li-clicks_reshares-day').click(function(){
+	         $("#datepicker_start_clicks_reshares").val('{{day}}');
+	         $('#clicks_reshares_refresh').trigger('click');
+             });
+
+	     $('#li-clicks_reshares-week').click(function(){
+	         $("#datepicker_start_clicks_reshares").val('{{week}}');
+	         $('#clicks_reshares_refresh').trigger('click');
+             });
+	     
+	     $('#li-clicks-reshares-month').click(function(){
+	         $("#datepicker_start_clicks_reshares").val('{{month}}');
+	         $('#clicks_reshares_refresh').trigger('click');
+             });
+
+             $('#li-clicks-reshares-all').click(function(){
+	         $("#datepicker_start_clicks_reshares").val('{{all}}');
+	         $('#clicks_reshares_refresh').trigger('click');
              });
 
 </script>
