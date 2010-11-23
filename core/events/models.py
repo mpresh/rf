@@ -78,8 +78,12 @@ class Share(models.Model):
         return "<Share: %s %s>" % (self.id, self.getHash())
 
     def parent(self):
-        if self.parent_shash is not None:
-            return Share.objects.get(shash=self.parent_shash)
+        if self.parent_shash is not None and self.parent_shash != "":
+            result = Share.objects.filter(shash=self.parent_shash)
+            if result:
+                return result[0]
+            else:
+                return None
         return None
 
     def children(self):

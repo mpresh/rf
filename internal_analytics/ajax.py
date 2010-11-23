@@ -545,16 +545,21 @@ def analytics_percent_share_data(req):
     
     facebook_shares = 0
     twitter_shares = 0
+    top_shares = 0
     for share in shares:
+        parent = share.parent()
+        if parent is None:
+            top_shares += 1
+        elif parent.from_account_type == "T":
+            twitter_shares += 1
+        elif parent.from_account_type == "F":
+            facebook_shares += 1
+
         if share.from_account_type == "T":
             twitter_page_views += share.page_views
-            twitter_shares += share.children().count()
         elif share.from_account_type == "F":
             facebook_page_views += share.page_views
-            facebook_shares += share.children().count()
-
-    top_shares = shares.filter(parent_shash=None).count() + shares.filter(parent_shash="").count()
-    print "hey3"
+    
     dict_vals["status"] = 200
     dict_vals["top_page_views_val"] = top_page_views
     dict_vals["twitter_page_views_val"] = twitter_page_views
