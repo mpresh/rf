@@ -62,6 +62,11 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 
 <div class="demo">
 
+<div><br/>Filter By Customer ID: <input type="text" name="customer_id" id="customer_id"/>
+<button id="customer_id_refresh">Refresh</button>
+<br/><br/>
+</div>
+
 <div id="accordion">
   <h3><a id="total_shares" href="#">Total Shares</a></h3>
   <div id="data-content-totalshares" class="data-content">
@@ -194,7 +199,7 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 	     	$.ajax({
 	     		url: '{% url internal_analytics_totalshares_pie %}?start=' + start + '&end=' + end, 
 	     		dataType: "json",
-	     		data: {},
+	     		data: ({customer_id:$("#customer_id").val()}),
 	     		success: function(data) {
 	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
 	     			data_table.draw(json_data, 
@@ -219,7 +224,7 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 	     	$.ajax({
 	     		url: '{% url internal_analytics_totalreach_pie %}?start=' + start + '&end=' + end, 
 	     		dataType: "json",
-	     		data: {},
+	     		data: ({customer_id:$("#customer_id").val()}),
 	     		success: function(data) {
 	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
 	     			data_table.draw(json_data, 
@@ -244,7 +249,7 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 	     	$.ajax({
 	     		url: '{% url internal_analytics_campaignscreated_pie %}?start=' + start + '&end=' + end, 
 	     		dataType: "json",
-	     		data: {},
+	     		data: ({customer_id:$("#customer_id").val()}),
 	     		success: function(data) {
 	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
 	     			data_table.draw(json_data, 
@@ -270,7 +275,7 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 	     	$.ajax({
 	     		url: '{% url internal_analytics_totalshares_line %}?start=' + start + '&end=' + end + '&range_duration=' + range_duration, 
 	     		dataType: "json",
-	     		data: {},
+	     		data: ({customer_id:$("#customer_id").val()}),
 	     		success: function(data) {
 	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
 	     			data_table.draw(json_data, 
@@ -296,7 +301,7 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 	     	$.ajax({
 	     		url: '{% url internal_analytics_totalreach_line %}?start=' + start + '&end=' + end + '&range_duration=' + range_duration, 
 	     		dataType: "json",
-	     		data: {},
+	     		data: ({customer_id:$("#customer_id").val()}),
 	     		success: function(data) {
 	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
 	     			data_table.draw(json_data, 
@@ -322,7 +327,7 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 	     	$.ajax({
 	     		url: '{% url internal_analytics_campaignscreated_line %}?start=' + start + '&end=' + end + '&range_duration=' + range_duration, 
 	     		dataType: "json",
-	     		data: {},
+	     		data: ({customer_id:$("#customer_id").val()}),
 	     		success: function(data) {
 	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
 	     			data_table.draw(json_data, 
@@ -351,7 +356,7 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 	     	$.ajax({
 	     		url: '{% url internal_analytics_clicks_reshares_bar %}?start=' + start + '&end=' + end + '&range_duration=' + range_duration + '&data_type=' + data_type + '&abs_per=' + abs_per, 
 	     		dataType: "json",
-	     		data: {},
+	     		data: ({customer_id:$("#customer_id").val()}),
 	     		success: function(data) {
 	     			var json_data = new google.visualization.DataTable(data.data, 0.5);
 	     			data_table.draw(json_data, 
@@ -375,7 +380,7 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 	     	$.ajax({
 	     		url: '{% url internal_analytics_percent_share_data %}',
 	     		dataType: "json",
-	     		data: {},
+	     		data: ({customer_id:$("#customer_id").val()}),
 	     		success: function(data) {
 
 	                        $("#top-page-views_val").html(data.top_page_views_val);
@@ -434,6 +439,11 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 	     $('#clicks_reshares_refresh').click(function(){
 	        drawBarClicksReshares($('#datepicker_start_clicksreshares').val(), $('#datepicker_end_clicksreshares').val(), true);
              });
+
+	     $('#customer_id_refresh').click(function(){
+	         drawGraphs();
+             });
+
 
 	     // on chnage selected
 	     $("#clicks_reshares_data_type").change(function(){

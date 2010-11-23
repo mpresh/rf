@@ -15,6 +15,7 @@ def analytics_totalshares_pie(req):
 
     dict_vals = {}
     date_regex = "\d\d/\d\d/\d\d\d\d"
+
     try:
         mo = re.match(date_regex, req.GET['end'])
         if mo != None:
@@ -34,7 +35,16 @@ def analytics_totalshares_pie(req):
     except:
         start = datetime('2010','01','01')
 
+    try:
+        customer_id = req.GET["customer_id"] 
+    except:
+        customer_id = None
+
     shares = Share.objects.all()
+
+    if customer_id:
+        shares = shares.filter(campaign_id=customer_id)
+
     shares = shares.exclude(created_at__gte=end)
     shares = shares.exclude(created_at__lte=start)
     
@@ -83,7 +93,16 @@ def analytics_totalreach_pie(req):
     except:
         start = datetime('2010','01','01')
 
+    try:
+        customer_id = req.GET["customer_id"] 
+    except:
+        customer_id = None
+
     shares = Share.objects.all()
+
+    if customer_id:
+        shares = shares.filter(campaign_id=customer_id)
+
     shares = shares.exclude(created_at__gte=end)
     shares = shares.exclude(created_at__lte=start)
     
@@ -145,7 +164,16 @@ def analytics_campaignscreated_pie(req):
     except:
         start = datetime('2010','01','01')
 
+    try:
+        customer_id = req.GET["customer_id"] 
+    except:
+        customer_id = None
+
     campaigns = Campaign.objects.all()
+
+    if customer_id:
+        campaigns = campaigns.filter(id=customer_id)
+
     campaigns = campaigns.exclude(created_at__gte=end)
     campaigns = campaigns.exclude(created_at__lte=start)
     network_dict = {}
@@ -196,7 +224,16 @@ def analytics_totalshares_line(req):
     except:
         start = datetime('2010','01','01')
 
+    try:
+        customer_id = req.GET["customer_id"] 
+    except:
+        customer_id = None
+
     shares = Share.objects.all()
+
+    if customer_id:
+        shares = shares.filter(campaign_id=customer_id)
+
     shares = shares.exclude(created_at__gte=end)
     shares = shares.exclude(created_at__lte=start)
 
@@ -265,7 +302,16 @@ def analytics_totalreach_line(req):
     except:
         start = datetime('2010','01','01')
 
+    try:
+        customer_id = req.GET["customer_id"] 
+    except:
+        customer_id = None
+
     shares = Share.objects.all()
+
+    if customer_id:
+        shares = shares.filter(campaign_id=customer_id)
+
     shares = shares.exclude(created_at__gte=end)
     shares = shares.exclude(created_at__lte=start)
 
@@ -342,7 +388,16 @@ def analytics_campaignscreated_line(req):
     except:
         start = datetime('2010','01','01')
 
+    try:
+        customer_id = req.GET["customer_id"] 
+    except:
+        customer_id = None
+
     campaigns = Campaign.objects.all()
+
+    if customer_id:
+        campaigns = campaigns.filter(campaign_id=customer_id)
+
     campaigns = campaigns.exclude(created_at__gte=end)
     campaigns = campaigns.exclude(created_at__lte=start)
 
@@ -421,7 +476,16 @@ def analytics_clicks_reshares_bar(req):
     except:
         abs_per = "absolute"
 
+    try:
+        customer_id = req.GET["customer_id"] 
+    except:
+        customer_id = None
+
     shares = Share.objects.all()
+
+    if customer_id:
+        shares = shares.filter(campaign_id=customer_id)
+
     shares = shares.exclude(created_at__gte=end)
     shares = shares.exclude(created_at__lte=start)
 
@@ -531,6 +595,11 @@ def analytics_percent_share_data(req):
     
     dict_vals = {}
 
+    try:
+        customer_id = req.GET["customer_id"] 
+    except:
+        customer_id = None
+
     campaigns = Campaign.objects.all()    
     total_page_views = 0
     top_page_views = 0
@@ -540,6 +609,10 @@ def analytics_percent_share_data(req):
         top_page_views += camp.page_views
 
     shares = Share.objects.all()    
+
+    if customer_id:
+        shares = shares.filter(campaign_id=customer_id)
+
     twitter_page_views = 0
     facebook_page_views = 0
     
