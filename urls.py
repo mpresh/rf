@@ -192,6 +192,9 @@ urlpatterns += patterns('',
                         url(r'ajax/internal_analytics_clicks_reshares_bar$', 
                             'internal_analytics.ajax.analytics_clicks_reshares_bar', 
                             name='internal_analytics_clicks_reshares_bar'),
+                        url(r'ajax/internal_analytics_percent_share_data$', 
+                            'internal_analytics.ajax.analytics_percent_share_data', 
+                            name='internal_analytics_percent_share_data'),
 
                         )
 

@@ -472,12 +472,10 @@ def analytics_clicks_reshares_bar(req):
 
         temp_reshares_twitter = 0
         
-        print "heeey"
         for share in temp_shares_twitter:
             temp_shares_twitter_reach += share.reach
             temp_shares_twitter_clicks += share.page_views
             temp_reshares_twitter += share.children().count()
-        print "laal", data_type
 
         if data_type == "total":
             reach = temp_shares_twitter_reach + temp_shares_facebook_reach
@@ -489,7 +487,6 @@ def analytics_clicks_reshares_bar(req):
                 clicks_percentage = 0
             else:
                 clicks_percentage = clicks / (reach * 1.0) 
-            print "clicks", clicks
 
         elif data_type == "twitter":
             reach = temp_shares_twitter_reach
@@ -513,7 +510,6 @@ def analytics_clicks_reshares_bar(req):
                 clicks_percentage = clicks / (reach * 1.0)
     
 
-        print "abs_per", abs_per
         if abs_per == "absolute":
             rows_list.append({"c" : [{"v" : label},
                                      {"v" : shares_count},
@@ -529,4 +525,47 @@ def analytics_clicks_reshares_bar(req):
     data["rows"] = rows_list
     dict_vals["status"] = 200
     dict_vals["data"] = data
+    return HttpResponse(json.dumps(dict_vals))
+
+def analytics_percent_share_data(req):
+    
+    dict_vals = {}
+
+    campaigns = Campaign.objects.all()    
+    total_page_views = 0
+    top_page_views = 0
+
+    for camp in campaigns:
+        total_page_views += camp.page_views_total
+        top_page_views += camp.page_views
+
+    shares = Share.objects.all()    
+    twitter_page_views = 0
+    facebook_page_views = 0
+    
+    facebook_shares = 0
+    twitter_shares = 0
+    for share in shares:
+        if share.from_account_type == "T":
+            twitter_page_views += share.page_views
+            twitter_shares += share.children().count()
+        elif share.from_account_type == "F":
+            facebook_page_views += share.page_views
+            facebook_shares += share.children().count()
+
+    top_shares = shares.filter(parent_shash=None).count() + shares.filter(parent_shash="").count()
+    print "hey3"
+    dict_vals["status"] = 200
+    dict_vals["top_page_views_val"] = top_page_views
+    dict_vals["twitter_page_views_val"] = twitter_page_views
+    dict_vals["facebook_page_views_val"] = facebook_page_views
+
+    dict_vals["top_shares_val"] = top_shares
+    dict_vals["twitter_shares_val"] = twitter_shares
+    dict_vals["facebook_shares_val"] = facebook_shares
+
+    dict_vals["top_percent"] = (top_shares * 1.0) / top_page_views
+    dict_vals["twitter_percent"] = (twitter_shares * 1.0) / twitter_page_views
+    dict_vals["facebook_percent"] = (facebook_shares * 1.0) / facebook_page_views
+    print "VALS", dict_vals
     return HttpResponse(json.dumps(dict_vals))

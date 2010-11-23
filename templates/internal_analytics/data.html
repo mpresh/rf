@@ -135,7 +135,7 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 
   </div> <!-- end data-content -->
 
-  <h3><a id="clicksreshares" href="#">Clicks/Reshares</a></h3>
+  <h3><a id="clicksreshares" href="#">Clicks/Reshares and Percent Shares</a></h3>
   <div id="data-content-clicksreshares" class="data-content">
     <ul>
       <li id="li-clicks-reshares-day">Last 24 hours</li>
@@ -167,9 +167,20 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 
   </div> <!-- end data-content -->
 
-  <h3><a href="#">Percent Shares/Reach</a></h3>
-  <div class="data-content">
-    
+  <h3><a href="#">Percent Shares</a></h3>
+  <div id="data-content-percent-shares" class="data-content">
+    <p>Top Level Page Views:&nbsp;<span id="top-page-views_val"></span></p>
+    <p>Facebook Page Views:&nbsp;<span id="facebook-page-views_val"></span></p>
+    <p>Twitter Page Views:&nbsp;<span id="twitter-page-views_val"></span></p>
+
+    <p>Top Level Generated Shares:&nbsp;<span id="top_shares_val"></span></p>
+    <p>Facebook Generated Shares:&nbsp;<span id="facebook_shares_val"></span></p>
+    <p>Twitter Generated Shares:&nbsp;<span id="twitter_shares_val"></span></p>
+
+    <p>Top Level Perecent:&nbsp;<span id="top-percent"></span></p>
+    <p>Facebook Perecent:&nbsp;<span id="facebook-percent"></span></p>
+    <p>Twitter Percent:&nbsp;<span id="twitter-percent"></span></p>
+
     </div>
 </div>
 
@@ -359,6 +370,32 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 	     
 	     	});		
 	     }
+
+	     function percentSharesData() {
+	     	$.ajax({
+	     		url: '{% url internal_analytics_percent_share_data %}',
+	     		dataType: "json",
+	     		data: {},
+	     		success: function(data) {
+
+	                        $("#top-page-views_val").html(data.top_page_views_val);
+	                        $("#twitter-page-views_val").html(data.twitter_page_views_val);
+	                        $("#facebook-page-views_val").html(data.facebook_page_views_val);
+	     	      
+	                        $("#top_shares_val").html(data.top_shares_val);
+	                        $("#twitter_shares_val").html(data.twitter_shares_val);
+	                        $("#facebook_shares_val").html(data.facebook_shares_val);
+	     	      
+	                        $("#top-percent").html(data.top_percent);
+	                        $("#twitter-percent").html(data.twitter_percent);
+	                        $("#facebook-percent").html(data.facebook_percent);
+	     		},
+	     		beforeSend: function() {
+	     		}
+	     	
+	     	});		
+	     }
+
               google.load("visualization", "1", {packages:["table", "piechart", "corechart"]});
               google.setOnLoadCallback(drawGraphs);
 
@@ -374,6 +411,7 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 	        drawLineCreated($('#datepicker_start_campaigns_created').val(), $('#datepicker_end_campaigns_created').val(), false);
 
 	        drawBarClicksReshares($('#datepicker_start_clicksreshares').val(), $('#datepicker_end_clicksreshares').val(), false);
+	        percentSharesData();
 	     }
 
 
@@ -492,6 +530,7 @@ $("#datepicker_end_clicksreshares").datepicker({ gotoCurrent: true,
 	         $("#datepicker_start_clicksreshares").val('{{all}}');
 	         $('#clicks_reshares_refresh').trigger('click');
              });
+
 
 </script>
 
