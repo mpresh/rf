@@ -550,32 +550,21 @@ def analytics_clicks_reshares_bar(req):
             clicks = temp_shares_twitter_clicks + temp_shares_facebook_clicks
             shares_count = temp_shares_twitter_count + temp_shares_facebook_count
             reshares = temp_reshares_twitter + temp_reshares_facebook
-            
-            if clicks == 0:
-                clicks_percentage = 0
-            else:
-                clicks_percentage = clicks / (reach * 1.0) 
-
         elif data_type == "twitter":
             reach = temp_shares_twitter_reach
             clicks = temp_shares_twitter_clicks
             shares_count = temp_shares_twitter_count
             reshares = temp_reshares_twitter
-
-            if clicks == 0:
-                clicks_percentage = 0
-            else:
-                clicks_percentage = clicks / (reach * 1.0) 
         else:
             reach = temp_shares_facebook_reach
             clicks = temp_shares_facebook_clicks
             shares_count = temp_shares_facebook_count
             reshares = temp_reshares_facebook
 
-            if clicks == 0:
-                clicks_percentage = 0
-            else:
-                clicks_percentage = clicks / (reach * 1.0)
+        if clicks == 0:
+            clicks_percentage = 0
+        else:
+            clicks_percentage = (clicks / (reach * 1.0)) * 100
     
 
         if abs_per == "absolute":
