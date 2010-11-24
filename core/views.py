@@ -67,7 +67,7 @@ def event_data(req):
     dict_vals["total_campaignscreated"] = campaigns.count()
 
     day = now - timedelta(days=1)
-    dict_vals["total_campaignscreated_last_day"] = campaigns.exclude(created_at__lte=week).count()
+    dict_vals["total_campaignscreated_last_day"] = campaigns.exclude(created_at__lte=day).count()
 
     week = now - timedelta(days=7)
     dict_vals["total_campaignscreated_last_week"] = campaigns.exclude(created_at__lte=week).count()
