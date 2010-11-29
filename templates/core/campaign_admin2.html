@@ -75,9 +75,9 @@
 <!-- tab "panes" -->
 <div class="panes">
   <div><iframe src ="{{update_url}}" width="100%" height="1200"></iframe></div>
-  <div><iframe id="landing_iframe" src ="{{landing_url}}" width="100%" height="1200"></iframe></div>
+  <div><iframe id="landing_iframe" src="{{landing_url}}" width="100%" height="1200"></iframe></div>
   <div><iframe src ="{{widget_url}}" width="100%" height="1200"></iframe></div>
-  <div><iframe id="analytics_iframe" src ="{{analytics_url}}" width="100%" height="1200"></iframe></div>
+  <div><iframe id="analytics_iframe" src="{{analytics_url}}" width="100%" height="1200"></iframe></div>
 </div>
 </div>
 
@@ -102,6 +102,13 @@
 </div>
 </div>
 
+<script>
+function closeIt()
+{
+     return "This will redirect your admin window to the URL within your landing page. You probbaly don't want this.";
+}
+window.onbeforeunload = closeIt;
+</script>
 <script>
 
 $(document).ready(function(){
