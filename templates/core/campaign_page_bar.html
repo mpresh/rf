@@ -104,27 +104,37 @@
 
 	    <div id="overlay-div-content3" >
 	    	<div class="overlay-top">
-                        {%ifequal campaign.campaign_type "discount" %}
-                        <p>Discount Code</p>
-                        {% else %}
-                        <p>Successfully Entered Contest</p>
-                        {% endifequal %}
-                    </div>
+                  {%ifequal campaign.campaign_type "discount" %}
+                  <p>Discount Code</p>
+                  {% else %}
+                  <p>Successfully Entered Contest</p>
+                  {% endifequal %}
+                </div>
 	    
-                    {%ifequal campaign.campaign_type "discount" %}
-	    
-	    	<div id="code-msg">Thanks for sharing.<BR> Here is your discount code:</div>
-	    	<div id="code">
-	    	    <p id="discount-code">{{campaign.code}}</p>
-	    	    <!--<div id="d_clip_container" style="position:relative">
-	    	        <button type="button" id="d_clip_button">Copy to Clipboard</button>
-	    	    </div>-->
+                {%ifequal campaign.campaign_type "discount" %}
+		  {%ifequal campaign.code "" %} 
+		   <div id="code-msg">Thanks for sharing! 
+		     <br>Be sure to ask about your reward at the door.</div> 
+	    	     {% endifequal %}
+		 {% endifequal %}
+
+                {%ifequal campaign.campaign_type "discount" %}
+		  {%ifnotequal campaign.code "" %} 
+	    	     <div id="code-msg">Thanks for sharing.
+		       <BR> Here is your discount code:</div>
+	    	     <div id="code">
+	    	     <p id="discount-code">{{campaign.code}}</p>
+	    	     <!--<div id="d_clip_container" style="position:relative">
+	    	              <button type="button" id="d_clip_button">Copy to Clipboard</button>
+	    	     </div>-->
 	    	    <br/><span>Redeem Here:</span><br/><a href="{{campaign.url_redeem}}">{{campaign.url_redeem}}</a></font></div>
-	    	{% else %}
+	    	{% endifnotequal %}
+	    	{% endifequal %}
+                {%ifnotequal campaign.campaign_type "discount" %}
                     <div id="code-msg">Thanks for sharing.<BR> You have entered raffle:</div>
                     <img style="margin: 20px;" id="img-prize" src="{{campaign.url_redeem}}" />
 	    
-                    {% endifequal %}
+                    {% endifnotequal %}
 	    </div>
 
 </div>

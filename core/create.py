@@ -152,7 +152,7 @@ def campaign_page(req, chash="", camp_id=""):
         template = templates[int(req.GET["t"])]
     except:
         template = templates[int(c.template)]
-        
+
     return render_to_response(template, dict)
 
 def campaign_page_preview(req):
