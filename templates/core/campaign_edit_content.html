@@ -13,7 +13,7 @@
 
 			       {% ifequal campaign.template 2 %}
 				<label for="title">Promotion Message: </label> <br />
-				<b>Instant</b>&nbsp;&nbsp;&nbsp;<input type="text" size="60" value="{{campaign.title}}" name="title" class="required" />&nbsp;&nbsp;&nbsp;<b>just by sharing!</b>
+				<input type="text" size="60" value="{{campaign.title}}" name="title" class="required" />
 			       {% else %}
                                 <label for="title">Campaign Heading: </label> <br />
 				<input type="text" size="70" value="{{campaign.title}}" name="title" class="required" />
