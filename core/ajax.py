@@ -273,8 +273,8 @@ def tweet_wrapper(req, campaign_id=""):
     user = User.objects.get(id=req.session["user_id"])	
 
     msg=req.GET["message"]
-    if len(msg) > 125:
-        msg = msg[:125]
+    if len(msg) > 115:
+        msg = msg[:115]
 
     if "shash" in req.GET:
         parent_shash = req.GET["shash"]
@@ -314,17 +314,15 @@ def tweet_wrapper(req, campaign_id=""):
                   )
 
     share.save()
+    user.tweet(msg)
 
     share.setHash()
-    print "hey2"
     url = share.url(req, parent=parent_url)
-    print "hey1"
     short_url = bitly.shorten(url)
     share.url_short = short_url
     msg = msg + " " + short_url
 
     share.save()
-    user.tweet(msg)
 
     dict = {}
     dict["status"] = "ok!"
