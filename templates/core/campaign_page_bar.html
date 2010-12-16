@@ -361,9 +361,10 @@ $("#twitter-feed-update").click(function() {
                                           $.get('{% url campaign_going_twitter campaign_id=campaign.id %}', 
 	                                  function(data) { refreshAttendee(15); }); },
 	           beforeSend: function() { 
-                {%ifequal campaign.campaign_type "discount" %} 
-                         $("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
+                {% ifequal campaign.campaign_type "discount" %} 
+                         //$("#code").showLoading({'afterShow': function(){ setTimeout( "jQuery('#code').hideLoading()", 3000 );}});         
                 {% endifequal %}
+
                  } 
 
     }); 
